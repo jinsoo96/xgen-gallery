@@ -1,5 +1,5 @@
 {
-  "name": "xgen-gallery",
+  "name": "@plateerlab/xgen-gallery",
   "version": "0.1.0",
   "description": "React component to showcase GitHub organization repositories",
   "main": "dist/index.js",
