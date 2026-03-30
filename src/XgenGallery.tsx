@@ -41,11 +41,11 @@ export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRe
   }, [onRepoClick]);
 
   if (view.type === "detail") {
-    return <RepoDetail org={org} repo={view.repo} token={token} t={t} onBack={() => setView({ type: "list" })} />;
+    return <RepoDetail org={org} repo={view.repo} token={token} t={t} themeName={themeName} onBack={() => setView({ type: "list" })} />;
   }
 
   return (
-    <div style={{ background: t.bg, color: t.text, fontFamily: "system-ui, -apple-system, sans-serif", padding: 24 }}>
+    <div data-theme={themeName} style={{ background: t.bg, color: t.text, fontFamily: "system-ui, -apple-system, sans-serif", padding: 24 }}>
       {/* Header */}
       <div style={{ marginBottom: 24 }}>
         <h2 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>{org}</h2>
@@ -70,8 +70,8 @@ export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRe
           onClick={() => setLang(null)}
           style={{
             padding: "6px 12px", borderRadius: 8, fontSize: 12, fontWeight: 500, cursor: "pointer",
-            background: !lang ? t.accent : "transparent",
-            color: !lang ? "#fff" : t.textMuted,
+            background: !lang ? t.accent : t.bgBadge,
+            color: !lang ? "#fff" : t.textBadge,
             border: `1px solid ${!lang ? t.accent : t.border}`,
           }}
         >
@@ -83,8 +83,8 @@ export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRe
             onClick={() => setLang(lang === l ? null : l)}
             style={{
               padding: "6px 12px", borderRadius: 8, fontSize: 12, fontWeight: 500, cursor: "pointer",
-              background: lang === l ? t.accent : "transparent",
-              color: lang === l ? "#fff" : t.textMuted,
+              background: lang === l ? t.accent : t.bgBadge,
+              color: lang === l ? "#fff" : t.textBadge,
               border: `1px solid ${lang === l ? t.accent : t.border}`,
             }}
           >
@@ -127,12 +127,12 @@ function RepoCard({ repo, t, onClick }: { repo: Repo; t: Theme; onClick: () => v
         border: `1px solid ${hover ? t.accent : t.border}`,
         borderRadius: 12, padding: 20, cursor: "pointer",
         transform: hover ? "translateY(-2px)" : "none",
-        boxShadow: hover ? `0 0 20px ${t.accentGlow}` : "none",
+        boxShadow: hover ? t.shadowHover : "none",
         transition: "all 0.2s",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontSize: 16, fontWeight: 600, color: t.accentLight }}>{repo.name}</span>
+        <span style={{ fontSize: 16, fontWeight: 600, color: t.accent }}>{repo.name}</span>
         <button
           onClick={(e) => { e.stopPropagation(); window.open(repo.html_url, "_blank"); }}
           style={{
@@ -163,7 +163,7 @@ function RepoCard({ repo, t, onClick }: { repo: Repo; t: Theme; onClick: () => v
 
 /* ---------- RepoDetail ---------- */
 
-function RepoDetail({ org, repo, token, t, onBack }: { org: string; repo: Repo; token?: string; t: Theme; onBack: () => void }) {
+function RepoDetail({ org, repo, token, t, themeName, onBack }: { org: string; repo: Repo; token?: string; t: Theme; themeName: string; onBack: () => void }) {
   const [tab, setTab] = useState<"readme" | "demo">("readme");
   const [readme, setReadme] = useState<string | null>(null);
   const [snippets, setSnippets] = useState<DemoSnippet[]>([]);
@@ -181,12 +181,12 @@ function RepoDetail({ org, repo, token, t, onBack }: { org: string; repo: Repo; 
   }, [org, repo.name, token]);
 
   return (
-    <div style={{ background: t.bg, color: t.text, fontFamily: "system-ui, -apple-system, sans-serif", padding: 24 }}>
+    <div data-theme={themeName} style={{ background: t.bg, color: t.text, fontFamily: "system-ui, -apple-system, sans-serif", padding: 24 }}>
       {/* Back */}
       <button
         onClick={onBack}
         style={{
-          background: "transparent", border: "none", color: t.accentLight,
+          background: "transparent", border: "none", color: t.accent,
           cursor: "pointer", fontSize: 14, padding: 0, marginBottom: 16,
         }}
       >
@@ -266,8 +266,8 @@ function DemoView({ snippets, t }: { snippets: DemoSnippet[]; t: Theme }) {
               onClick={() => setIdx(i)}
               style={{
                 padding: "4px 12px", borderRadius: 99, fontSize: 12, cursor: "pointer",
-                background: i === idx ? t.accentGlow : "transparent",
-                color: i === idx ? t.accentLight : t.textMuted,
+                background: i === idx ? t.accentGlow : t.bgBadge,
+                color: i === idx ? t.accent : t.textBadge,
                 border: `1px solid ${i === idx ? t.accent : t.border}`,
               }}
             >
