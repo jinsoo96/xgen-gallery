@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# xgen-gallery
 
-## Getting Started
+GitHub organization의 레포지토리를 보여주는 React 컴포넌트.
 
-First, run the development server:
+## Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install xgen-gallery
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+import { XgenGallery } from 'xgen-gallery';
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+function App() {
+  return (
+    <XgenGallery
+      org="PlateerLab"
+      token="ghp_xxx"  // optional, raises rate limit
+      theme="dark"     // "dark" | "light"
+    />
+  );
+}
+```
 
-## Learn More
+## Props
 
-To learn more about Next.js, take a look at the following resources:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `org` | `string` | required | GitHub organization name |
+| `token` | `string` | - | GitHub personal access token |
+| `theme` | `"dark" \| "light"` | `"dark"` | Color theme |
+| `limit` | `number` | - | Max repos to show |
+| `onRepoClick` | `(repo: Repo) => void` | - | Custom click handler (overrides built-in detail view) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Repo list with search & language filter
+- Repo detail with README rendering
+- Demo tab: auto-extracts Python code blocks from README, `examples/`, or `demo.json`
+- Dark/Light theme
+- Zero config — just pass `org`
 
-## Deploy on Vercel
+## Demo Data Convention
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Repos can provide curated demos by adding `.xgen-gallery/demo.json`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+{
+  "snippets": [
+    {
+      "label": "Basic Usage",
+      "code": "from my_package import hello\nprint(hello())",
+      "expectedOutput": "Hello, World!"
+    }
+  ]
+}
+```
+
+Priority: `demo.json` > `examples/*.py` > README python blocks
