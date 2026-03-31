@@ -1,6 +1,6 @@
 {
   "name": "@plateerlab/xgen-gallery",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "React component to showcase GitHub organization repositories",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -12,7 +12,9 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "npm run build"
@@ -39,5 +41,11 @@
     "type": "git",
     "url": "https://github.com/PlateerLab/xgen-gallery.git"
   },
-  "keywords": ["react", "github", "gallery", "plateerlab", "xgen"]
+  "keywords": [
+    "react",
+    "github",
+    "gallery",
+    "plateerlab",
+    "xgen"
+  ]
 }

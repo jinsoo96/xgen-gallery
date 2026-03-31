@@ -24,6 +24,8 @@ export interface GalleryProps {
   limit?: number;
   /** Callback when a repo card is clicked */
   onRepoClick?: (repo: Repo) => void;
+  /** Base URL for playground API server (e.g. "https://api.example.com") */
+  apiBaseUrl?: string;
 }
 
 export interface DemoSnippet {

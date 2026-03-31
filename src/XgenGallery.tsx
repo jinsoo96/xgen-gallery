@@ -3,10 +3,11 @@ import type { Repo, GalleryProps, DemoSnippet } from "./types";
 import { fetchRepos, fetchReadme, fetchDemoSnippets } from "./api";
 import { themes, LANG_COLORS, Theme } from "./styles";
 import { ReadmeView } from "./ReadmeView";
+import { DemoPage, getDemoManifest, hasDemoManifest } from "./demo";
 
 type View = { type: "list" } | { type: "detail"; repo: Repo };
 
-export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRepoClick }: GalleryProps) {
+export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRepoClick, apiBaseUrl }: GalleryProps) {
   const t = themes[themeName];
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ export function XgenGallery({ org, token, theme: themeName = "dark", limit, onRe
   }, [onRepoClick]);
 
   if (view.type === "detail") {
-    return <RepoDetail org={org} repo={view.repo} token={token} t={t} themeName={themeName} onBack={() => setView({ type: "list" })} />;
+    return <RepoDetail org={org} repo={view.repo} token={token} t={t} themeName={themeName} apiBaseUrl={apiBaseUrl} onBack={() => setView({ type: "list" })} />;
   }
 
   return (
@@ -163,11 +164,12 @@ function RepoCard({ repo, t, onClick }: { repo: Repo; t: Theme; onClick: () => v
 
 /* ---------- RepoDetail ---------- */
 
-function RepoDetail({ org, repo, token, t, themeName, onBack }: { org: string; repo: Repo; token?: string; t: Theme; themeName: string; onBack: () => void }) {
-  const [tab, setTab] = useState<"readme" | "demo">("readme");
+function RepoDetail({ org, repo, token, t, themeName, apiBaseUrl, onBack }: { org: string; repo: Repo; token?: string; t: Theme; themeName: string; apiBaseUrl?: string; onBack: () => void }) {
+  const [tab, setTab] = useState<"readme" | "demo" | "playground">("readme");
   const [readme, setReadme] = useState<string | null>(null);
   const [snippets, setSnippets] = useState<DemoSnippet[]>([]);
   const [loading, setLoading] = useState(true);
+  const manifest = getDemoManifest(repo.name);
 
   useEffect(() => {
     Promise.all([
@@ -218,7 +220,7 @@ function RepoDetail({ org, repo, token, t, themeName, onBack }: { org: string; r
 
       {/* Tabs */}
       <div style={{ display: "flex", gap: 4, borderBottom: `1px solid ${t.border}`, marginBottom: 16 }}>
-        {(["readme", ...(snippets.length > 0 ? ["demo"] : [])] as const).map((key) => (
+        {(["readme", ...(manifest ? ["playground"] : []), ...(snippets.length > 0 ? ["demo"] : [])] as const).map((key) => (
           <button
             key={key}
             onClick={() => setTab(key as typeof tab)}
@@ -229,15 +231,17 @@ function RepoDetail({ org, repo, token, t, themeName, onBack }: { org: string; r
               borderBottom: tab === key ? `2px solid ${t.accent}` : "2px solid transparent",
             }}
           >
-            {key === "readme" ? "README" : "Demo"}
+            {key === "readme" ? "README" : key === "playground" ? "⚡ Playground" : "Demo"}
           </button>
         ))}
       </div>
 
       {/* Content */}
       <div style={{ background: t.bgCard, border: `1px solid ${t.border}`, borderRadius: 12, padding: 24 }}>
-        {loading ? (
+        {loading && tab !== "playground" ? (
           <div style={{ textAlign: "center", padding: 40, color: t.textMuted }}>Loading...</div>
+        ) : tab === "playground" && manifest ? (
+          <DemoPage manifest={manifest} t={t} apiBaseUrl={apiBaseUrl} />
         ) : tab === "readme" ? (
           <ReadmeView org={org} repoName={repo.name} content={readme} t={t} />
         ) : (
