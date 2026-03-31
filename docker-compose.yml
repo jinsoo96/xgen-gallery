@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # 브라우저에서 backend에 접근하는 URL (빌드 시 주입)
+        NEXT_PUBLIC_GALLERY_API_URL: http://localhost:8800
+    ports:
+      - "3100:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8800:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped

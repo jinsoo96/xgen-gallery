@@ -3,3 +3,10 @@ dist/
 .env*
 *.tsbuildinfo
 .DS_Store
+backend/venv/
+backend/__pycache__/
+backend/install_log.txt
+frontend/.next/
+frontend/node_modules/
+__pycache__/
+*.pyc
