@@ -12,8 +12,8 @@ async def run(
     chunk_size: int = Form(1000),
 ):
     try:
-        from contextifier_new import DocumentProcessor
-        from contextifier_new.config import ProcessingConfig, ChunkingConfig
+        from contextifier import DocumentProcessor
+        from contextifier.config import ProcessingConfig, ChunkingConfig
 
         suffix = os.path.splitext(file.filename)[1] or ".txt"
         with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
