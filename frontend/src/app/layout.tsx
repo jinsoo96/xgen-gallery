@@ -1,14 +1,25 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import "./globals.css";
 
 export const metadata: Metadata = {
-    title: 'PLATEER Gallery',
-    description: 'PlateerLab Open Source Gallery & Playground',
+    title: "PlateerLab — Open-source AI building blocks",
+    description:
+        "Eight open-source libraries powering the XGEN platform. Try every tool in your browser.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     return (
-        <html lang="ko">
-            <body style={{ margin: 0, padding: 0 }}>
+        <html
+            lang="ko"
+            className={`${GeistSans.variable} ${GeistMono.variable}`}
+        >
+            <body className="min-h-dvh bg-[var(--color-surface)] font-sans text-[var(--color-ink)] antialiased">
                 {children}
             </body>
         </html>

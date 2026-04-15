@@ -17,6 +17,19 @@ services:
       context: ./backend
     ports:
       - "8800:8000"
+    env_file:
+      - .env
+    environment:
+      # Synaptic Memory graph persistence (per-container unless volume mounted)
+      SYNAPTIC_DB: /tmp/synaptic.db
+      # Semantic search. Empty → FTS-only.
+      # Defaults to local OpenAI proxy inside the backend container.
+      SYNAPTIC_EMBED_URL: "${SYNAPTIC_EMBED_URL:-}"
+      SYNAPTIC_EMBED_MODEL: "${SYNAPTIC_EMBED_MODEL:-default}"
+      # Used by /openai-proxy/v1/* handler (never committed).
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 10s
