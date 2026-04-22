@@ -41,6 +41,12 @@ export function SiteNav() {
                         Use cases
                     </Link>
                     <Link
+                        href="/releases"
+                        className="transition hover:text-[var(--color-ink)]"
+                    >
+                        Releases
+                    </Link>
+                    <Link
                         href="https://github.com/PlateerLab"
                         target="_blank"
                         rel="noopener noreferrer"
