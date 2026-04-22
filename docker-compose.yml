@@ -22,11 +22,14 @@ services:
     environment:
       # Synaptic Memory graph persistence (per-container unless volume mounted)
       SYNAPTIC_DB: /tmp/synaptic.db
-      # Semantic search. Empty → FTS-only.
-      # Defaults to local OpenAI proxy inside the backend container.
+      # Embeddings (Qwen vLLM by default, no auth).
       SYNAPTIC_EMBED_URL: "${SYNAPTIC_EMBED_URL:-}"
       SYNAPTIC_EMBED_MODEL: "${SYNAPTIC_EMBED_MODEL:-default}"
-      # Used by /openai-proxy/v1/* handler (never committed).
+      # LLM chat completions (OpenAI-compatible upstream).
+      LLM_BASE_URL: "${LLM_BASE_URL:-https://api.openai.com/v1}"
+      LLM_MODEL: "${LLM_MODEL:-gpt-4o-mini}"
+      LLM_API_KEY: "${LLM_API_KEY:-}"
+      # Legacy fallback for the openai-proxy path.
       OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
     extra_hosts:
       - "host.docker.internal:host-gateway"

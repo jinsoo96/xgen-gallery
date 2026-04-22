@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Play, Upload, X } from "lucide-react";
+import { marked } from "marked";
 import {
     getDemoManifest,
     type DemoManifest,
@@ -13,6 +14,8 @@ import type { Tool } from "@/lib/tools";
 import { cn } from "@/lib/cn";
 import { formatBytes } from "@/lib/format";
 import { CopyCommand } from "./copy-command";
+
+type ChunkViewMode = "raw" | "markdown" | "html";
 
 const API_URL = process.env.NEXT_PUBLIC_GALLERY_API_URL || "http://localhost:8800";
 
@@ -523,7 +526,10 @@ function FileDrop({
                         Click or drag a file
                     </div>
                     {accept && (
-                        <div className="mt-1 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                        <div
+                            className="mt-1 truncate font-mono text-[10px] text-[var(--color-ink-subtle)]"
+                            title={accept}
+                        >
                             {accept}
                         </div>
                     )}
@@ -620,6 +626,8 @@ function OutputRenderer({ field, value }: { field: OutputField; value: unknown }
 }
 
 function ChunkList({ value }: { value: unknown }) {
+    const [mode, setMode] = useState<ChunkViewMode>("raw");
+
     if (!Array.isArray(value)) {
         return (
             <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px]">
@@ -627,29 +635,69 @@ function ChunkList({ value }: { value: unknown }) {
             </pre>
         );
     }
+
     return (
-        <div className="max-h-96 space-y-2 overflow-auto">
-            {value.map((c, i) => {
-                const obj = (c as Record<string, unknown>) ?? {};
-                const text = String(obj.text ?? obj.content ?? JSON.stringify(obj));
-                return (
-                    <div
-                        key={i}
-                        className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3"
+        <div className="space-y-2">
+            <div className="flex items-center gap-1">
+                {(["raw", "markdown", "html"] as const).map((m) => (
+                    <button
+                        key={m}
+                        type="button"
+                        onClick={() => setMode(m)}
+                        className={cn(
+                            "rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide transition",
+                            mode === m
+                                ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
+                                : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
+                        )}
                     >
-                        <div className="mb-1.5 flex items-center gap-2 font-mono text-[10px] text-[var(--color-ink-subtle)]">
-                            <span>#{i}</span>
-                            {obj.metadata ? (
-                                <span>· {JSON.stringify(obj.metadata)}</span>
-                            ) : null}
+                        {m}
+                    </button>
+                ))}
+            </div>
+
+            <div className="max-h-96 space-y-2 overflow-auto">
+                {value.map((c, i) => {
+                    const obj = (c as Record<string, unknown>) ?? {};
+                    const text = String(
+                        obj.text ?? obj.content ?? JSON.stringify(obj),
+                    );
+                    return (
+                        <div
+                            key={i}
+                            className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3"
+                        >
+                            <div className="mb-1.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                                #{i}
+                            </div>
+                            <ChunkBody text={text} mode={mode} />
                         </div>
-                        <div className="whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--color-ink)]">
-                            {text}
-                        </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
+    );
+}
+
+function ChunkBody({ text, mode }: { text: string; mode: ChunkViewMode }) {
+    if (mode === "raw") {
+        return (
+            <div className="whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--color-ink)]">
+                {text}
+            </div>
+        );
+    }
+
+    const html =
+        mode === "markdown"
+            ? (marked.parse(text, { async: false }) as string)
+            : text;
+
+    return (
+        <div
+            className="chunk-rendered text-[13px] leading-relaxed text-[var(--color-ink)]"
+            dangerouslySetInnerHTML={{ __html: html }}
+        />
     );
 }
 

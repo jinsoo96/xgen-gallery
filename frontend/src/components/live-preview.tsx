@@ -124,16 +124,10 @@ function Visual({ tool }: { tool: Tool }) {
             return <Doc2ChunkViz />;
         case "f2a":
             return <F2aViz />;
-        case "knowtology":
-            return <KnowtologyViz />;
         case "synaptic-memory":
             return <SynapticViz />;
-        case "mantis-engine":
-            return <MantisViz />;
         case "googer":
             return <GoogerViz />;
-        case "toolint":
-            return <ToolintViz />;
         default:
             return null;
     }
@@ -376,34 +370,6 @@ function F2aViz() {
 }
 
 /* ── Knowtology: tree building ────────────────────────────────────────── */
-function KnowtologyViz() {
-    const nodes = [
-        "company_docs/",
-        "├── refund_policy",
-        "│   ├── 7 days only",
-        "│   └── no opened items",
-        "├── shipping",
-        "│   ├── 2–3 days standard",
-        "│   └── free over 50,000",
-        "└── support",
-        "    └── weekdays 9–18",
-    ];
-    return (
-        <div className="font-mono text-[11px] leading-[1.7] text-[var(--color-ink)]">
-            {nodes.map((n, i) => (
-                <motion.div
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.1 + i * 0.12 }}
-                >
-                    {n}
-                </motion.div>
-            ))}
-        </div>
-    );
-}
-
 /* ── Synaptic Memory: graph with edges + nodes pulsing ────────────────── */
 function SynapticViz() {
     const nodes = [
@@ -472,41 +438,6 @@ function SynapticViz() {
     );
 }
 
-/* ── Mantis: scripted terminal log ────────────────────────────────────── */
-function MantisViz() {
-    const events = [
-        { text: "▸ workflow_start", time: "00:00.000", success: false },
-        { text: "▸ node_start: agent", time: "00:00.012", success: false },
-        { text: "▸ tool_call: calculator(42*17)", time: "00:00.523", success: false },
-        { text: "▸ tool_result: 714", time: "00:00.892", success: false },
-        { text: "▸ node_complete: agent", time: "00:01.102", success: false },
-        { text: "✓ workflow_complete", time: "00:01.105", success: true },
-    ];
-    return (
-        <div className="space-y-1 font-mono text-[11px]">
-            {events.map((e, i) => (
-                <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -4 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15 + i * 0.28 }}
-                    className={cn(
-                        "flex items-center justify-between gap-3",
-                        e.success
-                            ? "text-emerald-600"
-                            : "text-[var(--color-ink-muted)]",
-                    )}
-                >
-                    <span className="truncate">{e.text}</span>
-                    <span className="shrink-0 text-[10px] text-[var(--color-ink-subtle)]">
-                        {e.time}
-                    </span>
-                </motion.div>
-            ))}
-        </div>
-    );
-}
-
 /* ── Googer: search bar → results fade in ─────────────────────────────── */
 function GoogerViz() {
     const results = [
@@ -554,54 +485,3 @@ function GoogerViz() {
     );
 }
 
-/* ── Toolint: code with rule violation badges ─────────────────────────── */
-function ToolintViz() {
-    const lines = [
-        { num: 1, code: "import requests", issue: "ATL101" },
-        { num: 2, code: "import pandas as pd", issue: "ATL101" },
-        { num: 3, code: "from my_tool.lib.core import process", issue: "ATL201" },
-        { num: 4, code: "", issue: null },
-        { num: 5, code: "def tool_fn(data: str) -> dict:", issue: null },
-        { num: 6, code: "    return process(data)", issue: null },
-    ];
-    return (
-        <div className="space-y-1">
-            <div className="space-y-0.5 font-mono text-[11px]">
-                {lines.map((l, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.1 + i * 0.1 }}
-                        className="flex items-center gap-3"
-                    >
-                        <span className="w-4 text-right text-[10px] text-[var(--color-ink-subtle)]">
-                            {l.num}
-                        </span>
-                        <span className="flex-1 text-[var(--color-ink)]">
-                            {l.code || "\u00A0"}
-                        </span>
-                        {l.issue && (
-                            <motion.span
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.7 + i * 0.12 }}
-                                className="rounded-sm bg-red-50 px-1.5 py-0.5 text-[9px] text-red-600"
-                            >
-                                {l.issue}
-                            </motion.span>
-                        )}
-                    </motion.div>
-                ))}
-            </div>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.6 }}
-                className="pt-2 font-mono text-[10px] text-red-600"
-            >
-                2 errors · 1 warning
-            </motion.div>
-        </div>
-    );
-}

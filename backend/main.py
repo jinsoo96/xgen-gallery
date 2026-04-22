@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from routers import contextifier, doc2chunk, f2a, googer, knowtology, mantis, toolint
+from routers import contextifier, doc2chunk, f2a, googer
 from mcp_bridge import bridge
 from mcp_servers import MCP_SERVERS
 
@@ -35,9 +35,6 @@ app.include_router(contextifier.router, prefix="/api/demo/contextifier")
 app.include_router(doc2chunk.router, prefix="/api/demo/doc2chunk")
 app.include_router(f2a.router, prefix="/api/demo/f2a")
 app.include_router(googer.router, prefix="/api/demo/googer")
-app.include_router(knowtology.router, prefix="/api/demo/knowtology")
-app.include_router(mantis.router, prefix="/api/demo/mantis-engine")
-app.include_router(toolint.router, prefix="/api/demo/toolint")
 
 
 # ── Generic MCP bridge (libraries with native MCP servers) ──────────────────
@@ -83,13 +80,15 @@ async def mcp_call_tool(lib: str, tool: str, request: Request) -> dict[str, Any]
 #   2. OpenAI chat/completions (direct, no self-HTTP hop)
 # Returns a natural-language answer with source citations.
 
-OPENAI_UPSTREAM = "https://api.openai.com/v1"
+OPENAI_UPSTREAM = os.environ.get("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+LLM_API_KEY = os.environ.get("LLM_API_KEY") or os.environ.get("OPENAI_API_KEY", "")
+LLM_DEFAULT_MODEL = os.environ.get("LLM_MODEL", "gpt-4o-mini")
 
 
 class AskRequest(BaseModel):
     query: str
     limit: int = 5
-    model: str = "gpt-4o-mini"
+    model: str = LLM_DEFAULT_MODEL
 
 
 def _unwrap_mcp_text(raw: dict[str, Any]) -> Any:
@@ -144,17 +143,14 @@ async def _chat_complete(
     and silently break in deployments where the backend binds a different
     port. Call OpenAI directly instead.
     """
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    if not api_key:
-        raise HTTPException(503, "OPENAI_API_KEY not configured on the server")
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    if LLM_API_KEY:
+        headers["Authorization"] = f"Bearer {LLM_API_KEY}"
 
     async with httpx.AsyncClient(timeout=60) as client:
         resp = await client.post(
             f"{OPENAI_UPSTREAM}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
+            headers=headers,
             json={
                 "model": model,
                 "messages": [
@@ -334,16 +330,13 @@ async def synaptic_ask(req: AskRequest) -> dict[str, Any]:
     methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
 )
 async def openai_proxy(path: str, request: Request) -> Response:
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    if not api_key:
-        raise HTTPException(503, "OPENAI_API_KEY not configured on the server")
-
     upstream_url = f"{OPENAI_UPSTREAM}/{path}"
     body = await request.body()
     forwarded_headers = {
-        "Authorization": f"Bearer {api_key}",
         "Content-Type": request.headers.get("content-type", "application/json"),
     }
+    if LLM_API_KEY:
+        forwarded_headers["Authorization"] = f"Bearer {LLM_API_KEY}"
     async with httpx.AsyncClient(timeout=120) as client:
         upstream = await client.request(
             request.method,

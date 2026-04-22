@@ -50,18 +50,6 @@ export const TOOLS: Tool[] = [
         language: "Python",
     },
     {
-        id: "knowtology",
-        repo: "Knowtology",
-        name: "Knowtology",
-        tagline: "Tree-shaped knowledge for LLM agents",
-        description:
-            "4-tool TreeRAG system. Build hierarchical knowledge maps that agents can browse and search.",
-        category: "knowledge",
-        install: "pip install knowtology",
-        hasDemo: true,
-        language: "Python",
-    },
-    {
         id: "synaptic-memory",
         repo: "synaptic-memory",
         name: "Synaptic Memory",
@@ -74,18 +62,6 @@ export const TOOLS: Tool[] = [
         language: "Python",
     },
     {
-        id: "mantis-engine",
-        repo: "mantis-engine",
-        name: "Mantis Engine",
-        tagline: "Workflow runtime for AI agents",
-        description:
-            "JSON graphs become four-stage execution pipelines. Stream events, inspect every step.",
-        category: "agent",
-        install: "pip install mantis-engine",
-        hasDemo: true,
-        language: "Python",
-    },
-    {
         id: "googer",
         repo: "googer",
         name: "Googer",
@@ -94,18 +70,6 @@ export const TOOLS: Tool[] = [
             "Web, images, news, and videos. Typed responses, no scraping gymnastics.",
         category: "agent",
         install: "pip install googer",
-        hasDemo: true,
-        language: "Python",
-    },
-    {
-        id: "toolint",
-        repo: "Toolint",
-        name: "Toolint",
-        tagline: "Structural linter for agent tools",
-        description:
-            "AST-based static analysis for Python agent tool packages. Catch layering bugs early.",
-        category: "agent",
-        install: "pip install toolint",
         hasDemo: true,
         language: "Python",
     },

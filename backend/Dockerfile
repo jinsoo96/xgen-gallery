@@ -8,10 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 
-# knowtology는 PyPI에 없을 수 있으므로 실패해도 계속 진행
-RUN pip install --no-cache-dir -r requirements.txt || \
-    (echo "Some packages failed, installing without knowtology..." && \
-     grep -v knowtology requirements.txt | pip install --no-cache-dir -r /dev/stdin)
+RUN pip install --no-cache-dir -r requirements.txt
 
 # ── Post-install patch: lower HybridSearch vector threshold 0.45 → 0.30 ──
 # Rationale: Synaptic is tuned for BAAI/bge-m3-class models whose cosine

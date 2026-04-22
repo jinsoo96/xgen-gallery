@@ -5,7 +5,7 @@ import { ToolDemoClient } from "@/components/tool-demo-client";
 import { TOOLS } from "@/lib/tools";
 
 export function generateStaticParams() {
-    return TOOLS.map((t) => ({ id: t.id }));
+    return TOOLS.filter((t) => t.id !== "synaptic-memory").map((t) => ({ id: t.id }));
 }
 
 export default async function ToolDemoPage({

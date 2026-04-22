@@ -4,12 +4,20 @@ from typing import Optional
 
 router = APIRouter(tags=["googer"])
 
+# Frontend manifest sends coarse region keys; map to googer/DDG locale codes.
+_REGION_MAP = {
+    "kr": "ko-kr",
+    "us": "us-en",
+    "jp": "jp-jp",
+    "global": "wt-wt",
+}
+
 
 class SearchRequest(BaseModel):
     query: str
     search_type: Optional[str] = "web"
     max_results: Optional[int] = 10
-    region: Optional[str] = "ko-kr"
+    region: Optional[str] = "kr"
     timelimit: Optional[str] = None
 
 
@@ -55,9 +63,10 @@ async def run(req: SearchRequest):
                 for r in raw
             ]
         else:
+            region = _REGION_MAP.get(req.region or "", req.region or "ko-kr")
             raw = g.search(
                 req.query,
-                region=req.region,
+                region=region,
                 max_results=req.max_results,
             )
             results = [
