@@ -132,3 +132,98 @@ body {
     border-top: 1px solid var(--color-line);
     margin: 0.8em 0;
 }
+
+/* ---------------- Member profile README ---------------- */
+.member-readme {
+    color: var(--color-ink);
+    font-size: 14.5px;
+    line-height: 1.7;
+}
+.member-readme h1,
+.member-readme h2,
+.member-readme h3,
+.member-readme h4 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 1.6em;
+    margin-bottom: 0.6em;
+}
+.member-readme h1 { font-size: 1.7em; border-bottom: 1px solid var(--color-line); padding-bottom: 0.3em; }
+.member-readme h2 { font-size: 1.35em; border-bottom: 1px solid var(--color-line); padding-bottom: 0.25em; }
+.member-readme h3 { font-size: 1.15em; }
+.member-readme h4 { font-size: 1em; }
+.member-readme p { margin: 0.7em 0; }
+.member-readme a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
+.member-readme a:hover { opacity: 0.75; }
+.member-readme ul, .member-readme ol { padding-left: 1.4em; margin: 0.7em 0; }
+.member-readme li { margin: 0.25em 0; }
+.member-readme code {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    font-size: 0.88em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.member-readme pre {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 0.9em 1em;
+    overflow-x: auto;
+    font-size: 0.85em;
+    line-height: 1.55;
+    margin: 0.9em 0;
+}
+.member-readme pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+}
+.member-readme blockquote {
+    border-left: 3px solid var(--color-line);
+    padding: 0.2em 1em;
+    color: var(--color-ink-muted);
+    margin: 0.9em 0;
+}
+.member-readme img,
+.member-readme picture,
+.member-readme svg {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+.member-readme a img { border-radius: 4px; }
+/* Honor the legacy align="..." attribute that GitHub READMEs lean on heavily. */
+.member-readme [align="center"] { text-align: center; }
+.member-readme [align="right"]  { text-align: right; }
+.member-readme [align="left"]   { text-align: left; }
+.member-readme div[align="center"] > img,
+.member-readme p[align="center"] > img { margin-left: auto; margin-right: auto; }
+.member-readme details {
+    margin: 0.9em 0;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 0.5em 0.9em;
+    background: var(--color-surface-alt);
+}
+.member-readme details summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+.member-readme details[open] summary { margin-bottom: 0.5em; }
+.member-readme hr { border: none; border-top: 1px solid var(--color-line); margin: 1.4em 0; }
+.member-readme table {
+    border-collapse: collapse;
+    margin: 0.9em 0;
+    font-size: 0.92em;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow: auto;
+}
+.member-readme th, .member-readme td { border: 1px solid var(--color-line); padding: 0.4em 0.7em; }
+.member-readme th { background: var(--color-surface-alt); }
