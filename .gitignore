@@ -9,6 +9,7 @@ backend/__pycache__/
 backend/install_log.txt
 frontend/.next/
 frontend/node_modules/
+frontend/.cache/
 __pycache__/
 *.pyc
 .claude/

@@ -35,6 +35,12 @@ export function SiteNav() {
                         Tools
                     </Link>
                     <Link
+                        href="/members"
+                        className="transition hover:text-[var(--color-ink)]"
+                    >
+                        Members
+                    </Link>
+                    <Link
                         href="/#usecases"
                         className="transition hover:text-[var(--color-ink)]"
                     >
