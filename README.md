@@ -124,5 +124,4 @@ xgen-gallery/
 ```
 
 ## 라이선스
-
 MIT © PlateerLab
