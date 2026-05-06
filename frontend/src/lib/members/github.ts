@@ -569,7 +569,19 @@ async function discoverMemberLogins(): Promise<{
     return { logins: fromPublic, via: "orgs/public_members" };
 }
 
-export async function fetchMembersFromGithub(): Promise<MembersPayload> {
+/**
+ * One-shot fetch of the org membership list AND every member's full detail.
+ *
+ * The list view and the per-member detail view share the same upstream calls
+ * (profile, repos, events, contributions, readme) — building them together
+ * guarantees they stay in lock-step (a single 30-min refresh updates the
+ * "Activity (3d)" sort on the list AND every detail page's Recent activity)
+ * and avoids paying for the same GitHub calls twice.
+ */
+export async function fetchMembersAndDetailsFromGithub(): Promise<{
+    payload: MembersPayload;
+    details: Record<string, MemberDetail>;
+}> {
     const { logins, via } = await discoverMemberLogins();
     console.log(
         `[members] discovered ${logins.length} login(s) via ${via}` +
@@ -581,18 +593,21 @@ export async function fetchMembersFromGithub(): Promise<MembersPayload> {
         logins.map((login) => limiter(() => buildMember(login))),
     );
 
-    const details: MemberDetail[] = [];
+    const detailList: MemberDetail[] = [];
     for (const r of settled) {
-        if (r.status === "fulfilled") details.push(r.value);
+        if (r.status === "fulfilled") detailList.push(r.value);
         else console.warn("[members] buildMember failed:", r.reason);
     }
 
-    const members: MemberSummary[] = details
+    const members: MemberSummary[] = detailList
         .map(({ repos: _r, contributions: _c, recentEvents: _e, readmeHtml: _h, ...s }) => s)
         .sort((a, b) => b.totalStars - a.totalStars);
 
+    const details: Record<string, MemberDetail> = {};
+    for (const d of detailList) details[d.login] = d;
+
     const now = new Date();
-    return {
+    const payload: MembersPayload = {
         org: ORG,
         members,
         fetchedAt: now.toISOString(),
@@ -602,6 +617,12 @@ export async function fetchMembersFromGithub(): Promise<MembersPayload> {
         tokenMissing: !TOKEN,
         rateLimitRemaining: lastRateLimitRemaining,
     };
+    return { payload, details };
+}
+
+export async function fetchMembersFromGithub(): Promise<MembersPayload> {
+    const { payload } = await fetchMembersAndDetailsFromGithub();
+    return payload;
 }
 
 /** Fetch a single member's full detail (including repo list). */

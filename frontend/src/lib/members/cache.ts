@@ -3,7 +3,7 @@ import path from "node:path";
 import { unstable_cache } from "next/cache";
 import {
     fetchMemberDetailFromGithub,
-    fetchMembersFromGithub,
+    fetchMembersAndDetailsFromGithub,
     MEMBERS_ORG,
 } from "./github";
 import type { MemberDetail, MembersPayload } from "./types";
@@ -58,75 +58,110 @@ async function fileMtime(file: string): Promise<number | null> {
     }
 }
 
+interface MembersBundle {
+    payload: MembersPayload;
+    details: Record<string, MemberDetail>;
+}
+
 /**
- * Fetch + persist members list. Falls back to disk cache on failure.
+ * Fetch the full bundle (list + every member's detail) in one shot, with disk
+ * fallback on failure. Persists each detail JSON so a cold restart can keep
+ * serving while the next live fetch is in flight.
  *
- * Cache-poisoning guard: if the live fetch returns 0 members but the disk
- * cache has any, prefer the disk cache and DO NOT overwrite. This protects
- * against transient outages (e.g. missing GITHUB_TOKEN at build time, org
- * permission flap) wiping out a good cache.
+ * Cache-poisoning guard: if the live fetch returns 0 members but a disk
+ * cache has any, prefer the disk cache and DO NOT overwrite. Protects
+ * against transient outages (missing token, org permission flap) wiping a
+ * good cache.
  */
-async function loadMembersWithFallback(): Promise<MembersPayload> {
+async function loadBundleWithFallback(): Promise<MembersBundle> {
     try {
-        const fresh = await fetchMembersFromGithub();
-        if (fresh.members.length === 0) {
-            const stale = await readJson<MembersPayload>(LIST_CACHE);
-            if (stale && stale.members.length > 0) {
+        const fresh = await fetchMembersAndDetailsFromGithub();
+        if (fresh.payload.members.length === 0) {
+            const stale = await readDiskBundle();
+            if (stale && stale.payload.members.length > 0) {
                 console.warn(
                     "[members] live fetch returned 0 members; serving disk cache",
                 );
-                return { ...stale, source: "stale-cache" };
+                return stale;
             }
         }
-        await writeJson(LIST_CACHE, fresh);
+        // Persist list + per-member details for cold restarts.
+        await writeJson(LIST_CACHE, fresh.payload);
+        await Promise.all(
+            Object.values(fresh.details).map((d) =>
+                writeJson(DETAIL_CACHE(d.login), d),
+            ),
+        );
         return fresh;
     } catch (err) {
         console.warn("[members] live fetch failed, trying disk cache:", err);
-        const stale = await readJson<MembersPayload>(LIST_CACHE);
-        if (stale) return { ...stale, source: "stale-cache" };
+        const stale = await readDiskBundle();
+        if (stale) return stale;
         throw err;
     }
 }
 
+async function readDiskBundle(): Promise<MembersBundle | null> {
+    const list = await readJson<MembersPayload>(LIST_CACHE);
+    if (!list) return null;
+    const details: Record<string, MemberDetail> = {};
+    await Promise.all(
+        list.members.map(async (m) => {
+            const d = await readJson<MemberDetail>(DETAIL_CACHE(m.login));
+            if (d) details[m.login] = d;
+        }),
+    );
+    return { payload: { ...list, source: "stale-cache" }, details };
+}
+
 // Cache key version. Bump when MemberSummary / MembersPayload shape changes
 // so previously cached values from older deployments are not reused.
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 
-/** Cached members list — refreshed every 30 minutes (per server process). */
-export const getMembersPayload = unstable_cache(
-    async () => loadMembersWithFallback(),
-    [`plateerlab-members-${CACHE_VERSION}`, MEMBERS_ORG],
+/**
+ * Single source of truth — refreshed every 30 minutes (per server process).
+ * Both the members list page AND every member detail page read from this same
+ * cache, so one refresh updates the "Activity (3d)" sort and every member's
+ * Recent activity / contribution graph / README in lock-step. The user never
+ * has to manually refresh a detail page to see fresh data.
+ */
+const getMembersBundle = unstable_cache(
+    async () => loadBundleWithFallback(),
+    [`plateerlab-members-bundle-${CACHE_VERSION}`, MEMBERS_ORG],
     { revalidate: REVALIDATE_SECONDS, tags: ["members"] },
 );
 
-async function loadMemberDetailWithFallback(
-    login: string,
-): Promise<MemberDetail> {
+/** Cached members list — refreshed every 30 minutes (per server process). */
+export async function getMembersPayload(): Promise<MembersPayload> {
+    const bundle = await getMembersBundle();
+    return bundle.payload;
+}
+
+/**
+ * Per-member detail. Looks up from the unified bundle first (so it tracks
+ * the same 30-min refresh as the list). Only when a login is not present in
+ * the bundle (e.g. the URL was hand-typed for a non-member, or the member
+ * was added between refreshes) do we fall back to a one-off direct fetch.
+ */
+export async function getMemberDetail(login: string): Promise<MemberDetail> {
+    const bundle = await getMembersBundle();
+    const cached = bundle.details[login];
+    if (cached) return cached;
+
+    // Fallback path — not part of the unified cache. Try direct fetch, then disk.
     try {
         const fresh = await fetchMemberDetailFromGithub(login);
         await writeJson(DETAIL_CACHE(login), fresh);
         return fresh;
     } catch (err) {
         console.warn(
-            `[members] detail fetch failed for ${login}, trying disk cache:`,
+            `[members] detail fallback fetch failed for ${login}:`,
             err,
         );
         const stale = await readJson<MemberDetail>(DETAIL_CACHE(login));
         if (stale) return stale;
         throw err;
     }
-}
-
-export function getMemberDetail(login: string) {
-    // unstable_cache requires a key array — include login.
-    return unstable_cache(
-        async () => loadMemberDetailWithFallback(login),
-        [`plateerlab-member-detail-${CACHE_VERSION}`, login],
-        {
-            revalidate: REVALIDATE_SECONDS,
-            tags: ["members", `member:${login}`],
-        },
-    )();
 }
 
 /** Read-only inspection of the disk cache for debug endpoints. */
