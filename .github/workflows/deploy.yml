@@ -11,32 +11,23 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # Self-hosted runner installed on go244 itself — no SSH / jump host / firewall hops.
+    # The runner only needs OUTBOUND https to GitHub, which already works.
+    runs-on: [self-hosted, go244]
     timeout-minutes: 15
     steps:
-      - name: SSH deploy (via jump host)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
-          proxy_host: ${{ secrets.PROXY_HOST }}
-          proxy_port: ${{ secrets.PROXY_PORT }}
-          proxy_username: ${{ secrets.PROXY_USER }}
-          proxy_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 15m
-          script: |
-            set -euo pipefail
-            cd ~/workspace/xgen-gallery
-            echo "=== pulling ==="
-            git fetch origin main
-            git reset --hard origin/main
-            git log -1 --oneline
-            echo "=== rebuilding ==="
-            docker compose up -d --build
-            docker image prune -f
-            echo "=== health ==="
-            sleep 10
-            curl -sSf -o /dev/null -w "backend=%{http_code} " --max-time 10 http://localhost:8800/health
-            curl -sSf -o /dev/null -w "frontend=%{http_code}\n" --max-time 10 http://localhost:3100/
+      - name: Deploy (local on go244)
+        run: |
+          set -euo pipefail
+          cd ~/workspace/xgen-gallery
+          echo "=== pulling ==="
+          git fetch origin main
+          git reset --hard origin/main
+          git log -1 --oneline
+          echo "=== rebuilding ==="
+          docker compose up -d --build
+          docker image prune -f
+          echo "=== health ==="
+          sleep 10
+          curl -sSf -o /dev/null -w "backend=%{http_code} " --max-time 10 http://localhost:8800/health
+          curl -sSf -o /dev/null -w "frontend=%{http_code}\n" --max-time 10 http://localhost:3100/
