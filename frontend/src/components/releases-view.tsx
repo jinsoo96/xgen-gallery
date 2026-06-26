@@ -49,7 +49,7 @@ export function ReleasesView({ releases }: { releases: Release[] }) {
                         <button
                             key={f.value}
                             onClick={() => setFilter(f.value)}
-                            className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition ${
+                            className={`rounded-full px-4 py-1.5 text-[15px] font-medium transition ${
                                 active
                                     ? "bg-[var(--color-ink)] text-white"
                                     : "text-[var(--color-ink-muted)] hover:bg-[var(--color-surface-hover)]"
@@ -61,7 +61,7 @@ export function ReleasesView({ releases }: { releases: Release[] }) {
                 })}
             </div>
 
-            <div className="space-y-16">
+            <div className="space-y-20">
                 {filteredReleases.map((release) => (
                     <ReleaseEntry key={release.version} release={release} />
                 ))}
@@ -74,10 +74,10 @@ function ReleaseEntry({ release }: { release: Release }) {
     return (
         <article className="grid gap-8 md:grid-cols-[160px_1fr]">
             <aside className="md:sticky md:top-20 md:self-start">
-                <div className="text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-ink-subtle)]">
+                <div className="text-[14px] font-medium uppercase tracking-[0.14em] text-[var(--color-ink-subtle)]">
                     {formatDate(release.date)}
                 </div>
-                <div className="mt-2 inline-flex items-center rounded-md border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[11px] font-semibold text-[var(--color-ink)]">
+                <div className="mt-2 inline-flex items-center rounded-md border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[13px] font-semibold text-[var(--color-ink)]">
                     {release.version}
                 </div>
             </aside>
@@ -86,7 +86,7 @@ function ReleaseEntry({ release }: { release: Release }) {
                 <h2 className="text-2xl font-semibold tracking-tight md:text-[26px]">
                     {release.tagline}
                 </h2>
-                <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
+                <p className="mt-3 text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
                     {release.summary}
                 </p>
 
@@ -95,7 +95,7 @@ function ReleaseEntry({ release }: { release: Release }) {
                         {release.highlights.map((h) => (
                             <span
                                 key={h}
-                                className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-ink-muted)]"
+                                className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2.5 py-1 text-[13px] font-medium text-[var(--color-ink-muted)]"
                             >
                                 {h}
                             </span>
@@ -121,7 +121,7 @@ function ReleaseItemRow({ item }: { item: ReleaseItem }) {
         <div className="rounded-xl border border-[var(--color-line)] bg-white p-4 transition hover:border-[var(--color-line-strong)]">
             <div className="flex items-start gap-3">
                 <span
-                    className={`mt-0.5 inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                    className={`mt-0.5 inline-flex shrink-0 items-center rounded-full px-2 py-0.5 text-[12px] font-semibold uppercase tracking-wide ${
                         RELEASE_CATEGORY_STYLE[item.category]
                     }`}
                 >
@@ -129,11 +129,11 @@ function ReleaseItemRow({ item }: { item: ReleaseItem }) {
                 </span>
 
                 <div className="min-w-0 flex-1">
-                    <h3 className="text-[15px] font-semibold tracking-tight">
+                    <h3 className="text-[17px] font-semibold tracking-tight">
                         {item.title}
                     </h3>
                     {item.detail && (
-                        <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
+                        <p className="mt-1.5 text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
                             {item.detail}
                         </p>
                     )}
@@ -142,7 +142,7 @@ function ReleaseItemRow({ item }: { item: ReleaseItem }) {
                             {item.modules.map((m) => (
                                 <code
                                     key={m}
-                                    className="rounded border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-1.5 py-0.5 font-mono text-[10.5px] text-[var(--color-ink-muted)]"
+                                    className="rounded border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-1.5 py-0.5 font-mono text-[12.5px] text-[var(--color-ink-muted)]"
                                 >
                                     {m}
                                 </code>

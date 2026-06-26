@@ -1,0 +1,15 @@
+/**
+ * PLEX brand logo — renders the supplied image asset as-is
+ * (public/brand-mark.png). Not modified.
+ */
+export function BrandMark({ className }: { className?: string }) {
+    return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+            src="/brand-mark.png"
+            alt="PLEX — Plateer Labs"
+            className={className}
+            style={{ objectFit: "contain" }}
+        />
+    );
+}

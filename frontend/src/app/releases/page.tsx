@@ -1,32 +1,40 @@
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { ReleasesView } from "@/components/releases-view";
+import { ReleasesHeader } from "@/components/releases-header";
+import { SceneBackground } from "@/components/scene-background";
+import { JsonLd } from "@/components/json-ld";
 import { RELEASES } from "@/lib/releases";
+import { itemListLd } from "@/lib/structured-data";
 
 export const metadata = {
-    title: "Release notes · PlateerLab",
+    title: "Release notes",
     description:
         "XGEN 플랫폼의 주요 업데이트 및 릴리스 이력. 신규 기능, 개선사항, 버그 수정을 한 곳에서 확인하세요.",
+    alternates: { canonical: "/releases" },
 };
 
 export default function ReleasesPage() {
     return (
         <>
-            <SiteNav />
-            <main className="mx-auto max-w-5xl px-6 pb-24 pt-14 md:pt-20">
-                <header className="mb-12 md:mb-16">
-                    <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-[var(--color-ink-subtle)]">
-                        Changelog
-                    </p>
-                    <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">
-                        Release notes
-                    </h1>
-                    <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
-                        XGEN 플랫폼의 새 기능, 개선사항, 버그 수정을 정리했습니다.
-                        최신 변경사항이 먼저 표시됩니다.
-                    </p>
-                </header>
-
+            <JsonLd
+                data={itemListLd(
+                    "XGEN Platform release notes",
+                    RELEASES.map((r) => ({
+                        name: `${r.version} — ${r.tagline} (${r.date})`,
+                        url: `/releases#${r.version}`,
+                        description: r.summary,
+                    })),
+                )}
+            />
+            <SiteNav overlay />
+            <section className="relative flex h-[560px] items-center overflow-hidden border-b border-white/10 text-white">
+                <SceneBackground concept="releases" />
+                <div className="relative mx-auto w-full max-w-5xl px-6 pt-16">
+                    <ReleasesHeader />
+                </div>
+            </section>
+            <main className="mx-auto max-w-5xl px-6 pb-24 pt-12">
                 <ReleasesView releases={RELEASES} />
             </main>
             <SiteFooter />

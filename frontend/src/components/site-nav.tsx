@@ -1,4 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
+import { LanguageToggle } from "@/components/language-toggle";
+import { useI18n } from "@/components/i18n-provider";
+import { NAV_GROUPS, DEMO_CTA, sectionHref, type NavLeaf } from "@/lib/nav";
+import { SITE } from "@/lib/site";
+import { cn } from "@/lib/cn";
 
 function GithubIcon({ className }: { className?: string }) {
     return (
@@ -13,65 +23,374 @@ function GithubIcon({ className }: { className?: string }) {
     );
 }
 
-export function SiteNav() {
+/** One entry (and its nested children) inside a GNB dropdown. */
+function DropdownItem({
+    item,
+    groupKey,
+    onClose,
+}: {
+    item: NavLeaf;
+    groupKey: string;
+    onClose: () => void;
+}) {
     return (
-        <header className="sticky top-0 z-50 border-b border-[var(--color-line)] bg-white/80 backdrop-blur-md">
-            <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+        <div>
+            <Link
+                href={item.route ?? sectionHref(groupKey, item.id)}
+                onClick={onClose}
+                className="block rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]"
+            >
+                {item.label}
+            </Link>
+            {item.children && (
+                <div className="mb-1 ml-3 border-l border-[var(--color-line)] pl-2">
+                    {item.children.map((c) => (
+                        <Link
+                            key={c.id}
+                            href={sectionHref(groupKey, c.id)}
+                            onClick={onClose}
+                            className="block rounded-lg px-3 py-1.5 text-[15px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-ink)]"
+                        >
+                            {c.label}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+/**
+ * Global nav. Top-level groups (Research, Technology, …) each open a dropdown of
+ * their sections, which deep-link to the group's one-page (/{group}#{section}).
+ *
+ * With `overlay`, the bar floats transparent over a dark hero, then turns solid
+ * white on scroll. Without it, it's the regular sticky white bar.
+ */
+export function SiteNav({ overlay = false }: { overlay?: boolean }) {
+    const { locale, t } = useI18n();
+    const [scrolled, setScrolled] = useState(false);
+    const [openKey, setOpenKey] = useState<string | null>(null);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [mobileGroup, setMobileGroup] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!overlay) return;
+        const onScroll = () => setScrolled(window.scrollY > 8);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [overlay]);
+
+    // light = transparent nav over the dark hero (top of an overlay page).
+    // The bar turns solid white only on scroll — not when a dropdown opens.
+    const light = overlay && !scrolled;
+
+    const headerCls = overlay
+        ? cn(
+              "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
+              scrolled
+                  ? "border-b border-[var(--color-line)] bg-white/90 backdrop-blur-md"
+                  : "border-b border-transparent bg-transparent",
+          )
+        : "sticky top-0 z-50 border-b border-[var(--color-line)] bg-white/90 backdrop-blur-md";
+
+    const groupCls = cn(
+        "inline-flex items-center gap-1 transition",
+        light
+            ? "text-white/80 hover:text-white"
+            : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
+    );
+
+    const demoLabel = locale === "en" ? DEMO_CTA.en : DEMO_CTA.ko;
+
+    return (
+        <header className={headerCls} onMouseLeave={() => setOpenKey(null)}>
+            <div className="flex h-[84px] w-full items-center justify-between px-6">
                 <Link
                     href="/"
-                    className="flex items-center gap-2 text-[15px] font-semibold tracking-tight"
+                    className="flex translate-y-[12px] flex-col items-start leading-none min-[1440px]:ml-[calc((100vw-90rem)/2)]"
                 >
-                    <span className="grid h-6 w-6 place-items-center rounded-md bg-[var(--color-ink)] font-mono text-[11px] font-bold text-white">
-                        P
+                    <BrandMark
+                        className={cn(
+                            "mt-[2px] h-[26px] w-auto transition",
+                            light && "brightness-0 invert",
+                        )}
+                    />
+                    <span
+                        className={cn(
+                            "mt-1.5 text-[14px] font-medium tracking-tight transition-colors",
+                            light
+                                ? "text-white/70"
+                                : "text-[var(--color-ink-muted)]",
+                        )}
+                    >
+                        {t.nav.tagline}
                     </span>
-                    PlateerLab
                 </Link>
 
-                <nav className="hidden items-center gap-7 text-sm text-[var(--color-ink-muted)] md:flex">
-                    <Link
-                        href="/#tools"
-                        className="transition hover:text-[var(--color-ink)]"
-                    >
-                        Tools
-                    </Link>
-                    <Link
-                        href="/members"
-                        className="transition hover:text-[var(--color-ink)]"
-                    >
-                        Members
-                    </Link>
-                    <Link
-                        href="/#usecases"
-                        className="transition hover:text-[var(--color-ink)]"
-                    >
-                        Use cases
-                    </Link>
-                    <Link
-                        href="/releases"
-                        className="transition hover:text-[var(--color-ink)]"
-                    >
-                        Releases
-                    </Link>
-                    <Link
-                        href="https://github.com/PlateerLab"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="transition hover:text-[var(--color-ink)]"
-                    >
-                        GitHub
-                    </Link>
+                {/* desktop groups */}
+                <nav className="hidden translate-x-[3px] translate-y-[12px] items-center gap-10 text-[19px] font-extrabold lg:flex">
+                    {NAV_GROUPS.filter((g) => !g.hidden).map((g) => {
+                        const menuItems = g.items.filter((it) => !it.hidden);
+                        const hasMenu = !g.flat && menuItems.length > 0;
+                        return (
+                        <div
+                            key={g.key}
+                            className="relative"
+                            onMouseEnter={() => setOpenKey(g.key)}
+                        >
+                            {g.external ? (
+                                <a
+                                    href={g.external}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-[#5ec8f5] transition hover:text-[#8ddbf8]"
+                                >
+                                    {g.label}
+                                    <ArrowUpRight className="h-3.5 w-3.5" />
+                                </a>
+                            ) : (
+                                <Link
+                                    href={`/${g.key}`}
+                                    className={groupCls}
+                                    onClick={() => setOpenKey(null)}
+                                >
+                                    {g.label}
+                                    {hasMenu && (
+                                        <ChevronDown
+                                            className={cn(
+                                                "h-3.5 w-3.5 transition",
+                                                openKey === g.key &&
+                                                    "rotate-180",
+                                            )}
+                                        />
+                                    )}
+                                </Link>
+                            )}
+
+                            {hasMenu && openKey === g.key && (
+                                <div className="absolute left-0 top-full pt-3">
+                                    {g.wide ? (
+                                        <div className="flex gap-2 rounded-xl border border-[var(--color-line)] bg-white p-2 shadow-xl">
+                                            <div className="min-w-[200px]">
+                                                {menuItems
+                                                    .slice(
+                                                        0,
+                                                        Math.ceil(
+                                                            menuItems.length / 2,
+                                                        ),
+                                                    )
+                                                    .map((it) => (
+                                                        <DropdownItem
+                                                            key={it.id}
+                                                            item={it}
+                                                            groupKey={g.key}
+                                                            onClose={() =>
+                                                                setOpenKey(null)
+                                                            }
+                                                        />
+                                                    ))}
+                                            </div>
+                                            <div className="min-w-[200px] border-l border-[var(--color-line)] pl-2">
+                                                {menuItems
+                                                    .slice(
+                                                        Math.ceil(
+                                                            menuItems.length / 2,
+                                                        ),
+                                                    )
+                                                    .map((it) => (
+                                                        <DropdownItem
+                                                            key={it.id}
+                                                            item={it}
+                                                            groupKey={g.key}
+                                                            onClose={() =>
+                                                                setOpenKey(null)
+                                                            }
+                                                        />
+                                                    ))}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="min-w-[230px] rounded-xl border border-[var(--color-line)] bg-white p-2 shadow-xl">
+                                            {menuItems.map((it) => (
+                                                <DropdownItem
+                                                    key={it.id}
+                                                    item={it}
+                                                    groupKey={g.key}
+                                                    onClose={() =>
+                                                        setOpenKey(null)
+                                                    }
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                        );
+                    })}
                 </nav>
 
-                <Link
-                    href="https://github.com/PlateerLab"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] transition hover:border-[var(--color-ink)] hover:bg-[var(--color-surface-hover)]"
-                >
-                    <GithubIcon className="h-3.5 w-3.5" />
-                    Star on GitHub
-                </Link>
+                <div className="flex translate-y-[12px] items-center justify-end gap-4">
+                    {/* utility icons — language + github (desktop only) */}
+                    <div className="hidden items-center gap-3 lg:flex">
+                        <LanguageToggle light={light} />
+                        <Link
+                            href={SITE.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub"
+                            className={cn(
+                                "inline-flex transition",
+                                light
+                                    ? "text-white/80 hover:text-white"
+                                    : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
+                            )}
+                        >
+                            <GithubIcon className="h-5 w-5" />
+                        </Link>
+                    </div>
+
+                    <span
+                        className={cn(
+                            "hidden h-5 w-px lg:block",
+                            light ? "bg-white/20" : "bg-[var(--color-line)]",
+                        )}
+                        aria-hidden
+                    />
+
+                    {/* primary CTA — always visible, incl. mobile header */}
+                    <Link
+                        href={DEMO_CTA.href}
+                        className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-5 py-2.5 text-[16px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(47,123,255,0.6)] transition hover:brightness-110"
+                    >
+                        {demoLabel}
+                    </Link>
+
+                    {/* mobile hamburger */}
+                    <button
+                        type="button"
+                        aria-label="Menu"
+                        onClick={() => setMobileOpen((v) => !v)}
+                        className={cn(
+                            "inline-flex lg:hidden",
+                            light
+                                ? "text-white"
+                                : "text-[var(--color-ink)]",
+                        )}
+                    >
+                        {mobileOpen ? (
+                            <X className="h-6 w-6" />
+                        ) : (
+                            <Menu className="h-6 w-6" />
+                        )}
+                    </button>
+                </div>
             </div>
+
+            {/* mobile drawer — full-width accordion rows */}
+            {mobileOpen && (
+                <div className="border-t border-[var(--color-line)] bg-white lg:hidden">
+                    <div className="mx-auto max-h-[80vh] max-w-6xl divide-y divide-[var(--color-line)] overflow-y-auto px-6">
+                        {NAV_GROUPS.filter((g) => !g.hidden).map((g) => {
+                            const items = g.items.filter((it) => !it.hidden);
+                            const hasMenu = !g.flat && items.length > 0;
+                            const open = mobileGroup === g.key;
+                            const close = () => {
+                                setMobileOpen(false);
+                                setMobileGroup(null);
+                            };
+                            return (
+                                <div key={g.key}>
+                                    {g.external ? (
+                                        <a
+                                            href={g.external}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={close}
+                                            className="flex w-full items-center justify-between py-5 text-lg font-bold text-[var(--color-ink)]"
+                                        >
+                                            {g.label}
+                                            <ArrowUpRight className="h-5 w-5 text-[var(--color-ink-subtle)]" />
+                                        </a>
+                                    ) : hasMenu ? (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setMobileGroup(
+                                                    open ? null : g.key,
+                                                )
+                                            }
+                                            aria-expanded={open}
+                                            className="flex w-full items-center justify-between py-5 text-left text-lg font-bold text-[var(--color-ink)]"
+                                        >
+                                            {g.label}
+                                            <ChevronDown
+                                                className={cn(
+                                                    "h-5 w-5 text-[var(--color-ink-subtle)] transition",
+                                                    open && "rotate-180",
+                                                )}
+                                            />
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            href={`/${g.key}`}
+                                            onClick={close}
+                                            className="flex w-full items-center justify-between py-5 text-lg font-bold text-[var(--color-ink)]"
+                                        >
+                                            {g.label}
+                                        </Link>
+                                    )}
+
+                                    {hasMenu && open && (
+                                        <div className="pb-3">
+                                            {items.map((it) => (
+                                                <div key={it.id}>
+                                                    <Link
+                                                        href={
+                                                            it.route ??
+                                                            sectionHref(
+                                                                g.key,
+                                                                it.id,
+                                                            )
+                                                        }
+                                                        onClick={close}
+                                                        className="block py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                                    >
+                                                        {it.label}
+                                                    </Link>
+                                                    {it.children && (
+                                                        <div className="ml-3 border-l border-[var(--color-line)] pl-3">
+                                                            {it.children.map(
+                                                                (c) => (
+                                                                    <Link
+                                                                        key={c.id}
+                                                                        href={sectionHref(
+                                                                            g.key,
+                                                                            c.id,
+                                                                        )}
+                                                                        onClick={
+                                                                            close
+                                                                        }
+                                                                        className="block py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
+                                                                    >
+                                                                        {c.label}
+                                                                    </Link>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
         </header>
     );
 }

@@ -1,0 +1,29 @@
+# Plateer AIX Labs
+
+> Plateer AIX Labs is the open-source AI research lab behind the XGEN platform.
+> It publishes production-grade Python libraries for document ingestion, knowledge
+> graphs, and AI agents. Every tool is free, MIT/open-source, installable with pip,
+> and runnable directly in the browser gallery.
+
+Site: https://gallery-xgen.x2bee.com
+GitHub: https://github.com/PlateerLab
+
+## Tools
+
+- [Contextifier](https://gallery-xgen.x2bee.com/tool/contextifier): Convert 80+ document formats into AI-ready text. Tables, code blocks, and structure are preserved for retrieval. `pip install contextifier` (Python, ingestion).
+- [Doc2Chunk](https://gallery-xgen.x2bee.com/tool/doc2chunk): Context-aware chunking for RAG pipelines, with configurable size and overlap. `pip install xgen-doc2chunk` (Python, ingestion).
+- [f2a](https://gallery-xgen.x2bee.com/tool/f2a): Point at any file and get full statistics plus an interactive HTML report. 24+ formats. `pip install f2a` (Python, ingestion).
+- [Synaptic Memory](https://gallery-xgen.x2bee.com/tool/synaptic-memory): Brain-inspired knowledge graph with auto-ontology, Hebbian learning, and four-stage memory consolidation for long-running agents. `pip install synaptic-memory` (Python, knowledge).
+- [Googer](https://gallery-xgen.x2bee.com/tool/googer): Type-safe Google search for agents — web, images, news, and videos with typed responses. `pip install googer` (Python, agent).
+
+## Pages
+
+- [Home / tool catalog](https://gallery-xgen.x2bee.com/)
+- [Members](https://gallery-xgen.x2bee.com/members): The open-source contributors building XGEN.
+- [Releases](https://gallery-xgen.x2bee.com/releases): XGEN platform release notes and changelog.
+
+## About
+
+- Category coverage: ingestion (Contextifier, Doc2Chunk, f2a), knowledge (Synaptic Memory), agent (Googer).
+- Common compositions: RAG pipeline (ingest -> chunk -> embed -> retrieve), agent runtime, long-term memory knowledge graph.
+- License: MIT. Language: Python. Install: pip.

@@ -1,0 +1,56 @@
+# Decap CMS 설정 — 블로그 글을 DB 없이 git 리포지토리의 마크다운 파일로 관리한다.
+# 경로는 리포지토리 루트(c:\Hompy = PlateerLab/xgen-gallery) 기준이다.
+#
+# ── 로컬 편집(즉시 사용) ───────────────────────────────────────
+#   1) 리포 루트에서  npx decap-server   실행
+#   2) 브라우저에서   http://localhost:3100/admin/   접속 → 바로 글 작성/커밋
+#   (local_backend: true 일 때 GitHub OAuth 없이 로컬 파일로 저장)
+#
+# ── 운영(GitHub에 직접 커밋) ───────────────────────────────────
+#   GitHub OAuth 제공자가 필요하다(자세한 설정: docs/blog-cms.md).
+#   OAuth 배포 후 local_backend 줄을 주석 처리하면 GitHub 백엔드로 동작한다.
+
+backend:
+    name: github
+    repo: PlateerLab/xgen-gallery
+    branch: main
+    # 우리 Next 앱이 OAuth 제공자 역할(/api/auth, /api/callback).
+    # base_url 은 /api/auth 가 있는 origin. 로컬은 아래값, 운영 배포 시 운영 도메인으로 변경.
+    base_url: http://localhost:3100
+    auth_endpoint: /api/auth
+
+# GitHub 없이 로컬 파일로만 편집하려면 아래 주석을 풀고 `npx decap-server` 실행.
+# local_backend: true
+
+media_folder: "frontend/public/blog"
+public_folder: "/blog"
+
+publish_mode: editorial_workflow
+
+collections:
+    - name: blog
+      label: "Blog"
+      label_singular: "글"
+      folder: "frontend/content/blog"
+      create: true
+      slug: "{{slug}}"
+      extension: "md"
+      format: "frontmatter"
+      preview_path: "blog/{{slug}}"
+      fields:
+          - { name: title, label: "제목", widget: string }
+          - { name: description, label: "설명(요약)", widget: text, hint: "검색·AI 답변에 노출되는 한 줄 요약(≤155자)" }
+          - { name: date, label: "발행일", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { name: updated, label: "수정일", widget: datetime, required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { name: author, label: "작성자", widget: string, default: "Plateer AI Labs" }
+          - {
+                name: category,
+                label: "카테고리",
+                widget: select,
+                options: ["Case Study", "Plex Tech", "제품 소식"],
+                default: "Plex Tech",
+            }
+          - { name: tags, label: "태그", widget: list, required: false }
+          - { name: cover, label: "커버 이미지", widget: image, required: false, choose_url: false }
+          - { name: draft, label: "초안(체크 시 비공개)", widget: boolean, default: false }
+          - { name: body, label: "본문", widget: markdown }

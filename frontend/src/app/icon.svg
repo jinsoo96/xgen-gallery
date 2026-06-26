@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#0a0a0a"/>
-  <text x="16" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">P</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <rect width="96" height="96" rx="20" fill="#ffffff"/>
+  <g fill="none" stroke="#0c1b2b" stroke-width="9" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M27 12 L69 12 L90 48 L69 84 L27 84 L6 48 Z"/>
+    <path d="M38 72 L38 30 L53 30 A11 11 0 0 1 53 52 L38 52"/>
+  </g>
 </svg>

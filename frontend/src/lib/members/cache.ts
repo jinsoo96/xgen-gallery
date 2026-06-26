@@ -6,6 +6,11 @@ import {
     fetchMembersAndDetailsFromGithub,
     MEMBERS_ORG,
 } from "./github";
+import {
+    fetchMemberDetailFromUpstream,
+    fetchMembersFromUpstream,
+    hasUpstream,
+} from "./upstream";
 import type { MemberDetail, MembersPayload } from "./types";
 
 const REVALIDATE_SECONDS = Number(
@@ -75,7 +80,14 @@ interface MembersBundle {
  */
 async function loadBundleWithFallback(): Promise<MembersBundle> {
     try {
-        const fresh = await fetchMembersAndDetailsFromGithub();
+        // When an upstream gallery is configured, borrow its list and lazy-load
+        // details on demand (via getMemberDetail) instead of fetching GitHub.
+        const fresh = hasUpstream
+            ? {
+                  payload: await fetchMembersFromUpstream(),
+                  details: {} as Record<string, MemberDetail>,
+              }
+            : await fetchMembersAndDetailsFromGithub();
         if (fresh.payload.members.length === 0) {
             const stale = await readDiskBundle();
             if (stale && stale.payload.members.length > 0) {
@@ -150,7 +162,9 @@ export async function getMemberDetail(login: string): Promise<MemberDetail> {
 
     // Fallback path — not part of the unified cache. Try direct fetch, then disk.
     try {
-        const fresh = await fetchMemberDetailFromGithub(login);
+        const fresh = hasUpstream
+            ? await fetchMemberDetailFromUpstream(login)
+            : await fetchMemberDetailFromGithub(login);
         await writeJson(DETAIL_CACHE(login), fresh);
         return fresh;
     } catch (err) {

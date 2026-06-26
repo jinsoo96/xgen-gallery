@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>Plateer AI Labs — Blog CMS</title>
+        <!-- /admin(트레일링 슬래시 없음)에서도 config.yml을 정확히 찾도록 절대경로 명시 -->
+        <link
+            href="/admin/config.yml"
+            type="text/yaml"
+            rel="cms-config-url"
+        />
+    </head>
+    <body>
+        <!-- Decap CMS — DB 없이 git(content/blog/*.md)에 글을 커밋하는 어드민.
+             설정은 ./config.yml 참고. 로컬 편집: `npx decap-server` 실행 후 /admin 접속. -->
+        <script src="https://unpkg.com/decap-cms@^3.6.0/dist/decap-cms.js"></script>
+    </body>
+</html>

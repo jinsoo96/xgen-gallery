@@ -996,7 +996,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
         <main className="mx-auto max-w-6xl px-6 pt-8 pb-24">
             <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                className="inline-flex items-center gap-1.5 text-[16px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
             >
                 <ArrowLeft className="h-3.5 w-3.5" />
                 Back to home
@@ -1006,10 +1006,10 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
             <header className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
                     <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        <span className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                             / knowledge
                         </span>
-                        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-ink)] bg-[var(--color-ink)] px-2 py-0.5 font-mono text-[10px] text-white">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-ink)] bg-[var(--color-ink)] px-2 py-0.5 font-mono text-[12px] text-white">
                             <Sparkles className="h-2.5 w-2.5" />
                             powered by MCP
                         </span>
@@ -1017,7 +1017,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                     <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
                         {tool.name}
                     </h1>
-                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--color-ink-muted)]">
+                    <p className="mt-3 max-w-2xl text-[18px] leading-relaxed text-[var(--color-ink-muted)]">
                         Upload a document, watch Synaptic build a knowledge
                         graph automatically, then search it with hybrid FTS +
                         embedding rerank.
@@ -1041,15 +1041,15 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
             {/* Step 1 — Upload */}
             <section className="mt-6 rounded-2xl border border-[var(--color-line)] bg-white p-6">
                 <div className="mb-4 flex items-center justify-between">
-                    <h2 className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[10px] text-white">
+                    <h2 className="flex items-center gap-2 text-[16px] font-semibold tracking-tight">
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[12px] text-white">
                             1
                         </span>
                         Upload document
                     </h2>
                     <button
                         onClick={loadSample}
-                        className="text-xs text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                        className="text-[14px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
                     >
                         ↓ Load sample document
                     </button>
@@ -1092,7 +1092,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                     ) : (
                         <Upload className="mx-auto h-6 w-6 text-[var(--color-ink-subtle)]" />
                     )}
-                    <div className="mt-2 text-[13px] text-[var(--color-ink-muted)]">
+                    <div className="mt-2 text-[15px] text-[var(--color-ink-muted)]">
                         {batchProgress ? (
                             <>
                                 {batchProgress.label} · {batchProgress.current}{" "}
@@ -1109,11 +1109,11 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                             "Click to pick files, or drop files/folder here"
                         )}
                     </div>
-                    <div className="mt-1 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    <div className="mt-1 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                         pdf · docx · pptx · xlsx · hwp · hwpx · md · txt · csv · html
                     </div>
                     {sourceInfo && !extracting && !batchProgress && (
-                        <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-2.5 py-1 font-mono text-[10px] text-[var(--color-ink-muted)]">
+                        <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] bg-white px-2.5 py-1 font-mono text-[12px] text-[var(--color-ink-muted)]">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                             {sourceInfo}
                         </div>
@@ -1122,7 +1122,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
 
                 <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
                     <div>
-                        <label className="mb-1 block text-[11px] font-medium text-[var(--color-ink)]">
+                        <label className="mb-1 block text-[13px] font-medium text-[var(--color-ink)]">
                             Title
                         </label>
                         <input
@@ -1130,11 +1130,11 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                             value={docTitle}
                             onChange={(e) => setDocTitle(e.target.value)}
                             placeholder="Document title"
-                            className="w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-[13px] outline-none transition focus:border-[var(--color-ink)]"
+                            className="w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-[15px] outline-none transition focus:border-[var(--color-ink)]"
                         />
                     </div>
                     <div>
-                        <label className="mb-1 block text-[11px] font-medium text-[var(--color-ink)]">
+                        <label className="mb-1 block text-[13px] font-medium text-[var(--color-ink)]">
                             Chunk size
                         </label>
                         <div className="flex items-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-2">
@@ -1149,7 +1149,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                 }
                                 className="flex-1 accent-[var(--color-ink)]"
                             />
-                            <span className="w-10 text-right font-mono text-[12px]">
+                            <span className="w-10 text-right font-mono text-[14px]">
                                 {chunkSize}
                             </span>
                         </div>
@@ -1158,10 +1158,10 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
 
                 {docContent && (
                     <details className="mt-3">
-                        <summary className="cursor-pointer text-[11px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]">
+                        <summary className="cursor-pointer text-[13px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]">
                             Preview content
                         </summary>
-                        <pre className="mt-2 max-h-40 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[10px] leading-relaxed text-[var(--color-ink-muted)]">
+                        <pre className="mt-2 max-h-40 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[12px] leading-relaxed text-[var(--color-ink-muted)]">
                             {docContent.slice(0, 800)}
                             {docContent.length > 800 && "…"}
                         </pre>
@@ -1169,7 +1169,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                 )}
 
                 {ingestError && (
-                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[11px] text-red-700">
+                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[13px] text-red-700">
                         {ingestError}
                     </div>
                 )}
@@ -1178,7 +1178,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                     onClick={handleIngest}
                     disabled={ingesting || !docContent}
                     className={cn(
-                        "mt-4 inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition",
+                        "mt-4 inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[16px] font-medium transition",
                         ingesting || !docContent
                             ? "cursor-not-allowed bg-[var(--color-line)] text-[var(--color-ink-muted)]"
                             : "bg-[var(--color-ink)] text-white hover:bg-[var(--color-ink)]/90",
@@ -1205,7 +1205,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                     <motion.div
                         initial={{ opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-3 flex items-center justify-between gap-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 font-mono text-[11px] text-emerald-700"
+                        className="mt-3 flex items-center justify-between gap-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 font-mono text-[13px] text-emerald-700"
                     >
                         <span>
                             ✓ Ingested &quot;{lastIngest.title}&quot; ·{" "}
@@ -1228,13 +1228,13 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                 className="mt-4 scroll-mt-20 rounded-2xl border border-[var(--color-line)] bg-white p-6"
             >
                 <div className="mb-4 flex items-center justify-between">
-                    <h2 className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[10px] text-white">
+                    <h2 className="flex items-center gap-2 text-[16px] font-semibold tracking-tight">
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[12px] text-white">
                             2
                         </span>
                         Knowledge graph
                     </h2>
-                    <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    <div className="flex items-center gap-3 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                         <span>{nodes.length} nodes</span>
                         <span>·</span>
                         <span>{edges.length} edges</span>
@@ -1271,7 +1271,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                              legend row and is close to the zoom indicator. */}
                         {documents.size > 0 && (
                             <div className="pointer-events-none absolute left-3 top-14 z-10 max-w-[240px] rounded-md border border-[var(--color-line)] bg-white/95 px-2.5 py-1.5 shadow-sm backdrop-blur-sm">
-                                <div className="mb-1 font-mono text-[9px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                                <div className="mb-1 font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                                     documents
                                 </div>
                                 <div className="space-y-0.5">
@@ -1280,7 +1280,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                         .map((doc) => (
                                             <div
                                                 key={doc.source}
-                                                className="flex items-center gap-1.5 text-[10px] text-[var(--color-ink)]"
+                                                className="flex items-center gap-1.5 text-[12px] text-[var(--color-ink)]"
                                             >
                                                 <span
                                                     className="h-2 w-2 shrink-0 rounded-full"
@@ -1294,7 +1294,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                                 <span className="truncate">
                                                     {doc.title}
                                                 </span>
-                                                <span className="shrink-0 font-mono text-[9px] text-[var(--color-ink-subtle)]">
+                                                <span className="shrink-0 font-mono text-[11px] text-[var(--color-ink-subtle)]">
                                                     {doc.chunkCount}
                                                 </span>
                                             </div>
@@ -1317,7 +1317,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                     )}
                 </div>
 
-                <div className="mt-3 flex items-center gap-4 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                <div className="mt-3 flex items-center gap-4 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                     <LegendDot color="#fff" label="chunk" border />
                     <LegendDot color="#a855f7" label="cross-doc bridge" />
                     <LegendDot color="#10b981" label="highlighted" />
@@ -1333,15 +1333,15 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
             {/* Step 3 — Search / Ask */}
             <section className="mt-4 rounded-2xl border border-[var(--color-line)] bg-white p-6">
                 <div className="mb-4 flex items-center justify-between gap-3">
-                    <h2 className="flex items-center gap-2 text-sm font-semibold tracking-tight">
-                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[10px] text-white">
+                    <h2 className="flex items-center gap-2 text-[16px] font-semibold tracking-tight">
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[12px] text-white">
                             3
                         </span>
                         {mode === "search" ? "Semantic search" : "Ask with context"}
                     </h2>
 
                     {/* mode toggle */}
-                    <div className="inline-flex rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-0.5 text-[11px]">
+                    <div className="inline-flex rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-0.5 text-[13px]">
                         <button
                             onClick={() => setMode("search")}
                             className={cn(
@@ -1390,14 +1390,14 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                       ? "type any word from the document"
                                       : "ask a natural language question…"
                             }
-                            className="w-full rounded-md border border-[var(--color-line)] bg-white py-2 pl-9 pr-3 text-[13px] outline-none transition focus:border-[var(--color-ink)]"
+                            className="w-full rounded-md border border-[var(--color-line)] bg-white py-2 pl-9 pr-3 text-[15px] outline-none transition focus:border-[var(--color-ink)]"
                         />
                     </div>
                     <button
                         onClick={submit}
                         disabled={searching || asking || nodes.length === 0}
                         className={cn(
-                            "inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition",
+                            "inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-[16px] font-medium transition",
                             searching || asking || nodes.length === 0
                                 ? "cursor-not-allowed bg-[var(--color-line)] text-[var(--color-ink-muted)]"
                                 : "bg-[var(--color-ink)] text-white hover:bg-[var(--color-ink)]/90",
@@ -1427,12 +1427,12 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                 </div>
 
                 {searchError && mode === "search" && (
-                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[11px] text-red-700">
+                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[13px] text-red-700">
                         {searchError}
                     </div>
                 )}
                 {askError && mode === "ask" && (
-                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[11px] text-red-700">
+                    <div className="mt-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 font-mono text-[13px] text-red-700">
                         {askError}
                     </div>
                 )}
@@ -1445,23 +1445,23 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                             animate={{ opacity: 1, y: 0 }}
                             className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-5"
                         >
-                            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                            <div className="mb-2 flex items-center gap-2 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                                 <Sparkles className="h-3 w-3" />
                                 answer · {askResponse.model}
                                 {askResponse.is_overview && (
-                                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[9px] text-white">
+                                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[11px] text-white">
                                         overview
                                     </span>
                                 )}
                             </div>
-                            <div className="whitespace-pre-wrap text-[14px] leading-relaxed text-[var(--color-ink)]">
+                            <div className="whitespace-pre-wrap text-[16px] leading-relaxed text-[var(--color-ink)]">
                                 {askResponse.answer}
                             </div>
                         </motion.div>
 
                         {askResponse.sources.length > 0 && (
                             <div>
-                                <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                                <div className="mb-2 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                                     sources ({askResponse.sources.length})
                                 </div>
                                 <div className="space-y-2">
@@ -1475,8 +1475,8 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                             className="group block w-full rounded-md border border-[var(--color-line)] bg-white p-3 text-left transition hover:border-[var(--color-ink)] hover:bg-[var(--color-surface-hover)]"
                                         >
                                             <div className="flex items-center justify-between gap-3">
-                                                <span className="flex items-center gap-2 text-[12px] font-semibold text-[var(--color-ink)]">
-                                                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[9px] text-white">
+                                                <span className="flex items-center gap-2 text-[14px] font-semibold text-[var(--color-ink)]">
+                                                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-ink)] font-mono text-[11px] text-white">
                                                         {i + 1}
                                                     </span>
                                                     {s.title}
@@ -1489,18 +1489,18 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                                         sourceColors={sourceColors}
                                                     />
                                                     {typeof s.score === "number" && (
-                                                        <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                                                        <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                                             {s.score.toFixed(3)}
                                                         </span>
                                                     )}
                                                 </div>
                                             </div>
                                             {s.content && (
-                                                <div className="mt-1.5 text-[11px] leading-relaxed text-[var(--color-ink-muted)]">
+                                                <div className="mt-1.5 text-[13px] leading-relaxed text-[var(--color-ink-muted)]">
                                                     {s.content}
                                                 </div>
                                             )}
-                                            <div className="mt-1.5 font-mono text-[9px] text-[var(--color-ink-subtle)] transition group-hover:text-[var(--color-ink-muted)]">
+                                            <div className="mt-1.5 font-mono text-[11px] text-[var(--color-ink-subtle)] transition group-hover:text-[var(--color-ink-muted)]">
                                                 click to open full chunk →
                                             </div>
                                         </motion.button>
@@ -1513,7 +1513,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
 
                 {mode === "search" && searchResponse && (
                     <>
-                        <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                        <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                             <span>
                                 query{" "}
                                 <span className="text-[var(--color-ink)]">
@@ -1564,11 +1564,11 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
 
                         <div className="mt-3 space-y-2">
                             {(searchHits?.length ?? 0) === 0 ? (
-                                <div className="rounded-md border border-dashed border-[var(--color-line)] bg-[var(--color-surface-alt)] p-4 text-[12px] text-[var(--color-ink-muted)]">
+                                <div className="rounded-md border border-dashed border-[var(--color-line)] bg-[var(--color-surface-alt)] p-4 text-[14px] text-[var(--color-ink-muted)]">
                                     <div className="font-medium text-[var(--color-ink)]">
                                         No matches for &quot;{lastQuery}&quot;
                                     </div>
-                                    <div className="mt-1 text-[11px] text-[var(--color-ink-subtle)]">
+                                    <div className="mt-1 text-[13px] text-[var(--color-ink-subtle)]">
                                         {searchResponse.message ||
                                             "Synaptic uses hybrid search (FTS → vector rerank). Your query needs to share at least one token with the document so FTS can surface candidates — then embeddings handle the semantic ranking."}
                                     </div>
@@ -1584,7 +1584,7 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                         className="group block w-full rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 text-left transition hover:border-[var(--color-ink)] hover:bg-white"
                                     >
                                         <div className="flex items-center justify-between gap-3">
-                                            <span className="text-[12px] font-semibold text-[var(--color-ink)]">
+                                            <span className="text-[14px] font-semibold text-[var(--color-ink)]">
                                                 {hit.title}
                                             </span>
                                             <div className="flex items-center gap-2">
@@ -1595,18 +1595,18 @@ export function SynapticDemoClient({ tool }: { tool: Tool }) {
                                                     sourceColors={sourceColors}
                                                 />
                                                 {typeof hit.score === "number" && (
-                                                    <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                                                    <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                                         score {hit.score.toFixed(3)}
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
                                         {hit.content && (
-                                            <div className="mt-1 text-[11.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                                            <div className="mt-1 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
                                                 {hit.content.slice(0, 220)}
                                             </div>
                                         )}
-                                        <div className="mt-1 flex items-center justify-between font-mono text-[9px] text-[var(--color-ink-subtle)]">
+                                        <div className="mt-1 flex items-center justify-between font-mono text-[11px] text-[var(--color-ink-subtle)]">
                                             <span>#{hit.id.slice(0, 8)}</span>
                                             <span className="transition group-hover:text-[var(--color-ink-muted)]">
                                                 click to open full chunk →
@@ -1652,7 +1652,7 @@ function DocumentList({
     return (
         <section className="mt-4 rounded-2xl border border-[var(--color-line)] bg-white p-5">
             <div className="mb-3 flex items-center justify-between">
-                <h3 className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                <h3 className="font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                     documents in graph · {items.length}
                 </h3>
             </div>
@@ -1669,10 +1669,10 @@ function DocumentList({
                                 style={{ background: color }}
                             />
                             <FileText className="h-3 w-3 text-[var(--color-ink-muted)]" />
-                            <span className="text-[12px] font-medium text-[var(--color-ink)]">
+                            <span className="text-[14px] font-medium text-[var(--color-ink)]">
                                 {doc.title}
                             </span>
-                            <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                            <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                 {doc.chunkCount} chunk
                                 {doc.chunkCount === 1 ? "" : "s"}
                             </span>
@@ -1709,7 +1709,7 @@ function SourceBadge({
     if (!doc) return null;
     const color = sourceColors.get(source) ?? "#0a0a0a";
     return (
-        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[9px] text-[var(--color-ink-muted)]">
+        <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[11px] text-[var(--color-ink-muted)]">
             <span
                 className="h-1.5 w-1.5 rounded-full"
                 style={{ background: color }}
@@ -1747,10 +1747,10 @@ function StatsBar({
             <div className="grid flex-1 grid-cols-2 gap-px overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-line)] md:grid-cols-4">
                 {items.map((it) => (
                     <div key={it.label} className="bg-white px-4 py-3">
-                        <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        <div className="font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                             {it.label}
                         </div>
-                        <div className="mt-1 font-mono text-[18px] font-semibold tracking-tight text-[var(--color-ink)]">
+                        <div className="mt-1 font-mono text-[19px] font-semibold tracking-tight text-[var(--color-ink)]">
                             {it.value}
                         </div>
                     </div>
@@ -1760,7 +1760,7 @@ function StatsBar({
                 onClick={onReset}
                 disabled={resetting || (stats?.total_nodes ?? 0) === 0}
                 className={cn(
-                    "inline-flex items-center gap-1.5 rounded-md border px-3 py-2 text-xs font-medium transition",
+                    "inline-flex items-center gap-1.5 rounded-md border px-3 py-2 text-[14px] font-medium transition",
                     resetting || (stats?.total_nodes ?? 0) === 0
                         ? "cursor-not-allowed border-[var(--color-line)] text-[var(--color-ink-subtle)]"
                         : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",

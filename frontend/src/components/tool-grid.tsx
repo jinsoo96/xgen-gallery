@@ -4,8 +4,10 @@ import { useMemo, useState } from "react";
 import { CATEGORIES, TOOLS, type ToolCategory } from "@/lib/tools";
 import { ToolCard } from "./tool-card";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/components/i18n-provider";
 
 export function ToolGrid() {
+    const { t } = useI18n();
     const [active, setActive] = useState<ToolCategory | "all">("all");
 
     const filtered = useMemo(
@@ -24,17 +26,17 @@ export function ToolGrid() {
     }, []);
 
     return (
-        <section id="tools" className="mx-auto max-w-6xl px-6 py-24">
+        <section id="tools" className="mx-auto max-w-6xl px-6 py-28">
             <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
-                        / tools
+                    <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        {t.toolsSection.eyebrow}
                     </p>
                     <h2 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
-                        Eight libraries.
+                        {t.toolsSection.titleA}
                         <br />
                         <span className="text-[var(--color-ink-muted)]">
-                            One install away.
+                            {t.toolsSection.titleB}
                         </span>
                     </h2>
                 </div>
@@ -45,16 +47,16 @@ export function ToolGrid() {
                             key={c.id}
                             onClick={() => setActive(c.id)}
                             className={cn(
-                                "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium transition",
+                                "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[14px] font-medium transition",
                                 active === c.id
                                     ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
                                     : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
                             )}
                         >
-                            {c.label}
+                            {t.categories[c.id as keyof typeof t.categories]}
                             <span
                                 className={cn(
-                                    "font-mono text-[10px]",
+                                    "font-mono text-[12px]",
                                     active === c.id
                                         ? "text-white/70"
                                         : "text-[var(--color-ink-subtle)]",

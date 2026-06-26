@@ -11,7 +11,7 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
             className="group relative flex flex-col rounded-xl border border-[var(--color-line)] bg-white p-5 transition hover:-translate-y-0.5 hover:border-[var(--color-ink)] hover:shadow-[0_8px_24px_-12px_rgba(0,0,0,0.12)]"
         >
             <div className="flex items-start justify-between gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
+                <span className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
                     / member
                 </span>
                 <a
@@ -55,20 +55,20 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                     )}
                 </div>
                 <div className="min-w-0">
-                    <h3 className="truncate text-[16px] font-semibold tracking-tight text-[var(--color-ink)]">
+                    <h3 className="truncate text-[18px] font-semibold tracking-tight text-[var(--color-ink)]">
                         {displayName}
                     </h3>
-                    <p className="truncate font-mono text-[11.5px] text-[var(--color-ink-muted)]">
+                    <p className="truncate font-mono text-[13.5px] text-[var(--color-ink-muted)]">
                         @{member.login}
                     </p>
                 </div>
             </div>
 
-            <p className="mt-4 line-clamp-2 h-[2.6em] text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+            <p className="mt-4 line-clamp-2 h-[2.6em] text-[15.5px] leading-relaxed text-[var(--color-ink-muted)]">
                 {member.bio || "—"}
             </p>
 
-            <div className="mt-4 flex h-[1.5rem] flex-wrap items-center gap-x-4 gap-y-1.5 overflow-hidden text-[12px] text-[var(--color-ink-muted)]">
+            <div className="mt-4 flex h-[1.5rem] flex-wrap items-center gap-x-4 gap-y-1.5 overflow-hidden text-[14px] text-[var(--color-ink-muted)]">
                 <span className="inline-flex items-center gap-1">
                     <Star className="h-3.5 w-3.5" />
                     <span className="font-medium text-[var(--color-ink)]">
@@ -104,7 +104,7 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                 {member.topLanguages.slice(0, 3).map((l) => (
                     <span
                         key={l.name}
-                        className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2 py-0.5 font-mono text-[10.5px] text-[var(--color-ink-muted)]"
+                        className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2 py-0.5 font-mono text-[12.5px] text-[var(--color-ink-muted)]"
                     >
                         <span
                             className="h-1.5 w-1.5 rounded-full"
@@ -116,7 +116,7 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
             </div>
 
             <div className="mt-auto pt-5">
-                <div className="flex w-full items-center justify-center gap-1.5 rounded-md border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-2 text-xs font-medium text-white transition group-hover:bg-[var(--color-ink)]/90">
+                <div className="flex w-full items-center justify-center gap-1.5 rounded-md border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-2 text-[14px] font-medium text-white transition group-hover:bg-[var(--color-ink)]/90">
                     View profile
                     <ArrowUpRight className="h-3.5 w-3.5" />
                 </div>

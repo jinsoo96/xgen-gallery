@@ -48,7 +48,7 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
         <div>
             <Link
                 href="/members"
-                className="inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                className="inline-flex items-center gap-1.5 text-[16px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
             >
                 <ArrowLeft className="h-4 w-4" />
                 All members
@@ -67,16 +67,16 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                     <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
                         {displayName}
                     </h1>
-                    <p className="mt-1 font-mono text-sm text-[var(--color-ink-muted)]">
+                    <p className="mt-1 font-mono text-[16px] text-[var(--color-ink-muted)]">
                         @{member.login}
                     </p>
                     {member.bio && (
-                        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
+                        <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
                             {member.bio}
                         </p>
                     )}
 
-                    <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[13px] text-[var(--color-ink-muted)]">
+                    <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[15px] text-[var(--color-ink-muted)]">
                         {member.company && (
                             <span className="inline-flex items-center gap-1.5">
                                 <Building2 className="h-3.5 w-3.5" />
@@ -111,7 +111,7 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                             href={member.htmlUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-1.5 text-xs font-medium text-white transition hover:bg-[var(--color-ink)]/90"
+                            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-1.5 text-[14px] font-medium text-white transition hover:bg-[var(--color-ink)]/90"
                         >
                             View on GitHub
                             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -121,7 +121,7 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                                 href={`https://twitter.com/${member.twitterUsername}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-line)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
+                                className="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-line)] bg-white px-3 py-1.5 text-[14px] font-medium text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
                             >
                                 @{member.twitterUsername}
                                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -161,13 +161,13 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
 
             {member.topLanguages.length > 0 && (
                 <section className="mt-10 rounded-xl border border-[var(--color-line)] bg-white p-5">
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
+                    <p className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
                         / languages
                     </p>
                     <h2 className="mt-2 text-lg font-semibold tracking-tight">
                         Language distribution
                     </h2>
-                    <p className="mt-1 text-[13px] text-[var(--color-ink-muted)]">
+                    <p className="mt-1 text-[15px] text-[var(--color-ink-muted)]">
                         Primary language across non-fork repositories.
                     </p>
                     <MemberLanguageBar
@@ -262,7 +262,7 @@ function ReposPanel({
     return (
         <div className="mt-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <p className="text-sm text-[var(--color-ink-muted)]">
+                <p className="text-[16px] text-[var(--color-ink-muted)]">
                     {repos.length} {repos.length === 1 ? "repo" : "repos"}
                 </p>
                 <div className="flex flex-wrap items-center gap-2">
@@ -278,7 +278,7 @@ function ReposPanel({
                     >
                         Updated
                     </ToggleButton>
-                    <label className="ml-2 inline-flex cursor-pointer items-center gap-1.5 text-[12px] text-[var(--color-ink-muted)]">
+                    <label className="ml-2 inline-flex cursor-pointer items-center gap-1.5 text-[14px] text-[var(--color-ink-muted)]">
                         <input
                             type="checkbox"
                             checked={includeForks}
@@ -292,7 +292,7 @@ function ReposPanel({
 
             <div className="mt-5 divide-y divide-[var(--color-line)] overflow-hidden rounded-xl border border-[var(--color-line)] bg-white">
                 {repos.length === 0 ? (
-                    <p className="px-5 py-10 text-center text-sm text-[var(--color-ink-muted)]">
+                    <p className="px-5 py-10 text-center text-[16px] text-[var(--color-ink-muted)]">
                         No repositories.
                     </p>
                 ) : (
@@ -306,7 +306,7 @@ function ReposPanel({
 function ActivityPanel({ events }: { events: RecentEvent[] }) {
     if (events.length === 0) {
         return (
-            <p className="mt-10 text-center text-sm text-[var(--color-ink-muted)]">
+            <p className="mt-10 text-center text-[16px] text-[var(--color-ink-muted)]">
                 No recent public activity.
             </p>
         );
@@ -324,7 +324,7 @@ function EventRow({ event }: { event: RecentEvent }) {
     const inner = (
         <>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span className="rounded border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
+                <span className="rounded border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-1.5 py-0.5 font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
                     {event.type.replace(/Event$/, "")}
                 </span>
                 <a
@@ -332,15 +332,15 @@ function EventRow({ event }: { event: RecentEvent }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="font-mono text-[12px] text-[var(--color-ink)] hover:underline"
+                    className="font-mono text-[14px] text-[var(--color-ink)] hover:underline"
                 >
                     {event.repoName}
                 </a>
-                <span className="ml-auto text-[11px] text-[var(--color-ink-subtle)]">
+                <span className="ml-auto text-[13px] text-[var(--color-ink-subtle)]">
                     {formatRelative(event.createdAt)}
                 </span>
             </div>
-            <p className="mt-1 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+            <p className="mt-1 text-[15.5px] leading-relaxed text-[var(--color-ink-muted)]">
                 {event.summary}
             </p>
         </>
@@ -369,9 +369,9 @@ function ReadmePanel({
 }) {
     if (!readmeHtml) {
         return (
-            <div className="mt-6 rounded-xl border border-dashed border-[var(--color-line)] bg-white px-5 py-10 text-center text-sm text-[var(--color-ink-muted)]">
+            <div className="mt-6 rounded-xl border border-dashed border-[var(--color-line)] bg-white px-5 py-10 text-center text-[16px] text-[var(--color-ink-muted)]">
                 <p>@{login} doesn&apos;t have a profile README yet.</p>
-                <p className="mt-1 text-[12px] text-[var(--color-ink-subtle)]">
+                <p className="mt-1 text-[14px] text-[var(--color-ink-subtle)]">
                     A profile README lives in a repository named after the user
                     (<span className="font-mono">
                         {login}/{login}
@@ -408,7 +408,7 @@ function TabButton({
         <button
             onClick={onClick}
             className={cn(
-                "-mb-px inline-flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-[13px] font-medium transition",
+                "-mb-px inline-flex items-center gap-1.5 border-b-2 px-3 py-2.5 text-[15px] font-medium transition",
                 active
                     ? "border-[var(--color-ink)] text-[var(--color-ink)]"
                     : "border-transparent text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
@@ -419,7 +419,7 @@ function TabButton({
             {typeof count === "number" && (
                 <span
                     className={cn(
-                        "ml-1 rounded-full px-1.5 py-0.5 font-mono text-[10px]",
+                        "ml-1 rounded-full px-1.5 py-0.5 font-mono text-[12px]",
                         active
                             ? "bg-[var(--color-ink)] text-white"
                             : "bg-[var(--color-surface-alt)] text-[var(--color-ink-muted)]",
@@ -443,7 +443,7 @@ function Kpi({
 }) {
     return (
         <div className="rounded-xl border border-[var(--color-line)] bg-white p-4">
-            <div className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
+            <div className="inline-flex items-center gap-1.5 font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
                 {icon}
                 {label}
             </div>
@@ -467,7 +467,7 @@ function ToggleButton({
         <button
             onClick={onClick}
             className={cn(
-                "rounded-full border px-3 py-1 text-[11px] font-medium transition",
+                "rounded-full border px-3 py-1 text-[13px] font-medium transition",
                 active
                     ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
                     : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
@@ -490,26 +490,26 @@ function RepoRow({ repo }: { repo: MemberRepo }) {
             )}
         >
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                <span className="text-[15px] font-semibold tracking-tight text-[var(--color-ink)]">
+                <span className="text-[17px] font-semibold tracking-tight text-[var(--color-ink)]">
                     {repo.name}
                 </span>
                 {repo.isFork && (
-                    <span className="rounded border border-[var(--color-line)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    <span className="rounded border border-[var(--color-line)] px-1.5 py-0.5 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                         fork
                     </span>
                 )}
                 {repo.isArchived && (
-                    <span className="inline-flex items-center gap-1 rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 font-mono text-[10px] text-amber-700">
+                    <span className="inline-flex items-center gap-1 rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 font-mono text-[12px] text-amber-700">
                         <Archive className="h-3 w-3" /> archived
                     </span>
                 )}
             </div>
             {repo.description && (
-                <p className="mt-1 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                <p className="mt-1 text-[15.5px] leading-relaxed text-[var(--color-ink-muted)]">
                     {repo.description}
                 </p>
             )}
-            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] text-[var(--color-ink-muted)]">
+            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] text-[var(--color-ink-muted)]">
                 {repo.language && (
                     <span className="inline-flex items-center gap-1.5">
                         <span
@@ -528,7 +528,7 @@ function RepoRow({ repo }: { repo: MemberRepo }) {
                     {formatStars(repo.forks)}
                 </span>
                 {repo.license && (
-                    <span className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
+                    <span className="font-mono text-[13px] text-[var(--color-ink-subtle)]">
                         {repo.license}
                     </span>
                 )}
@@ -541,7 +541,7 @@ function RepoRow({ repo }: { repo: MemberRepo }) {
                     {repo.topics.slice(0, 6).map((t) => (
                         <span
                             key={t}
-                            className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-ink-muted)]"
+                            className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-2 py-0.5 font-mono text-[12px] text-[var(--color-ink-muted)]"
                         >
                             {t}
                         </span>

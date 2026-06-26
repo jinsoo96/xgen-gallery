@@ -6,10 +6,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, Pause, Play, Search } from "lucide-react";
 import { TOOLS, type Tool } from "@/lib/tools";
 import { cn } from "@/lib/cn";
+import { useI18n } from "@/components/i18n-provider";
+import { TOOL_I18N } from "@/lib/i18n";
 
 const SLIDE_DURATION = 7000;
 
 export function LivePreview() {
+    const { locale, t } = useI18n();
     const [index, setIndex] = useState(0);
     const [paused, setPaused] = useState(false);
 
@@ -41,21 +44,22 @@ export function LivePreview() {
                         className="flex flex-col justify-between border-b border-[var(--color-line)] p-8 md:border-b-0 md:border-r md:p-10"
                     >
                         <div>
-                            <div className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                            <div className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                                 / {tool.category}
                             </div>
                             <h3 className="mt-3 text-3xl font-semibold tracking-tight md:text-[34px]">
                                 {tool.name}
                             </h3>
-                            <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
-                                {tool.description}
+                            <p className="mt-3 text-[16.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                                {TOOL_I18N[tool.id]?.[locale]?.description ??
+                                    tool.description}
                             </p>
                         </div>
                         <Link
                             href={`/tool/${tool.id}`}
-                            className="group mt-8 inline-flex w-fit items-center gap-1.5 rounded-md bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-white transition hover:bg-[var(--color-ink)]/90"
+                            className="group mt-8 inline-flex w-fit items-center gap-1.5 rounded-md bg-[var(--color-ink)] px-4 py-2 text-[16px] font-medium text-white transition hover:bg-[var(--color-ink)]/90"
                         >
-                            Try this demo
+                            {t.live.try}
                             <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                         </Link>
                     </motion.div>
@@ -88,7 +92,7 @@ export function LivePreview() {
                             />
                         ))}
                     </div>
-                    <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    <div className="flex items-center gap-3 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                         <span>
                             {String(index + 1).padStart(2, "0")} /{" "}
                             {String(TOOLS.length).padStart(2, "0")}
@@ -146,7 +150,7 @@ function ContextifierViz() {
             {/* Source file */}
             <motion.div
                 {...fadeIn(0)}
-                className="flex items-center justify-between rounded-md border border-[var(--color-line)] bg-white px-3 py-2.5 font-mono text-[11px]"
+                className="flex items-center justify-between rounded-md border border-[var(--color-line)] bg-white px-3 py-2.5 font-mono text-[13px]"
             >
                 <span className="flex items-center gap-2">
                     <span>📄</span>
@@ -159,7 +163,7 @@ function ContextifierViz() {
 
             <motion.div
                 {...fadeIn(0.35)}
-                className="flex items-center gap-2 text-[10px] text-[var(--color-ink-subtle)]"
+                className="flex items-center gap-2 text-[12px] text-[var(--color-ink-subtle)]"
             >
                 <span className="h-px flex-1 bg-[var(--color-line)]" />
                 <span className="font-mono">parsed</span>
@@ -174,14 +178,14 @@ function ContextifierViz() {
                 className="rounded-md border border-[var(--color-line)] bg-white p-3"
             >
                 <div className="mb-1.5 flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-[var(--color-ink)]">
+                    <span className="text-[13px] font-semibold text-[var(--color-ink)]">
                         Q4 Revenue Highlights
                     </span>
-                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[8px] text-white">
+                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[10px] text-white">
                         TEXT
                     </span>
                 </div>
-                <p className="text-[10px] leading-relaxed text-[var(--color-ink-muted)]">
+                <p className="text-[12px] leading-relaxed text-[var(--color-ink-muted)]">
                     Enterprise adoption drove 23% YoY growth, led by expansion
                     in the US and EU markets.
                 </p>
@@ -195,14 +199,14 @@ function ContextifierViz() {
                 className="overflow-hidden rounded-md border border-[var(--color-line)] bg-white"
             >
                 <div className="flex items-center justify-between border-b border-[var(--color-line)] px-3 py-1.5">
-                    <span className="text-[10px] text-[var(--color-ink-subtle)]">
+                    <span className="text-[12px] text-[var(--color-ink-subtle)]">
                         table · merged headers preserved
                     </span>
-                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[8px] text-white">
+                    <span className="rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[10px] text-white">
                         TABLE
                     </span>
                 </div>
-                <table className="w-full border-collapse text-[10px]">
+                <table className="w-full border-collapse text-[12px]">
                     <thead className="bg-[var(--color-surface-alt)] text-[var(--color-ink)]">
                         <tr>
                             <th
@@ -281,14 +285,14 @@ function ContextifierViz() {
                 </div>
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center justify-between">
-                        <span className="truncate text-[11px] font-semibold text-[var(--color-ink)]">
+                        <span className="truncate text-[13px] font-semibold text-[var(--color-ink)]">
                             figure-01.png
                         </span>
-                        <span className="shrink-0 rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[8px] text-white">
+                        <span className="shrink-0 rounded-sm bg-[var(--color-ink)] px-1.5 py-0.5 font-mono text-[10px] text-white">
                             IMAGE
                         </span>
                     </div>
-                    <div className="mt-0.5 font-mono text-[9px] text-[var(--color-ink-subtle)]">
+                    <div className="mt-0.5 font-mono text-[11px] text-[var(--color-ink-subtle)]">
                         extracted · 280 × 180
                     </div>
                 </div>
@@ -314,10 +318,10 @@ function Doc2ChunkViz() {
                     transition={{ delay: 0.1 + i * 0.35 }}
                     className="flex gap-3 rounded-md border border-[var(--color-line)] bg-white p-3"
                 >
-                    <span className="w-6 shrink-0 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                    <span className="w-6 shrink-0 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                         #{i}
                     </span>
-                    <span className="font-mono text-[11px] leading-relaxed text-[var(--color-ink)]">
+                    <span className="font-mono text-[13px] leading-relaxed text-[var(--color-ink)]">
                         {text}
                     </span>
                 </motion.div>
@@ -333,7 +337,7 @@ function F2aViz() {
         <div className="space-y-4">
             <motion.div
                 {...fadeIn(0)}
-                className="flex items-center justify-between font-mono text-[10px] text-[var(--color-ink-subtle)]"
+                className="flex items-center justify-between font-mono text-[12px] text-[var(--color-ink-subtle)]"
             >
                 <span>sales_data.csv</span>
                 <span>15 rows × 7 cols</span>
@@ -357,7 +361,7 @@ function F2aViz() {
 
             <motion.div
                 {...fadeIn(0.9)}
-                className="flex gap-4 font-mono text-[10px] text-[var(--color-ink-muted)]"
+                className="flex gap-4 font-mono text-[12px] text-[var(--color-ink-muted)]"
             >
                 <span>avg 29,500</span>
                 <span className="text-[var(--color-ink-subtle)]">·</span>
@@ -458,7 +462,7 @@ function GoogerViz() {
         <div className="space-y-2.5">
             <motion.div
                 {...fadeIn(0)}
-                className="flex items-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-2 font-mono text-[11px]"
+                className="flex items-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-2 font-mono text-[13px]"
             >
                 <Search className="h-3 w-3 text-[var(--color-ink-subtle)]" />
                 <span className="text-[var(--color-ink-muted)]">
@@ -473,10 +477,10 @@ function GoogerViz() {
                     transition={{ delay: 0.4 + i * 0.22 }}
                     className="rounded-md border border-[var(--color-line)] bg-white p-2.5"
                 >
-                    <div className="text-[11.5px] font-medium text-[var(--color-ink)]">
+                    <div className="text-[13.5px] font-medium text-[var(--color-ink)]">
                         {r.title}
                     </div>
-                    <div className="mt-0.5 text-[10px] text-[var(--color-ink-muted)]">
+                    <div className="mt-0.5 text-[12px] text-[var(--color-ink-muted)]">
                         {r.body}
                     </div>
                 </motion.div>

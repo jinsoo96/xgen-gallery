@@ -22,7 +22,7 @@ export function CopyCommand({ value }: { value: string }) {
     return (
         <button
             onClick={copy}
-            className="inline-flex items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-3 py-2 font-mono text-[11.5px] text-[var(--color-ink-muted)] transition hover:border-[var(--color-ink)] hover:bg-white hover:text-[var(--color-ink)]"
+            className="inline-flex items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-3 py-2 font-mono text-[13.5px] text-[var(--color-ink-muted)] transition hover:border-[var(--color-ink)] hover:bg-white hover:text-[var(--color-ink)]"
         >
             <span>$ {value}</span>
             {copied ? (

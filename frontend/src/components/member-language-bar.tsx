@@ -28,7 +28,7 @@ export function MemberLanguageBar({
                 {languages.map((l) => (
                     <div
                         key={l.name}
-                        className="flex items-center gap-1.5 text-[12px] text-[var(--color-ink-muted)]"
+                        className="flex items-center gap-1.5 text-[14px] text-[var(--color-ink-muted)]"
                     >
                         <span
                             className="h-2 w-2 rounded-full"
@@ -37,7 +37,7 @@ export function MemberLanguageBar({
                         <span className="font-medium text-[var(--color-ink)]">
                             {l.name}
                         </span>
-                        <span className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
+                        <span className="font-mono text-[13px] text-[var(--color-ink-subtle)]">
                             {Math.round((l.count / total) * 100)}%
                         </span>
                     </div>

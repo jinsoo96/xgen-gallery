@@ -79,7 +79,7 @@ export function MemberContributionGraph({
         <section className="rounded-xl border border-[var(--color-line)] bg-white p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
-                    <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
+                    <p className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
                         / activity
                     </p>
                     <h2 className="mt-2 text-lg font-semibold tracking-tight">
@@ -248,7 +248,7 @@ function Tooltip({
             : `${count} contribution${count === 1 ? "" : "s"}`;
     return (
         <div
-            className="pointer-events-none absolute z-10 whitespace-nowrap rounded-md bg-[var(--color-ink)] px-2.5 py-1.5 text-[11px] leading-tight text-white shadow-lg"
+            className="pointer-events-none absolute z-10 whitespace-nowrap rounded-md bg-[var(--color-ink)] px-2.5 py-1.5 text-[13px] leading-tight text-white shadow-lg"
             style={{
                 left: `${leftPct}%`,
                 top: flipBelow
@@ -289,7 +289,7 @@ function Tooltip({
 
 function Legend() {
     return (
-        <div className="flex items-center gap-1.5 text-[11px] text-[var(--color-ink-subtle)]">
+        <div className="flex items-center gap-1.5 text-[13px] text-[var(--color-ink-subtle)]">
             <span>Less</span>
             {LEVEL_COLORS.map((c) => (
                 <span

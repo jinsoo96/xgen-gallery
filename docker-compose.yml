@@ -15,6 +15,15 @@ services:
       GITHUB_TOKEN: "${GITHUB_TOKEN:-}"
       MEMBERS_REVALIDATE_SECONDS: "${MEMBERS_REVALIDATE_SECONDS:-1800}"
       MEMBERS_REVALIDATE_TOKEN: "${MEMBERS_REVALIDATE_TOKEN:-}"
+      # Members 데이터 소스: 설정 시 GitHub 직접 호출 대신 이 갤러리 배포본의
+      # /api/members(목록)·/api/members/{login}(상세)에서 가져옴.
+      MEMBERS_UPSTREAM_URL: "${MEMBERS_UPSTREAM_URL:-https://gallery-xgen.x2bee.com}"
+      # /demo 폼 수신 웹훅 — Google Apps Script 웹앱 URL (시트 저장 + 이메일 발송).
+      # 설정 방법: docs/demo-webhook.gs 참고. 비어 있으면 서버 로그로만 기록.
+      DEMO_WEBHOOK_URL: "${DEMO_WEBHOOK_URL:-}"
+      # 블로그 어드민(Decap CMS) GitHub OAuth — docs/blog-cms.md 참고.
+      GITHUB_OAUTH_CLIENT_ID: "${GITHUB_OAUTH_CLIENT_ID:-}"
+      GITHUB_OAUTH_CLIENT_SECRET: "${GITHUB_OAUTH_CLIENT_SECRET:-}"
     depends_on:
       backend:
         condition: service_healthy

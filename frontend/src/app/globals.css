@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
+/* Pretendard (self-hosted variable woff2) — same font as konantech.
+   One file covers all weights; font-display: swap shows text immediately. */
+@font-face {
+    font-family: "Pretendard Variable";
+    font-weight: 45 920;
+    font-style: normal;
+    font-display: swap;
+    src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+}
+
 @theme {
-    --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
-        "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --font-sans: "Pretendard Variable", Pretendard, var(--font-geist-sans),
+        ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Apple SD Gothic Neo", "Malgun Gothic",
+        "Noto Sans KR", sans-serif;
     --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
         Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
@@ -19,6 +31,10 @@
     --radius-lg: 12px;
     --radius-xl: 16px;
     --radius-2xl: 20px;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 html,
@@ -227,3 +243,113 @@ body {
 }
 .member-readme th, .member-readme td { border: 1px solid var(--color-line); padding: 0.4em 0.7em; }
 .member-readme th { background: var(--color-surface-alt); }
+
+/* ---------------- Hero rolling slides ---------------- */
+@keyframes heroSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+}
+.hero-slide-enter {
+    animation: heroSlideIn 0.6s ease both;
+}
+
+/* ---------------- Blog (markdown 본문) ---------------- */
+.blog-prose {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--color-ink-muted);
+}
+.blog-prose > * + * { margin-top: 1.15em; }
+.blog-prose h2 {
+    margin-top: 2.2em;
+    margin-bottom: 0.6em;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+}
+.blog-prose h3 {
+    margin-top: 1.8em;
+    margin-bottom: 0.5em;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-ink);
+}
+.blog-prose p { color: var(--color-ink-muted); }
+.blog-prose strong { color: var(--color-ink); font-weight: 700; }
+.blog-prose a {
+    color: #2461d8;
+    font-weight: 600;
+    text-underline-offset: 3px;
+    text-decoration: underline;
+    text-decoration-color: rgba(36, 97, 216, 0.35);
+}
+.blog-prose a:hover { text-decoration-color: #2461d8; }
+.blog-prose ul, .blog-prose ol { padding-left: 1.3em; }
+.blog-prose ul { list-style: disc; }
+.blog-prose ol { list-style: decimal; }
+.blog-prose li { margin-top: 0.4em; color: var(--color-ink-muted); }
+.blog-prose li::marker { color: #9bb1d6; }
+.blog-prose blockquote {
+    margin: 1.6em 0;
+    border-left: 3px solid #2f7bff;
+    background: var(--color-surface-alt);
+    padding: 0.9em 1.2em;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--color-ink);
+}
+.blog-prose blockquote p { color: var(--color-ink); }
+.blog-prose code {
+    font-family: var(--font-geist-mono, ui-monospace, monospace);
+    font-size: 0.88em;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-line);
+    border-radius: 0.35rem;
+    padding: 0.12em 0.4em;
+}
+.blog-prose pre {
+    margin: 1.4em 0;
+    overflow-x: auto;
+    border-radius: 0.6rem;
+    border: 1px solid var(--color-line);
+    background: #0b1020;
+    padding: 1em 1.2em;
+}
+.blog-prose pre code { background: none; border: none; padding: 0; color: #e6ecf7; }
+.blog-prose img { margin: 1.6em 0; border-radius: 0.6rem; border: 1px solid var(--color-line); }
+.blog-prose table {
+    width: 100%;
+    margin: 1.6em 0;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    overflow: hidden;
+    border-radius: 0.6rem;
+    border: 1px solid var(--color-line);
+}
+.blog-prose th, .blog-prose td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.6em 0.9em;
+    text-align: left;
+}
+.blog-prose th { background: var(--color-surface-alt); color: var(--color-ink); font-weight: 600; }
+.blog-prose td { color: var(--color-ink-muted); }
+.blog-prose hr { margin: 2em 0; border: none; border-top: 1px solid var(--color-line); }
+
+/* ---------------- Sticky PoC CTA banner ---------------- */
+@keyframes ctaUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+.cta-enter { animation: ctaUp 0.4s ease both; }
+
+/* ---------------- 고객사 로고 마퀴 ---------------- */
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.marquee-track { animation: marquee 28s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+}

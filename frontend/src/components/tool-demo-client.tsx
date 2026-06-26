@@ -40,8 +40,8 @@ export function ToolDemoClient({ tool }: { tool: Tool }) {
 
 function NoManifest({ tool }: { tool: Tool }) {
     return (
-        <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-            <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+        <div className="mx-auto max-w-3xl px-6 py-28 text-center">
+            <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                 / demo unavailable
             </p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight">
@@ -56,7 +56,7 @@ function NoManifest({ tool }: { tool: Tool }) {
                     href={`https://github.com/PlateerLab/${tool.repo}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-md border border-[var(--color-line)] bg-white px-4 py-2 text-sm font-medium transition hover:border-[var(--color-ink)]"
+                    className="rounded-md border border-[var(--color-line)] bg-white px-4 py-2 text-[16px] font-medium transition hover:border-[var(--color-ink)]"
                 >
                     Open on GitHub
                 </Link>
@@ -183,7 +183,7 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
         <main className="mx-auto max-w-6xl px-6 pt-8 pb-24">
             <Link
                 href="/"
-                className="inline-flex items-center gap-1.5 text-sm text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                className="inline-flex items-center gap-1.5 text-[16px] text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
             >
                 <ArrowLeft className="h-3.5 w-3.5" />
                 Back to home
@@ -193,11 +193,11 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
             <header className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
                     <div className="flex items-center gap-2">
-                        <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        <span className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                             / {CATEGORY_LABEL[tool.category]}
                         </span>
                         {manifest.apiEndpoint && (
-                            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-line)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-ink-muted)]">
+                            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-line)] px-2 py-0.5 font-mono text-[12px] text-[var(--color-ink-muted)]">
                                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                                 live
                             </span>
@@ -206,7 +206,7 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                     <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
                         {tool.name}
                     </h1>
-                    <p className="mt-3 max-w-2xl text-base leading-relaxed text-[var(--color-ink-muted)]">
+                    <p className="mt-3 max-w-2xl text-[18px] leading-relaxed text-[var(--color-ink-muted)]">
                         {manifest.description || tool.description}
                     </p>
                 </div>
@@ -216,7 +216,7 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                         href={`https://github.com/PlateerLab/${tool.repo}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-xs font-medium text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
+                        className="inline-flex items-center justify-center gap-2 rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-[14px] font-medium text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
                     >
                         View on GitHub
                     </Link>
@@ -226,21 +226,21 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
             {/* Samples */}
             {manifest.samples.length > 0 && (
                 <div className="mt-10 flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                    <span className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                         samples
                     </span>
                     {manifest.samples.map((s, i) => (
                         <button
                             key={i}
                             onClick={() => loadSample(i)}
-                            className="rounded-full border border-[var(--color-line)] bg-white px-3 py-1 text-xs text-[var(--color-ink-muted)] transition hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]"
+                            className="rounded-full border border-[var(--color-line)] bg-white px-3 py-1 text-[14px] text-[var(--color-ink-muted)] transition hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]"
                         >
                             {s.label}
                         </button>
                     ))}
                     <button
                         onClick={reset}
-                        className="ml-auto text-xs text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
+                        className="ml-auto text-[14px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
                     >
                         Reset
                     </button>
@@ -252,8 +252,8 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                 {/* Input panel */}
                 <section className="rounded-2xl border border-[var(--color-line)] bg-white p-6">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-semibold tracking-tight">Input</h2>
-                        <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                        <h2 className="text-[16px] font-semibold tracking-tight">Input</h2>
+                        <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                             {manifest.inputs.length} field{manifest.inputs.length !== 1 ? "s" : ""}
                         </span>
                     </div>
@@ -273,7 +273,7 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                         onClick={runDemo}
                         disabled={state.isRunning}
                         className={cn(
-                            "mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition",
+                            "mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[16px] font-medium transition",
                             state.isRunning
                                 ? "cursor-not-allowed bg-[var(--color-line)] text-[var(--color-ink-muted)]"
                                 : "bg-[var(--color-ink)] text-white hover:bg-[var(--color-ink)]/90",
@@ -296,9 +296,9 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                 {/* Output panel */}
                 <section className="rounded-2xl border border-[var(--color-line)] bg-white p-6">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-semibold tracking-tight">Output</h2>
+                        <h2 className="text-[16px] font-semibold tracking-tight">Output</h2>
                         {state.elapsedMs !== null && !state.error && (
-                            <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                            <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                 {(state.elapsedMs / 1000).toFixed(2)}s
                             </span>
                         )}
@@ -306,11 +306,11 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
 
                     <div className="mt-5">
                         {state.error ? (
-                            <div className="rounded-md border border-red-200 bg-red-50 p-4 font-mono text-[12px] text-red-700">
+                            <div className="rounded-md border border-red-200 bg-red-50 p-4 font-mono text-[14px] text-red-700">
                                 {state.error}
                             </div>
                         ) : state.isRunning ? (
-                            <div className="flex items-center gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-4 font-mono text-[12px] text-[var(--color-ink-muted)]">
+                            <div className="flex items-center gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-4 font-mono text-[14px] text-[var(--color-ink-muted)]">
                                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                                 POST {manifest.apiEndpoint}
                             </div>
@@ -320,7 +320,7 @@ function DemoRunner({ tool, manifest }: { tool: Tool; manifest: DemoManifest }) 
                                 values={state.outputValues}
                             />
                         ) : (
-                            <div className="rounded-md border border-dashed border-[var(--color-line)] bg-[var(--color-surface-alt)] p-8 text-center text-[13px] text-[var(--color-ink-subtle)]">
+                            <div className="rounded-md border border-dashed border-[var(--color-line)] bg-[var(--color-surface-alt)] p-8 text-center text-[15px] text-[var(--color-ink-subtle)]">
                                 Pick a sample above, or fill inputs and press Run demo.
                             </div>
                         )}
@@ -347,14 +347,14 @@ function InputRenderer({
     onFileChange: (f: File | null) => void;
 }) {
     const label = (
-        <label className="mb-1.5 block text-xs font-medium text-[var(--color-ink)]">
+        <label className="mb-1.5 block text-[14px] font-medium text-[var(--color-ink)]">
             {field.label}
             {field.required && <span className="ml-1 text-red-500">*</span>}
         </label>
     );
 
     const inputClass =
-        "w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-[13px] text-[var(--color-ink)] outline-none transition focus:border-[var(--color-ink)]";
+        "w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-2 text-[15px] text-[var(--color-ink)] outline-none transition focus:border-[var(--color-ink)]";
 
     switch (field.type) {
         case "file":
@@ -392,7 +392,7 @@ function InputRenderer({
                         placeholder={field.placeholder}
                         onChange={(e) => onChange(e.target.value)}
                         rows={5}
-                        className={`${inputClass} resize-y font-mono text-[12px] leading-relaxed`}
+                        className={`${inputClass} resize-y font-mono text-[14px] leading-relaxed`}
                     />
                 </div>
             );
@@ -429,7 +429,7 @@ function InputRenderer({
                             onChange={(e) => onChange(Number(e.target.value))}
                             className="flex-1 accent-[var(--color-ink)]"
                         />
-                        <span className="min-w-[60px] text-right font-mono text-[12px] text-[var(--color-ink)]">
+                        <span className="min-w-[60px] text-right font-mono text-[14px] text-[var(--color-ink)]">
                             {String(value ?? field.default ?? 0)}
                         </span>
                     </div>
@@ -443,7 +443,7 @@ function InputRenderer({
                     <button
                         onClick={() => onChange(!value)}
                         className={cn(
-                            "rounded-md border px-4 py-1.5 text-xs font-medium transition",
+                            "rounded-md border px-4 py-1.5 text-[14px] font-medium transition",
                             value
                                 ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
                                 : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)]",
@@ -502,10 +502,10 @@ function FileDrop({
             {file ? (
                 <div className="flex items-center justify-between gap-3 text-left">
                     <div className="min-w-0 flex-1">
-                        <div className="truncate text-[13px] text-[var(--color-ink)]">
+                        <div className="truncate text-[15px] text-[var(--color-ink)]">
                             {file.name}
                         </div>
-                        <div className="font-mono text-[11px] text-[var(--color-ink-subtle)]">
+                        <div className="font-mono text-[13px] text-[var(--color-ink-subtle)]">
                             {formatBytes(file.size)}
                         </div>
                     </div>
@@ -522,12 +522,12 @@ function FileDrop({
             ) : (
                 <div>
                     <Upload className="mx-auto h-5 w-5 text-[var(--color-ink-subtle)]" />
-                    <div className="mt-2 text-[13px] text-[var(--color-ink-muted)]">
+                    <div className="mt-2 text-[15px] text-[var(--color-ink-muted)]">
                         Click or drag a file
                     </div>
                     {accept && (
                         <div
-                            className="mt-1 truncate font-mono text-[10px] text-[var(--color-ink-subtle)]"
+                            className="mt-1 truncate font-mono text-[12px] text-[var(--color-ink-subtle)]"
                             title={accept}
                         >
                             {accept}
@@ -556,10 +556,10 @@ function OutputPanel({
                 return (
                     <div key={field.key}>
                         <div className="mb-2 flex items-center justify-between">
-                            <span className="text-xs font-medium text-[var(--color-ink)]">
+                            <span className="text-[14px] font-medium text-[var(--color-ink)]">
                                 {field.label}
                             </span>
-                            <span className="font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                            <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                 {field.type}
                             </span>
                         </div>
@@ -575,14 +575,14 @@ function OutputRenderer({ field, value }: { field: OutputField; value: unknown }
     switch (field.type) {
         case "text":
             return (
-                <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[12px] leading-relaxed text-[var(--color-ink)]">
+                <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[14px] leading-relaxed text-[var(--color-ink)]">
                     {typeof value === "string" ? value : String(value)}
                 </pre>
             );
 
         case "json":
             return (
-                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px] leading-relaxed text-[var(--color-ink)]">
+                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px] leading-relaxed text-[var(--color-ink)]">
                     {JSON.stringify(value, null, 2)}
                 </pre>
             );
@@ -595,7 +595,7 @@ function OutputRenderer({ field, value }: { field: OutputField; value: unknown }
 
         case "tree":
             return (
-                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px] leading-relaxed text-[var(--color-ink)]">
+                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px] leading-relaxed text-[var(--color-ink)]">
                     {JSON.stringify(value, null, 2)}
                 </pre>
             );
@@ -605,11 +605,11 @@ function OutputRenderer({ field, value }: { field: OutputField; value: unknown }
 
         case "html":
             return (
-                <div className="max-h-96 overflow-auto rounded-md border border-[var(--color-line)] bg-white p-3 text-[13px]">
+                <div className="max-h-96 overflow-auto rounded-md border border-[var(--color-line)] bg-white p-3 text-[15px]">
                     {typeof value === "string" ? (
                         <div dangerouslySetInnerHTML={{ __html: value }} />
                     ) : (
-                        <pre className="font-mono text-[11.5px]">
+                        <pre className="font-mono text-[13.5px]">
                             {JSON.stringify(value, null, 2)}
                         </pre>
                     )}
@@ -618,7 +618,7 @@ function OutputRenderer({ field, value }: { field: OutputField; value: unknown }
 
         default:
             return (
-                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px] text-[var(--color-ink)]">
+                <pre className="max-h-80 overflow-auto rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px] text-[var(--color-ink)]">
                     {JSON.stringify(value, null, 2)}
                 </pre>
             );
@@ -630,7 +630,7 @@ function ChunkList({ value }: { value: unknown }) {
 
     if (!Array.isArray(value)) {
         return (
-            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px]">
+            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px]">
                 {JSON.stringify(value, null, 2)}
             </pre>
         );
@@ -645,7 +645,7 @@ function ChunkList({ value }: { value: unknown }) {
                         type="button"
                         onClick={() => setMode(m)}
                         className={cn(
-                            "rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide transition",
+                            "rounded-sm border px-2 py-0.5 font-mono text-[12px] uppercase tracking-wide transition",
                             mode === m
                                 ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
                                 : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
@@ -667,7 +667,7 @@ function ChunkList({ value }: { value: unknown }) {
                             key={i}
                             className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3"
                         >
-                            <div className="mb-1.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                            <div className="mb-1.5 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                 #{i}
                             </div>
                             <ChunkBody text={text} mode={mode} />
@@ -682,7 +682,7 @@ function ChunkList({ value }: { value: unknown }) {
 function ChunkBody({ text, mode }: { text: string; mode: ChunkViewMode }) {
     if (mode === "raw") {
         return (
-            <div className="whitespace-pre-wrap font-mono text-[11.5px] leading-relaxed text-[var(--color-ink)]">
+            <div className="whitespace-pre-wrap font-mono text-[13.5px] leading-relaxed text-[var(--color-ink)]">
                 {text}
             </div>
         );
@@ -695,7 +695,7 @@ function ChunkBody({ text, mode }: { text: string; mode: ChunkViewMode }) {
 
     return (
         <div
-            className="chunk-rendered text-[13px] leading-relaxed text-[var(--color-ink)]"
+            className="chunk-rendered text-[15px] leading-relaxed text-[var(--color-ink)]"
             dangerouslySetInnerHTML={{ __html: html }}
         />
     );
@@ -704,7 +704,7 @@ function ChunkBody({ text, mode }: { text: string; mode: ChunkViewMode }) {
 function SearchResults({ value }: { value: unknown }) {
     if (!Array.isArray(value)) {
         return (
-            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px]">
+            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px]">
                 {JSON.stringify(value, null, 2)}
             </pre>
         );
@@ -718,16 +718,16 @@ function SearchResults({ value }: { value: unknown }) {
                         key={i}
                         className="rounded-md border border-[var(--color-line)] bg-white p-3"
                     >
-                        <div className="text-[13px] font-medium text-[var(--color-ink)]">
+                        <div className="text-[15px] font-medium text-[var(--color-ink)]">
                             {String(obj.title ?? `Result ${i + 1}`)}
                         </div>
                         {obj.href || obj.url ? (
-                            <div className="mt-0.5 truncate font-mono text-[10px] text-[var(--color-ink-subtle)]">
+                            <div className="mt-0.5 truncate font-mono text-[12px] text-[var(--color-ink-subtle)]">
                                 {String(obj.href ?? obj.url)}
                             </div>
                         ) : null}
                         {obj.body ? (
-                            <div className="mt-1.5 text-[12px] leading-relaxed text-[var(--color-ink-muted)]">
+                            <div className="mt-1.5 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
                                 {String(obj.body)}
                             </div>
                         ) : null}
@@ -742,14 +742,14 @@ function TableView({ value }: { value: unknown }) {
     const obj = value as { columns?: string[]; rows?: unknown[][] } | undefined;
     if (!obj?.columns || !Array.isArray(obj.rows)) {
         return (
-            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[11.5px]">
+            <pre className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-3 font-mono text-[13.5px]">
                 {JSON.stringify(value, null, 2)}
             </pre>
         );
     }
     return (
         <div className="max-h-96 overflow-auto rounded-md border border-[var(--color-line)]">
-            <table className="w-full border-collapse text-[12px]">
+            <table className="w-full border-collapse text-[14px]">
                 <thead className="bg-[var(--color-surface-alt)]">
                     <tr>
                         {obj.columns.map((c, i) => (
@@ -768,7 +768,7 @@ function TableView({ value }: { value: unknown }) {
                             {row.map((cell, ci) => (
                                 <td
                                     key={ci}
-                                    className="border-b border-[var(--color-line)] px-3 py-2 font-mono text-[11px] text-[var(--color-ink-muted)]"
+                                    className="border-b border-[var(--color-line)] px-3 py-2 font-mono text-[13px] text-[var(--color-ink-muted)]"
                                 >
                                     {String(cell)}
                                 </td>

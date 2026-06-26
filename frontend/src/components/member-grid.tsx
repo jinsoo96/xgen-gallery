@@ -65,7 +65,7 @@ export function MemberGrid({ members }: { members: MemberSummary[] }) {
                             key={s.id}
                             onClick={() => setSort(s.id)}
                             className={cn(
-                                "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium transition",
+                                "inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[14px] font-medium transition",
                                 sort === s.id
                                     ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-white"
                                     : "border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
@@ -81,12 +81,12 @@ export function MemberGrid({ members }: { members: MemberSummary[] }) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search members…"
-                    className="w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-1.5 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-ink-subtle)] focus:border-[var(--color-ink)] focus:outline-none md:w-64"
+                    className="w-full rounded-md border border-[var(--color-line)] bg-white px-3 py-1.5 text-[16px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-subtle)] focus:border-[var(--color-ink)] focus:outline-none md:w-64"
                 />
             </div>
 
             {filtered.length === 0 ? (
-                <p className="mt-16 text-center text-sm text-[var(--color-ink-muted)]">
+                <p className="mt-16 text-center text-[16px] text-[var(--color-ink-muted)]">
                     No members match your search.
                 </p>
             ) : (

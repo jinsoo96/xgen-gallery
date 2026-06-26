@@ -277,10 +277,10 @@ export function SynapticGraph({
         return (
             <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-[var(--color-line)] bg-[var(--color-surface-alt)] p-12 text-center">
                 <div>
-                    <div className="font-mono text-[11px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                    <div className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                         empty graph
                     </div>
-                    <div className="mt-2 text-[13px] text-[var(--color-ink-muted)]">
+                    <div className="mt-2 text-[15px] text-[var(--color-ink-muted)]">
                         Upload a document to build the knowledge graph.
                     </div>
                 </div>
@@ -319,7 +319,7 @@ export function SynapticGraph({
             </div>
 
             {/* Zoom level indicator */}
-            <div className="absolute left-3 top-3 z-10 rounded border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[10px] text-[var(--color-ink-subtle)]">
+            <div className="absolute left-3 top-3 z-10 rounded border border-[var(--color-line)] bg-white px-2 py-0.5 font-mono text-[12px] text-[var(--color-ink-subtle)]">
                 {(zoom * 100).toFixed(0)}%
             </div>
 
@@ -523,11 +523,11 @@ export function SynapticGraph({
                     return (
                         <foreignObject x={n.x + 16} y={n.y - 30} width={240} height={90}>
                             <div className="rounded-md border border-[var(--color-line)] bg-white px-3 py-2 shadow-lg">
-                                <div className="truncate text-[11px] font-semibold text-[var(--color-ink)]">
+                                <div className="truncate text-[13px] font-semibold text-[var(--color-ink)]">
                                     {n.title}
                                 </div>
                                 {preview && (
-                                    <div className="mt-1 line-clamp-2 text-[10px] leading-snug text-[var(--color-ink-muted)]">
+                                    <div className="mt-1 line-clamp-2 text-[12px] leading-snug text-[var(--color-ink-muted)]">
                                         {preview}
                                     </div>
                                 )}
