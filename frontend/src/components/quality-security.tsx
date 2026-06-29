@@ -40,7 +40,6 @@ export function QualitySecurity() {
                         <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                             GS 인증
                         </span>
-                        으로 품질을 증명
                     </h2>
                     <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
                         XGEN Agentic AI Platform은 한국정보통신기술협회(TTA)의 GS
@@ -50,12 +49,12 @@ export function QualitySecurity() {
                     <div className="mt-6 flex flex-wrap items-center gap-4">
                         {/* 상태 배지 */}
                         <div className="inline-flex items-center gap-2 rounded-xl border border-[#cce6d7] bg-[#ecf8f1] px-4 py-3">
-                            <Award className="h-5 w-5 text-[#b9810f]" />
+                            <Award className="h-5 w-5 text-[#1f9d57]" />
                             <div className="text-left">
                                 <p className="text-[14px] font-bold text-[var(--color-ink)]">
                                     GS 인증 (Good Software)
                                 </p>
-                                <p className="text-[13px] font-semibold text-[#b9810f]">
+                                <p className="text-[13px] font-semibold text-[#1f9d57]">
                                     심사 종료 · 최종 인증 대기 중
                                 </p>
                             </div>
