@@ -29,38 +29,38 @@ const EFFECTS = [
 export function QualitySecurity() {
     return (
         <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
-            <div className="mx-auto grid max-w-6xl gap-12 px-6 py-28 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-                {/* 좌 — 헤딩 + 상태 */}
-                <div className="lg:sticky lg:top-28">
+            <div className="mx-auto max-w-6xl px-6 py-28">
+                {/* 헤딩 + 상태 — 상단 한 줄 */}
+                <div className="max-w-3xl">
                     <span className="inline-flex rounded-full border border-[var(--color-line)] bg-white px-3 py-1 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                         Quality &amp; Security
                     </span>
                     <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[var(--color-ink)] md:text-[40px] md:leading-[1.15]">
                         검증 가능한 Enterprise AI,{" "}
-                        <span className="bg-gradient-to-r from-[#2f7bff] to-[#7c5cff] bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                             GS 인증
                         </span>
-                        으로 품질을 증명합니다
+                        으로 품질을 증명
                     </h2>
-                    <p className="mt-5 max-w-md text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                    <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
                         XGEN Agentic AI Platform은 한국정보통신기술협회(TTA)의 GS
                         인증 시험·평가를 완료하고, 최종 인증 결과를 기다리고 있습니다
                     </p>
 
-                    {/* 상태 배지 */}
-                    <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-[#f3dca0] bg-[#fff7e6] px-4 py-3">
-                        <Award className="h-5 w-5 text-[#b9810f]" />
-                        <div className="text-left">
-                            <p className="text-[14px] font-bold text-[var(--color-ink)]">
-                                GS 인증 (Good Software)
-                            </p>
-                            <p className="text-[13px] font-semibold text-[#b9810f]">
-                                심사 종료 · 최종 인증 대기 중
-                            </p>
+                    <div className="mt-6 flex flex-wrap items-center gap-4">
+                        {/* 상태 배지 */}
+                        <div className="inline-flex items-center gap-2 rounded-xl border border-[#cce6d7] bg-[#ecf8f1] px-4 py-3">
+                            <Award className="h-5 w-5 text-[#b9810f]" />
+                            <div className="text-left">
+                                <p className="text-[14px] font-bold text-[var(--color-ink)]">
+                                    GS 인증 (Good Software)
+                                </p>
+                                <p className="text-[13px] font-semibold text-[#b9810f]">
+                                    심사 종료 · 최종 인증 대기 중
+                                </p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="mt-7">
                         <Link
                             href="/solutions#certification"
                             className="group inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2461d8] transition hover:text-[#1b4fb0]"
@@ -71,8 +71,8 @@ export function QualitySecurity() {
                     </div>
                 </div>
 
-                {/* 우 — 카드 스택 */}
-                <div className="space-y-4">
+                {/* 카드 — 3개 한 줄 */}
+                <div className="mt-12 grid gap-4 md:grid-cols-3 md:items-stretch">
                     {INFO.map((c) => (
                         <div
                             key={c.title}
@@ -102,7 +102,7 @@ export function QualitySecurity() {
                                 GS 인증의 도입 효과
                             </h3>
                         </div>
-                        <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                        <ul className="mt-4 space-y-2.5">
                             {EFFECTS.map((e) => (
                                 <li
                                     key={e}

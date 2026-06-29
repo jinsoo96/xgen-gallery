@@ -141,7 +141,7 @@ const FAQ_KO: FaqEntry[] = [
     {
         question: "Plateer AI Labs는 어떤 일을 하는 곳인가요?",
         answer:
-            "Plateer AI Labs는 XGEN 플랫폼을 떠받치는 오픈소스 AI 라이브러리를 공개하는 연구소입니다. 문서 인제스션(Contextifier, Doc2Chunk, f2a), 지식 그래프(Synaptic Memory), 에이전트 도구(Googer)를 제공하며 모두 MIT 라이선스의 Python 패키지로 pip로 설치하거나 브라우저에서 바로 체험할 수 있습니다.",
+            "Plateer AI Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.",
     },
     {
         question: "RAG 파이프라인을 만들려면 어떤 도구를 써야 하나요?",

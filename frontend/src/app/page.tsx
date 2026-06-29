@@ -1,10 +1,13 @@
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { Hero } from "@/components/hero";
-import { LivePreview } from "@/components/live-preview";
-import { ToolGrid } from "@/components/tool-grid";
+import { HomeResearch } from "@/components/home-research";
+import { HomeTechnology } from "@/components/home-technology";
 import { UseCases } from "@/components/usecases";
+import { HomeIndustries } from "@/components/home-industries";
 import { QualitySecurity } from "@/components/quality-security";
+import { HomeInsights } from "@/components/home-insights";
+import { HomeResources } from "@/components/home-resources";
 import { Faq } from "@/components/faq";
 import { JsonLd } from "@/components/json-ld";
 import { faqPageLd } from "@/lib/structured-data";
@@ -17,10 +20,13 @@ export default function Home() {
             <SiteNav overlay />
             <main>
                 <Hero />
-                <LivePreview />
-                <ToolGrid />
+                <HomeResearch />
+                <HomeTechnology />
                 <UseCases />
+                <HomeIndustries />
                 <QualitySecurity />
+                <HomeInsights />
+                <HomeResources />
                 <Faq />
             </main>
             <SiteFooter />

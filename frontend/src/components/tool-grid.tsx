@@ -35,7 +35,7 @@ export function ToolGrid() {
                     <h2 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
                         {t.toolsSection.titleA}
                         <br />
-                        <span className="text-[var(--color-ink-muted)]">
+                        <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                             {t.toolsSection.titleB}
                         </span>
                     </h2>

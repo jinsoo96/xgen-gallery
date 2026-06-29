@@ -58,10 +58,9 @@ export function UseCases({ embedded = false }: { embedded?: boolean }) {
                 <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                     {t.usecases.eyebrow}
                 </p>
-                <h2 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">
-                    {t.usecases.titleA}
-                    <br />
-                    <span className="text-[var(--color-ink-muted)]">
+                <h2 className="mt-3 max-w-4xl text-4xl font-semibold tracking-tight md:text-5xl">
+                    {t.usecases.titleA}{" "}
+                    <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                         {t.usecases.titleB}
                     </span>
                 </h2>
