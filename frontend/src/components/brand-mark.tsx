@@ -1,5 +1,5 @@
 /**
- * PLEX brand logo — renders the supplied image asset as-is
+ * Plateer AILabs brand logo — renders the supplied image asset as-is
  * (public/brand-mark.png). Not modified.
  */
 export function BrandMark({ className }: { className?: string }) {

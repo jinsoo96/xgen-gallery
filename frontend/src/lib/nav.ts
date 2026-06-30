@@ -241,10 +241,10 @@ export const DEMO_CTA = {
     href: "/demo",
 };
 
-/** Footer "About PLEX" column — its own one-page at /about. */
+/** Footer "About" column — its own one-page at /about. */
 export const ABOUT_GROUP: NavGroup = {
     key: "about",
-    label: "About PLEX",
+    label: "About",
     concept: "about",
     blurb: "Plateer AI Labs를 만드는 미션과 사람들.",
     items: [

@@ -2,7 +2,7 @@ import { GroupPage } from "@/components/onepage";
 import { ABOUT_GROUP } from "@/lib/nav";
 
 export const metadata = {
-    title: "About PLEX",
+    title: "About Plateer AILabs",
     description: "Plateer AI Labs를 만드는 사람들과 회사 소개.",
     alternates: { canonical: "/about" },
 };

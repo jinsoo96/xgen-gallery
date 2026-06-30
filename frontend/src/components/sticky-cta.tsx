@@ -11,7 +11,7 @@ import { DEMO_CTA } from "@/lib/nav";
  * 전 페이지 우측 하단에 떠 있는 PoC·기술 상담 배너 (흰 배경 카드 + 일러스트).
  * (목적지 /demo 와 CMS /admin 에서는 숨김) 닫으면 localStorage에 기록해 다시 띄우지 않는다.
  */
-const DISMISS_KEY = "plex-poc-cta-dismissed";
+const DISMISS_KEY = "ailabs-poc-cta-dismissed";
 
 /** PoC 검증을 상징하는 인라인 일러스트. */
 function CtaArt() {

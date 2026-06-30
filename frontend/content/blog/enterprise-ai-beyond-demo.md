@@ -3,7 +3,7 @@ title: "Enterprise AI는 왜 데모에서 멈추는가"
 description: "많은 기업의 AI가 PoC까지는 성공하지만 현업 정착에 실패합니다. 그 원인과 운영 가능한 구조로 넘어가는 방법을 정리합니다."
 date: "2026-06-20"
 author: "Plateer AI Labs"
-category: "Plex Tech"
+category: "AILab Tech"
 tags: ["Enterprise AI", "Agentic AI", "운영"]
 draft: false
 ---
