@@ -2,6 +2,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { XgenPlatformArchitecture } from "@/components/xgen-platform-arch";
 import {
     ShieldCheck,
     Share2,
@@ -169,6 +170,30 @@ export default function ArchitecturePage() {
                         <div className="mt-8">
                             <ArchitectureDiagram />
                         </div>
+                    </div>
+                </section>
+
+                {/* XGEN 2.0 플랫폼 아키텍처 (공개-안전 구성) */}
+                <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
+                    <div className="mx-auto max-w-7xl px-6 py-24">
+                        <Eyebrow>/ XGEN Platform</Eyebrow>
+                        <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+                            XGEN 2.0 플랫폼 아키텍처
+                        </h2>
+                        <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
+                            웹 · 확장 · SDK 클라이언트부터 API Gateway, 마이크로서비스,
+                            데이터 계층까지 — GitOps로 운영되는 컨테이너 기반 Enterprise
+                            AI 플랫폼
+                        </p>
+                        <div className="mt-8">
+                            <XgenPlatformArchitecture />
+                        </div>
+                        <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">
+                            모든 요청은 API Gateway에서 인증 · 라우팅되어 각
+                            마이크로서비스로 전달되며, 워크플로우 · 지식검색 · 도구실행 ·
+                            모델추론이 하나의 클러스터에서 협력합니다. 온프레미스 ·
+                            폐쇄망 배포를 기본 지원합니다.
+                        </p>
                     </div>
                 </section>
             </main>

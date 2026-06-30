@@ -15,7 +15,7 @@ const ASSETS: {
     {
         icon: BookOpen,
         title: "Documentation",
-        body: "XGEN 플랫폼과 라이브러리 사용을 위한 가이드와 레퍼런스",
+        body: "XGEN 사용자 매뉴얼 — 플랫폼·라이브러리 가이드와 레퍼런스",
         href: "/documentation",
     },
     {

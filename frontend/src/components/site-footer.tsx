@@ -57,7 +57,7 @@ export function SiteFooter() {
                                 href="/poc-projects"
                                 className="group inline-flex items-center gap-2 rounded-full border border-[var(--color-line-strong)] bg-white/70 px-6 py-3 text-[16px] font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-ink)]"
                             >
-                                우수 사례 보러가기
+                                PoC 사례 보러가기
                                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                             </Link>
                         </div>
