@@ -33,6 +33,20 @@ function DropdownItem({
     groupKey: string;
     onClose: () => void;
 }) {
+    if (item.external) {
+        return (
+            <a
+                href={item.external}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className="flex items-center gap-1 rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]"
+            >
+                {item.label}
+                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
+            </a>
+        );
+    }
     return (
         <div>
             <Link
@@ -338,23 +352,36 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                         </Link>
                                     )}
 
-                                    {hasMenu && open && (
+                                    {hasMenu && (open || g.external) && (
                                         <div className="pb-3">
                                             {items.map((it) => (
                                                 <div key={it.id}>
-                                                    <Link
-                                                        href={
-                                                            it.route ??
-                                                            sectionHref(
-                                                                g.key,
-                                                                it.id,
-                                                            )
-                                                        }
-                                                        onClick={close}
-                                                        className="block py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                                                    >
-                                                        {it.label}
-                                                    </Link>
+                                                    {it.external ? (
+                                                        <a
+                                                            href={it.external}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onClick={close}
+                                                            className="flex items-center gap-1 py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                                        >
+                                                            {it.label}
+                                                            <ArrowUpRight className="h-4 w-4 text-[var(--color-ink-subtle)]" />
+                                                        </a>
+                                                    ) : (
+                                                        <Link
+                                                            href={
+                                                                it.route ??
+                                                                sectionHref(
+                                                                    g.key,
+                                                                    it.id,
+                                                                )
+                                                            }
+                                                            onClick={close}
+                                                            className="block py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                                        >
+                                                            {it.label}
+                                                        </Link>
+                                                    )}
                                                     {it.children && (
                                                         <div className="ml-3 border-l border-[var(--color-line)] pl-3">
                                                             {it.children.map(

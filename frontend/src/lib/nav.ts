@@ -219,12 +219,18 @@ export const NAV_GROUPS: NavGroup[] = [
         items: [],
     },
     {
-        // 외부 링크 — XGEN 제품 사이트로 이동(새 탭, 아웃링크 화살표).
+        // Product — 제품 사이트(외부) + 드롭다운에 무료 체험(Trial) 통합.
         key: "product",
         label: "Product",
         concept: "products",
         blurb: "",
-        items: [],
+        items: [
+            {
+                label: "무료 체험 (Trial)",
+                id: "xgen-trial",
+                external: "https://www.xgen.im/trial",
+            },
+        ],
         external: "https://www.xgen.im/",
     },
 ];
@@ -238,7 +244,7 @@ export function getGroup(key: string): NavGroup | undefined {
 export const DEMO_CTA = {
     ko: "PoC · 기술 상담",
     en: "PoC · Tech consulting",
-    href: "/demo",
+    href: "/contact",
 };
 
 /** Footer "About" column — its own one-page at /about. */

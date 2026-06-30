@@ -67,7 +67,7 @@ export function StickyCta() {
         return () => clearTimeout(t);
     }, []);
 
-    const hidden = pathname === "/demo" || pathname.startsWith("/admin");
+    const hidden = pathname === "/contact" || pathname.startsWith("/admin");
     if (hidden || !visible) return null;
 
     const en = locale === "en";

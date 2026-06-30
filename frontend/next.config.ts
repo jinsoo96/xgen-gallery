@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
         return [
             // 블로그를 /insights → /blog 로 이전 (SEO 손실 방지, 영구 리다이렉트).
             { source: '/insights', destination: '/blog', permanent: true },
+            { source: '/demo', destination: '/contact', permanent: true },
         ];
     },
     async rewrites() {

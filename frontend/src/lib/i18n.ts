@@ -253,8 +253,8 @@ export const dict: Record<Locale, Dict> = {
         footer: { tools: "도구", contact: "문의" },
         releasesPage: {
             eyebrow: "변경 이력",
-            title: "릴리스 노트",
-            desc: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정을 정리했습니다. 최신 변경사항이 먼저 표시됩니다.",
+            title: "Release Notes",
+            desc: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정을 정리했습니다 — 최신 변경사항이 먼저 표시됩니다",
         },
         membersPage: {
             eyebrow: "팀",
@@ -322,8 +322,8 @@ export const dict: Record<Locale, Dict> = {
         footer: { tools: "Tools", contact: "Contact" },
         releasesPage: {
             eyebrow: "Changelog",
-            title: "Release notes",
-            desc: "New features, improvements, and fixes for the XGEN platform. Latest changes first.",
+            title: "Release Notes",
+            desc: "New features, improvements, and fixes for the XGEN platform — latest changes first",
         },
         membersPage: {
             eyebrow: "Team",

@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 export function SiteFooter() {
     const pathname = usePathname();
     // CTA는 메인(/)과 문의 페이지(/demo)를 제외한 모든 페이지 하단에 노출.
-    const showCta = pathname !== "/" && pathname !== "/demo";
+    const showCta = pathname !== "/" && pathname !== "/contact";
     // 페이지마다 다른 패턴이 나오도록 경로 기반으로 변형을 고른다(충돌 방지 맵).
     const ctaVariant = variantForPath(pathname);
     // Explore 목록 — 좌 3개(Research·Technology·Applied AI) / 우 3개(Resources·Insights·Product).
@@ -47,7 +47,7 @@ export function SiteFooter() {
                         </p>
                         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                             <Link
-                                href="/demo"
+                                href="/contact"
                                 className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-6 py-3 text-[16px] font-semibold text-white shadow-[0_8px_24px_-6px_rgba(47,123,255,0.5)] transition hover:brightness-110"
                             >
                                 문의하기
@@ -156,7 +156,7 @@ export function SiteFooter() {
                                 <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
                             </a>
                             <Link
-                                href="/demo"
+                                href="/contact"
                                 className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
                             >
                                 PoC · 기술 상담

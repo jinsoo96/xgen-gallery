@@ -6,7 +6,7 @@ export const metadata = {
     title: "PoC · 기술 상담",
     description:
         "Plateer AI Labs에 PoC와 Enterprise AI 기술 상담을 요청하세요. 과제를 남겨주시면 담당자가 영업일 기준 1–2일 내에 연락드립니다.",
-    alternates: { canonical: "/demo" },
+    alternates: { canonical: "/contact" },
 };
 
 const BENEFITS = [
@@ -15,7 +15,7 @@ const BENEFITS = [
     "PoC 결과 기반 도입 로드맵 가이드 제공",
 ];
 
-export default function DemoPage() {
+export default function ContactPage() {
     return (
         <>
             {/* overlay nav so the background fills behind the GNB, like the main page */}

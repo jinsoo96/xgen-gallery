@@ -277,7 +277,7 @@ export default function TechnicalConsultingPage() {
                             수립까지 연구소의 기술 전문성으로 함께합니다.
                         </p>
                         <Link
-                            href="/demo"
+                            href="/contact"
                             className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-6px_rgba(47,123,255,0.5)] transition hover:brightness-110"
                         >
                             PoC · 기술 컨설팅 문의

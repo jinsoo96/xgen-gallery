@@ -326,7 +326,7 @@ export function DemoForm() {
                 />
             </div>
 
-            <div className="mt-6 space-y-3 border-t border-[var(--color-line)] pt-5">
+            <div className="mt-5 space-y-2 border-t border-[var(--color-line)] pt-4">
                 <Consent
                     label={c.agreePolicy}
                     checked={fields.agreePrivacyPolicy}
@@ -518,14 +518,14 @@ function Consent({
     error?: string;
 }) {
     return (
-        <label className="flex cursor-pointer items-start gap-2.5">
+        <label className="flex cursor-pointer items-start gap-2">
             <input
                 type="checkbox"
                 checked={checked}
                 onChange={(e) => onChange(e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 rounded border-[var(--color-line-strong)] accent-[var(--color-ink)]"
+                className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-[var(--color-line-strong)] accent-[var(--color-ink)]"
             />
-            <span className="text-[15px] leading-snug text-[var(--color-ink-muted)]">
+            <span className="text-[13px] leading-snug text-[var(--color-ink-muted)]">
                 {label}
                 {error && <span className="ml-1 text-red-600">— {error}</span>}
             </span>
