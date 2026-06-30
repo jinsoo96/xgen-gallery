@@ -252,8 +252,8 @@ export const dict: Record<Locale, Dict> = {
         faq: { eyebrow: "/ 자주 묻는 질문", title: "자주 묻는 질문", entries: FAQ_KO },
         footer: { tools: "도구", contact: "문의" },
         releasesPage: {
-            eyebrow: "변경 이력",
-            title: "Release Notes",
+            eyebrow: "Release Notes",
+            title: "Better with every release",
             desc: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정을 정리했습니다 — 최신 변경사항이 먼저 표시됩니다",
         },
         membersPage: {
@@ -321,8 +321,8 @@ export const dict: Record<Locale, Dict> = {
         faq: { eyebrow: "/ frequently asked", title: "Frequently asked questions", entries: FAQ_EN },
         footer: { tools: "Tools", contact: "Contact" },
         releasesPage: {
-            eyebrow: "Changelog",
-            title: "Release Notes",
+            eyebrow: "Release Notes",
+            title: "Better with every release",
             desc: "New features, improvements, and fixes for the XGEN platform — latest changes first",
         },
         membersPage: {

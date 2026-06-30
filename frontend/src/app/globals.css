@@ -43,6 +43,10 @@ body {
     color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* 한글이 글자 단위로 끊겨 어색하게 줄바꿈되는 것을 방지 — 단어(공백) 단위로 줄바꿈.
+       긴 영문 토큰·URL은 overflow-wrap으로 안전하게 분리. */
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 ::selection {

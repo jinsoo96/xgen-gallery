@@ -127,7 +127,7 @@ function Cell({
                 className,
             )}
         >
-            <div className="text-[13.5px] font-semibold leading-tight text-[var(--color-ink)]">
+            <div className="break-keep text-[13.5px] font-semibold leading-tight text-[var(--color-ink)]">
                 {title}
             </div>
             {sub && (

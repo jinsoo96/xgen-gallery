@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { XgenPlatformArchitecture } from "@/components/xgen-platform-arch";
+import { XgenCicd } from "@/components/xgen-cicd";
 import {
     ShieldCheck,
     Share2,
@@ -194,6 +195,23 @@ export default function ArchitecturePage() {
                             모델추론이 하나의 클러스터에서 협력합니다. 온프레미스 ·
                             폐쇄망 배포를 기본 지원합니다.
                         </p>
+                    </div>
+                </section>
+
+                {/* CI/CD — GitOps 배포 파이프라인 (공개-안전 구성) */}
+                <section className="border-t border-[var(--color-line)] bg-[var(--color-surface)]">
+                    <div className="mx-auto max-w-7xl px-6 py-24">
+                        <Eyebrow>/ CI/CD</Eyebrow>
+                        <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+                            GitOps 배포 파이프라인
+                        </h2>
+                        <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
+                            소스 변경부터 운영 반영까지 — 컨테이너 이미지 빌드와 선언형
+                            GitOps 동기화로 통제된 배포를 수행합니다
+                        </p>
+                        <div className="mt-8">
+                            <XgenCicd />
+                        </div>
                     </div>
                 </section>
             </main>
