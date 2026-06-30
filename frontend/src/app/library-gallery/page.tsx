@@ -19,10 +19,10 @@ export default function LibraryGalleryPage() {
             <section className="relative flex h-[560px] items-center overflow-hidden border-b border-white/10 text-white">
                 <SceneBackground concept="tools" />
                 <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
-                    <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                        / Technology · Library Gallery
+                    <p className="text-[16px] font-semibold tracking-tight text-[#fcd34d]">
+                        Technology · Library Gallery
                     </p>
-                    <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
+                    <h1 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
                         Library Gallery
                     </h1>
                     <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/65">

@@ -12,10 +12,10 @@ export const metadata = {
 function ResearchHero() {
     return (
         <div className="max-w-3xl">
-            <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                / Research
+            <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
+                Research
             </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
                 Research that makes Enterprise AI real
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">

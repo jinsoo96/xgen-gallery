@@ -11,10 +11,10 @@ export const metadata = {
 function ResourcesHero() {
     return (
         <div className="max-w-3xl">
-            <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                / Resources
+            <p className="text-[16px] font-semibold tracking-tight text-[#5eead4]">
+                Resources
             </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
                 Enterprise AI Resources
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">

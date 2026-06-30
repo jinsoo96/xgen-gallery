@@ -55,10 +55,10 @@ export default function BlogPage() {
             <section className="relative flex min-h-[480px] items-center overflow-hidden border-b border-white/10 py-28 text-white">
                 <SceneBackground concept="insights" />
                 <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
-                    <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                        / Plateer AI Labs · Insight Blog
+                    <p className="text-[16px] font-semibold tracking-tight text-[#fcd34d]">
+                        Plateer AI Labs · Insight Blog
                     </p>
-                    <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight md:text-6xl md:leading-[1.1]">
+                    <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[1.1]">
                         Proven by research,
                         <br />
                         delivered as value in the field

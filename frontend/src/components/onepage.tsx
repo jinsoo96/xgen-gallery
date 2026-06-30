@@ -33,10 +33,10 @@ function GroupHero({
 function DefaultGroupHero({ group }: { group: NavGroup }) {
     return (
         <>
-            <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                / {group.label}
+            <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
+                {group.label}
             </p>
-            <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
+            <h1 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
                 {group.label}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/65">

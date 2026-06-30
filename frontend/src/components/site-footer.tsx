@@ -16,6 +16,8 @@ export function SiteFooter() {
     const ctaVariant = variantForPath(pathname);
     // Explore 목록 — 좌 3개(Research·Technology·Applied AI) / 우 3개(Resources·Insights·Product).
     const exploreGroups = NAV_GROUPS.filter((g) => !g.hidden);
+    // 저작권 끝 연도는 현재 연도로 자동 갱신 (2027년이면 2023–2027).
+    const year = new Date().getFullYear();
 
     return (
         <footer className="border-t border-[var(--color-line)] bg-white">
@@ -69,7 +71,7 @@ export function SiteFooter() {
                         <div className="flex items-center gap-2 text-[16px] text-[var(--color-ink-muted)]">
                             <BrandMark className="h-5 w-5" />
                             <span>
-                                © 2023–2026 Plateer{" "}
+                                © 2023{year > 2023 ? `–${year}` : ""} Plateer{" "}
                                 <span className="text-[#2f7bff]">AI</span> Labs
                             </span>
                         </div>
@@ -116,45 +118,50 @@ export function SiteFooter() {
                         </div>
                     </nav>
 
-                    {/* About PLEX 링크 묶음 (헤딩 워딩 제거) */}
-                    <nav className="flex flex-col gap-2.5 text-[16px]">
-                        {ABOUT_GROUP.items.map((it) =>
-                            it.external ? (
-                                <a
-                                    key={it.id}
-                                    href={it.external}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                                >
-                                    {it.label}
-                                    <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
-                                </a>
-                            ) : (
-                                <Link
-                                    key={it.id}
-                                    href={it.route ?? sectionHref(ABOUT_GROUP.key, it.id)}
-                                    className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                                >
-                                    {it.label}
-                                </Link>
-                            ),
-                        )}
-                        <a
-                            href={SITE.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                        >
-                            GitHub
-                            <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
-                        </a>
-                        <Link
-                            href="/demo"
-                            className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                        >
-                            PoC · 기술 상담
-                        </Link>
+                    {/* About — Explore와 같은 선상의 헤딩 + Company/GitHub/PoC */}
+                    <nav className="text-[16px]">
+                        <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                            About
+                        </p>
+                        <div className="mt-2.5 flex flex-col gap-2.5">
+                            {ABOUT_GROUP.items.map((it) =>
+                                it.external ? (
+                                    <a
+                                        key={it.id}
+                                        href={it.external}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                    >
+                                        {it.label}
+                                        <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={it.id}
+                                        href={it.route ?? sectionHref(ABOUT_GROUP.key, it.id)}
+                                        className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                    >
+                                        {it.label}
+                                    </Link>
+                                ),
+                            )}
+                            <a
+                                href={SITE.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                            >
+                                GitHub
+                                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
+                            </a>
+                            <Link
+                                href="/demo"
+                                className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                            >
+                                PoC · 기술 상담
+                            </Link>
+                        </div>
                     </nav>
                 </div>
             </div>

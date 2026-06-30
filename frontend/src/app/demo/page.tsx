@@ -36,10 +36,10 @@ export default function DemoPage() {
                     <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16">
                         {/* intro */}
                         <div className="md:pt-6">
-                            <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                                / Plateer AI Labs · PoC · 기술 상담
+                            <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
+                                Plateer AI Labs · PoC · 기술 상담
                             </p>
-                            <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+                            <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
                                 PoC · 기술 상담
                             </h1>
                             <p className="mt-5 max-w-md text-lg leading-relaxed text-white/65">

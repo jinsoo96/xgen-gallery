@@ -130,8 +130,8 @@ export default function TechnicalConsultingPage() {
             <section className="relative flex min-h-[520px] items-center overflow-hidden border-b border-white/10 py-28 text-white">
                 <SceneBackground concept="solutions" />
                 <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
-                    <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                        / Applied AI · Technical Consulting
+                    <p className="text-[16px] font-semibold tracking-tight text-[#5eead4]">
+                        Applied AI · Technical Consulting
                     </p>
                     <h1 className="mt-3 max-w-3xl text-3xl font-bold leading-tight tracking-tight md:text-5xl">
                         Enterprise AI의 성공은 올바른 기술 전략에서 시작됩니다

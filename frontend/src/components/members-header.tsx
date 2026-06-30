@@ -1,10 +1,10 @@
 export function MembersHeader() {
     return (
         <>
-            <p className="mb-3 text-[14px] font-medium uppercase tracking-[0.18em] text-white/55">
-                / Research Team
+            <p className="mb-3 text-[16px] font-semibold tracking-tight text-[#c4b5fd]">
+                Research Team
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">
+            <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
                 Enterprise AI를 연구하는 전문가들
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">

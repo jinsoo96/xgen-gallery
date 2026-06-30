@@ -109,23 +109,18 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
             <div className="flex h-[84px] w-full items-center justify-between px-6">
                 <Link
                     href="/"
-                    className="flex translate-y-[12px] flex-col items-start leading-none min-[1440px]:ml-[calc((100vw-90rem)/2)]"
+                    className="flex translate-y-[12px] items-baseline gap-2 leading-none min-[1440px]:ml-[calc((100vw-90rem)/2)]"
                 >
                     <BrandMark
                         className={cn(
-                            "mt-[2px] h-[26px] w-auto transition",
+                            "h-[24px] w-auto transition",
                             light && "brightness-0 invert",
                         )}
                     />
                     <span
-                        className={cn(
-                            "mt-1.5 text-[14px] font-medium tracking-tight transition-colors",
-                            light
-                                ? "text-white/70"
-                                : "text-[var(--color-ink-muted)]",
-                        )}
+                        className="text-[21px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
                     >
-                        {t.nav.tagline}
+                        AILabs
                     </span>
                 </Link>
 

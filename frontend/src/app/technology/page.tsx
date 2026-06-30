@@ -16,10 +16,10 @@ export const metadata = {
 function TechnologyHero() {
     return (
         <div className="max-w-3xl">
-            <p className="font-mono text-[13px] uppercase tracking-widest text-white/55">
-                / Technology
+            <p className="text-[16px] font-semibold tracking-tight text-[#67e8f9]">
+                Technology
             </p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">
+            <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
                 Enterprise AI, Engineered for Reality
             </h1>
             <p className="mt-5 text-lg font-medium leading-relaxed text-white/85">

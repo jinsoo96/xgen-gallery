@@ -35,7 +35,7 @@ export function QualitySecurity() {
                     <span className="inline-flex rounded-full border border-[var(--color-line)] bg-white px-3 py-1 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                         Quality &amp; Security
                     </span>
-                    <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-[var(--color-ink)] md:text-[40px] md:leading-[1.15]">
+                    <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-[var(--color-ink)] md:text-5xl">
                         검증 가능한 Enterprise AI,{" "}
                         <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                             GS 인증
