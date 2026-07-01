@@ -200,9 +200,12 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                 <div className="absolute left-0 top-full pt-3">
                                     {g.wide ? (
                                         <div className="flex gap-8 rounded-xl border border-[var(--color-line)] bg-white p-4 shadow-xl">
-                                            {[0, 1, 2].map((col) => {
+                                            {Array.from({
+                                                length: g.cols ?? 3,
+                                            }).map((_, col) => {
                                                 const per = Math.ceil(
-                                                    menuItems.length / 3,
+                                                    menuItems.length /
+                                                        (g.cols ?? 3),
                                                 );
                                                 const slice = menuItems.slice(
                                                     col * per,

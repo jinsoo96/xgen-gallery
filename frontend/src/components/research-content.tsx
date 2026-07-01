@@ -28,7 +28,6 @@ const NAV = [
     { id: "fields", label: "핵심 연구 분야" },
     { id: "cases", label: "실증 연구 사례" },
     { id: "methodology", label: "검증 가능한 AI를 위한 연구 방법론" },
-    { id: "academic", label: "Papers" },
 ];
 
 type ArtKind = "trust" | "sovereignty" | "composable";
@@ -533,30 +532,6 @@ export function ResearchContent() {
                         </p>
                     </div>
                 </section>
-
-                {/* 5. Papers */}
-                <section id="academic" className="scroll-mt-28">
-                    <SectionHeading>Papers</SectionHeading>
-                    <div className="mt-6 rounded-2xl border border-[var(--color-line)] bg-white p-7 md:p-8">
-                        <div className="flex items-center gap-3">
-                            <IconBadge icon={GraduationCap} />
-                            <h4 className="text-xl font-bold tracking-tight text-[var(--color-ink)]">
-                                학술적 검증을 거친 AI 핵심 기술
-                            </h4>
-                        </div>
-                        <p className="mt-4 max-w-2xl text-[16.5px] leading-relaxed text-[var(--color-ink-muted)]">
-                            Enterprise AI의 신뢰성과 실용성을 높이기 위해 연구
-                            성과를 지속적으로 발표하고 검증합니다
-                        </p>
-
-                        {/* 구성원 논문 연결 영역 — 추후 게재 */}
-                        <div className="mt-6 rounded-xl border border-dashed border-[var(--color-line-strong)] bg-[var(--color-surface-alt)] p-8 text-center">
-                            <p className="text-[16px] text-[var(--color-ink-muted)]">
-                                구성원들의 논문이 곧 연결됩니다
-                            </p>
-                        </div>
-                    </div>
-                </section>
             </div>
 
             {/* sticky scroll-spy index (right) */}
@@ -578,6 +553,34 @@ export function ResearchContent() {
                     ))}
                 </nav>
             </aside>
+        </div>
+    );
+}
+
+/**
+ * Papers 섹션 콘텐츠 — 연구 그룹 one-page의 `/research#papers` 섹션에 주입된다.
+ * 섹션 제목("Papers")은 GroupPage의 Section이 렌더하므로 여기서는 카드만 반환한다.
+ */
+export function PapersContent() {
+    return (
+        <div className="rounded-2xl border border-[var(--color-line)] bg-white p-7 md:p-8">
+            <div className="flex items-center gap-3">
+                <IconBadge icon={GraduationCap} />
+                <h4 className="text-xl font-bold tracking-tight text-[var(--color-ink)]">
+                    학술적 검증을 거친 AI 핵심 기술
+                </h4>
+            </div>
+            <p className="mt-4 max-w-2xl text-[16.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                Enterprise AI의 신뢰성과 실용성을 높이기 위해 연구 성과를
+                지속적으로 발표하고 검증합니다
+            </p>
+
+            {/* 구성원 논문 연결 영역 — 추후 게재 */}
+            <div className="mt-6 rounded-xl border border-dashed border-[var(--color-line-strong)] bg-[var(--color-surface-alt)] p-8 text-center">
+                <p className="text-[16px] text-[var(--color-ink-muted)]">
+                    구성원들의 논문이 곧 연결됩니다
+                </p>
+            </div>
         </div>
     );
 }

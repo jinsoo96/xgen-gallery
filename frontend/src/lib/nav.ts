@@ -67,8 +67,10 @@ export interface NavGroup {
      * only the top-level menu is collapsed to a single link to /{key}.
      */
     flat?: boolean;
-    /** Lay the GNB dropdown out in two columns (for long item lists). */
+    /** Lay the GNB dropdown out in multiple columns (for long item lists). */
     wide?: boolean;
+    /** Number of columns for a `wide` dropdown (default 3). */
+    cols?: number;
 }
 
 /** Build the full href for a group/section: /research#research-areas */
@@ -114,21 +116,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 ],
             },
             {
-                label: "Runtime",
-                id: "runtime",
-                children: [
-                    { label: "MCP Apps", id: "mcp-apps" },
-                    { label: "Runtime SDK", id: "runtime-sdk" },
-                    { label: "Runtime API", id: "runtime-api" },
-                ],
-            },
-            {
-                label: "Library Gallery",
-                id: "library-gallery",
-                route: "/library-gallery",
-                blurb: "XGEN을 떠받치는 오픈소스 라이브러리 모음 — 인제스션, 지식 그래프, 에이전트 도구를 한곳에서.",
-            },
-            {
                 label: "Architecture",
                 id: "architecture",
                 route: "/architecture",
@@ -140,6 +127,15 @@ export const NAV_GROUPS: NavGroup[] = [
                     { label: "XGEN 플랫폼", id: "platform", route: "/architecture#platform" },
                     { label: "코드 어시스턴트", id: "code-assistant", route: "/architecture#code-assistant" },
                     { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
+                ],
+            },
+            {
+                label: "Runtime",
+                id: "runtime",
+                children: [
+                    { label: "MCP Apps", id: "mcp-apps" },
+                    { label: "Runtime SDK", id: "runtime-sdk" },
+                    { label: "Runtime API", id: "runtime-api" },
                 ],
             },
         ],
@@ -182,7 +178,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/poc-projects",
                 blurb: "산업별 PoC 실증 프로젝트를 한 페이지에서 모아 확인하세요.",
             },
-            { label: "Library Recipes", id: "library-recipes" },
             {
                 label: "Technical Consulting",
                 id: "technical-consulting",
@@ -190,24 +185,27 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
-                // 섹션은 /solutions#certification 으로 렌더하되, GNB 드롭다운에는
-                // 노출하지 않는다(하단 Product 하위 "Certifications & Quality"에서만 진입).
-                label: "Certifications & Quality",
-                id: "certification",
+                // Library Gallery(별도 페이지) 아래에 Library Recipes를 서브로 노출.
+                // Recipes 링크는 /solutions#library-recipes 섹션으로 스크롤된다.
+                label: "Library Gallery",
+                id: "library-gallery",
+                route: "/library-gallery",
+                blurb: "XGEN을 떠받치는 오픈소스 라이브러리 모음 — 인제스션, 지식 그래프, 에이전트 도구를 한곳에서.",
+                children: [{ label: "Library Recipes", id: "library-recipes" }],
+            },
+            {
+                // 섹션은 /solutions#library-recipes 로 렌더하되, GNB 드롭다운에는
+                // 노출하지 않는다(위 Library Gallery 하위 항목에서만 진입).
+                label: "Library Recipes",
+                id: "library-recipes",
                 hidden: true,
             },
             {
-                label: "Product",
-                id: "xgen-site",
-                external: "https://www.xgen.im/",
-                children: [
-                    { label: "Certifications & Quality", id: "certification" },
-                    {
-                        label: "무료 체험 (Trial)",
-                        id: "xgen-trial",
-                        external: "https://www.xgen.im/trial",
-                    },
-                ],
+                // 섹션은 /solutions#certification 으로 렌더하되, GNB 드롭다운에는
+                // 노출하지 않는다(최상위 Product 메뉴의 "Certifications & Quality"에서만 진입).
+                label: "Certifications & Quality",
+                id: "certification",
+                hidden: true,
             },
         ],
     },
@@ -225,12 +223,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정 이력.",
             },
             {
-                label: "Documentation",
-                id: "documentation",
-                route: "/documentation",
-                blurb: "XGEN 플랫폼과 라이브러리 사용을 위한 가이드와 레퍼런스.",
-            },
-            {
                 label: "Research Team",
                 id: "research-team",
                 route: "/members",
@@ -245,6 +237,34 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
         items: [],
+    },
+    {
+        // 최상위 Product 메뉴 — XGEN 제품. 라벨은 xgen.im 으로 나가되,
+        // 드롭다운(2열)에 인증·문서·체험을 모아 보여준다.
+        key: "product",
+        label: "Product",
+        concept: "solutions",
+        blurb: "XGEN — 검증된 Enterprise AI 플랫폼",
+        external: "https://www.xgen.im/",
+        wide: true,
+        cols: 2,
+        items: [
+            {
+                label: "Certifications & Quality",
+                id: "certification",
+                route: "/solutions#certification",
+            },
+            {
+                label: "Documentation",
+                id: "documentation",
+                route: "/documentation",
+            },
+            {
+                label: "무료 체험 (Trial)",
+                id: "xgen-trial",
+                external: "https://www.xgen.im/trial",
+            },
+        ],
     },
 ];
 
