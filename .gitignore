@@ -16,3 +16,9 @@ __pycache__/
 
 # Playwright MCP test artifacts
 .playwright-mcp/
+
+# stray presentation/methodology assets — never commit
+/CA-*
+/NSR-*
+*.pptx
+~$*

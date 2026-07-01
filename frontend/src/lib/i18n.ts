@@ -144,9 +144,9 @@ const FAQ_KO: FaqEntry[] = [
             "Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.",
     },
     {
-        question: "RAG 파이프라인을 만들려면 어떤 도구를 써야 하나요?",
+        question: "RAG 파이프라인을 만들려면 어떤 도구를 사용해야 하나요?",
         answer:
-            "문서를 AI 친화 텍스트로 변환하는 Contextifier로 인제스션하고, Doc2Chunk로 컨텍스트 인식 청킹을 한 뒤, 임베딩·검색을 연결하면 RAG 파이프라인이 됩니다. 장기 기억이 필요한 에이전트라면 Synaptic Memory 지식 그래프를 추가합니다.",
+            "기본적인 RAG는 Contextifier → Doc2Chunk → 임베딩 → 검색 순으로 구성합니다. 먼저 Contextifier가 문서를 AI 친화적인 텍스트로 변환하고, Doc2Chunk가 문맥을 고려해 청킹합니다. 이후 임베딩 모델과 검색 엔진을 연결하면 RAG 파이프라인이 완성됩니다. 장기 기억이나 관계 기반 추론이 필요한 에이전트는 Synaptic Memory를 추가하여 지식그래프 기반 메모리를 함께 사용할 수 있습니다.",
     },
     {
         question: "Contextifier는 어떤 문서 포맷을 지원하나요?",
@@ -159,7 +159,7 @@ const FAQ_KO: FaqEntry[] = [
             "Synaptic Memory는 자동 온톨로지 구성, 헤비안 학습, 4단계 기억 통합을 갖춘 뇌 영감 지식 그래프입니다. 단순 벡터 유사도 검색을 넘어 노드·엣지로 개념 관계를 저장하므로, 오래 실행되는 에이전트의 장기 기억에 적합합니다. `pip install synaptic-memory`.",
     },
     {
-        question: "이 도구들은 무료이고 상업적으로 쓸 수 있나요?",
+        question: "Plateer Labs에서 제공하는 이 도구들은 무료이고 상업적으로 쓸 수 있나요?",
         answer:
             "네. 모든 라이브러리는 MIT 라이선스의 오픈소스로 무료이며 상업적 사용이 가능합니다. 소스는 github.com/PlateerLab에서 확인할 수 있고 각 도구는 pip로 설치합니다.",
     },

@@ -5,6 +5,7 @@ import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { XgenPlatformArchitecture } from "@/components/xgen-platform-arch";
 import { XgenCicd } from "@/components/xgen-cicd";
 import { CodeAssistantArchitecture } from "@/components/code-assistant-arch";
+import { ArchIndex } from "@/components/arch-index";
 import {
     ShieldCheck,
     Share2,
@@ -26,7 +27,7 @@ export const metadata = {
 export const ARCH_SECTIONS = [
     { id: "foundation", label: "기반 아키텍처" },
     { id: "principles", label: "설계 원칙" },
-    { id: "reference", label: "참조 아키텍처" },
+    { id: "reference", label: "Enterprise AI 아키텍처" },
     { id: "platform", label: "XGEN 플랫폼" },
     { id: "code-assistant", label: "코드 어시스턴트" },
     { id: "cicd", label: "CI/CD 배포" },
@@ -36,7 +37,7 @@ function ArchitectureHero() {
     return (
         <div className="max-w-3xl">
             <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
-                Plateer Labs
+                Architecture
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-5xl">
                 Enterprise AI Architecture
@@ -49,25 +50,6 @@ function ArchitectureHero() {
                 지식 · 추론 · 실행 · 운영을 하나로 잇는 Enterprise AI
             </p>
         </div>
-    );
-}
-
-/** 스티키 페이지 인덱스 — 각 섹션 앵커로 이동. */
-function ArchIndex() {
-    return (
-        <nav className="sticky top-[84px] z-30 border-b border-[var(--color-line)] bg-white/90 backdrop-blur-md">
-            <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-6 py-3">
-                {ARCH_SECTIONS.map((s) => (
-                    <a
-                        key={s.id}
-                        href={`#${s.id}`}
-                        className="whitespace-nowrap rounded-full px-3.5 py-1.5 text-[14px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-ink)]"
-                    >
-                        {s.label}
-                    </a>
-                ))}
-            </div>
-        </nav>
     );
 }
 
@@ -126,7 +108,7 @@ export default function ArchitecturePage() {
                 </div>
             </section>
 
-            <ArchIndex />
+            <ArchIndex sections={ARCH_SECTIONS} />
 
             <main>
                 {/* 신뢰 컨셉 — 2-card (콘텐츠 시작) */}

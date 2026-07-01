@@ -134,7 +134,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                     <span
                         className="text-[24px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
                     >
-                        Labs
+                        LABS
                     </span>
                 </Link>
 

@@ -96,7 +96,7 @@ export const NAV_GROUPS: NavGroup[] = [
                 children: [
                     { label: "기반 아키텍처", id: "foundation", route: "/architecture#foundation" },
                     { label: "설계 원칙", id: "principles", route: "/architecture#principles" },
-                    { label: "참조 아키텍처", id: "reference", route: "/architecture#reference" },
+                    { label: "Enterprise AI 아키텍처", id: "reference", route: "/architecture#reference" },
                     { label: "XGEN 플랫폼", id: "platform", route: "/architecture#platform" },
                     { label: "코드 어시스턴트", id: "code-assistant", route: "/architecture#code-assistant" },
                     { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
