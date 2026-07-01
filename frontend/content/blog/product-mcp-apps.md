@@ -2,7 +2,7 @@
 title: "MCP Apps — 한 번 만들고 어디서나 실행"
 description: "엔진을 감싸는 Wrapper 방식을 넘어, SDK로 워크플로우·정책을 코드에 담아 독립 MCP 서버로 내보내는 MCP Apps를 소개합니다."
 date: "2026-06-21"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["MCP Apps", "독립", "제품"]
 draft: false

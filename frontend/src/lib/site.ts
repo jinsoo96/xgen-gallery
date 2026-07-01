@@ -6,14 +6,14 @@
  * core GEO signal. See docs/GEO-OPTIMIZATION-GUIDE.md.
  */
 export const SITE = {
-    name: "Plateer AI Labs",
-    shortName: "Plateer AI Labs",
+    name: "Plateer Labs",
+    shortName: "Plateer Labs",
     // Canonical production origin. Override per-environment with NEXT_PUBLIC_SITE_URL.
     url: (process.env.NEXT_PUBLIC_SITE_URL || "https://gallery-xgen.x2bee.com").replace(/\/$/, ""),
     description:
-        "Plateer AI Labs는 XGEN 플랫폼을 떠받치는 오픈소스 AI 라이브러리를 공개하는 연구소입니다. 문서 인제스션, 지식 그래프, 에이전트 도구를 pip로 설치하거나 브라우저에서 바로 체험하세요.",
+        "Plateer Labs는 XGEN 플랫폼을 떠받치는 오픈소스 AI 라이브러리를 공개하는 연구소입니다. 문서 인제스션, 지식 그래프, 에이전트 도구를 pip로 설치하거나 브라우저에서 바로 체험하세요.",
     descriptionEn:
-        "Plateer AI Labs is the open-source AI research lab behind the XGEN platform. Install document-ingestion, knowledge-graph, and agent libraries with pip, or try every tool in your browser.",
+        "Plateer Labs is the open-source AI research lab behind the XGEN platform. Install document-ingestion, knowledge-graph, and agent libraries with pip, or try every tool in your browser.",
     github: "https://github.com/PlateerLab",
     githubOrg: "PlateerLab",
     locale: "ko_KR",

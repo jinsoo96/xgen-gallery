@@ -139,9 +139,9 @@ export interface Dict {
 
 const FAQ_KO: FaqEntry[] = [
     {
-        question: "Plateer AI Labs는 어떤 일을 하는 곳인가요?",
+        question: "Plateer Labs는 어떤 일을 하는 곳인가요?",
         answer:
-            "Plateer AI Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.",
+            "Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.",
     },
     {
         question: "RAG 파이프라인을 만들려면 어떤 도구를 써야 하나요?",
@@ -167,9 +167,9 @@ const FAQ_KO: FaqEntry[] = [
 
 const FAQ_EN: FaqEntry[] = [
     {
-        question: "What does Plateer AI Labs do?",
+        question: "What does Plateer Labs do?",
         answer:
-            "Plateer AI Labs is the open-source AI research lab behind the XGEN platform. It ships document-ingestion tools (Contextifier, Doc2Chunk, f2a), a knowledge graph (Synaptic Memory), and agent tooling (Googer) — all MIT-licensed Python packages you can install with pip or try directly in the browser.",
+            "Plateer Labs is the open-source AI research lab behind the XGEN platform. It ships document-ingestion tools (Contextifier, Doc2Chunk, f2a), a knowledge graph (Synaptic Memory), and agent tooling (Googer) — all MIT-licensed Python packages you can install with pip or try directly in the browser.",
     },
     {
         question: "Which tools do I use to build a RAG pipeline?",
@@ -258,7 +258,7 @@ export const dict: Record<Locale, Dict> = {
         },
         membersPage: {
             eyebrow: "팀",
-            title: "Plateer AI Labs를 만드는 사람들.",
+            title: "Plateer Labs를 만드는 사람들.",
             descA: "XGEN 플랫폼과 그 라이브러리 생태계를 만드는 오픈소스 기여자들. 출처: ",
             descB: ".",
         },
@@ -327,7 +327,7 @@ export const dict: Record<Locale, Dict> = {
         },
         membersPage: {
             eyebrow: "Team",
-            title: "The people behind Plateer AI Labs.",
+            title: "The people behind Plateer Labs.",
             descA: "Open-source contributors building the XGEN platform and its ecosystem of libraries. Synced from ",
             descB: ".",
         },

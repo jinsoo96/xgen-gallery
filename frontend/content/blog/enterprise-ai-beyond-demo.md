@@ -2,7 +2,7 @@
 title: "Enterprise AI는 왜 데모에서 멈추는가"
 description: "많은 기업의 AI가 PoC까지는 성공하지만 현업 정착에 실패합니다. 그 원인과 운영 가능한 구조로 넘어가는 방법을 정리합니다."
 date: "2026-06-20"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "AILab Tech"
 tags: ["Enterprise AI", "Agentic AI", "운영"]
 draft: false
@@ -23,7 +23,7 @@ draft: false
 
 기능은 이미 평준화되었습니다. 생산의 한계 비용이 0에 가까워지는 시대에 실행 비용은 폭락했지만, *판단의 가치*는 타협되지 않습니다. 그래서 경쟁력은 "무엇을 보여주는가"가 아니라 "어떤 구조로 운영·확장하는가"로 이동합니다.
 
-Plateer AI Labs는 이 문제를 **운영·독립·연결·확장** 네 축으로 정의합니다.
+Plateer Labs는 이 문제를 **운영·독립·연결·확장** 네 축으로 정의합니다.
 
 | 축 | 질문 | 접근 |
 |---|---|---|

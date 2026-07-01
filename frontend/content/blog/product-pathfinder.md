@@ -2,7 +2,7 @@
 title: "PathFinder — 코드 없이 레거시를 에이전트 도구로"
 description: "로그인부터 API 연결, 도구 등록, 테스트까지 코드 한 줄 없이. 잠들어 있던 레거시 API를 에이전트의 도구로 바꾸는 PathFinder."
 date: "2026-06-08"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["PathFinder", "연결", "No-Code", "제품"]
 draft: false

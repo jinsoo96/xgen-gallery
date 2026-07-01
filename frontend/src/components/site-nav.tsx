@@ -61,7 +61,7 @@ function DropdownItem({
                     {item.children.map((c) => (
                         <Link
                             key={c.id}
-                            href={sectionHref(groupKey, c.id)}
+                            href={c.route ?? sectionHref(groupKey, c.id)}
                             onClick={onClose}
                             className="block rounded-lg px-3 py-1.5 text-[15px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-ink)]"
                         >
@@ -132,9 +132,9 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                         )}
                     />
                     <span
-                        className="text-[21px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
+                        className="text-[24px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
                     >
-                        AILabs
+                        Labs
                     </span>
                 </Link>
 
@@ -388,10 +388,13 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                                 (c) => (
                                                                     <Link
                                                                         key={c.id}
-                                                                        href={sectionHref(
-                                                                            g.key,
-                                                                            c.id,
-                                                                        )}
+                                                                        href={
+                                                                            c.route ??
+                                                                            sectionHref(
+                                                                                g.key,
+                                                                                c.id,
+                                                                            )
+                                                                        }
                                                                         onClick={
                                                                             close
                                                                         }

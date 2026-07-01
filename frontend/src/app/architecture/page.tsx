@@ -4,6 +4,7 @@ import { SceneBackground } from "@/components/scene-background";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { XgenPlatformArchitecture } from "@/components/xgen-platform-arch";
 import { XgenCicd } from "@/components/xgen-cicd";
+import { CodeAssistantArchitecture } from "@/components/code-assistant-arch";
 import {
     ShieldCheck,
     Share2,
@@ -17,15 +18,25 @@ import {
 export const metadata = {
     title: "Architecture",
     description:
-        "Plateer AI Labs의 Enterprise AI 참조 아키텍처 — 데이터 주권·보안·거버넌스를 보장하는 계층형 설계.",
+        "Plateer Labs의 Enterprise AI 참조 아키텍처 — 데이터 주권·보안·거버넌스를 보장하는 계층형 설계.",
     alternates: { canonical: "/architecture" },
 };
+
+/** 아키텍처 페이지 섹션 목차 — 온페이지 인덱스와 GNB 서브메뉴가 공유. */
+export const ARCH_SECTIONS = [
+    { id: "foundation", label: "기반 아키텍처" },
+    { id: "principles", label: "설계 원칙" },
+    { id: "reference", label: "참조 아키텍처" },
+    { id: "platform", label: "XGEN 플랫폼" },
+    { id: "code-assistant", label: "코드 어시스턴트" },
+    { id: "cicd", label: "CI/CD 배포" },
+];
 
 function ArchitectureHero() {
     return (
         <div className="max-w-3xl">
             <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
-                Plateer AI Labs
+                Plateer Labs
             </p>
             <h1 className="mt-2 text-3xl font-bold tracking-tight md:text-5xl">
                 Enterprise AI Architecture
@@ -38,6 +49,25 @@ function ArchitectureHero() {
                 지식 · 추론 · 실행 · 운영을 하나로 잇는 Enterprise AI
             </p>
         </div>
+    );
+}
+
+/** 스티키 페이지 인덱스 — 각 섹션 앵커로 이동. */
+function ArchIndex() {
+    return (
+        <nav className="sticky top-[84px] z-30 border-b border-[var(--color-line)] bg-white/90 backdrop-blur-md">
+            <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-6 py-3">
+                {ARCH_SECTIONS.map((s) => (
+                    <a
+                        key={s.id}
+                        href={`#${s.id}`}
+                        className="whitespace-nowrap rounded-full px-3.5 py-1.5 text-[14px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-ink)]"
+                    >
+                        {s.label}
+                    </a>
+                ))}
+            </div>
+        </nav>
     );
 }
 
@@ -96,9 +126,14 @@ export default function ArchitecturePage() {
                 </div>
             </section>
 
+            <ArchIndex />
+
             <main>
                 {/* 신뢰 컨셉 — 2-card (콘텐츠 시작) */}
-                <section className="border-b border-[var(--color-line)] bg-[var(--color-surface)]">
+                <section
+                    id="foundation"
+                    className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface)]"
+                >
                     <div className="mx-auto max-w-6xl px-6 py-24">
                         <h2 className="max-w-3xl text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-[32px]">
                             데이터 주권과 AI Runtime을 위한 핵심 기반 아키텍처
@@ -126,15 +161,18 @@ export default function ArchitecturePage() {
                 </section>
 
                 {/* 설계 원칙 */}
-                <section className="border-b border-[var(--color-line)] bg-[var(--color-surface-alt)]">
+                <section
+                    id="principles"
+                    className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface-alt)]"
+                >
                     <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ Design Principles</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             아키텍처 설계 원칙
                         </h2>
                         <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
-                            엔터프라이즈 환경에서 AI를 신뢰하고 운영하기 위해
-                            모든 계층이 공유하는 네 가지 설계 기준입니다
+                            엔터프라이즈 환경에서 AI를 신뢰하고 운영하기 위해 모든
+                            계층이 공유하는 네 가지 설계 기준입니다
                         </p>
                         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                             {PRINCIPLES.map((p) => (
@@ -158,15 +196,15 @@ export default function ArchitecturePage() {
                 </section>
 
                 {/* 참조 아키텍처 다이어그램 */}
-                <section className="bg-[var(--color-surface)]">
+                <section id="reference" className="scroll-mt-[140px] bg-[var(--color-surface)]">
                     <div className="mx-auto max-w-7xl px-6 py-24">
                         <Eyebrow>/ Reference Architecture</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             Enterprise AI 아키텍처
                         </h2>
                         <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
-                            접근 채널부터 모델·인프라까지, 신뢰할 수 있는
-                            Enterprise AI를 구성하는 전체 계층 구조
+                            접근 채널부터 모델·인프라까지, 신뢰할 수 있는 Enterprise
+                            AI를 구성하는 전체 계층 구조
                         </p>
                         <div className="mt-8">
                             <ArchitectureDiagram />
@@ -175,7 +213,10 @@ export default function ArchitecturePage() {
                 </section>
 
                 {/* XGEN 2.0 플랫폼 아키텍처 (공개-안전 구성) */}
-                <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
+                <section
+                    id="platform"
+                    className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]"
+                >
                     <div className="mx-auto max-w-7xl px-6 py-24">
                         <Eyebrow>/ XGEN Platform</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
@@ -198,8 +239,31 @@ export default function ArchitecturePage() {
                     </div>
                 </section>
 
+                {/* 코드 어시스턴트 아키텍처 (공개-안전 구성) */}
+                <section
+                    id="code-assistant"
+                    className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface)]"
+                >
+                    <div className="mx-auto max-w-7xl px-6 py-24">
+                        <Eyebrow>/ Code Assistant</Eyebrow>
+                        <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
+                            코드 어시스턴트 아키텍처
+                        </h2>
+                        <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
+                            자연어 질문 · 코드 검색 요청을 인덱싱과 하이브리드 검색, AI
+                            재정렬로 처리해 근거 있는 코드 답변을 제공합니다
+                        </p>
+                        <div className="mt-8">
+                            <CodeAssistantArchitecture />
+                        </div>
+                    </div>
+                </section>
+
                 {/* CI/CD — GitOps 배포 파이프라인 (공개-안전 구성) */}
-                <section className="border-t border-[var(--color-line)] bg-[var(--color-surface)]">
+                <section
+                    id="cicd"
+                    className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface)]"
+                >
                     <div className="mx-auto max-w-7xl px-6 py-24">
                         <Eyebrow>/ CI/CD</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">

@@ -14,7 +14,7 @@ export const revalidate = 0;
 export const metadata = {
     title: "Members",
     description:
-        "Meet the people behind Plateer AI Labs — the open-source contributors building XGEN.",
+        "Meet the people behind Plateer Labs — the open-source contributors building XGEN.",
     alternates: { canonical: "/members" },
 };
 

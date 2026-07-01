@@ -2,7 +2,7 @@
 title: "금융권: 보안을 갖춘 RAG·특화 sLLM 챗봇"
 description: "단순 FAQ를 넘어, 내부망 보안과 컴플라이언스를 갖춘 금융 특화 AI 챗봇을 RAG와 sLLM으로 구축한 사례."
 date: "2026-06-16"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "Case Study"
 tags: ["금융", "RAG", "sLLM", "Case Study"]
 draft: false

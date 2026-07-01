@@ -73,7 +73,7 @@ function VisionSlide() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-xl leading-relaxed text-white/70">
-                Plateer AI Labs는 단순한 AI 기능 개발을 넘어,
+                Plateer Labs는 단순한 AI 기능 개발을 넘어,
                 <br className="hidden sm:block" />
                 기업이 신뢰하고 운영할 수 있는 Enterprise AI의 표준을 연구합니다
             </p>

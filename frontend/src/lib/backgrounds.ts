@@ -111,7 +111,7 @@ export const CONCEPTS: Record<ConceptId, BgConcept> = {
         glow2: "rgba(16,185,129,0.16)",
     },
     about: {
-        label: "Constellation · AILabs",
+        label: "Constellation · Labs",
         base: "#0a0a18",
         glow1: "rgba(124,92,255,0.30)",
         glow2: "rgba(236,72,153,0.18)",

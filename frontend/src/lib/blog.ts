@@ -58,7 +58,7 @@ function parse(slug: string): Post | null {
         description: String(data.description ?? ""),
         date: String(data.date ?? "").slice(0, 10),
         updated: data.updated ? String(data.updated).slice(0, 10) : undefined,
-        author: String(data.author ?? "Plateer AI Labs"),
+        author: String(data.author ?? "Plateer Labs"),
         category: String(data.category ?? "AILab Tech"),
         tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
         cover: data.cover ? String(data.cover) : undefined,

@@ -57,7 +57,7 @@ const CHALLENGES: Card[] = [
         title: "기업 데이터 주권",
         body: [
             "AI는 기업 내부 데이터 위에서 동작해야 합니다.",
-            "Plateer AI Labs는 클라우드 종속 없이 고객의 인프라 환경에서 AI를 운영할 수 있는 온프레미스 중심 아키텍처를 연구합니다.",
+            "Plateer Labs는 클라우드 종속 없이 고객의 인프라 환경에서 AI를 운영할 수 있는 온프레미스 중심 아키텍처를 연구합니다.",
             "금융, 공공, 제조 등 망분리 환경에서도 적용 가능한 운영 체계를 제공합니다.",
         ],
     },
@@ -115,7 +115,7 @@ const FIELDS: Field[] = [
         icon: Network,
         badge: "Core Focus",
         title: "Ontology & Graph Intelligence",
-        desc: "Plateer AI Labs의 핵심 연구 영역입니다. 단순 검색을 넘어 기업 데이터 간의 관계와 맥락을 이해하는 Ontology 기반 AI를 연구합니다.",
+        desc: "Plateer Labs의 핵심 연구 영역입니다. 단순 검색을 넘어 기업 데이터 간의 관계와 맥락을 이해하는 Ontology 기반 AI를 연구합니다.",
         tags: [
             "조직 지식의 구조화",
             "관계 기반 탐색",
@@ -406,7 +406,7 @@ export function ResearchContent() {
                         넘어 실제 업무 프로세스에 통합되어야 합니다
                     </p>
                     <h2 className="mt-5 text-2xl font-bold leading-snug tracking-tight text-[var(--color-ink)] md:text-[28px] md:leading-snug">
-                        Plateer AI Labs는 이러한 요구에 대응하기 위해 기업 환경에
+                        Plateer Labs는 이러한 요구에 대응하기 위해 기업 환경에
                         최적화된 Agentic AI 기술과 운영 체계를 연구합니다
                     </h2>
                     <p className="mt-4 text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
@@ -517,7 +517,7 @@ export function ResearchContent() {
                 <section id="methodology" className="scroll-mt-28">
                     <SectionHeading>검증 가능한 AI를 위한 연구 방법론</SectionHeading>
                     <p className="mt-3 text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
-                        Plateer AI Labs는 단순 데모가 아닌 재현 가능한 검증 체계를
+                        Plateer Labs는 단순 데모가 아닌 재현 가능한 검증 체계를
                         운영합니다
                     </p>
                     <div className="mt-6 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-7">

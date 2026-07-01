@@ -2,7 +2,7 @@
 title: "Harness Engineering: AI가 일하는 환경을 설계하다"
 description: "AI를 움직이는 것은 모델이 아니라 환경입니다. 지시·맥락·행동·검증을 통제하는 Harness Engineering을 소개합니다."
 date: "2026-06-12"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "AILab Tech"
 tags: ["Harness", "LLMOps", "신뢰성"]
 draft: false

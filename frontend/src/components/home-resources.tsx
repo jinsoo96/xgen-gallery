@@ -122,7 +122,7 @@ export function HomeResources() {
                                 Research Team
                             </h3>
                             <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
-                                Plateer AI Labs를 만드는 멤버들을 소개합니다
+                                Plateer Labs를 만드는 멤버들을 소개합니다
                             </p>
                             <span className="mt-auto inline-flex items-center gap-1 pt-5 text-[14px] font-medium text-[var(--color-ink)] transition group-hover:gap-2">
                                 멤버 보러가기

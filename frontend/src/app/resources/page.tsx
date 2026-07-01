@@ -37,7 +37,7 @@ const AREAS = [
     {
         icon: Users,
         title: "Research Team",
-        body: "Plateer AI Labs를 만드는 멤버들 — 연구진의 프로필과 기여 활동을 소개합니다",
+        body: "Plateer Labs를 만드는 멤버들 — 연구진의 프로필과 기여 활동을 소개합니다",
         href: "/members",
         cta: "멤버 보러가기",
     },

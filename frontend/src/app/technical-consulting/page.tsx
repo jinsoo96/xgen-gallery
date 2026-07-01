@@ -27,7 +27,7 @@ export const metadata = {
         "연구로 검증하고 PoC로 입증하는 Enterprise AI 기술 컨설팅 — AI 전략 수립, 아키텍처 설계, PoC 검증, AI 거버넌스까지 도입 전 과정을 설계합니다.",
     alternates: { canonical: "/technical-consulting" },
     openGraph: {
-        title: "Technical Consulting · Plateer AI Labs",
+        title: "Technical Consulting · Plateer Labs",
         description:
             "연구로 검증하고, PoC로 입증합니다 — 연구 기반 Enterprise AI 기술 컨설팅.",
         type: "website",

@@ -2,7 +2,7 @@
 title: "FloUI — 질문이 곧 화면이 되는 UI"
 description: "데이터를 화면에 맞추는 시대는 끝났습니다. 사용자가 묻는 순간 화면을 실시간으로 생성하는 응답형 UI, FloUI를 소개합니다."
 date: "2026-05-30"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["FloUI", "확장", "초개인화", "제품"]
 draft: false

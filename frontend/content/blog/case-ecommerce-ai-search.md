@@ -2,7 +2,7 @@
 title: "이커머스: 검색·상담·코드 개선을 AI로 한 번에"
 description: "검색 누락과 문의 대응 부담, 코드 개선 지연을 AI 검색·상담 분석·코드 어시스턴트로 동시에 해결한 이커머스 도입 사례."
 date: "2026-06-22"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "Case Study"
 tags: ["이커머스", "AI 검색", "Case Study"]
 draft: false

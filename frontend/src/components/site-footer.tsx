@@ -41,7 +41,7 @@ export function SiteFooter() {
                             도입, 연구에서 실증까지 함께 설계합니다
                         </h2>
                         <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
-                            Plateer AI Labs는 풍부한 연구 경험과 검증된 기술력으로
+                            Plateer Labs는 풍부한 연구 경험과 검증된 기술력으로
                             <br className="hidden sm:block" />
                             귀사의 AI 전환 여정을 성공적으로 지원합니다
                         </p>
@@ -74,7 +74,7 @@ export function SiteFooter() {
                             <BrandMark className="h-5 w-5" />
                             <span>
                                 © 2023{year > 2023 ? `–${year}` : ""} Plateer{" "}
-                                <span className="text-[#00adee]">AILabs</span>
+                                <span className="text-[#00adee]">Labs</span>
                             </span>
                         </div>
                         <p className="max-w-xs text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">

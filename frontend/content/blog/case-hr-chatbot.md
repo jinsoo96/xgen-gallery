@@ -2,7 +2,7 @@
 title: "기업 내부 업무: 사내 HR 챗봇 24/7 자동응대"
 description: "반복·단순 HR 문의와 정보 격차를 사내 HR 챗봇으로 해결해 반복 업무를 줄이고 24/7 응대를 실현한 사례."
 date: "2026-06-04"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "Case Study"
 tags: ["HR", "사내 업무", "챗봇", "Case Study"]
 draft: false

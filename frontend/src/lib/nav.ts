@@ -93,6 +93,14 @@ export const NAV_GROUPS: NavGroup[] = [
                 id: "architecture",
                 route: "/architecture",
                 blurb: "신뢰할 수 있는 Enterprise AI를 위한 참조 아키텍처를 별도 페이지에서 확인하세요.",
+                children: [
+                    { label: "기반 아키텍처", id: "foundation", route: "/architecture#foundation" },
+                    { label: "설계 원칙", id: "principles", route: "/architecture#principles" },
+                    { label: "참조 아키텍처", id: "reference", route: "/architecture#reference" },
+                    { label: "XGEN 플랫폼", id: "platform", route: "/architecture#platform" },
+                    { label: "코드 어시스턴트", id: "code-assistant", route: "/architecture#code-assistant" },
+                    { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
+                ],
             },
         ],
     },
@@ -191,22 +199,22 @@ export const NAV_GROUPS: NavGroup[] = [
         blurb: "문서와 릴리스 노트, 그리고 연구 멤버",
         items: [
             {
-                label: "Documentation",
-                id: "documentation",
-                route: "/documentation",
-                blurb: "XGEN 플랫폼과 라이브러리 사용을 위한 가이드와 레퍼런스.",
-            },
-            {
                 label: "Release Notes",
                 id: "releases",
                 route: "/releases",
                 blurb: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정 이력.",
             },
             {
+                label: "Documentation",
+                id: "documentation",
+                route: "/documentation",
+                blurb: "XGEN 플랫폼과 라이브러리 사용을 위한 가이드와 레퍼런스.",
+            },
+            {
                 label: "Research Team",
                 id: "research-team",
                 route: "/members",
-                blurb: "Plateer AI Labs를 만드는 멤버들을 소개합니다.",
+                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
             },
         ],
     },
@@ -252,7 +260,7 @@ export const ABOUT_GROUP: NavGroup = {
     key: "about",
     label: "About",
     concept: "about",
-    blurb: "Plateer AI Labs를 만드는 미션과 사람들.",
+    blurb: "Plateer Labs를 만드는 미션과 사람들.",
     items: [
         { label: "Company", id: "company", external: "https://www.plateer.com/" },
     ],

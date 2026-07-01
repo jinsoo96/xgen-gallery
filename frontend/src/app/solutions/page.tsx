@@ -164,7 +164,7 @@ function AgenticAI() {
     return (
         <div className="space-y-6">
             <p className="max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                Plateer AI Labs는 에이전트가 스스로 계획하고, 협업하고, 도구를
+                Plateer Labs는 에이전트가 스스로 계획하고, 협업하고, 도구를
                 다루며, 신뢰성 있게 운영되도록 만드는 <strong className="font-semibold text-[var(--color-ink)]">기반 기술과 연구</strong>를 다룹니다.
             </p>
 

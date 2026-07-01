@@ -22,7 +22,7 @@ export async function generateMetadata({
     if (!LOGIN_RE.test(login)) return { title: "Member" };
     return {
         title: `@${login} — Member`,
-        description: `GitHub profile, repositories, and stats for @${login} at Plateer AI Labs.`,
+        description: `GitHub profile, repositories, and stats for @${login} at Plateer Labs.`,
         alternates: { canonical: `/members/${login}` },
     };
 }

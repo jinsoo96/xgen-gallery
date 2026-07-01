@@ -335,7 +335,7 @@ export function PocContent() {
             <div className="min-w-0">
                 {/* 도입 — 웹 톤의 한 문단 */}
                 <p className="max-w-2xl text-lg leading-relaxed text-[var(--color-ink-muted)]">
-                    엔터프라이즈 AI는 데모에서 끝나지 않습니다. Plateer AI Labs는
+                    엔터프라이즈 AI는 데모에서 끝나지 않습니다. Plateer Labs는
                     고객 현장의 실제 문제에서 출발해, 함께 연구한 기술로 검증 가능한
                     해결을 만듭니다
                 </p>

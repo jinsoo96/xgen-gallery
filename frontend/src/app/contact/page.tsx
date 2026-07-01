@@ -5,7 +5,7 @@ import { DemoForm } from "@/components/demo-form";
 export const metadata = {
     title: "PoC · 기술 상담",
     description:
-        "Plateer AI Labs에 PoC와 Enterprise AI 기술 상담을 요청하세요. 과제를 남겨주시면 담당자가 영업일 기준 1–2일 내에 연락드립니다.",
+        "Plateer Labs에 PoC와 Enterprise AI 기술 상담을 요청하세요. 과제를 남겨주시면 담당자가 영업일 기준 1–2일 내에 연락드립니다.",
     alternates: { canonical: "/contact" },
 };
 
@@ -37,7 +37,7 @@ export default function ContactPage() {
                         {/* intro */}
                         <div className="md:pt-6">
                             <p className="text-[16px] font-semibold tracking-tight text-[#7dd3fc]">
-                                Plateer AI Labs · PoC · 기술 상담
+                                Plateer Labs · PoC · 기술 상담
                             </p>
                             <h1 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
                                 PoC · 기술 상담

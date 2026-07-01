@@ -5,7 +5,7 @@ import { getGroup } from "@/lib/nav";
 export const metadata = {
     title: "Research",
     description:
-        "Plateer AI Labs의 연구 — Enterprise AI를 현실로 만드는 연구 영역과 아키텍처.",
+        "Plateer Labs의 연구 — Enterprise AI를 현실로 만드는 연구 영역과 아키텍처.",
     alternates: { canonical: "/research" },
 };
 

@@ -2,7 +2,7 @@
 title: "IT 서비스: 멀티모달 RAG Editor 전용 챗봇"
 description: "프로젝트·솔루션 문의 부담을 전용 AI 챗봇과 멀티모달 RAG Editor로 해결해 반복 문의의 90%를 자동화한 사례."
 date: "2026-06-10"
-author: "Plateer AI Labs"
+author: "Plateer Labs"
 category: "Case Study"
 tags: ["IT 서비스", "멀티모달", "RAG", "Case Study"]
 draft: false

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: SITE.description,
     applicationName: SITE.name,
     keywords: [
-        "Plateer AI Labs",
+        "Plateer Labs",
         "XGEN",
         "open-source AI",
         "RAG",
