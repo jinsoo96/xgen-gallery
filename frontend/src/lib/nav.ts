@@ -83,25 +83,9 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "research",
         blurb: "엔터프라이즈 AI를 떠받치는 연구 — 영역, 백서, 아키텍처, 로드맵.",
         items: [
-            {
-                label: "Research Areas",
-                id: "research-areas",
-                children: [{ label: "Academic Research", id: "academic" }],
-            },
-            {
-                label: "Architecture",
-                id: "architecture",
-                route: "/architecture",
-                blurb: "신뢰할 수 있는 Enterprise AI를 위한 참조 아키텍처를 별도 페이지에서 확인하세요.",
-                children: [
-                    { label: "기반 아키텍처", id: "foundation", route: "/architecture#foundation" },
-                    { label: "설계 원칙", id: "principles", route: "/architecture#principles" },
-                    { label: "Enterprise AI 아키텍처", id: "reference", route: "/architecture#reference" },
-                    { label: "XGEN 플랫폼", id: "platform", route: "/architecture#platform" },
-                    { label: "코드 어시스턴트", id: "code-assistant", route: "/architecture#code-assistant" },
-                    { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
-                ],
-            },
+            { label: "Research Areas", id: "research-areas" },
+            { label: "Papers", id: "papers" },
+            { label: "Publications", id: "publications" },
         ],
     },
     {
@@ -143,6 +127,20 @@ export const NAV_GROUPS: NavGroup[] = [
                 id: "library-gallery",
                 route: "/library-gallery",
                 blurb: "XGEN을 떠받치는 오픈소스 라이브러리 모음 — 인제스션, 지식 그래프, 에이전트 도구를 한곳에서.",
+            },
+            {
+                label: "Architecture",
+                id: "architecture",
+                route: "/architecture",
+                blurb: "신뢰할 수 있는 Enterprise AI를 위한 참조 아키텍처를 별도 페이지에서 확인하세요.",
+                children: [
+                    { label: "기반 아키텍처", id: "foundation", route: "/architecture#foundation" },
+                    { label: "설계 원칙", id: "principles", route: "/architecture#principles" },
+                    { label: "Enterprise AI 아키텍처", id: "reference", route: "/architecture#reference" },
+                    { label: "XGEN 플랫폼", id: "platform", route: "/architecture#platform" },
+                    { label: "코드 어시스턴트", id: "code-assistant", route: "/architecture#code-assistant" },
+                    { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
+                ],
             },
         ],
     },
@@ -190,6 +188,13 @@ export const NAV_GROUPS: NavGroup[] = [
                 id: "technical-consulting",
                 route: "/technical-consulting",
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
+            },
+            {
+                // 섹션은 /solutions#certification 으로 렌더하되, GNB 드롭다운에는
+                // 노출하지 않는다(하단 Product 하위 "Certifications & Quality"에서만 진입).
+                label: "Certifications & Quality",
+                id: "certification",
+                hidden: true,
             },
             {
                 label: "Product",

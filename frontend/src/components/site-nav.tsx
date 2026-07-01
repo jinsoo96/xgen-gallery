@@ -145,12 +145,12 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                 >
                     <BrandMark
                         className={cn(
-                            "h-[24px] w-auto transition",
+                            "h-[21px] w-auto transition",
                             light && "brightness-0 invert",
                         )}
                     />
                     <span
-                        className="text-[32px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
+                        className="text-[28px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
                     >
                         LABS
                     </span>
@@ -199,44 +199,37 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                             {hasMenu && openKey === g.key && (
                                 <div className="absolute left-0 top-full pt-3">
                                     {g.wide ? (
-                                        <div className="flex gap-2 rounded-xl border border-[var(--color-line)] bg-white p-2 shadow-xl">
-                                            <div className="min-w-[200px]">
-                                                {menuItems
-                                                    .slice(
-                                                        0,
-                                                        Math.ceil(
-                                                            menuItems.length / 2,
-                                                        ),
-                                                    )
-                                                    .map((it) => (
-                                                        <DropdownItem
-                                                            key={it.id}
-                                                            item={it}
-                                                            groupKey={g.key}
-                                                            onClose={() =>
-                                                                setOpenKey(null)
-                                                            }
-                                                        />
-                                                    ))}
-                                            </div>
-                                            <div className="min-w-[200px] border-l border-[var(--color-line)] pl-2">
-                                                {menuItems
-                                                    .slice(
-                                                        Math.ceil(
-                                                            menuItems.length / 2,
-                                                        ),
-                                                    )
-                                                    .map((it) => (
-                                                        <DropdownItem
-                                                            key={it.id}
-                                                            item={it}
-                                                            groupKey={g.key}
-                                                            onClose={() =>
-                                                                setOpenKey(null)
-                                                            }
-                                                        />
-                                                    ))}
-                                            </div>
+                                        <div className="flex gap-8 rounded-xl border border-[var(--color-line)] bg-white p-4 shadow-xl">
+                                            {[0, 1, 2].map((col) => {
+                                                const per = Math.ceil(
+                                                    menuItems.length / 3,
+                                                );
+                                                const slice = menuItems.slice(
+                                                    col * per,
+                                                    (col + 1) * per,
+                                                );
+                                                if (slice.length === 0)
+                                                    return null;
+                                                return (
+                                                    <div
+                                                        key={col}
+                                                        className="min-w-[180px]"
+                                                    >
+                                                        {slice.map((it) => (
+                                                            <DropdownItem
+                                                                key={it.id}
+                                                                item={it}
+                                                                groupKey={g.key}
+                                                                onClose={() =>
+                                                                    setOpenKey(
+                                                                        null,
+                                                                    )
+                                                                }
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     ) : (
                                         <div className="min-w-[230px] rounded-xl border border-[var(--color-line)] bg-white p-2 shadow-xl">

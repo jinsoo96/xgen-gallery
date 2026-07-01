@@ -28,7 +28,7 @@ const NAV = [
     { id: "fields", label: "핵심 연구 분야" },
     { id: "cases", label: "실증 연구 사례" },
     { id: "methodology", label: "검증 가능한 AI를 위한 연구 방법론" },
-    { id: "academic", label: "Academic Research" },
+    { id: "academic", label: "Papers" },
 ];
 
 type ArtKind = "trust" | "sovereignty" | "composable";
@@ -534,9 +534,9 @@ export function ResearchContent() {
                     </div>
                 </section>
 
-                {/* 5. Academic Research */}
+                {/* 5. Papers */}
                 <section id="academic" className="scroll-mt-28">
-                    <SectionHeading>Academic Research</SectionHeading>
+                    <SectionHeading>Papers</SectionHeading>
                     <div className="mt-6 rounded-2xl border border-[var(--color-line)] bg-white p-7 md:p-8">
                         <div className="flex items-center gap-3">
                             <IconBadge icon={GraduationCap} />
