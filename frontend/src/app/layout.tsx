@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/json-ld";
 import { organizationLd, websiteLd } from "@/lib/structured-data";
 import { I18nProvider } from "@/components/i18n-provider";
 import { StickyCta } from "@/components/sticky-cta";
+import { ContentGuard } from "@/components/content-guard";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -87,6 +88,7 @@ export default async function RootLayout({
                     {children}
                     <StickyCta />
                 </I18nProvider>
+                <ContentGuard />
             </body>
         </html>
     );

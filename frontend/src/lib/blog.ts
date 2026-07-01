@@ -9,7 +9,7 @@ import { marked } from "marked";
  * SEO·GEO: 정적 HTML이라 AI 크롤러가 JS 없이 본문을 그대로 읽는다.
  */
 /** 블로그 카테고리 — '전체'는 필터용 가상 값(글에는 부여하지 않음). */
-export const BLOG_CATEGORIES = ["Case Study", "AILab Tech", "제품 소식"] as const;
+export const BLOG_CATEGORIES = ["Case Study", "Labs Tech", "제품 소식"] as const;
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
 export interface PostMeta {
@@ -59,7 +59,7 @@ function parse(slug: string): Post | null {
         date: String(data.date ?? "").slice(0, 10),
         updated: data.updated ? String(data.updated).slice(0, 10) : undefined,
         author: String(data.author ?? "Plateer Labs"),
-        category: String(data.category ?? "AILab Tech"),
+        category: String(data.category ?? "Labs Tech"),
         tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
         cover: data.cover ? String(data.cover) : undefined,
         draft: Boolean(data.draft),

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { LanguageToggle } from "@/components/language-toggle";
+import { SiteSearch } from "@/components/site-search";
 import { useI18n } from "@/components/i18n-provider";
 import { NAV_GROUPS, DEMO_CTA, sectionHref, type NavLeaf } from "@/lib/nav";
 import { SITE } from "@/lib/site";
@@ -242,6 +243,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                 </nav>
 
                 <div className="flex translate-y-[12px] items-center justify-end gap-4">
+                    <SiteSearch light={light} />
                     {/* utility icons — language + github (desktop only) */}
                     <div className="hidden items-center gap-3 lg:flex">
                         <LanguageToggle light={light} />

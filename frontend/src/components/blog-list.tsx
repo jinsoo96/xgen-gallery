@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
-const TABS = ["전체", "Case Study", "AILab Tech", "제품 소식"] as const;
+const TABS = ["전체", "Case Study", "Labs Tech", "제품 소식"] as const;
 
 function fmtDate(d: string) {
     return d.replaceAll("-", ".");

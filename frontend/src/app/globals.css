@@ -49,6 +49,25 @@ body {
     overflow-wrap: break-word;
 }
 
+/* 콘텐츠 보호(디터런트) — 텍스트 드래그 선택·이미지 드래그 저장 방지.
+   입력 필드(검색·문의 폼)는 예외로 두어 사용성을 유지한다. */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+input,
+textarea,
+[contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
+}
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
 ::selection {
     background: var(--color-ink);
     color: var(--color-surface);
