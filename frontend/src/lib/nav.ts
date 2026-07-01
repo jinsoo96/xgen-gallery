@@ -205,8 +205,11 @@ export const NAV_GROUPS: NavGroup[] = [
             {
                 // Product — XGEN 제품. 라벨은 xgen.im 으로 나가고, 하위에
                 // 인증·문서·체험을 노출한다(Applied AI 2열 드롭다운의 한 항목).
+                // colBreak로 오른쪽 컬럼을 시작 → Library Gallery는 왼쪽
+                // 컬럼(Technical Consulting 아래)에 남는다.
                 label: "Product",
                 id: "xgen-site",
+                colBreak: true,
                 external: "https://www.xgen.im/",
                 children: [
                     { label: "Certifications & Quality", id: "certification" },
