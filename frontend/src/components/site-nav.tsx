@@ -24,6 +24,26 @@ function GithubIcon({ className }: { className?: string }) {
     );
 }
 
+/**
+ * Split dropdown items into columns for a `wide` layout. If any item sets
+ * `colBreak`, columns break explicitly at those items; otherwise items are
+ * distributed evenly across `cols` columns.
+ */
+function buildColumns(items: NavLeaf[], cols: number): NavLeaf[][] {
+    if (items.some((it) => it.colBreak)) {
+        const out: NavLeaf[][] = [];
+        items.forEach((it, idx) => {
+            if (idx === 0 || it.colBreak) out.push([it]);
+            else out[out.length - 1].push(it);
+        });
+        return out;
+    }
+    const per = Math.ceil(items.length / cols);
+    return Array.from({ length: cols }, (_, c) =>
+        items.slice(c * per, (c + 1) * per),
+    );
+}
+
 /** One entry (and its nested children) inside a GNB dropdown. */
 function DropdownItem({
     item,
@@ -200,20 +220,11 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                 <div className="absolute left-0 top-full pt-3">
                                     {g.wide ? (
                                         <div className="flex gap-8 rounded-xl border border-[var(--color-line)] bg-white p-4 shadow-xl">
-                                            {Array.from({
-                                                length: g.cols ?? 3,
-                                            }).map((_, col) => {
-                                                const per = Math.ceil(
-                                                    menuItems.length /
-                                                        (g.cols ?? 3),
-                                                );
-                                                const slice = menuItems.slice(
-                                                    col * per,
-                                                    (col + 1) * per,
-                                                );
-                                                if (slice.length === 0)
-                                                    return null;
-                                                return (
+                                            {buildColumns(
+                                                menuItems,
+                                                g.cols ?? 3,
+                                            ).map((slice, col) =>
+                                                slice.length === 0 ? null : (
                                                     <div
                                                         key={col}
                                                         className="min-w-[180px]"
@@ -231,8 +242,8 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                             />
                                                         ))}
                                                     </div>
-                                                );
-                                            })}
+                                                ),
+                                            )}
                                         </div>
                                     ) : (
                                         <div className="min-w-[230px] rounded-xl border border-[var(--color-line)] bg-white p-2 shadow-xl">

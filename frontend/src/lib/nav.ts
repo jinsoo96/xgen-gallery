@@ -38,6 +38,11 @@ export interface NavLeaf {
      * entry without deleting its content.
      */
     hidden?: boolean;
+    /**
+     * In a `wide` dropdown, force this item to start a new column (line break).
+     * Use to control column grouping instead of even auto-distribution.
+     */
+    colBreak?: boolean;
 }
 
 export interface NavGroup {
@@ -118,6 +123,7 @@ export const NAV_GROUPS: NavGroup[] = [
             {
                 label: "Architecture",
                 id: "architecture",
+                colBreak: true,
                 route: "/architecture",
                 blurb: "신뢰할 수 있는 Enterprise AI를 위한 참조 아키텍처를 별도 페이지에서 확인하세요.",
                 children: [
@@ -132,6 +138,7 @@ export const NAV_GROUPS: NavGroup[] = [
             {
                 label: "Runtime",
                 id: "runtime",
+                colBreak: true,
                 children: [
                     { label: "MCP Apps", id: "mcp-apps" },
                     { label: "Runtime SDK", id: "runtime-sdk" },
@@ -166,6 +173,8 @@ export const NAV_GROUPS: NavGroup[] = [
         label: "Applied AI",
         concept: "solutions",
         blurb: "산업별 솔루션, 레퍼런스 아키텍처, 라이브러리 레시피.",
+        wide: true,
+        cols: 2,
         items: [
             {
                 label: "Agentic AI",
@@ -192,6 +201,26 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/library-gallery",
                 blurb: "XGEN을 떠받치는 오픈소스 라이브러리 모음 — 인제스션, 지식 그래프, 에이전트 도구를 한곳에서.",
                 children: [{ label: "Library Recipes", id: "library-recipes" }],
+            },
+            {
+                // Product — XGEN 제품. 라벨은 xgen.im 으로 나가고, 하위에
+                // 인증·문서·체험을 노출한다(Applied AI 2열 드롭다운의 한 항목).
+                label: "Product",
+                id: "xgen-site",
+                external: "https://www.xgen.im/",
+                children: [
+                    { label: "Certifications & Quality", id: "certification" },
+                    {
+                        label: "Documentation",
+                        id: "documentation",
+                        route: "/documentation",
+                    },
+                    {
+                        label: "무료 체험 (Trial)",
+                        id: "xgen-trial",
+                        external: "https://www.xgen.im/trial",
+                    },
+                ],
             },
             {
                 // 섹션은 /solutions#library-recipes 로 렌더하되, GNB 드롭다운에는
@@ -237,34 +266,6 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
         items: [],
-    },
-    {
-        // 최상위 Product 메뉴 — XGEN 제품. 라벨은 xgen.im 으로 나가되,
-        // 드롭다운(2열)에 인증·문서·체험을 모아 보여준다.
-        key: "product",
-        label: "Product",
-        concept: "solutions",
-        blurb: "XGEN — 검증된 Enterprise AI 플랫폼",
-        external: "https://www.xgen.im/",
-        wide: true,
-        cols: 2,
-        items: [
-            {
-                label: "Certifications & Quality",
-                id: "certification",
-                route: "/solutions#certification",
-            },
-            {
-                label: "Documentation",
-                id: "documentation",
-                route: "/documentation",
-            },
-            {
-                label: "무료 체험 (Trial)",
-                id: "xgen-trial",
-                external: "https://www.xgen.im/trial",
-            },
-        ],
     },
 ];
 
