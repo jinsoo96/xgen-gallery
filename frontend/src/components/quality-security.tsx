@@ -9,21 +9,21 @@ import { Award, ShieldCheck, BadgeCheck, Check, ArrowRight } from "lucide-react"
 const INFO: { icon: typeof Award; title: string; body: string }[] = [
     {
         icon: Award,
-        title: "GS 인증이란?",
-        body: "GS(Good Software) 인증은 2001년부터 시행된 국가 공인 SW 품질 인증 제도로, ISO/IEC 25023·25041·25051 국제 표준 기반의 체계적인 시험·평가를 통해 소프트웨어 제품의 품질을 검증합니다.",
+        title: "국가 공인 SW 품질인증",
+        body: "GS(Good Software) 인증은 「소프트웨어 진흥법」에 근거해 과학기술정보통신부가 운영하는 국가 공인 소프트웨어 품질인증입니다. 지정된 공인 시험기관이 ISO/IEC 25000 계열 국제표준을 기준으로 제품 품질을 시험·평가합니다.",
     },
     {
         icon: ShieldCheck,
-        title: "시험·평가 방법",
-        body: "실제 운영 환경과 유사한 시험 환경에서 기능 적합성, 성능 효율성, 호환성, 사용성, 신뢰성, 보안성, 유지보수성, 이식성 등 8대 품질 특성을 종합적으로 평가합니다.",
+        title: "세 영역을 실증 시험",
+        body: "실사용과 유사한 환경에서 제품 명세서 · 사용자 설명서 · 실행 소프트웨어 세 영역을 시험하고, 기능 적합성 · 성능 효율성 · 신뢰성 · 보안성 등 품질 특성을 종합 평가합니다.",
     },
 ];
 
 const EFFECTS = [
-    "조달청 나라장터 등록 및 공공기관 우선 구매 대상 지정",
-    "행정·공공 정보화사업 우선 도입 대상 SW 지정",
-    "국가기관 상용SW 구매 시 기술성 평가 우선 반영",
-    "제3자 공인 시험을 통한 고객 신뢰도 확보",
+    "조달청 우수조달물품 지정 신청 자격",
+    "공공 소프트웨어 사업 발주 시 분리발주 의무 대상",
+    "중소벤처기업부 우선구매 대상 지정",
+    "기술성 평가 가점 · 제3자 공인시험 기반 신뢰",
 ];
 
 export function QualitySecurity() {
@@ -42,8 +42,9 @@ export function QualitySecurity() {
                         </span>
                     </h2>
                     <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                        XGEN Agentic AI Platform은 한국정보통신기술협회(TTA)의 GS
-                        인증 시험·평가를 완료하고, 최종 인증 결과를 기다리고 있습니다
+                        연구소는 성능을 주장하는 대신, 국가 공인 제3자 시험으로
+                        품질을 증명합니다. XGEN은 GS 인증 시험·평가를 완료하고 최종
+                        인증 결과를 기다리고 있습니다
                     </p>
 
                     <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -98,7 +99,7 @@ export function QualitySecurity() {
                                 <BadgeCheck className="h-5 w-5" />
                             </span>
                             <h3 className="text-[18px] font-bold tracking-tight text-[var(--color-ink)]">
-                                GS 인증의 도입 효과
+                                인증의 의미와 효과
                             </h3>
                         </div>
                         <ul className="mt-4 space-y-2.5">
