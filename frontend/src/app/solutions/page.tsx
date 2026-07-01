@@ -206,6 +206,22 @@ function AgenticAI() {
                     <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </span>
             </a>
+
+            {/* 산업별 적용 — Agentic AI가 실제 투입되는 산업 (앵커 id: industries) */}
+            <div
+                id="industries"
+                className="scroll-mt-24 border-t border-[var(--color-line)] pt-10"
+            >
+                <h3 className="text-[22px] font-bold tracking-tight text-[var(--color-ink)]">
+                    산업별 적용{" "}
+                    <span className="text-[var(--color-ink-subtle)]">
+                        Industries
+                    </span>
+                </h3>
+                <div className="mt-5">
+                    <Industries />
+                </div>
+            </div>
         </div>
     );
 }
@@ -253,7 +269,6 @@ export default function SolutionsPage() {
             group={getGroup("solutions")!}
             hero={<SolutionsHero />}
             content={{
-                industries: <Industries />,
                 "ai-agents": <AgenticAI />,
                 "library-recipes": <UseCases embedded />,
                 certification: <CertificationQuality />,

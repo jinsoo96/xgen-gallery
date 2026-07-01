@@ -155,7 +155,7 @@ export function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050813]/55 to-transparent" />
             </div>
 
-            <div className="relative mx-auto w-full max-w-[90rem] px-6 py-28">
+            <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
                 {/* rolling slides — fade/slide-in on change */}
                 <div key={active} className="hero-slide-enter">
                     {active === 0 ? <VisionSlide /> : <XgenSlide />}

@@ -34,41 +34,58 @@ function DropdownItem({
     groupKey: string;
     onClose: () => void;
 }) {
-    if (item.external) {
-        return (
-            <a
-                href={item.external}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={onClose}
-                className="flex items-center gap-1 rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]"
-            >
-                {item.label}
-                <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
-            </a>
-        );
-    }
+    const parentCls =
+        "block rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]";
+    const childCls =
+        "block rounded-lg px-3 py-1.5 text-[15px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-ink)]";
     return (
         <div>
-            <Link
-                href={item.route ?? sectionHref(groupKey, item.id)}
-                onClick={onClose}
-                className="block rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]"
-            >
-                {item.label}
-            </Link>
+            {item.external ? (
+                <a
+                    href={item.external}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className={cn(parentCls, "flex items-center gap-1")}
+                >
+                    {item.label}
+                    <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
+                </a>
+            ) : (
+                <Link
+                    href={item.route ?? sectionHref(groupKey, item.id)}
+                    onClick={onClose}
+                    className={parentCls}
+                >
+                    {item.label}
+                </Link>
+            )}
             {item.children && (
                 <div className="mb-1 ml-3 border-l border-[var(--color-line)] pl-2">
-                    {item.children.map((c) => (
-                        <Link
-                            key={c.id}
-                            href={c.route ?? sectionHref(groupKey, c.id)}
-                            onClick={onClose}
-                            className="block rounded-lg px-3 py-1.5 text-[15px] font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-ink)]"
-                        >
-                            {c.label}
-                        </Link>
-                    ))}
+                    {item.children.map((c) =>
+                        c.external ? (
+                            <a
+                                key={c.id}
+                                href={c.external}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={onClose}
+                                className={cn(childCls, "flex items-center gap-1")}
+                            >
+                                {c.label}
+                                <ArrowUpRight className="h-3 w-3 text-[var(--color-ink-subtle)]" />
+                            </a>
+                        ) : (
+                            <Link
+                                key={c.id}
+                                href={c.route ?? sectionHref(groupKey, c.id)}
+                                onClick={onClose}
+                                className={childCls}
+                            >
+                                {c.label}
+                            </Link>
+                        ),
+                    )}
                 </div>
             )}
         </div>
@@ -124,7 +141,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
             <div className="flex h-[84px] w-full items-center justify-between px-6">
                 <Link
                     href="/"
-                    className="flex translate-y-[12px] items-baseline gap-2 leading-none min-[1440px]:ml-[calc((100vw-90rem)/2)]"
+                    className="flex items-center gap-2 leading-none min-[1152px]:ml-[calc((100vw-72rem)/2)]"
                 >
                     <BrandMark
                         className={cn(
@@ -133,14 +150,14 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                         )}
                     />
                     <span
-                        className="text-[24px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
+                        className="text-[32px] font-extrabold leading-none tracking-tight text-[#00adee] transition-colors"
                     >
                         LABS
                     </span>
                 </Link>
 
                 {/* desktop groups */}
-                <nav className="hidden translate-x-[3px] translate-y-[12px] items-center gap-10 text-[19px] font-extrabold lg:flex">
+                <nav className="hidden items-center gap-9 text-[19px] font-extrabold lg:flex">
                     {NAV_GROUPS.filter((g) => !g.hidden).map((g) => {
                         const menuItems = g.items.filter((it) => !it.hidden);
                         const hasMenu = !g.flat && menuItems.length > 0;
@@ -242,8 +259,10 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                     })}
                 </nav>
 
-                <div className="flex translate-y-[12px] items-center justify-end gap-4">
-                    <SiteSearch light={light} />
+                <div className="flex items-center justify-end gap-3">
+                    <div className="w-[150px] sm:w-[180px] lg:w-[210px]">
+                        <SiteSearch light={light} />
+                    </div>
                     {/* utility icons — language + github (desktop only) */}
                     <div className="hidden items-center gap-3 lg:flex">
                         <LanguageToggle light={light} />
@@ -263,21 +282,24 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                         </Link>
                     </div>
 
-                    <span
-                        className={cn(
-                            "hidden h-5 w-px lg:block",
-                            light ? "bg-white/20" : "bg-[var(--color-line)]",
-                        )}
-                        aria-hidden
-                    />
-
-                    {/* primary CTA — always visible, incl. mobile header */}
-                    <Link
-                        href={DEMO_CTA.href}
-                        className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-5 py-2.5 text-[16px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(47,123,255,0.6)] transition hover:brightness-110"
-                    >
-                        {demoLabel}
-                    </Link>
+                    {/* primary CTA — 임시 숨김 (요청: 검색바 확장). false && 로 비활성화. */}
+                    {false && (
+                        <>
+                            <span
+                                className={cn(
+                                    "hidden h-5 w-px lg:block",
+                                    light ? "bg-white/20" : "bg-[var(--color-line)]",
+                                )}
+                                aria-hidden
+                            />
+                            <Link
+                                href={DEMO_CTA.href}
+                                className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-5 py-2.5 text-[16px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(47,123,255,0.6)] transition hover:brightness-110"
+                            >
+                                {demoLabel}
+                            </Link>
+                        </>
+                    )}
 
                     {/* mobile hamburger */}
                     <button
@@ -387,24 +409,37 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                     {it.children && (
                                                         <div className="ml-3 border-l border-[var(--color-line)] pl-3">
                                                             {it.children.map(
-                                                                (c) => (
-                                                                    <Link
-                                                                        key={c.id}
-                                                                        href={
-                                                                            c.route ??
-                                                                            sectionHref(
-                                                                                g.key,
-                                                                                c.id,
-                                                                            )
-                                                                        }
-                                                                        onClick={
-                                                                            close
-                                                                        }
-                                                                        className="block py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
-                                                                    >
-                                                                        {c.label}
-                                                                    </Link>
-                                                                ),
+                                                                (c) =>
+                                                                    c.external ? (
+                                                                        <a
+                                                                            key={c.id}
+                                                                            href={c.external}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            onClick={close}
+                                                                            className="flex items-center gap-1 py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
+                                                                        >
+                                                                            {c.label}
+                                                                            <ArrowUpRight className="h-3.5 w-3.5" />
+                                                                        </a>
+                                                                    ) : (
+                                                                        <Link
+                                                                            key={c.id}
+                                                                            href={
+                                                                                c.route ??
+                                                                                sectionHref(
+                                                                                    g.key,
+                                                                                    c.id,
+                                                                                )
+                                                                            }
+                                                                            onClick={
+                                                                                close
+                                                                            }
+                                                                            className="block py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
+                                                                        >
+                                                                            {c.label}
+                                                                        </Link>
+                                                                    ),
                                                             )}
                                                         </div>
                                                     )}

@@ -173,8 +173,11 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "solutions",
         blurb: "산업별 솔루션, 레퍼런스 아키텍처, 라이브러리 레시피.",
         items: [
-            { label: "Industries", id: "industries" },
-            { label: "Agentic AI", id: "ai-agents" },
+            {
+                label: "Agentic AI",
+                id: "ai-agents",
+                children: [{ label: "Industries", id: "industries" }],
+            },
             {
                 label: "PoC Projects",
                 id: "poc-projects",
@@ -188,7 +191,19 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/technical-consulting",
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
-            { label: "Certifications & Quality", id: "certification" },
+            {
+                label: "Product",
+                id: "xgen-site",
+                external: "https://www.xgen.im/",
+                children: [
+                    { label: "Certifications & Quality", id: "certification" },
+                    {
+                        label: "무료 체험 (Trial)",
+                        id: "xgen-trial",
+                        external: "https://www.xgen.im/trial",
+                    },
+                ],
+            },
         ],
     },
     {
@@ -225,21 +240,6 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
         items: [],
-    },
-    {
-        // Product — 제품 사이트(외부) + 드롭다운에 무료 체험(Trial) 통합.
-        key: "product",
-        label: "Product",
-        concept: "products",
-        blurb: "",
-        items: [
-            {
-                label: "무료 체험 (Trial)",
-                id: "xgen-trial",
-                external: "https://www.xgen.im/trial",
-            },
-        ],
-        external: "https://www.xgen.im/",
     },
 ];
 

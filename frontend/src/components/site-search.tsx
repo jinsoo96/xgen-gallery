@@ -117,17 +117,17 @@ export function SiteSearch({ light = false }: { light?: boolean }) {
                 onClick={() => setOpen(true)}
                 aria-label="사이트 검색 (⌘K)"
                 className={cn(
-                    "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[13px] font-medium transition",
+                    "flex w-full items-center gap-2.5 rounded-full border px-4 py-2 text-[13.5px] transition",
                     light
-                        ? "border-white/25 text-white/80 hover:bg-white/10 hover:text-white"
-                        : "border-[var(--color-line)] text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]",
+                        ? "border-white/25 bg-white/5 text-white/70 hover:bg-white/10"
+                        : "border-[var(--color-line)] bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)] hover:border-[var(--color-ink-muted)]",
                 )}
             >
-                <Search className="h-4 w-4" />
-                <span className="hidden sm:inline">검색</span>
+                <Search className="h-4 w-4 flex-none" />
+                <span className="flex-1 text-left">검색…</span>
                 <kbd
                     className={cn(
-                        "hidden rounded border px-1.5 py-0.5 font-mono text-[11px] sm:inline",
+                        "hidden flex-none rounded border px-1.5 py-0.5 font-mono text-[11px] sm:inline",
                         light ? "border-white/25 text-white/60" : "border-[var(--color-line)] text-[var(--color-ink-subtle)]",
                     )}
                 >
