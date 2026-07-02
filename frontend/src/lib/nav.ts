@@ -199,26 +199,29 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
-                // Product — XGEN 제품. 라벨은 xgen.im 으로 나가고, 하위에
-                // 인증·문서·체험을 노출한다(Applied AI 2열 드롭다운의 한 항목).
-                // colBreak로 오른쪽 컬럼을 시작 → Library Gallery는 왼쪽
-                // 컬럼(Technical Consulting 아래)에 남는다.
+                // Product — 라벨은 xgen.im 으로 나가고, 하위에 체험·인증·문서·
+                // 릴리즈를 노출한다(Applied AI 2열 드롭다운의 한 항목).
+                // 무료 체험(Trial)을 최상단에 두어 전환 동선을 우선한다.
+                // Release Notes는 연구소 전 제품 통합 릴리즈(/releases)로 연결.
+                // colBreak로 오른쪽 컬럼을 시작 → 왼쪽 컬럼(Agentic AI /
+                // PoC Projects / Technical Consulting)과 분리된다.
                 label: "Product",
                 id: "xgen-site",
                 colBreak: true,
                 external: "https://www.xgen.im/",
                 children: [
+                    {
+                        label: "무료 체험 (Trial)",
+                        id: "xgen-trial",
+                        external: "https://www.xgen.im/trial",
+                    },
                     { label: "Certifications & Quality", id: "certification" },
                     {
                         label: "Documentation",
                         id: "documentation",
                         route: "/documentation",
                     },
-                    {
-                        label: "무료 체험 (Trial)",
-                        id: "xgen-trial",
-                        external: "https://www.xgen.im/trial",
-                    },
+                    { label: "Release Notes", id: "releases", route: "/releases" },
                 ],
             },
             {
@@ -251,24 +254,19 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/library-gallery#recipes",
             },
             {
-                // Runtime — 독립 MCP 런타임. 콘텐츠는 /library-gallery 페이지의
-                // runtime 섹션에 렌더되며, 하위 앵커는 RuntimeContent 내부 id로 연결.
+                // Runtime — 독립 MCP 런타임. colBreak로 오른쪽 열을 시작 →
+                // 왼쪽 열은 Library Gallery / Library Recipes, 오른쪽 열은
+                // Runtime(+하위 앵커). 콘텐츠는 /library-gallery 페이지의 runtime
+                // 섹션에 렌더되며, 하위 앵커는 RuntimeContent 내부 id로 연결.
                 label: "Runtime",
                 id: "runtime",
                 route: "/library-gallery#runtime",
+                colBreak: true,
                 children: [
                     { label: "MCP Apps", id: "mcp-apps", route: "/library-gallery#mcp-apps" },
                     { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
                     { label: "Runtime API", id: "runtime-api", route: "/library-gallery#runtime-api" },
                 ],
-            },
-            {
-                // colBreak로 오른쪽 열을 시작 → 왼쪽 열은 Library Gallery →
-                // Library Recipes → Runtime 로 묶이고, Release Notes만 오른쪽 열에.
-                label: "Release Notes",
-                id: "releases",
-                route: "/releases",
-                colBreak: true,
             },
         ],
     },
