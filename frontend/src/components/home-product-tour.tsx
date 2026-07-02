@@ -57,8 +57,8 @@ const PRODUCTS: Product[] = [
         tagline: "XGEN",
         desc: "XGEN의 FloUI 기능을 영상으로 소개합니다",
         video: "https://www.youtube-nocookie.com/embed/StxOW5PbC8w",
-        poster: "https://img.youtube.com/vi/StxOW5PbC8w/maxresdefault.jpg",
-        previewEndSeconds: 1,
+        // 로컬 정적 썸네일 — 외부 iframe/이미지보다 즉시 로드된다. 클릭 시 재생.
+        poster: "/floui-thumb.jpg",
     },
 ];
 
