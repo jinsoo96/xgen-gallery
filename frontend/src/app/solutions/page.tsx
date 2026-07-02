@@ -11,8 +11,11 @@ import {
     Landmark,
     Banknote,
     Check,
+    BookOpen,
+    Newspaper,
     type LucideIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { GroupPage } from "@/components/onepage";
 import { getGroup } from "@/lib/nav";
 
@@ -262,6 +265,50 @@ function CertificationQuality() {
     );
 }
 
+/** Docs & Releases — 제품 참고 자료(문서·릴리즈)로 가는 링크 카드. */
+const DOCS_RELEASES: { icon: LucideIcon; title: string; desc: string; href: string }[] = [
+    {
+        icon: BookOpen,
+        title: "Documentation",
+        desc: "XGEN 제품 사용 설명서와 기술 문서를 한 곳에서 확인합니다",
+        href: "/documentation",
+    },
+    {
+        icon: Newspaper,
+        title: "Release Notes",
+        desc: "연구소가 개발·관리하는 전 제품의 릴리즈 변경 이력을 제공합니다",
+        href: "/releases",
+    },
+];
+
+function DocsReleases() {
+    return (
+        <div className="grid gap-4 sm:grid-cols-2">
+            {DOCS_RELEASES.map((c) => (
+                <Link
+                    key={c.title}
+                    href={c.href}
+                    className="group flex flex-col rounded-2xl border border-[var(--color-line)] bg-white p-6 transition hover:border-[#bcd0f5] hover:shadow-[0_14px_36px_-18px_rgba(20,40,80,0.22)]"
+                >
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#2f7bff]/10 text-[#2f7bff]">
+                        <c.icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="mt-4 text-[17px] font-bold tracking-tight text-[var(--color-ink)]">
+                        {c.title}
+                    </h3>
+                    <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                        {c.desc}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2461d8] transition group-hover:text-[#1b4fb0]">
+                        바로가기
+                        <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                    </span>
+                </Link>
+            ))}
+        </div>
+    );
+}
+
 export default function SolutionsPage() {
     return (
         <GroupPage
@@ -270,6 +317,7 @@ export default function SolutionsPage() {
             content={{
                 "ai-agents": <AgenticAI />,
                 certification: <CertificationQuality />,
+                "docs-releases": <DocsReleases />,
             }}
         />
     );
