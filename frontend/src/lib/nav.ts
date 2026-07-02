@@ -270,7 +270,7 @@ export const NAV_GROUPS: NavGroup[] = [
     },
     {
         // 블로그(/blog) 최상위 — 드롭다운: 카테고리(제품 소식 / Labs Tech /
-        // Case Study) → Contributor Members 순. 카테고리는 /blog?cat=…
+        // Case Study) → Lab Members 순. 카테고리는 /blog?cat=…
         // 로 딥링크되어 BlogList가 초기 필터를 적용한다(blog-list.tsx의 CATEGORY_BY_KEY).
         // GNB 순서: Open Source 다음(최상위 메뉴 끝)에 배치 — 블로그를 마지막에 둔다.
         key: "blog",
@@ -282,7 +282,7 @@ export const NAV_GROUPS: NavGroup[] = [
             { label: "Labs Tech", id: "cat-labs", route: "/blog?cat=labs" },
             { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
             {
-                label: "Contributor Members",
+                label: "Lab Members",
                 id: "lab-members",
                 route: "/members",
                 blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
