@@ -79,6 +79,32 @@ interface MembersBundle {
  * good cache.
  */
 async function loadBundleWithFallback(): Promise<MembersBundle> {
+    // Fast path: a fresh-enough disk cache (written within the revalidate
+    // window) is served immediately, skipping the live GitHub fetch that pulls
+    // every member's full detail — the main source of /members latency on a
+    // cold start. The unstable_cache revalidate still triggers a real refresh
+    // once the disk cache ages past the window.
+    if (!hasUpstream) {
+        const listMtime = await fileMtime(LIST_CACHE);
+        if (
+            listMtime != null &&
+            Date.now() - listMtime < REVALIDATE_SECONDS * 1000
+        ) {
+            const list = await readJson<MembersPayload>(LIST_CACHE);
+            if (list && list.members.length > 0) {
+                const details: Record<string, MemberDetail> = {};
+                await Promise.all(
+                    list.members.map(async (m) => {
+                        const d = await readJson<MemberDetail>(
+                            DETAIL_CACHE(m.login),
+                        );
+                        if (d) details[m.login] = d;
+                    }),
+                );
+                return { payload: list, details };
+            }
+        }
+    }
     try {
         // When an upstream gallery is configured, borrow its list and lazy-load
         // details on demand (via getMemberDetail) instead of fetching GitHub.
