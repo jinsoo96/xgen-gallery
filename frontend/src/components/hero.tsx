@@ -23,7 +23,7 @@ const ROTATE_MS = 6000;
 // hero-security.mp4 = 방금 내려받은 영상을 frontend/public/ 에 저장.
 const SLIDE_BG = [
     "/hero-vision.mp4",
-    "/hero-security.mp4",
+    "/hero-security-v2.mp4",
     "/hero-slide2.mp4",
 ];
 
