@@ -195,25 +195,22 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                         <FolderGit2 className="h-4 w-4" />
                         Contributions
                     </h2>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="mt-4 space-y-6">
                         {contributed.map((c) => {
                             const maxWeek = c.weeklyCommits?.length
                                 ? Math.max(...c.weeklyCommits, 1)
                                 : 0;
                             return (
-                            <a
-                                key={c.fullName}
-                                href={c.htmlUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group flex flex-col rounded-xl border border-[var(--color-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--color-ink)] hover:shadow-[0_8px_24px_-14px_rgba(20,40,80,0.25)]"
-                            >
-                                <div className="flex items-center justify-between gap-2">
-                                    <span className="truncate font-mono text-[14px] font-semibold text-[var(--color-ink)]">
-                                        {c.fullName}
-                                    </span>
-                                    <ArrowUpRight className="h-4 w-4 shrink-0 text-[var(--color-ink-subtle)] transition group-hover:text-[var(--color-ink)]" />
-                                </div>
+                            <div key={c.fullName}>
+                                <a
+                                    href={c.htmlUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group inline-flex items-center gap-1.5 font-mono text-[15px] font-semibold text-[var(--color-ink)] transition hover:text-[#2461d8]"
+                                >
+                                    {c.fullName}
+                                    <ArrowUpRight className="h-4 w-4 text-[var(--color-ink-subtle)] transition group-hover:text-[#2461d8]" />
+                                </a>
                                 {c.description && (
                                     <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
                                         {c.description}
@@ -247,8 +244,16 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                                         </span>
                                     )}
                                 </div>
-                                {c.weeklyCommits && c.weeklyCommits.length > 0 && (
-                                    <div className="mt-3 border-t border-[var(--color-line)] pt-3">
+                                {c.activity ? (
+                                    <div className="mt-4">
+                                        <MemberContributionGraph
+                                            calendar={c.activity}
+                                            eyebrow="commit activity"
+                                            unit="commit"
+                                        />
+                                    </div>
+                                ) : c.weeklyCommits && c.weeklyCommits.length > 0 ? (
+                                    <div className="mt-3 rounded-xl border border-[var(--color-line)] bg-white p-4">
                                         <div className="flex items-center justify-between text-[12px] text-[var(--color-ink-subtle)]">
                                             <span>최근 1년 커밋 활동</span>
                                             <span>
@@ -270,8 +275,8 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                                             ))}
                                         </div>
                                     </div>
-                                )}
-                            </a>
+                                ) : null}
+                            </div>
                             );
                         })}
                     </div>

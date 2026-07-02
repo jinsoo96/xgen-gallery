@@ -63,6 +63,10 @@ export interface ContributedRepo {
     commits?: number;
     /** Repo-wide weekly commit totals for the last ~52 weeks (GitHub commit_activity). */
     weeklyCommits?: number[];
+    /** All languages used in the repo (names, by bytes desc) — from GitHub /languages. */
+    languages?: string[];
+    /** Per-day commit calendar (last ~year) for a heatmap, from commit_activity. */
+    activity?: ContributionCalendar;
 }
 
 export interface ContributionDay {

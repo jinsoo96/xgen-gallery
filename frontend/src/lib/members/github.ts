@@ -169,17 +169,57 @@ function mapRepo(r: GhRepo): MemberRepo {
     };
 }
 
-function topLanguages(repos: MemberRepo[], n = 5) {
+function topLanguages(
+    repos: MemberRepo[],
+    extraLangs: (string | null | undefined)[] = [],
+    n = 5,
+) {
     const counts = new Map<string, number>();
     for (const r of repos) {
         if (r.isFork) continue;
         if (!r.language) continue;
         counts.set(r.language, (counts.get(r.language) ?? 0) + 1);
     }
+    // 소유 레포에 안 잡히는 조직 기여 레포(xgen-gallery 등)의 언어도 포함한다.
+    for (const lang of extraLangs) {
+        if (!lang) continue;
+        counts.set(lang, (counts.get(lang) ?? 0) + 1);
+    }
     return [...counts.entries()]
         .map(([name, count]) => ({ name, count }))
         .sort((a, b) => b.count - a.count)
         .slice(0, n);
+}
+
+/** commit_activity(주별 total + 일별 days[7])를 히트맵용 ContributionCalendar로 변환. */
+function buildRepoCalendar(
+    weeks: { total: number; week: number; days: number[] }[],
+): ContributionCalendar {
+    const allCounts: number[] = [];
+    for (const w of weeks) for (const c of w.days) allCounts.push(c);
+    const positives = allCounts.filter((n) => n > 0).sort((a, b) => a - b);
+    const q = (p: number) =>
+        positives.length === 0
+            ? 0
+            : positives[
+                  Math.min(positives.length - 1, Math.floor(positives.length * p))
+              ];
+    const t1 = Math.max(1, q(0.25));
+    const t2 = Math.max(t1 + 1, q(0.5));
+    const t3 = Math.max(t2 + 1, q(0.75));
+    const bucket = (n: number): 0 | 1 | 2 | 3 | 4 =>
+        n <= 0 ? 0 : n <= t1 ? 1 : n <= t2 ? 2 : n <= t3 ? 3 : 4;
+    const calWeeks: ContributionDay[][] = weeks.map((w) =>
+        w.days.map((count, di) => ({
+            date: new Date((w.week + di * 86400) * 1000)
+                .toISOString()
+                .slice(0, 10),
+            count,
+            level: bucket(count),
+        })),
+    );
+    const total = weeks.reduce((s, w) => s + w.total, 0);
+    return { totalContributions: total, weeks: calWeeks };
 }
 
 function summarize(profile: GhUser, repos: MemberRepo[]): MemberSummary {
@@ -233,18 +273,34 @@ async function fetchContributedRepos(login: string): Promise<ContributedRepo[]> 
                 } catch (e) {
                     console.warn(`[members] contributors ${c.fullName}:`, e);
                 }
-                // 최근 ~52주 주간 커밋 활동. GitHub이 통계를 계산 중이면 202+빈 응답을
-                // 줄 수 있으니, 배열이 아닐 때는 그냥 생략한다(그래프 미표시).
+                // 최근 ~52주 커밋 활동(주별 total + 일별 days). GitHub이 통계를 계산
+                // 중이면 202+빈 응답을 줄 수 있으니, 배열이 아닐 때는 생략한다.
                 let weeklyCommits: number[] | undefined;
+                let activity: ContributionCalendar | undefined;
                 try {
-                    const { data: activity } = await gh<
-                        { total: number; week: number }[]
+                    const { data: raw } = await gh<
+                        { total: number; week: number; days: number[] }[]
                     >(`/repos/${c.fullName}/stats/commit_activity`);
-                    if (Array.isArray(activity) && activity.length) {
-                        weeklyCommits = activity.map((w) => w.total);
+                    if (Array.isArray(raw) && raw.length) {
+                        weeklyCommits = raw.map((w) => w.total);
+                        activity = buildRepoCalendar(raw);
                     }
                 } catch (e) {
                     console.warn(`[members] commit_activity ${c.fullName}:`, e);
+                }
+                // 레포의 전체 언어(바이트 내림차순) — 언어 분포에 반영한다.
+                let languages: string[] | undefined;
+                try {
+                    const { data: langs } = await gh<Record<string, number>>(
+                        `/repos/${c.fullName}/languages`,
+                    );
+                    if (langs && typeof langs === "object") {
+                        languages = Object.entries(langs)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([name]) => name);
+                    }
+                } catch (e) {
+                    console.warn(`[members] languages ${c.fullName}:`, e);
                 }
                 return {
                     ...c,
@@ -253,6 +309,8 @@ async function fetchContributedRepos(login: string): Promise<ContributedRepo[]> 
                     stars: repo.stargazers_count,
                     commits,
                     weeklyCommits,
+                    activity,
+                    languages,
                 };
             } catch (e) {
                 console.warn(`[members] contributed repo ${c.fullName}:`, e);
@@ -289,8 +347,13 @@ async function buildMember(login: string): Promise<MemberDetail> {
                 return contributedReposFor(login); // static fallback
             }),
         ]);
+    // 조직 기여 레포의 언어까지 포함해 언어 분포를 다시 계산한다.
+    const extraLangs = contributedRepos.flatMap((c) => c.languages ?? []);
     return {
         ...summary,
+        topLanguages: extraLangs.length
+            ? topLanguages(repos, extraLangs)
+            : summary.topLanguages,
         repos,
         contributions,
         recentEvents: recentEvents.slice(0, 50),

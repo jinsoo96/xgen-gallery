@@ -50,8 +50,14 @@ interface HoverState {
 
 export function MemberContributionGraph({
     calendar,
+    eyebrow = "activity",
+    unit = "contribution",
 }: {
     calendar: ContributionCalendar;
+    /** 상단 아이브로 라벨 (기본 "activity"). */
+    eyebrow?: string;
+    /** 합계/툴팁에 쓰는 단위 단수형 (기본 "contribution"). */
+    unit?: string;
 }) {
     const [hover, setHover] = useState<HoverState | null>(null);
     const weeks = calendar.weeks;
@@ -80,11 +86,11 @@ export function MemberContributionGraph({
             <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
                     <p className="font-mono text-[12px] uppercase tracking-wider text-[var(--color-ink-subtle)]">
-                        / activity
+                        / {eyebrow}
                     </p>
                     <h2 className="mt-2 text-lg font-semibold tracking-tight">
-                        {calendar.totalContributions.toLocaleString()}{" "}
-                        contributions in the last year
+                        {calendar.totalContributions.toLocaleString()} {unit}s in
+                        the last year
                     </h2>
                 </div>
                 <Legend />
@@ -100,7 +106,7 @@ export function MemberContributionGraph({
                     height={height}
                     viewBox={`0 0 ${width} ${height}`}
                     role="img"
-                    aria-label={`${calendar.totalContributions} contributions in the last year`}
+                    aria-label={`${calendar.totalContributions} ${unit}s in the last year`}
                     className="block"
                     onMouseLeave={() => setHover(null)}
                 >
@@ -188,6 +194,7 @@ export function MemberContributionGraph({
                         hover={hover}
                         svgWidth={width}
                         svgHeight={height}
+                        unit={unit}
                     />
                 )}
                 </div>
@@ -200,10 +207,12 @@ function Tooltip({
     hover,
     svgWidth,
     svgHeight,
+    unit = "contribution",
 }: {
     hover: HoverState;
     svgWidth: number;
     svgHeight: number;
+    unit?: string;
 }) {
     // Convert SVG-space coords into percentages so the tooltip stays anchored
     // even though the SVG scales responsively.
@@ -244,8 +253,8 @@ function Tooltip({
     });
     const text =
         count === 0
-            ? "No contributions"
-            : `${count} contribution${count === 1 ? "" : "s"}`;
+            ? `No ${unit}s`
+            : `${count} ${unit}${count === 1 ? "" : "s"}`;
     return (
         <div
             className="pointer-events-none absolute z-10 whitespace-nowrap rounded-md bg-[var(--color-ink)] px-2.5 py-1.5 text-[13px] leading-tight text-white shadow-lg"
