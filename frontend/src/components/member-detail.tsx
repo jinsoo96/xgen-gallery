@@ -30,6 +30,7 @@ import type {
     MemberRepo,
     RecentEvent,
 } from "@/lib/members/types";
+import { contributedReposFor } from "@/lib/members/contributions";
 import { MemberLanguageBar } from "./member-language-bar";
 import { MemberContributionGraph } from "./member-contribution-graph";
 
@@ -43,6 +44,7 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
 
     const blog = normalizeBlog(member.blog);
     const displayName = member.name ?? member.login;
+    const contributed = contributedReposFor(member.login);
 
     return (
         <div>
@@ -181,6 +183,54 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                 <div className="mt-6">
                     <MemberContributionGraph calendar={member.contributions} />
                 </div>
+            )}
+
+            {contributed.length > 0 && (
+                <section className="mt-10">
+                    <h2 className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        <FolderGit2 className="h-4 w-4" />
+                        Contributions
+                    </h2>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                        {contributed.map((c) => (
+                            <a
+                                key={c.fullName}
+                                href={c.htmlUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex flex-col rounded-xl border border-[var(--color-line)] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[var(--color-ink)] hover:shadow-[0_8px_24px_-14px_rgba(20,40,80,0.25)]"
+                            >
+                                <div className="flex items-center justify-between gap-2">
+                                    <span className="truncate font-mono text-[14px] font-semibold text-[var(--color-ink)]">
+                                        {c.fullName}
+                                    </span>
+                                    <ArrowUpRight className="h-4 w-4 shrink-0 text-[var(--color-ink-subtle)] transition group-hover:text-[var(--color-ink)]" />
+                                </div>
+                                {c.description && (
+                                    <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
+                                        {c.description}
+                                    </p>
+                                )}
+                                <div className="mt-3 flex items-center gap-2.5">
+                                    {c.role && (
+                                        <span className="inline-flex items-center rounded-full bg-[#2f7bff]/10 px-2 py-0.5 text-[12px] font-semibold text-[#2461d8]">
+                                            {c.role}
+                                        </span>
+                                    )}
+                                    {c.language && (
+                                        <span className="inline-flex items-center gap-1 text-[12.5px] text-[var(--color-ink-muted)]">
+                                            <span
+                                                className="h-2 w-2 rounded-full"
+                                                style={{ background: languageColor(c.language) }}
+                                            />
+                                            {c.language}
+                                        </span>
+                                    )}
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </section>
             )}
 
             <section className="mt-10">

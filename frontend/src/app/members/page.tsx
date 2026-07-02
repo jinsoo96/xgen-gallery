@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export const metadata = {
-    title: "Members",
+    title: "Lab Members",
     description:
         "Meet the people behind Plateer Labs — the open-source contributors building XGEN.",
     alternates: { canonical: "/members" },

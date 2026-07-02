@@ -44,6 +44,21 @@ export interface MemberRepo {
     license: string | null;
 }
 
+/**
+ * A repository a member contributes to that isn't in their owned-repo list —
+ * e.g. an organization repo. Curated in `lib/members/contributions.ts` because
+ * the public GitHub API only lists a user's owned repos.
+ */
+export interface ContributedRepo {
+    name: string;
+    fullName: string;
+    htmlUrl: string;
+    description: string | null;
+    /** Relationship label, e.g. "Owner", "Maintainer", "Contributor". */
+    role?: string;
+    language?: string | null;
+}
+
 export interface ContributionDay {
     /** ISO date YYYY-MM-DD */
     date: string;

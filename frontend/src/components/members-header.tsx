@@ -2,7 +2,7 @@ export function MembersHeader() {
     return (
         <>
             <p className="mb-3 text-[16px] font-semibold tracking-tight text-[#c4b5fd]">
-                Research Team
+                Lab Members
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
                 Enterprise AI를 연구하는 전문가들
