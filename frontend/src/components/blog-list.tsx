@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
-const ALL = "전체 아티클";
+const ALL = "전체";
 const TABS = [ALL, "제품 소식", "Labs Tech", "Case Study"] as const;
 type Tab = (typeof TABS)[number];
 

@@ -11,13 +11,13 @@ import {
     Landmark,
     Banknote,
     Check,
-    BookOpen,
-    Newspaper,
+    ArrowRight,
     type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { GroupPage } from "@/components/onepage";
 import { getGroup } from "@/lib/nav";
+import { getAllPosts } from "@/lib/blog";
 
 export const metadata = {
     title: "Applied AI by Industry",
@@ -230,6 +230,8 @@ function AgenticAI() {
 
 /** 연구소 솔루션 제품의 인증·품질 — 현재 GS인증 심사 종료, 최종 인증 대기 중. */
 function CertificationQuality() {
+    // GS인증 태그가 붙은 인사이트 블로그 글(여정 시리즈 + 관련 글)을 최신순으로 노출.
+    const gsPosts = getAllPosts().filter((p) => p.tags.includes("GS인증"));
     return (
         <div className="space-y-6">
             <div className="grid gap-5 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[auto_1fr] sm:items-center">
@@ -256,55 +258,48 @@ function CertificationQuality() {
                 </div>
             </div>
 
-            <div className="rounded-xl border border-dashed border-[var(--color-line-strong)] bg-[var(--color-surface-alt)] p-10 text-center">
-                <p className="text-[16px] text-[var(--color-ink-muted)]">
-                    해당 페이지는 준비 중입니다
-                </p>
-            </div>
-        </div>
-    );
-}
-
-/** Docs & Releases — 제품 참고 자료(문서·릴리즈)로 가는 링크 카드. */
-const DOCS_RELEASES: { icon: LucideIcon; title: string; desc: string; href: string }[] = [
-    {
-        icon: BookOpen,
-        title: "Documentation",
-        desc: "XGEN 제품 사용 설명서와 기술 문서를 한 곳에서 확인합니다",
-        href: "/documentation",
-    },
-    {
-        icon: Newspaper,
-        title: "Release Notes",
-        desc: "연구소가 개발·관리하는 전 제품의 릴리즈 변경 이력을 제공합니다",
-        href: "/releases",
-    },
-];
-
-function DocsReleases() {
-    return (
-        <div className="grid gap-4 sm:grid-cols-2">
-            {DOCS_RELEASES.map((c) => (
-                <Link
-                    key={c.title}
-                    href={c.href}
-                    className="group flex flex-col rounded-2xl border border-[var(--color-line)] bg-white p-6 transition hover:border-[#bcd0f5] hover:shadow-[0_14px_36px_-18px_rgba(20,40,80,0.22)]"
-                >
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#2f7bff]/10 text-[#2f7bff]">
-                        <c.icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="mt-4 text-[17px] font-bold tracking-tight text-[var(--color-ink)]">
-                        {c.title}
+            {gsPosts.length > 0 && (
+                <div className="rounded-xl border border-[var(--color-line)] bg-white p-6">
+                    <h3 className="text-[17px] font-bold tracking-tight text-[var(--color-ink)]">
+                        GS 인증 관련 아티클
                     </h3>
-                    <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
-                        {c.desc}
+                    <p className="mt-1 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                        GS 인증 준비부터 시험·심사까지의 과정을 인사이트 블로그에 기록했습니다
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2461d8] transition group-hover:text-[#1b4fb0]">
-                        바로가기
-                        <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-                    </span>
-                </Link>
-            ))}
+                    <ul className="mt-4 divide-y divide-[var(--color-line)]">
+                        {gsPosts.map((p) => (
+                            <li key={p.slug}>
+                                <Link
+                                    href={`/blog/${p.slug}`}
+                                    className="group flex items-center justify-between gap-4 py-3"
+                                >
+                                    <div className="min-w-0">
+                                        <div className="flex items-center gap-2 text-[13px] text-[var(--color-ink-subtle)]">
+                                            <span className="rounded-full bg-[#2f7bff]/10 px-2 py-0.5 font-semibold text-[#2461d8]">
+                                                {p.category}
+                                            </span>
+                                            <time dateTime={p.date}>
+                                                {p.date.replaceAll("-", ".")}
+                                            </time>
+                                        </div>
+                                        <p className="mt-1 truncate text-[15.5px] font-semibold text-[var(--color-ink)] transition group-hover:text-[#2461d8]">
+                                            {p.title}
+                                        </p>
+                                    </div>
+                                    <ArrowRight className="h-4 w-4 flex-none text-[var(--color-ink-subtle)] transition group-hover:translate-x-0.5 group-hover:text-[#2461d8]" />
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                    <Link
+                        href="/blog"
+                        className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2461d8] transition hover:text-[#1b4fb0]"
+                    >
+                        인사이트 블로그 전체 보기
+                        <ArrowRight className="h-4 w-4" />
+                    </Link>
+                </div>
+            )}
         </div>
     );
 }
@@ -317,7 +312,6 @@ export default function SolutionsPage() {
             content={{
                 "ai-agents": <AgenticAI />,
                 certification: <CertificationQuality />,
-                "docs-releases": <DocsReleases />,
             }}
         />
     );
