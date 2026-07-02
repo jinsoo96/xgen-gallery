@@ -21,7 +21,7 @@ const PAGES: SearchDoc[] = [
     { title: "Research", subtitle: "Enterprise AI 연구 영역·백서·아키텍처", url: "/research", type: "페이지", keywords: "연구 리서치" },
     { title: "Research & Technology", subtitle: "엔진·프레임워크·아키텍처·연구", url: "/technology", type: "페이지", keywords: "기술 엔진 프레임워크 연구 리서치" },
     { title: "Applied AI", subtitle: "산업별 솔루션·Agentic AI·PoC", url: "/solutions", type: "페이지", keywords: "솔루션 산업 금융 공공 커머스" },
-    { title: "Insight Blog", subtitle: "연구·현장 인사이트", url: "/blog", type: "페이지", keywords: "블로그 인사이트" },
+    { title: "Insight", subtitle: "연구·현장 인사이트", url: "/blog", type: "페이지", keywords: "블로그 인사이트 insight" },
     { title: "Architecture", subtitle: "Enterprise AI 참조 아키텍처·XGEN 플랫폼·CI/CD", url: "/architecture", type: "페이지", keywords: "아키텍처 architecture" },
     { title: "Documentation", subtitle: "XGEN 사용자 매뉴얼·가이드", url: "/documentation", type: "페이지", keywords: "문서 매뉴얼 manual" },
     { title: "Library Gallery", subtitle: "오픈소스 라이브러리 갤러리", url: "/library-gallery", type: "페이지", keywords: "라이브러리 오픈소스" },

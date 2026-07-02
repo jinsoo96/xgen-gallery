@@ -8,12 +8,12 @@ import { breadcrumbLd, itemListLd } from "@/lib/structured-data";
 import { absoluteUrl } from "@/lib/site";
 
 export const metadata = {
-    title: "Insight Blog",
+    title: "Insight",
     description:
-        "Plateer Labs Insight Blog — Case Study, Tech News, 제품 소식 등 Enterprise AI 연구·실무 인사이트를 공유합니다.",
+        "Plateer Labs Insight — Case Study, Tech News, 제품 소식 등 Enterprise AI 연구·실무 인사이트를 공유합니다.",
     alternates: { canonical: "/blog" },
     openGraph: {
-        title: "Insight Blog · Plateer Labs",
+        title: "Insight · Plateer Labs",
         description:
             "Case Study · Tech News · 제품 소식 — Enterprise AI 인사이트.",
         type: "website",
@@ -56,7 +56,7 @@ export default function BlogPage() {
                 <SceneBackground concept="insights" />
                 <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
                     <p className="text-[16px] font-semibold tracking-tight text-[#fcd34d]">
-                        Plateer Labs · Insight Blog
+                        Plateer Labs · Insight
                     </p>
                     <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight md:text-5xl md:leading-[1.1]">
                         Proven by research,

@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 
 /**
- * 메인 — Insight Blog 미리보기. 파일베이스 블로그의 최신 3개 글을 홈에 노출한다.
+ * 메인 — Insight 미리보기. 파일베이스 블로그의 최신 3개 글을 홈에 노출한다.
  * (server component — 빌드 시 content/blog 프론트매터를 읽어 정적 렌더)
  */
 function fmt(date: string) {
@@ -20,7 +20,7 @@ export function HomeInsights() {
                 <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                     <div>
                         <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
-                            / Insight Blog
+                            / Insight
                         </p>
                         <h2 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight md:text-5xl">
                             연구와 현장에서 얻은{" "}
