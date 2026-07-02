@@ -54,8 +54,8 @@ const PRODUCTS: Product[] = [
         name: "FloUI",
         tagline: "XGEN",
         desc: "XGEN의 FloUI 기능을 영상으로 소개합니다",
-        video: null,
-        poster: null,
+        video: "https://www.youtube-nocookie.com/embed/StxOW5PbC8w",
+        poster: "https://img.youtube.com/vi/StxOW5PbC8w/maxresdefault.jpg",
     },
 ];
 
