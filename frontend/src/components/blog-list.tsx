@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
@@ -16,21 +16,30 @@ const CATEGORY_BY_KEY: Record<string, Tab> = {
     labs: "Tech News",
     case: "Case Study",
 };
+const KEY_BY_CATEGORY: Partial<Record<Tab, string>> = {
+    "제품 소식": "product",
+    "Tech News": "labs",
+    "Case Study": "case",
+};
 
 function fmtDate(d: string) {
     return d.replaceAll("-", ".");
 }
 
 export function BlogList({ posts }: { posts: PostMeta[] }) {
-    const [active, setActive] = useState<Tab>(ALL);
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
-    // /blog?cat=product 등으로 진입하면 해당 카테고리로 초기 필터. URL 없이 상태만
-    // 쓰던 구조라, useSearchParams의 Suspense 요건을 피해 마운트 시 1회만 읽는다.
-    useEffect(() => {
-        const key = new URLSearchParams(window.location.search).get("cat");
-        const cat = key ? CATEGORY_BY_KEY[key] : undefined;
-        if (cat) setActive(cat);
-    }, []);
+    // 활성 카테고리는 URL(?cat=)에서 반응형으로 읽는다. /blog에 머문 상태에서 다른
+    // 카테고리 서브메뉴를 눌러 URL만 바뀌어도(리마운트 없이) 필터가 갱신된다.
+    const key = searchParams.get("cat");
+    const active: Tab = (key && CATEGORY_BY_KEY[key]) || ALL;
+
+    // 탭 클릭도 URL을 갱신해 단일 소스로 통일(공유 가능한 링크 + 서브메뉴와 일치).
+    const selectTab = (t: Tab) => {
+        const k = KEY_BY_CATEGORY[t];
+        router.replace(k ? `/blog?cat=${k}` : "/blog", { scroll: false });
+    };
 
     const filtered =
         active === ALL ? posts : posts.filter((p) => p.category === active);
@@ -48,7 +57,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                         <button
                             key={t}
                             type="button"
-                            onClick={() => setActive(t)}
+                            onClick={() => selectTab(t)}
                             className={cn(
                                 "rounded-full px-3.5 py-1.5 text-[15px] font-semibold transition",
                                 active === t

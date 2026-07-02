@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
@@ -72,7 +73,9 @@ export default function BlogPage() {
             </section>
 
             <main id="articles" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-24">
-                <BlogList posts={posts} />
+                <Suspense fallback={null}>
+                    <BlogList posts={posts} />
+                </Suspense>
             </main>
             <SiteFooter />
         </>
