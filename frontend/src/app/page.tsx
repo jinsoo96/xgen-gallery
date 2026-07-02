@@ -5,6 +5,7 @@ import { HomeResearch } from "@/components/home-research";
 import { HomeTechnology } from "@/components/home-technology";
 import { UseCases } from "@/components/usecases";
 import { HomeIndustries } from "@/components/home-industries";
+import { HomeProductTour } from "@/components/home-product-tour";
 import { QualitySecurity } from "@/components/quality-security";
 import { HomeInsights } from "@/components/home-insights";
 import { HomeResources } from "@/components/home-resources";
@@ -24,6 +25,7 @@ export default function Home() {
                 <HomeTechnology />
                 <UseCases />
                 <HomeIndustries />
+                <HomeProductTour />
                 <QualitySecurity />
                 <HomeInsights />
                 <HomeResources />

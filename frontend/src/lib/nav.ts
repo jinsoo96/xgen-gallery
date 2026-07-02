@@ -199,22 +199,16 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
-                // Product — 라벨은 xgen.im 으로 나가고, 하위에 체험·인증·문서·
-                // 릴리즈를 한 그룹으로 노출한다. 무료 체험(Trial)을 최상단에 두어
-                // 전환 동선을 우선한다. Release Notes는 연구소 전 제품 통합
-                // 릴리즈(/releases), Documentation은 /documentation 으로 연결.
-                // colBreak로 오른쪽 컬럼을 시작 → 왼쪽 컬럼(Agentic AI /
-                // PoC Projects / Technical Consulting)과 분리된다.
+                // Product — 라벨은 xgen.im 으로 나가고, 하위에 인증·보안·문서·
+                // 릴리즈를 한 그룹으로 노출한다. Release Notes는 연구소 전 제품 통합
+                // 릴리즈(/releases), Documentation은 /documentation, Security &
+                // Governance는 /security 로 연결. colBreak로 오른쪽 컬럼을 시작 →
+                // 왼쪽 컬럼(Agentic AI / PoC Projects / Technical Consulting)과 분리.
                 label: "Product",
                 id: "xgen-site",
                 colBreak: true,
                 external: "https://www.xgen.im/",
                 children: [
-                    {
-                        label: "무료 체험 (Trial)",
-                        id: "xgen-trial",
-                        external: "https://www.xgen.im/trial",
-                    },
                     { label: "Certifications & Quality", id: "certification" },
                     {
                         label: "Security & Governance",
