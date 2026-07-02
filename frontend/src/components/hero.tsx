@@ -23,9 +23,13 @@ const ROTATE_MS = 6000;
 // hero-security.mp4 = 방금 내려받은 영상을 frontend/public/ 에 저장.
 const SLIDE_BG = [
     "/hero-vision.mp4",
-    "/hero-security-v2.mp4",
+    "/hero-security-v3.mp4",
     "/hero-slide2.mp4",
 ];
+// Per-slide object-position. Slide 2 anchors to the right so the face stays on
+// the right edge under object-cover even on wide viewports (center-crop would
+// otherwise pull it back toward the middle).
+const SLIDE_POS = ["center", "right center", "center"];
 
 const H1_CLS =
     "max-w-5xl text-3xl font-bold tracking-tight text-white md:text-5xl lg:text-[3.5rem] lg:leading-[1.05]";
@@ -201,6 +205,7 @@ export function Hero() {
                         muted
                         playsInline
                         preload="auto"
+                        style={{ objectPosition: SLIDE_POS[i] }}
                         className={cn(
                             "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out",
                             i === active ? "opacity-100" : "opacity-0",
