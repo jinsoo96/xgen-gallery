@@ -4,6 +4,7 @@ import { SceneBackground } from "@/components/scene-background";
 import { LivePreview } from "@/components/live-preview";
 import { ToolGrid } from "@/components/tool-grid";
 import { UseCases } from "@/components/usecases";
+import { RuntimeContent } from "@/components/technology-sections";
 
 export const metadata = {
     title: "Library Gallery",
@@ -37,6 +38,23 @@ export default function LibraryGalleryPage() {
                 <ToolGrid />
                 <section id="recipes" className="scroll-mt-24">
                     <UseCases />
+                </section>
+                {/* Runtime — Technology에서 이관. onepage Section과 동일한 컨테이너로 래핑 */}
+                <section
+                    id="runtime"
+                    className="scroll-mt-24 border-t border-[var(--color-line)] bg-[var(--color-surface)]"
+                >
+                    <div className="mx-auto max-w-6xl px-6 py-24">
+                        <p className="font-mono text-[13px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                            / Runtime
+                        </p>
+                        <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
+                            Runtime
+                        </h2>
+                        <div className="mt-8">
+                            <RuntimeContent />
+                        </div>
+                    </div>
                 </section>
             </main>
             <SiteFooter />

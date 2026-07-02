@@ -150,16 +150,6 @@ export const NAV_GROUPS: NavGroup[] = [
                     { label: "CI/CD 배포", id: "cicd", route: "/architecture#cicd" },
                 ],
             },
-            {
-                label: "Runtime",
-                id: "runtime",
-                colBreak: true,
-                children: [
-                    { label: "MCP Apps", id: "mcp-apps" },
-                    { label: "Runtime SDK", id: "runtime-sdk" },
-                    { label: "Runtime API", id: "runtime-api" },
-                ],
-            },
         ],
     },
     {
@@ -252,12 +242,22 @@ export const NAV_GROUPS: NavGroup[] = [
                 label: "Library Gallery",
                 id: "library-gallery",
                 route: "/library-gallery",
+            },
+            {
+                label: "Library Recipes",
+                id: "library-recipes",
+                route: "/library-gallery#recipes",
+            },
+            {
+                // Runtime — 독립 MCP 런타임. 콘텐츠는 /library-gallery 페이지의
+                // runtime 섹션에 렌더되며, 하위 앵커는 RuntimeContent 내부 id로 연결.
+                label: "Runtime",
+                id: "runtime",
+                route: "/library-gallery#runtime",
                 children: [
-                    {
-                        label: "Library Recipes",
-                        id: "library-recipes",
-                        route: "/library-gallery#recipes",
-                    },
+                    { label: "MCP Apps", id: "mcp-apps", route: "/library-gallery#mcp-apps" },
+                    { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
+                    { label: "Runtime API", id: "runtime-api", route: "/library-gallery#runtime-api" },
                 ],
             },
         ],

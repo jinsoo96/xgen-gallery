@@ -2,7 +2,6 @@ import { GroupPage } from "@/components/onepage";
 import {
     EnginesContent,
     FrameworksContent,
-    RuntimeContent,
 } from "@/components/technology-sections";
 import { getGroup } from "@/lib/nav";
 
@@ -42,7 +41,6 @@ export default function TechnologyPage() {
             content={{
                 engines: <EnginesContent />,
                 frameworks: <FrameworksContent />,
-                runtime: <RuntimeContent />,
             }}
         />
     );
