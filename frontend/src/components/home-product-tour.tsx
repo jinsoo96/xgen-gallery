@@ -22,6 +22,8 @@ type Product = {
     video: string | null;
     /** 썸네일 이미지 URL. 없으면 그라데이션 배경 + 재생 버튼만 표시. */
     poster?: string | null;
+    /** 설정 시 클릭 전 썸네일 대신 영상 첫 N초를 무음 루프로 재생한다(살아있는 썸네일). */
+    previewEndSeconds?: number;
 };
 
 const PRODUCTS: Product[] = [
@@ -30,8 +32,8 @@ const PRODUCTS: Product[] = [
         name: "XGEN",
         tagline: "Agentic AI Platform",
         desc: "노드 캔버스와 헤드리스 엔진 기반의 엔터프라이즈 AI 에이전트 런타임 — 플랫폼 전반을 영상으로 소개합니다",
-        video: "https://www.youtube-nocookie.com/embed/x0Uch1b0kNk",
-        poster: "https://img.youtube.com/vi/x0Uch1b0kNk/maxresdefault.jpg",
+        video: null,
+        poster: null,
     },
     {
         key: "mcp",
@@ -56,12 +58,18 @@ const PRODUCTS: Product[] = [
         desc: "XGEN의 FloUI 기능을 영상으로 소개합니다",
         video: "https://www.youtube-nocookie.com/embed/StxOW5PbC8w",
         poster: "https://img.youtube.com/vi/StxOW5PbC8w/maxresdefault.jpg",
+        previewEndSeconds: 1,
     },
 ];
 
 /** 임베드 URL에 autoplay 파라미터를 붙인다(클릭 후 자동 재생). */
 function withAutoplay(url: string) {
     return url + (url.includes("?") ? "&" : "?") + "autoplay=1";
+}
+
+/** youtube-nocookie 임베드 URL에서 영상 ID 추출 (loop playlist 파라미터용). */
+function ytId(embedUrl: string) {
+    return embedUrl.split("/embed/")[1]?.split(/[?&]/)[0] ?? "";
 }
 
 export function HomeProductTour() {
@@ -126,6 +134,24 @@ export function HomeProductTour() {
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     />
+                                ) : active.previewEndSeconds ? (
+                                    // 미리보기 — 영상 첫 N초를 무음 루프로 재생(= 썸네일).
+                                    <button
+                                        type="button"
+                                        onClick={() => setPlaying(true)}
+                                        aria-label={`${active.name} 소개영상 재생`}
+                                        className="group relative flex h-full w-full items-center justify-center overflow-hidden bg-black"
+                                    >
+                                        <iframe
+                                            src={`${active.video}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ytId(active.video)}&start=0&end=${active.previewEndSeconds}&modestbranding=1&rel=0&playsinline=1`}
+                                            title={`${active.name} 미리보기`}
+                                            className="pointer-events-none absolute inset-0 h-full w-full"
+                                            allow="autoplay; encrypted-media"
+                                        />
+                                        <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#070b1c] shadow-lg transition group-hover:scale-105">
+                                            <PlayCircle className="h-9 w-9" />
+                                        </span>
+                                    </button>
                                 ) : (
                                     // 파사드 — 썸네일 + 재생 버튼(영상 플레이어 미로드).
                                     <button
