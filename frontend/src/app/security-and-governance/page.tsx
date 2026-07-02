@@ -33,7 +33,7 @@ export const metadata = {
     },
 };
 
-/** 다층 통제의 세 축. */
+/** 다층 통제의 3가지 축. */
 const CONTROLS: { icon: LucideIcon; en: string; ko: string; desc: string }[] = [
     {
         icon: ShieldAlert,
@@ -112,7 +112,7 @@ const RISK_GRADES: [string, string][] = [
 const FAQ: { q: string; a: string }[] = [
     {
         q: "XGEN의 가드레일은 어떤 계층으로 구성되나요?",
-        a: "외부 가드 모델 기반 유해성 검토, 정규식 기반 PII(개인정보) 탐지·마스킹, 금칙어 탐지·마스킹의 세 축으로 구성됩니다. 여기에 전송 전 사전 탐지(detect-only), 통합 감사 로그, AI 위험도 등급 정책이 거버넌스 계층으로 더해집니다.",
+        a: "외부 가드 모델 기반 유해성 검토, 정규식 기반 PII(개인정보) 탐지·마스킹, 금칙어 탐지·마스킹의 3가지 축으로 구성됩니다. 여기에 전송 전 사전 탐지(detect-only), 통합 감사 로그, AI 위험도 등급 정책이 거버넌스 계층으로 더해집니다.",
     },
     {
         q: "개인정보 마스킹은 어느 시점에 적용되나요?",
@@ -199,11 +199,11 @@ export default function SecurityPage() {
                     <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>Layered Control</Eyebrow>
                         <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            세 축으로 통제하는 다층 가드레일
+                            3가지 축으로 통제하는 다층 가드레일
                         </h2>
                         <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
                             XGEN의 통제 기능은 외부 가드 모델 기반 유해성 검토, 개인정보
-                            탐지·마스킹, 금칙어 탐지·마스킹의 세 축으로 구성됩니다. 각
+                            탐지·마스킹, 금칙어 탐지·마스킹의 3가지 축으로 구성됩니다. 각
                             축은 독립적으로 켜고 끌 수 있으며, 탐지 이벤트는 항상 로그로
                             남습니다.
                         </p>
