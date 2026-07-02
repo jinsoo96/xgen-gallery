@@ -7,13 +7,13 @@ import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
 const ALL = "전체";
-const TABS = [ALL, "제품 소식", "Labs Tech", "Case Study"] as const;
+const TABS = [ALL, "제품 소식", "Tech News", "Case Study"] as const;
 type Tab = (typeof TABS)[number];
 
 /** GNB 서브메뉴 딥링크용: /blog?cat=<key> → 카테고리 라벨. */
 const CATEGORY_BY_KEY: Record<string, Tab> = {
     product: "제품 소식",
-    labs: "Labs Tech",
+    labs: "Tech News",
     case: "Case Study",
 };
 

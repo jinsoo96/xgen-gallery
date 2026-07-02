@@ -3,7 +3,7 @@ title: "GEO와 SEO는 어떻게 다른가"
 description: "GEO(생성형 AI 검색 최적화)와 SEO(전통 검색 최적화)의 차이와 공통점, 그리고 둘을 함께 잡는 실전 체크리스트를 정리합니다."
 date: "2026-06-24"
 author: "Plateer Labs"
-category: "Labs Tech"
+category: "Tech News"
 tags: ["GEO", "SEO", "콘텐츠"]
 draft: false
 ---

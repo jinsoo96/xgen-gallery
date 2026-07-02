@@ -3,7 +3,7 @@ title: "Ontology RAG: 벡터를 넘어 관계로"
 description: "유사도 기반 벡터 검색의 한계와, 데이터 간 관계를 따라 '맞는 사실'을 찾는 XGEN Ontology RAG의 차이를 정리합니다."
 date: "2026-06-18"
 author: "Plateer Labs"
-category: "Labs Tech"
+category: "Tech News"
 tags: ["Ontology", "RAG", "Knowledge Graph"]
 draft: false
 ---
