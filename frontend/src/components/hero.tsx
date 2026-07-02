@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/components/i18n-provider";
 // import { CustomerMarquee } from "@/components/customer-marquee"; // 임시 주석 처리
@@ -170,6 +170,22 @@ export function Hero() {
         return () => clearInterval(id);
     }, []);
 
+    // 활성 슬라이드 영상만 재생하고 나머지는 일시정지한다. 3개 영상을 동시에
+    // 디코딩하면 보이는 영상이 끊기거나 멈춘 것처럼 보이므로, 디코딩 부하를 1개로
+    // 낮춘다.
+    const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+    useEffect(() => {
+        videoRefs.current.forEach((v, i) => {
+            if (!v) return;
+            if (i === active) {
+                const p = v.play();
+                if (p) p.catch(() => {});
+            } else {
+                v.pause();
+            }
+        });
+    }, [active]);
+
     return (
         <section className="relative flex min-h-[calc(100dvh+2px)] items-center overflow-hidden border-b border-white/10 bg-[#050813] text-white">
             {/* main background videos — crossfade between slides */}
@@ -177,10 +193,14 @@ export function Hero() {
                 {SLIDE_BG.map((src, i) => (
                     <video
                         key={src}
-                        autoPlay
+                        ref={(el) => {
+                            videoRefs.current[i] = el;
+                        }}
+                        autoPlay={i === 0}
                         loop
                         muted
                         playsInline
+                        preload="auto"
                         className={cn(
                             "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out",
                             i === active ? "opacity-100" : "opacity-0",
