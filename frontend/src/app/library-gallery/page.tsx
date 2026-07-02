@@ -20,7 +20,7 @@ export default function LibraryGalleryPage() {
                 <SceneBackground concept="tools" />
                 <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
                     <p className="text-[16px] font-semibold tracking-tight text-[#fcd34d]">
-                        Technology · Library Gallery
+                        Open Source · Library Gallery
                     </p>
                     <h1 className="mt-3 max-w-3xl text-3xl font-bold tracking-tight md:text-5xl">
                         Library Gallery
@@ -35,7 +35,9 @@ export default function LibraryGalleryPage() {
             <main>
                 <LivePreview />
                 <ToolGrid />
-                <UseCases />
+                <section id="recipes" className="scroll-mt-24">
+                    <UseCases />
+                </section>
             </main>
             <SiteFooter />
         </>

@@ -14,7 +14,6 @@ import {
     type LucideIcon,
 } from "lucide-react";
 import { GroupPage } from "@/components/onepage";
-import { UseCases } from "@/components/usecases";
 import { getGroup } from "@/lib/nav";
 
 export const metadata = {
@@ -270,7 +269,6 @@ export default function SolutionsPage() {
             hero={<SolutionsHero />}
             content={{
                 "ai-agents": <AgenticAI />,
-                "library-recipes": <UseCases embedded />,
                 certification: <CertificationQuality />,
             }}
         />

@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const staticRoutes: MetadataRoute.Sitemap = [
         { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
         { url: `${SITE.url}/demo`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-        { url: `${SITE.url}/library-gallery`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+        // /library-gallery 는 Open Source 그룹(key=library-gallery)에서 생성됨 — 중복 제거
         { url: `${SITE.url}/poc-projects`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
         { url: `${SITE.url}/technical-consulting`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
         { url: `${SITE.url}/documentation`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },

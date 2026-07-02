@@ -85,10 +85,13 @@ export function sectionHref(groupKey: string, id: string): string {
 
 export const NAV_GROUPS: NavGroup[] = [
     {
+        // 최상위 GNB에서는 감추고(= Research & Technology 아래로 편입), /research
+        // 원페이지와 sitemap 등록은 그대로 유지한다.
         key: "research",
         label: "Research",
         concept: "research",
         blurb: "엔터프라이즈 AI를 떠받치는 연구 — 영역, 백서, 아키텍처, 로드맵.",
+        hidden: true,
         items: [
             { label: "Research Areas", id: "research-areas" },
             { label: "Papers", id: "papers" },
@@ -97,14 +100,26 @@ export const NAV_GROUPS: NavGroup[] = [
     },
     {
         key: "technology",
-        label: "Technology",
+        label: "Research & Technology",
         concept: "technology",
-        blurb: "엔진부터 런타임, 오픈소스 라이브러리 갤러리까지.",
+        blurb: "연구 성과부터 엔진·프레임워크·런타임·아키텍처까지.",
         wide: true,
         items: [
             {
+                // Research 영역 — 첫 열. 세부는 /research 원페이지 섹션으로 연결.
+                label: "Research",
+                id: "research",
+                route: "/research",
+                children: [
+                    { label: "Research Areas", id: "research-areas", route: "/research#research-areas" },
+                    { label: "Papers", id: "papers", route: "/research#papers" },
+                    { label: "Publications", id: "publications", route: "/research#publications" },
+                ],
+            },
+            {
                 label: "Engines",
                 id: "engines",
+                colBreak: true,
                 children: [
                     { label: "Ontology", id: "ontology" },
                     { label: "Harness", id: "harness" },
@@ -194,15 +209,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
-                // Library Gallery(별도 페이지) 아래에 Library Recipes를 서브로 노출.
-                // Recipes 링크는 /solutions#library-recipes 섹션으로 스크롤된다.
-                label: "Library Gallery",
-                id: "library-gallery",
-                route: "/library-gallery",
-                blurb: "XGEN을 떠받치는 오픈소스 라이브러리 모음 — 인제스션, 지식 그래프, 에이전트 도구를 한곳에서.",
-                children: [{ label: "Library Recipes", id: "library-recipes" }],
-            },
-            {
                 // Product — XGEN 제품. 라벨은 xgen.im 으로 나가고, 하위에
                 // 인증·문서·체험을 노출한다(Applied AI 2열 드롭다운의 한 항목).
                 // colBreak로 오른쪽 컬럼을 시작 → Library Gallery는 왼쪽
@@ -226,18 +232,33 @@ export const NAV_GROUPS: NavGroup[] = [
                 ],
             },
             {
-                // 섹션은 /solutions#library-recipes 로 렌더하되, GNB 드롭다운에는
-                // 노출하지 않는다(위 Library Gallery 하위 항목에서만 진입).
-                label: "Library Recipes",
-                id: "library-recipes",
-                hidden: true,
-            },
-            {
                 // 섹션은 /solutions#certification 으로 렌더하되, GNB 드롭다운에는
                 // 노출하지 않는다(최상위 Product 메뉴의 "Certifications & Quality"에서만 진입).
                 label: "Certifications & Quality",
                 id: "certification",
                 hidden: true,
+            },
+        ],
+    },
+    {
+        // Open Source 최상위 메뉴 — key를 library-gallery로 두어 상단/푸터 링크가
+        // 기존 /library-gallery 페이지를 그대로 가리킨다(별도 페이지·route 불필요).
+        key: "library-gallery",
+        label: "Open Source",
+        concept: "tools",
+        blurb: "XGEN을 떠받치는 오픈소스 라이브러리와 실전 레시피.",
+        items: [
+            {
+                label: "Library Gallery",
+                id: "library-gallery",
+                route: "/library-gallery",
+                children: [
+                    {
+                        label: "Library Recipes",
+                        id: "library-recipes",
+                        route: "/library-gallery#recipes",
+                    },
+                ],
             },
         ],
     },
