@@ -11,7 +11,6 @@ const VARIANT_BY_PATH: Record<string, number> = {
     "/technology": 1,
     "/solutions": 2,
     "/insights": 3,
-    "/resources": 3,
     "/architecture": 1,
     "/poc-projects": 2,
     "/members": 0,

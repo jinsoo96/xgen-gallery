@@ -237,6 +237,8 @@ export const NAV_GROUPS: NavGroup[] = [
         label: "Open Source",
         concept: "tools",
         blurb: "XGEN을 떠받치는 오픈소스 라이브러리와 실전 레시피.",
+        wide: true,
+        cols: 2,
         items: [
             {
                 label: "Library Gallery",
@@ -247,6 +249,11 @@ export const NAV_GROUPS: NavGroup[] = [
                 label: "Library Recipes",
                 id: "library-recipes",
                 route: "/library-gallery#recipes",
+            },
+            {
+                label: "Release Notes",
+                id: "releases",
+                route: "/releases",
             },
             {
                 // Runtime — 독립 MCP 런타임. 콘텐츠는 /library-gallery 페이지의
@@ -263,33 +270,19 @@ export const NAV_GROUPS: NavGroup[] = [
         ],
     },
     {
-        // Resources 메뉴 — Documentation · Release Notes · Research Team 드롭다운.
-        key: "resources",
-        label: "Resources",
-        concept: "resources",
-        blurb: "문서와 릴리스 노트, 그리고 연구 멤버",
-        items: [
-            {
-                label: "Release Notes",
-                id: "releases",
-                route: "/releases",
-                blurb: "XGEN 플랫폼의 새 기능, 개선사항, 버그 수정 이력.",
-            },
-            {
-                label: "Research Team",
-                id: "research-team",
-                route: "/members",
-                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
-            },
-        ],
-    },
-    {
-        // 1-depth 메뉴 — 파일베이스 블로그(/blog)로 바로 이동.
+        // 블로그(/blog) 최상위 — 라벨 클릭 시 블로그, 드롭다운에 Lab Members.
         key: "blog",
         label: "Insight Blog",
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
-        items: [],
+        items: [
+            {
+                label: "Lab Members",
+                id: "lab-members",
+                route: "/members",
+                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
+            },
+        ],
     },
 ];
 

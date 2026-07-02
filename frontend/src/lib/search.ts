@@ -19,15 +19,14 @@ export interface SearchDoc {
 
 const PAGES: SearchDoc[] = [
     { title: "Research", subtitle: "Enterprise AI 연구 영역·백서·아키텍처", url: "/research", type: "페이지", keywords: "연구 리서치" },
-    { title: "Technology", subtitle: "엔진·프레임워크·런타임·오픈소스 라이브러리", url: "/technology", type: "페이지", keywords: "기술 엔진 프레임워크 런타임" },
+    { title: "Research & Technology", subtitle: "엔진·프레임워크·아키텍처·연구", url: "/technology", type: "페이지", keywords: "기술 엔진 프레임워크 연구 리서치" },
     { title: "Applied AI", subtitle: "산업별 솔루션·Agentic AI·PoC", url: "/solutions", type: "페이지", keywords: "솔루션 산업 금융 공공 커머스" },
-    { title: "Resources", subtitle: "문서·매뉴얼·릴리즈 노트·인사이트", url: "/resources", type: "페이지", keywords: "리소스 자료" },
     { title: "Insight Blog", subtitle: "연구·현장 인사이트", url: "/blog", type: "페이지", keywords: "블로그 인사이트" },
     { title: "Architecture", subtitle: "Enterprise AI 참조 아키텍처·XGEN 플랫폼·CI/CD", url: "/architecture", type: "페이지", keywords: "아키텍처 architecture" },
     { title: "Documentation", subtitle: "XGEN 사용자 매뉴얼·가이드", url: "/documentation", type: "페이지", keywords: "문서 매뉴얼 manual" },
     { title: "Library Gallery", subtitle: "오픈소스 라이브러리 갤러리", url: "/library-gallery", type: "페이지", keywords: "라이브러리 오픈소스" },
     { title: "Release Notes", subtitle: "변경 이력·업데이트", url: "/releases", type: "페이지", keywords: "릴리즈 변경 이력 changelog" },
-    { title: "Research Team", subtitle: "연구 멤버 프로필·기여 활동", url: "/members", type: "페이지", keywords: "멤버 팀 team" },
+    { title: "Lab Members", subtitle: "연구 멤버 프로필·기여 활동", url: "/members", type: "페이지", keywords: "멤버 팀 team lab members 랩" },
     { title: "PoC Projects", subtitle: "산업별 PoC 실증 사례", url: "/poc-projects", type: "페이지", keywords: "poc 실증 사례" },
     { title: "Technical Consulting", subtitle: "AI 도입 전략·PoC·아키텍처 컨설팅", url: "/technical-consulting", type: "페이지", keywords: "컨설팅 consulting" },
     { title: "PoC · 기술 상담", subtitle: "문의·상담 신청", url: "/contact", type: "페이지", keywords: "문의 상담 contact 데모" },
