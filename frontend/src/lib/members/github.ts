@@ -222,6 +222,57 @@ function buildRepoCalendar(
     return { totalContributions: total, weeks: calWeeks };
 }
 
+/**
+ * 작성자 커밋 날짜 목록으로 GitHub식 53주 히트맵 캘린더를 만든다. 통계 API의
+ * 202(계산 중) 지연 문제를 피하려고 /commits?author= 결과를 직접 버킷팅한다.
+ */
+function buildAuthorCalendar(dates: string[]): ContributionCalendar {
+    const byDate = new Map<string, number>();
+    for (const iso of dates) {
+        const d = iso.slice(0, 10);
+        byDate.set(d, (byDate.get(d) ?? 0) + 1);
+    }
+    const positives = [...byDate.values()]
+        .filter((n) => n > 0)
+        .sort((a, b) => a - b);
+    const q = (p: number) =>
+        positives.length === 0
+            ? 0
+            : positives[
+                  Math.min(positives.length - 1, Math.floor(positives.length * p))
+              ];
+    const t1 = Math.max(1, q(0.25));
+    const t2 = Math.max(t1 + 1, q(0.5));
+    const t3 = Math.max(t2 + 1, q(0.75));
+    const bucket = (n: number): 0 | 1 | 2 | 3 | 4 =>
+        n <= 0 ? 0 : n <= t1 ? 1 : n <= t2 ? 2 : n <= t3 ? 3 : 4;
+
+    // 이번 주 토요일까지, 그 직전 53주의 일요일부터 하루씩 채운다.
+    const today = new Date();
+    const end = new Date(
+        Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()),
+    );
+    const lastSat = new Date(end);
+    lastSat.setUTCDate(end.getUTCDate() + (6 - end.getUTCDay()));
+    const WEEKS = 53;
+    const cursor = new Date(lastSat);
+    cursor.setUTCDate(lastSat.getUTCDate() - (WEEKS * 7 - 1));
+
+    const weeks: ContributionDay[][] = [];
+    for (let w = 0; w < WEEKS; w++) {
+        const week: ContributionDay[] = [];
+        for (let d = 0; d < 7; d++) {
+            const date = cursor.toISOString().slice(0, 10);
+            const count = byDate.get(date) ?? 0;
+            week.push({ date, count, level: bucket(count) });
+            cursor.setUTCDate(cursor.getUTCDate() + 1);
+        }
+        weeks.push(week);
+    }
+    const total = [...byDate.values()].reduce((a, b) => a + b, 0);
+    return { totalContributions: total, weeks };
+}
+
 function summarize(profile: GhUser, repos: MemberRepo[]): MemberSummary {
     const ownRepos = repos.filter((r) => !r.isFork);
     const totalStars = ownRepos.reduce((s, r) => s + r.stars, 0);
@@ -287,6 +338,24 @@ async function fetchContributedRepos(login: string): Promise<ContributedRepo[]> 
                     }
                 } catch (e) {
                     console.warn(`[members] commit_activity ${c.fullName}:`, e);
+                }
+                // 히트맵은 작성자 커밋 목록으로 직접 만든다(통계 API의 202 지연 회피).
+                // 성공 시 위 commit_activity 기반 값을 덮어쓴다.
+                try {
+                    const since = new Date(
+                        Date.now() - 372 * 86400 * 1000,
+                    ).toISOString();
+                    const authored = await ghAllPages<{
+                        commit?: { author?: { date?: string } };
+                    }>(
+                        `/repos/${c.fullName}/commits?author=${encodeURIComponent(login)}&since=${since}&per_page=100`,
+                    );
+                    const dates = authored
+                        .map((x) => x.commit?.author?.date)
+                        .filter((d): d is string => Boolean(d));
+                    if (dates.length) activity = buildAuthorCalendar(dates);
+                } catch (e) {
+                    console.warn(`[members] commits ${c.fullName}:`, e);
                 }
                 // 레포의 전체 언어(바이트 내림차순) — 언어 분포에 반영한다.
                 let languages: string[] | undefined;
