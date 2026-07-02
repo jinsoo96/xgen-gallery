@@ -23,13 +23,11 @@ const ROTATE_MS = 6000;
 // hero-security.mp4 = 방금 내려받은 영상을 frontend/public/ 에 저장.
 const SLIDE_BG = [
     "/hero-vision.mp4",
-    "/hero-security-v3.mp4",
+    "/hero-security-v4.mp4",
     "/hero-slide2.mp4",
 ];
-// Per-slide object-position. Slide 2 anchors to the right so the face stays on
-// the right edge under object-cover even on wide viewports (center-crop would
-// otherwise pull it back toward the middle).
-const SLIDE_POS = ["center", "right center", "center"];
+// Per-slide object-position (all centered — subjects are frame-centered).
+const SLIDE_POS = ["center", "center", "center"];
 
 const H1_CLS =
     "max-w-5xl text-3xl font-bold tracking-tight text-white md:text-5xl lg:text-[3.5rem] lg:leading-[1.05]";
@@ -183,14 +181,6 @@ export function Hero() {
         videoRefs.current.forEach((v, i) => {
             if (!v) return;
             if (i === active) {
-                // 2번째 영상은 활성화될 때마다 처음(= 원본 중간지점)부터 재생.
-                if (i === 1) {
-                    try {
-                        v.currentTime = 0;
-                    } catch {
-                        /* metadata not ready yet — ignore */
-                    }
-                }
                 const p = v.play();
                 if (p) p.catch(() => {});
             } else {
