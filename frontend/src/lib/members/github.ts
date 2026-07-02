@@ -169,22 +169,12 @@ function mapRepo(r: GhRepo): MemberRepo {
     };
 }
 
-function topLanguages(
-    repos: MemberRepo[],
-    extraLangs: (string | null | undefined)[] = [],
-    n = 5,
-) {
+function topLanguages(repos: MemberRepo[], n = 5) {
     const counts = new Map<string, number>();
     for (const r of repos) {
         if (r.isFork) continue;
         if (!r.language) continue;
         counts.set(r.language, (counts.get(r.language) ?? 0) + 1);
-    }
-    // 큐레이션된 조직 기여 레포(예: PlateerLab/xgen-gallery)의 언어도 포함한다 —
-    // 소유 레포에는 안 잡히지만 멤버의 실제 언어 footprint에 반영돼야 한다.
-    for (const lang of extraLangs) {
-        if (!lang) continue;
-        counts.set(lang, (counts.get(lang) ?? 0) + 1);
     }
     return [...counts.entries()]
         .map(([name, count]) => ({ name, count }))
@@ -215,10 +205,7 @@ function summarize(profile: GhUser, repos: MemberRepo[]): MemberSummary {
         totalStars,
         totalForks,
         recentActivityCount: 0,
-        topLanguages: topLanguages(
-            repos,
-            contributedReposFor(profile.login).map((c) => c.language),
-        ),
+        topLanguages: topLanguages(repos),
     };
 }
 

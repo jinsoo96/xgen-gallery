@@ -479,12 +479,6 @@ export default function SecurityPage() {
                                 보안 요건 · 도입 문의
                                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                             </Link>
-                            <Link
-                                href="/solutions#certification"
-                                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50"
-                            >
-                                인증·품질 보기
-                            </Link>
                         </div>
                     </div>
                 </section>

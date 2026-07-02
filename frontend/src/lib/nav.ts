@@ -193,12 +193,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "산업별 PoC 실증 프로젝트를 한 페이지에서 모아 확인하세요.",
             },
             {
-                label: "Security & Governance",
-                id: "security",
-                route: "/security",
-                blurb: "가드레일·PII 마스킹·감사 로그·AI 위험도 등급 — XGEN의 보안·거버넌스 통제 체계를 별도 페이지에서 확인하세요.",
-            },
-            {
                 label: "Technical Consulting",
                 id: "technical-consulting",
                 route: "/technical-consulting",
@@ -222,6 +216,11 @@ export const NAV_GROUPS: NavGroup[] = [
                         external: "https://www.xgen.im/trial",
                     },
                     { label: "Certifications & Quality", id: "certification" },
+                    {
+                        label: "Security & Governance",
+                        id: "security",
+                        route: "/security",
+                    },
                     {
                         label: "Documentation",
                         id: "documentation",
