@@ -179,15 +179,28 @@ export function Hero() {
     // 낮춘다.
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     useEffect(() => {
+        const timers: ReturnType<typeof setTimeout>[] = [];
         videoRefs.current.forEach((v, i) => {
             if (!v) return;
             if (i === active) {
+                // 2번째 영상은 활성화될 때마다 처음(= 원본 중간지점)부터 재생.
+                if (i === 1) {
+                    try {
+                        v.currentTime = 0;
+                    } catch {
+                        /* metadata not ready yet — ignore */
+                    }
+                }
                 const p = v.play();
                 if (p) p.catch(() => {});
             } else {
-                v.pause();
+                // 크로스페이드(1s) 동안은 계속 재생해 전환을 매끄럽게 하고, 완전히
+                // 가려진 뒤에 정지해 정상 상태의 디코딩 부하를 1개로 유지한다.
+                const t = setTimeout(() => v.pause(), 1100);
+                timers.push(t);
             }
         });
+        return () => timers.forEach((t) => clearTimeout(t));
     }, [active]);
 
     return (
