@@ -193,16 +193,16 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "산업별 PoC 실증 프로젝트를 한 페이지에서 모아 확인하세요.",
             },
             {
-                label: "Technical Consulting",
-                id: "technical-consulting",
-                route: "/technical-consulting",
-                blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
-            },
-            {
                 label: "Security & Governance",
                 id: "security",
                 route: "/security",
                 blurb: "가드레일·PII 마스킹·감사 로그·AI 위험도 등급 — XGEN의 보안·거버넌스 통제 체계를 별도 페이지에서 확인하세요.",
+            },
+            {
+                label: "Technical Consulting",
+                id: "technical-consulting",
+                route: "/technical-consulting",
+                blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
                 // Product — 라벨은 xgen.im 으로 나가고, 하위에 체험·인증·문서·
