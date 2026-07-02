@@ -202,7 +202,7 @@ export const NAV_GROUPS: NavGroup[] = [
                 // Product — 라벨은 xgen.im 으로 나가고, 하위에 인증·보안·문서·
                 // 릴리즈를 한 그룹으로 노출한다. Release Notes는 연구소 전 제품 통합
                 // 릴리즈(/releases), Documentation은 /documentation, Security &
-                // Governance는 /security 로 연결. colBreak로 오른쪽 컬럼을 시작 →
+                // Governance는 /security-and-governance 로 연결. colBreak로 오른쪽 컬럼 시작 →
                 // 왼쪽 컬럼(Agentic AI / PoC Projects / Technical Consulting)과 분리.
                 label: "Product",
                 id: "xgen-site",
@@ -213,7 +213,7 @@ export const NAV_GROUPS: NavGroup[] = [
                     {
                         label: "Security & Governance",
                         id: "security",
-                        route: "/security",
+                        route: "/security-and-governance",
                     },
                     {
                         label: "Documentation",

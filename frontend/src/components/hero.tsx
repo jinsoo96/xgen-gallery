@@ -16,11 +16,16 @@ function XgenMark() {
     );
 }
 
-const SLIDE_COUNT = 2;
+const SLIDE_COUNT = 3;
 const ROTATE_MS = 6000;
 
 // Per-slide background videos (index matches the active slide).
-const SLIDE_BG = ["/hero-vision.mp4", "/hero-slide2.mp4"];
+// hero-security.mp4 = 방금 내려받은 영상을 frontend/public/ 에 저장.
+const SLIDE_BG = [
+    "/hero-vision.mp4",
+    "/hero-security.mp4",
+    "/hero-slide2.mp4",
+];
 
 const H1_CLS =
     "max-w-5xl text-3xl font-bold tracking-tight text-white md:text-5xl lg:text-[3.5rem] lg:leading-[1.05]";
@@ -121,6 +126,39 @@ function XgenSlide() {
     );
 }
 
+/** Slide 2 — Security & Governance (가드레일·통제, /security-and-governance 참고). */
+function SecuritySlide() {
+    return (
+        <>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 font-mono text-[13px] text-white/70 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Security &amp; Governance
+            </div>
+
+            <h1 className={cn(H1_CLS, "mt-7")}>
+                선언한 대로 통제되는
+                <br />
+                Enterprise AI
+            </h1>
+
+            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-white/70">
+                가드 모델·개인정보 마스킹·금칙어 필터에 감사 로그와 AI 위험도
+                등급까지 —
+                <br className="hidden sm:block" />
+                규제 산업에서도 신뢰할 수 있는 다층 통제 위에서 AI를 운영합니다
+            </p>
+
+            <HeroActions
+                primary={{
+                    label: "보안·거버넌스 보기",
+                    href: "/security-and-governance",
+                }}
+                secondary={{ label: "인증·품질 보기", href: "/solutions#certification" }}
+            />
+        </>
+    );
+}
+
 export function Hero() {
     const [active, setActive] = useState(0);
 
@@ -158,7 +196,13 @@ export function Hero() {
             <div className="relative mx-auto w-full max-w-6xl px-6 py-28">
                 {/* rolling slides — fade/slide-in on change */}
                 <div key={active} className="hero-slide-enter">
-                    {active === 0 ? <VisionSlide /> : <XgenSlide />}
+                    {active === 0 ? (
+                        <VisionSlide />
+                    ) : active === 1 ? (
+                        <SecuritySlide />
+                    ) : (
+                        <XgenSlide />
+                    )}
                 </div>
 
                 {/* slide indicators */}

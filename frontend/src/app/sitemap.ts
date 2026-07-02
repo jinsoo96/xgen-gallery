@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // /library-gallery 는 Open Source 그룹(key=library-gallery)에서 생성됨 — 중복 제거
         { url: `${SITE.url}/poc-projects`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
         { url: `${SITE.url}/technical-consulting`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-        { url: `${SITE.url}/security`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+        { url: `${SITE.url}/security-and-governance`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
         { url: `${SITE.url}/documentation`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
         { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
         { url: `${SITE.url}/members`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
