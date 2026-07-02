@@ -1,7 +1,7 @@
 ---
 title: "XGEN Agentic AI Platform, GS인증 심사 종료"
 description: "XGEN Agentic AI Platform의 GS인증(Good Software) 심사가 종료되어 최종 인증 결과를 기다리고 있습니다."
-date: "2026-05-26"
+date: "2026-06-26"
 author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "품질", "제품"]

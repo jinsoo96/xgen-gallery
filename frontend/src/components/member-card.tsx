@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Activity, ArrowUpRight, MapPin, Star, GitBranch, type LucideIcon } from "lucide-react";
 import { formatStars, languageColor } from "@/lib/members/format";
 import type { MemberSummary } from "@/lib/members/types";
+import { contributedReposFor } from "@/lib/members/contributions";
 import { cn } from "@/lib/cn";
 
 /** One metric in the 3-column stat strip. */
@@ -31,6 +32,9 @@ function Stat({
 
 export function MemberCard({ member, isTop = false }: { member: MemberSummary; isTop?: boolean }) {
     const displayName = member.name ?? member.login;
+    // 카드 repos = 공개 소유 레포 + 큐레이션된 조직 기여(예: PlateerLab/xgen-gallery).
+    const contribCount = contributedReposFor(member.login).length;
+    const repoCount = member.publicRepos + contribCount;
     return (
         <Link
             href={`/members/${member.login}`}
@@ -104,7 +108,16 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                 {/* 지표 스트립 */}
                 <div className="mt-4 grid grid-cols-3 divide-x divide-[var(--color-line)] rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-alt)]">
                     <Stat icon={Star} value={formatStars(member.totalStars)} label="stars" />
-                    <Stat icon={GitBranch} value={member.publicRepos} label="repos" />
+                    <Stat
+                        icon={GitBranch}
+                        value={repoCount}
+                        label="repos"
+                        title={
+                            contribCount
+                                ? `공개 ${member.publicRepos} + 조직 기여 ${contribCount} (예: PlateerLab/xgen-gallery)`
+                                : undefined
+                        }
+                    />
                     <Stat
                         icon={Activity}
                         value={member.recentActivityCount}
