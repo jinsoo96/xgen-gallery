@@ -11,7 +11,7 @@ function XgenMark() {
     return (
         <span className="relative inline-block">
             XGEN
-            <span className="absolute -bottom-1 left-0 right-0 h-[6px] bg-[#2f7bff]/50" />
+            <span className="absolute -bottom-1 left-0 right-0 h-[6px] bg-[#00acee]/60" />
         </span>
     );
 }
@@ -217,7 +217,7 @@ export function Hero() {
                             className={cn(
                                 "h-2 rounded-full transition-all",
                                 i === active
-                                    ? "w-6 bg-white"
+                                    ? "w-6 bg-[#00acee]"
                                     : "w-2 bg-white/40 hover:bg-white/70",
                             )}
                         />
