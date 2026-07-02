@@ -234,28 +234,6 @@ export const NAV_GROUPS: NavGroup[] = [
         ],
     },
     {
-        // 블로그(/blog) 최상위 — 드롭다운: 카테고리(전체 / 제품 소식 / Labs Tech /
-        // Case Study) → Contributor Members 순. 카테고리는 /blog?cat=…
-        // 로 딥링크되어 BlogList가 초기 필터를 적용한다(blog-list.tsx의 CATEGORY_BY_KEY).
-        // GNB 순서: 홈페이지 서사(Insights → Resources)와 맞춰 Open Source 앞에 배치.
-        key: "blog",
-        label: "Insight Blog",
-        concept: "insights",
-        blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
-        items: [
-            { label: "전체", id: "all-articles", route: "/blog" },
-            { label: "제품 소식", id: "cat-product", route: "/blog?cat=product" },
-            { label: "Labs Tech", id: "cat-labs", route: "/blog?cat=labs" },
-            { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
-            {
-                label: "Contributor Members",
-                id: "lab-members",
-                route: "/members",
-                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
-            },
-        ],
-    },
-    {
         // Open Source 최상위 메뉴 — key를 library-gallery로 두어 상단/푸터 링크가
         // 기존 /library-gallery 페이지를 그대로 가리킨다(별도 페이지·route 불필요).
         // 항목이 3개(+Runtime 하위)라 wide 다열 대신 단일 열 드롭다운으로 왼쪽에 모은다.
@@ -287,6 +265,27 @@ export const NAV_GROUPS: NavGroup[] = [
                     { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
                     { label: "Runtime API", id: "runtime-api", route: "/library-gallery#runtime-api" },
                 ],
+            },
+        ],
+    },
+    {
+        // 블로그(/blog) 최상위 — 드롭다운: 카테고리(제품 소식 / Labs Tech /
+        // Case Study) → Contributor Members 순. 카테고리는 /blog?cat=…
+        // 로 딥링크되어 BlogList가 초기 필터를 적용한다(blog-list.tsx의 CATEGORY_BY_KEY).
+        // GNB 순서: Open Source 다음(최상위 메뉴 끝)에 배치 — 블로그를 마지막에 둔다.
+        key: "blog",
+        label: "Insight Blog",
+        concept: "insights",
+        blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
+        items: [
+            { label: "제품 소식", id: "cat-product", route: "/blog?cat=product" },
+            { label: "Labs Tech", id: "cat-labs", route: "/blog?cat=labs" },
+            { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
+            {
+                label: "Contributor Members",
+                id: "lab-members",
+                route: "/members",
+                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
             },
         ],
     },
