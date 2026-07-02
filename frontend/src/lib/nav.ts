@@ -277,9 +277,17 @@ export const NAV_GROUPS: NavGroup[] = [
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
         items: [
-            { label: "제품 소식", id: "cat-product", route: "/blog?cat=product" },
-            { label: "Tech News", id: "cat-labs", route: "/blog?cat=labs" },
-            { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
+            {
+                // Blog — 라벨 클릭 시 /blog 전체, 하위에 카테고리 딥링크를 묶는다.
+                label: "Blog",
+                id: "blog-articles",
+                route: "/blog",
+                children: [
+                    { label: "제품 소식", id: "cat-product", route: "/blog?cat=product" },
+                    { label: "Tech News", id: "cat-labs", route: "/blog?cat=labs" },
+                    { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
+                ],
+            },
             { label: "뉴스레터", id: "newsletter", route: "/newsletter" },
             {
                 label: "Lab Members",
