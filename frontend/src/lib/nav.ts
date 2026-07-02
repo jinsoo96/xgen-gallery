@@ -199,11 +199,28 @@ export const NAV_GROUPS: NavGroup[] = [
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
             },
             {
-                // Product — "제품 접근". 라벨은 xgen.im 으로 나가고, 하위에 체험·
-                // 인증을 노출한다. 무료 체험(Trial)을 최상단에 두어 전환 동선을
-                // 우선한다. 문서·릴리즈는 오른쪽 "Docs & Releases" 그룹으로 분리.
+                // Docs & Releases — "제품 참고 자료". 문서·릴리즈를 한 그룹으로
+                // 묶어 가운데 열(2열째)에 배치한다. Release Notes는 연구소 전 제품
+                // 통합 릴리즈(/releases), Documentation은 /documentation 으로 연결.
                 // colBreak로 가운데 컬럼을 시작 → 왼쪽 컬럼(Agentic AI /
                 // PoC Projects / Technical Consulting)과 분리된다.
+                label: "Docs & Releases",
+                id: "docs-releases",
+                colBreak: true,
+                children: [
+                    {
+                        label: "Documentation",
+                        id: "documentation",
+                        route: "/documentation",
+                    },
+                    { label: "Release Notes", id: "releases", route: "/releases" },
+                ],
+            },
+            {
+                // Product — "제품 접근". 라벨은 xgen.im 으로 나가고, 하위에 체험·
+                // 인증을 노출한다. 무료 체험(Trial)을 최상단에 두어 전환 동선을
+                // 우선하고, 오른쪽 끝 열(3열째)에 배치해 시선이 마지막에 닿게 한다.
+                // colBreak로 오른쪽 컬럼을 시작.
                 label: "Product",
                 id: "xgen-site",
                 colBreak: true,
@@ -215,23 +232,6 @@ export const NAV_GROUPS: NavGroup[] = [
                         external: "https://www.xgen.im/trial",
                     },
                     { label: "Certifications & Quality", id: "certification" },
-                ],
-            },
-            {
-                // Docs & Releases — "제품 참고 자료". 문서·릴리즈를 한 그룹으로
-                // 묶어 Product 오른쪽 열(3열째)에 배치한다. Release Notes는
-                // 연구소 전 제품 통합 릴리즈(/releases), Documentation은
-                // /documentation 으로 연결. colBreak로 오른쪽 컬럼을 시작.
-                label: "Docs & Releases",
-                id: "docs-releases",
-                colBreak: true,
-                children: [
-                    {
-                        label: "Documentation",
-                        id: "documentation",
-                        route: "/documentation",
-                    },
-                    { label: "Release Notes", id: "releases", route: "/releases" },
                 ],
             },
             {
