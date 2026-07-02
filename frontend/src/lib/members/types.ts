@@ -57,6 +57,10 @@ export interface ContributedRepo {
     /** Relationship label, e.g. "Owner", "Maintainer", "Contributor". */
     role?: string;
     language?: string | null;
+    /** Live repo stars (from GitHub); undefined when not fetched. */
+    stars?: number;
+    /** The member's own commit count in this repo (from the contributors API). */
+    commits?: number;
 }
 
 export interface ContributionDay {
@@ -108,6 +112,8 @@ export interface MemberDetail extends MemberSummary {
     recentEvents: RecentEvent[];
     /** Pre-rendered HTML from the user's profile README (`<login>/<login>` repo). null if missing. */
     readmeHtml: string | null;
+    /** Curated org-repo contributions (e.g. PlateerLab/xgen-gallery), enriched with live stats. */
+    contributedRepos: ContributedRepo[];
 }
 
 export type PayloadSource = "github" | "disk-cache" | "stale-cache";

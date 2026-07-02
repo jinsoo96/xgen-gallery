@@ -44,7 +44,11 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
 
     const blog = normalizeBlog(member.blog);
     const displayName = member.name ?? member.login;
-    const contributed = contributedReposFor(member.login);
+    // Prefer live-enriched data from the pipeline; fall back to the static map
+    // (e.g. stale disk cache that predates the field).
+    const contributed = member.contributedRepos?.length
+        ? member.contributedRepos
+        : contributedReposFor(member.login);
 
     return (
         <div>
@@ -211,10 +215,22 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                                         {c.description}
                                     </p>
                                 )}
-                                <div className="mt-3 flex items-center gap-2.5">
+                                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
                                     {c.role && (
                                         <span className="inline-flex items-center rounded-full bg-[#2f7bff]/10 px-2 py-0.5 text-[12px] font-semibold text-[#2461d8]">
                                             {c.role}
+                                        </span>
+                                    )}
+                                    {typeof c.stars === "number" && (
+                                        <span className="inline-flex items-center gap-1 text-[12.5px] text-[var(--color-ink-muted)]">
+                                            <Star className="h-3.5 w-3.5" />
+                                            {formatStars(c.stars)}
+                                        </span>
+                                    )}
+                                    {typeof c.commits === "number" && (
+                                        <span className="inline-flex items-center gap-1 text-[12.5px] text-[var(--color-ink-muted)]">
+                                            <GitBranch className="h-3.5 w-3.5" />
+                                            {c.commits.toLocaleString("en-US")} commits
                                         </span>
                                     )}
                                     {c.language && (

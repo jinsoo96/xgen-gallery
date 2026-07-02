@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import type {
+    ContributedRepo,
     ContributionCalendar,
     ContributionDay,
     MemberDetail,
@@ -8,6 +9,7 @@ import type {
     MembersPayload,
     RecentEvent,
 } from "./types";
+import { contributedReposFor } from "./contributions";
 
 const ORG = process.env.GITHUB_ORG || "PlateerLab";
 const TOKEN = process.env.GITHUB_TOKEN || "";
@@ -77,6 +79,11 @@ interface GhRepo {
     pushed_at: string;
     topics: string[] | null;
     license: { spdx_id: string | null; name: string | null } | null;
+}
+
+interface GhContributor {
+    login: string;
+    contributions: number;
 }
 
 let lastRateLimitRemaining: number | null = null;
@@ -202,6 +209,45 @@ function summarize(profile: GhUser, repos: MemberRepo[]): MemberSummary {
     };
 }
 
+/**
+ * Enrich the curated contribution list for a member with live repo stats and the
+ * member's own commit count (from the contributors API). Org repos never appear
+ * in `/users/:login/repos?type=owner`, so they're sourced from the curated map.
+ * Any per-repo failure (private repo, missing token) falls back to the static entry.
+ */
+async function fetchContributedRepos(login: string): Promise<ContributedRepo[]> {
+    const curated = contributedReposFor(login);
+    if (curated.length === 0) return [];
+    return Promise.all(
+        curated.map(async (c) => {
+            try {
+                const { data: repo } = await gh<GhRepo>(`/repos/${c.fullName}`);
+                let commits: number | undefined;
+                try {
+                    const contributors = await ghAllPages<GhContributor>(
+                        `/repos/${c.fullName}/contributors?per_page=100`,
+                    );
+                    commits = contributors.find(
+                        (x) => x.login?.toLowerCase() === login.toLowerCase(),
+                    )?.contributions;
+                } catch (e) {
+                    console.warn(`[members] contributors ${c.fullName}:`, e);
+                }
+                return {
+                    ...c,
+                    description: repo.description ?? c.description,
+                    language: repo.language ?? c.language ?? null,
+                    stars: repo.stargazers_count,
+                    commits,
+                };
+            } catch (e) {
+                console.warn(`[members] contributed repo ${c.fullName}:`, e);
+                return c; // static fallback (private repo / no token)
+            }
+        }),
+    );
+}
+
 async function buildMember(login: string): Promise<MemberDetail> {
     const [{ data: profile }, repoRaw] = await Promise.all([
         gh<GhUser>(`/users/${login}`),
@@ -209,27 +255,33 @@ async function buildMember(login: string): Promise<MemberDetail> {
     ]);
     const repos = repoRaw.map(mapRepo);
     const summary = summarize(profile, repos);
-    // These three are non-critical — if any fails, return empty/null and continue.
-    const [contributions, recentEvents, readmeHtml] = await Promise.all([
-        fetchContributions(login).catch((e) => {
-            console.warn(`[members] contributions ${login}:`, e);
-            return null;
-        }),
-        fetchRecentEvents(login).catch((e) => {
-            console.warn(`[members] events ${login}:`, e);
-            return [];
-        }),
-        fetchProfileReadme(login).catch((e) => {
-            console.warn(`[members] readme ${login}:`, e);
-            return null;
-        }),
-    ]);
+    // These are non-critical — if any fails, return empty/null and continue.
+    const [contributions, recentEvents, readmeHtml, contributedRepos] =
+        await Promise.all([
+            fetchContributions(login).catch((e) => {
+                console.warn(`[members] contributions ${login}:`, e);
+                return null;
+            }),
+            fetchRecentEvents(login).catch((e) => {
+                console.warn(`[members] events ${login}:`, e);
+                return [];
+            }),
+            fetchProfileReadme(login).catch((e) => {
+                console.warn(`[members] readme ${login}:`, e);
+                return null;
+            }),
+            fetchContributedRepos(login).catch((e) => {
+                console.warn(`[members] contributed ${login}:`, e);
+                return contributedReposFor(login); // static fallback
+            }),
+        ]);
     return {
         ...summary,
         repos,
         contributions,
         recentEvents: recentEvents.slice(0, 50),
         readmeHtml,
+        contributedRepos,
         recentActivityCount: countRecentActivity(recentEvents, 3),
     };
 }

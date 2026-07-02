@@ -246,12 +246,6 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/library-gallery",
             },
             {
-                // 왼쪽 열 하단. (오른쪽 열: Library Recipes → Runtime 순으로 쌓임)
-                label: "Release Notes",
-                id: "releases",
-                route: "/releases",
-            },
-            {
                 label: "Library Recipes",
                 id: "library-recipes",
                 route: "/library-gallery#recipes",
@@ -267,6 +261,14 @@ export const NAV_GROUPS: NavGroup[] = [
                     { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
                     { label: "Runtime API", id: "runtime-api", route: "/library-gallery#runtime-api" },
                 ],
+            },
+            {
+                // colBreak로 오른쪽 열을 시작 → 왼쪽 열은 Library Gallery →
+                // Library Recipes → Runtime 로 묶이고, Release Notes만 오른쪽 열에.
+                label: "Release Notes",
+                id: "releases",
+                route: "/releases",
+                colBreak: true,
             },
         ],
     },
