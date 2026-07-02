@@ -196,7 +196,11 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                         Contributions
                     </h2>
                     <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                        {contributed.map((c) => (
+                        {contributed.map((c) => {
+                            const maxWeek = c.weeklyCommits?.length
+                                ? Math.max(...c.weeklyCommits, 1)
+                                : 0;
+                            return (
                             <a
                                 key={c.fullName}
                                 href={c.htmlUrl}
@@ -243,8 +247,33 @@ export function MemberDetailView({ member }: { member: MemberDetail }) {
                                         </span>
                                     )}
                                 </div>
+                                {c.weeklyCommits && c.weeklyCommits.length > 0 && (
+                                    <div className="mt-3 border-t border-[var(--color-line)] pt-3">
+                                        <div className="flex items-center justify-between text-[12px] text-[var(--color-ink-subtle)]">
+                                            <span>최근 1년 커밋 활동</span>
+                                            <span>
+                                                {c.weeklyCommits
+                                                    .reduce((a, b) => a + b, 0)
+                                                    .toLocaleString("en-US")}{" "}
+                                                commits
+                                            </span>
+                                        </div>
+                                        <div className="mt-1.5 flex h-9 items-end gap-[2px]">
+                                            {c.weeklyCommits.map((v, i) => (
+                                                <span
+                                                    key={i}
+                                                    className="flex-1 rounded-[1px] bg-[#2f7bff]/55"
+                                                    style={{
+                                                        height: `${Math.max(2, Math.round((v / maxWeek) * 36))}px`,
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </a>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
             )}

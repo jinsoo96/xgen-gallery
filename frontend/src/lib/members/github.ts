@@ -233,12 +233,26 @@ async function fetchContributedRepos(login: string): Promise<ContributedRepo[]> 
                 } catch (e) {
                     console.warn(`[members] contributors ${c.fullName}:`, e);
                 }
+                // 최근 ~52주 주간 커밋 활동. GitHub이 통계를 계산 중이면 202+빈 응답을
+                // 줄 수 있으니, 배열이 아닐 때는 그냥 생략한다(그래프 미표시).
+                let weeklyCommits: number[] | undefined;
+                try {
+                    const { data: activity } = await gh<
+                        { total: number; week: number }[]
+                    >(`/repos/${c.fullName}/stats/commit_activity`);
+                    if (Array.isArray(activity) && activity.length) {
+                        weeklyCommits = activity.map((w) => w.total);
+                    }
+                } catch (e) {
+                    console.warn(`[members] commit_activity ${c.fullName}:`, e);
+                }
                 return {
                     ...c,
                     description: repo.description ?? c.description,
                     language: repo.language ?? c.language ?? null,
                     stars: repo.stargazers_count,
                     commits,
+                    weeklyCommits,
                 };
             } catch (e) {
                 console.warn(`[members] contributed repo ${c.fullName}:`, e);

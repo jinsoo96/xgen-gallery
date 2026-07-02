@@ -61,6 +61,8 @@ export interface ContributedRepo {
     stars?: number;
     /** The member's own commit count in this repo (from the contributors API). */
     commits?: number;
+    /** Repo-wide weekly commit totals for the last ~52 weeks (GitHub commit_activity). */
+    weeklyCommits?: number[];
 }
 
 export interface ContributionDay {
