@@ -244,6 +244,22 @@ export const NAV_GROUPS: NavGroup[] = [
         ],
     },
     {
+        // 블로그(/blog) 최상위 — 라벨 클릭 시 블로그, 드롭다운에 Lab Members.
+        // GNB 순서: 홈페이지 서사(Insights → Resources)와 맞춰 Open Source 앞에 배치.
+        key: "blog",
+        label: "Insight Blog",
+        concept: "insights",
+        blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
+        items: [
+            {
+                label: "Lab Members",
+                id: "lab-members",
+                route: "/members",
+                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
+            },
+        ],
+    },
+    {
         // Open Source 최상위 메뉴 — key를 library-gallery로 두어 상단/푸터 링크가
         // 기존 /library-gallery 페이지를 그대로 가리킨다(별도 페이지·route 불필요).
         key: "library-gallery",
@@ -277,21 +293,6 @@ export const NAV_GROUPS: NavGroup[] = [
                     { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
                     { label: "Runtime API", id: "runtime-api", route: "/library-gallery#runtime-api" },
                 ],
-            },
-        ],
-    },
-    {
-        // 블로그(/blog) 최상위 — 라벨 클릭 시 블로그, 드롭다운에 Lab Members.
-        key: "blog",
-        label: "Insight Blog",
-        concept: "insights",
-        blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
-        items: [
-            {
-                label: "Lab Members",
-                id: "lab-members",
-                route: "/members",
-                blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
             },
         ],
     },
