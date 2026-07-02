@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { LanguageToggle } from "@/components/language-toggle";
@@ -126,6 +126,34 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [mobileGroup, setMobileGroup] = useState<string | null>(null);
 
+    // 드롭다운 닫힘을 살짝 지연한다. 트리거 → 하위 항목으로 마우스를 옮기는 도중
+    // 경로가 잠깐 헤더를 벗어나도 즉시 닫히지 않아, 첫 클릭이 빈 공간에 떨어지는
+    // 문제(두 번 클릭해야 하는 현상)를 막는다. 다시 들어오면 예약된 닫힘을 취소한다.
+    const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const openMenu = (key: string) => {
+        if (closeTimer.current) {
+            clearTimeout(closeTimer.current);
+            closeTimer.current = null;
+        }
+        setOpenKey(key);
+    };
+    const scheduleClose = () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        closeTimer.current = setTimeout(() => setOpenKey(null), 160);
+    };
+    const closeNow = () => {
+        if (closeTimer.current) {
+            clearTimeout(closeTimer.current);
+            closeTimer.current = null;
+        }
+        setOpenKey(null);
+    };
+    useEffect(() => {
+        return () => {
+            if (closeTimer.current) clearTimeout(closeTimer.current);
+        };
+    }, []);
+
     useEffect(() => {
         if (!overlay) return;
         const onScroll = () => setScrolled(window.scrollY > 8);
@@ -157,7 +185,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
     const demoLabel = locale === "en" ? DEMO_CTA.en : DEMO_CTA.ko;
 
     return (
-        <header className={headerCls} onMouseLeave={() => setOpenKey(null)}>
+        <header className={headerCls} onMouseLeave={scheduleClose}>
             <div className="flex h-[84px] w-full items-center justify-between px-6">
                 <Link
                     href="/"
@@ -185,7 +213,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                         <div
                             key={g.key}
                             className="relative"
-                            onMouseEnter={() => setOpenKey(g.key)}
+                            onMouseEnter={() => openMenu(g.key)}
                         >
                             {g.external ? (
                                 <a
@@ -201,7 +229,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                 <Link
                                     href={`/${g.key}`}
                                     className={groupCls}
-                                    onClick={() => setOpenKey(null)}
+                                    onClick={closeNow}
                                 >
                                     {g.label}
                                     {hasMenu && (
@@ -234,11 +262,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                                 key={it.id}
                                                                 item={it}
                                                                 groupKey={g.key}
-                                                                onClose={() =>
-                                                                    setOpenKey(
-                                                                        null,
-                                                                    )
-                                                                }
+                                                                onClose={closeNow}
                                                             />
                                                         ))}
                                                     </div>
@@ -252,9 +276,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                     key={it.id}
                                                     item={it}
                                                     groupKey={g.key}
-                                                    onClose={() =>
-                                                        setOpenKey(null)
-                                                    }
+                                                    onClose={closeNow}
                                                 />
                                             ))}
                                         </div>
