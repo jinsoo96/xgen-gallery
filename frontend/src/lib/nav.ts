@@ -246,14 +246,15 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/library-gallery",
             },
             {
-                label: "Library Recipes",
-                id: "library-recipes",
-                route: "/library-gallery#recipes",
-            },
-            {
+                // 왼쪽 열 하단. (오른쪽 열: Library Recipes → Runtime 순으로 쌓임)
                 label: "Release Notes",
                 id: "releases",
                 route: "/releases",
+            },
+            {
+                label: "Library Recipes",
+                id: "library-recipes",
+                route: "/library-gallery#recipes",
             },
             {
                 // Runtime — 독립 MCP 런타임. 콘텐츠는 /library-gallery 페이지의
