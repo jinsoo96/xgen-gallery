@@ -7,8 +7,11 @@ import { cn } from "@/lib/cn";
 /**
  * 메인 — Applied AI 하위 "Product Tour" 섹션.
  * 탭(XGEN / MCP Apps / PathFinder / FloUI)으로 제품 소개영상을 전환한다.
- * `video`가 채워지면 임베드로 재생하고, 없으면 "준비 중" 플레이스홀더를 보여준다.
- * 영상 추가 시 각 제품의 `video`에 임베드 URL(YouTube/Vimeo 등)만 넣으면 된다.
+ *
+ * 성능: 파사드(facade) 패턴 — 처음에는 썸네일(poster) + 재생 버튼만 렌더하고,
+ * 사용자가 클릭할 때만 실제 임베드(iframe)를 로드한다. 활성 탭 1개만 렌더하므로
+ * 초기 페이지 로드 시 영상 플레이어 JS가 전혀 로드되지 않아 LCP에 영향이 없다.
+ * 영상 추가 시 각 제품의 `video`(임베드 URL)와 `poster`(썸네일)만 채우면 된다.
  */
 type Product = {
     key: string;
@@ -17,6 +20,8 @@ type Product = {
     desc: string;
     /** 임베드 URL (YouTube/Vimeo 등). null이면 준비 중 플레이스홀더. */
     video: string | null;
+    /** 썸네일 이미지 URL. 없으면 그라데이션 배경 + 재생 버튼만 표시. */
+    poster?: string | null;
 };
 
 const PRODUCTS: Product[] = [
@@ -26,6 +31,7 @@ const PRODUCTS: Product[] = [
         tagline: "Agentic AI Platform",
         desc: "노드 캔버스와 헤드리스 엔진 기반의 엔터프라이즈 AI 에이전트 런타임 — 플랫폼 전반을 영상으로 소개합니다",
         video: null,
+        poster: null,
     },
     {
         key: "mcp",
@@ -33,6 +39,7 @@ const PRODUCTS: Product[] = [
         tagline: "MCP App Runtime",
         desc: "MCP(Model Context Protocol)로 외부 도구·시스템을 안전하게 연결하는 앱 런타임을 소개합니다",
         video: null,
+        poster: null,
     },
     {
         key: "pathfinder",
@@ -40,6 +47,7 @@ const PRODUCTS: Product[] = [
         tagline: "XGEN",
         desc: "XGEN의 PathFinder 기능을 영상으로 소개합니다",
         video: null,
+        poster: null,
     },
     {
         key: "floui",
@@ -47,12 +55,24 @@ const PRODUCTS: Product[] = [
         tagline: "XGEN",
         desc: "XGEN의 FloUI 기능을 영상으로 소개합니다",
         video: null,
+        poster: null,
     },
 ];
 
+/** 임베드 URL에 autoplay 파라미터를 붙인다(클릭 후 자동 재생). */
+function withAutoplay(url: string) {
+    return url + (url.includes("?") ? "&" : "?") + "autoplay=1";
+}
+
 export function HomeProductTour() {
     const [activeKey, setActiveKey] = useState(PRODUCTS[0].key);
+    const [playing, setPlaying] = useState(false);
     const active = PRODUCTS.find((p) => p.key === activeKey) ?? PRODUCTS[0];
+
+    function selectTab(key: string) {
+        setActiveKey(key);
+        setPlaying(false); // 탭 전환 시 이전 영상을 언마운트해 리소스를 해제한다.
+    }
 
     return (
         <section className="border-t border-white/10 bg-[#070b1c] text-white">
@@ -77,7 +97,7 @@ export function HomeProductTour() {
                         <button
                             key={p.key}
                             type="button"
-                            onClick={() => setActiveKey(p.key)}
+                            onClick={() => selectTab(p.key)}
                             aria-pressed={p.key === activeKey}
                             className={cn(
                                 "rounded-full px-4 py-2 text-[15px] font-semibold transition",
@@ -96,15 +116,38 @@ export function HomeProductTour() {
                     <div className="overflow-hidden rounded-2xl border border-white/12 bg-black/40">
                         <div className="aspect-video w-full">
                             {active.video ? (
-                                <iframe
-                                    key={active.key}
-                                    src={active.video}
-                                    title={`${active.name} 소개영상`}
-                                    className="h-full w-full"
-                                    loading="lazy"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                />
+                                playing ? (
+                                    // 클릭 후에만 실제 플레이어를 로드한다.
+                                    <iframe
+                                        key={active.key}
+                                        src={withAutoplay(active.video)}
+                                        title={`${active.name} 소개영상`}
+                                        className="h-full w-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : (
+                                    // 파사드 — 썸네일 + 재생 버튼(영상 플레이어 미로드).
+                                    <button
+                                        type="button"
+                                        onClick={() => setPlaying(true)}
+                                        aria-label={`${active.name} 소개영상 재생`}
+                                        className="group relative flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-br from-[#0b1230] to-[#0a0f24]"
+                                    >
+                                        {active.poster && (
+                                            // eslint-disable-next-line @next/next/no-img-element
+                                            <img
+                                                src={active.poster}
+                                                alt={`${active.name} 소개영상 썸네일`}
+                                                loading="lazy"
+                                                className="absolute inset-0 h-full w-full object-cover opacity-80 transition group-hover:opacity-100"
+                                            />
+                                        )}
+                                        <span className="relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#070b1c] shadow-lg transition group-hover:scale-105">
+                                            <PlayCircle className="h-9 w-9" />
+                                        </span>
+                                    </button>
+                                )
                             ) : (
                                 <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
                                     <PlayCircle className="h-14 w-14 text-white/35" />
