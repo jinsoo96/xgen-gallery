@@ -45,6 +45,11 @@ function buildColumns(items: NavLeaf[], cols: number): NavLeaf[][] {
 }
 
 /** One entry (and its nested children) inside a GNB dropdown. */
+/** Resolve a nav item's display label — Korean override when locale is `ko`. */
+function navLabel(item: NavLeaf, locale: string): string {
+    return locale === "ko" && item.labelKo ? item.labelKo : item.label;
+}
+
 function DropdownItem({
     item,
     groupKey,
@@ -54,6 +59,7 @@ function DropdownItem({
     groupKey: string;
     onClose: () => void;
 }) {
+    const { locale } = useI18n();
     const parentCls =
         "block rounded-lg px-3 py-2 text-[16px] font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-hover)]";
     const childCls =
@@ -68,7 +74,7 @@ function DropdownItem({
                     onClick={onClose}
                     className={cn(parentCls, "flex items-center gap-1")}
                 >
-                    {item.label}
+                    {navLabel(item, locale)}
                     <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
                 </a>
             ) : (
@@ -77,7 +83,7 @@ function DropdownItem({
                     onClick={onClose}
                     className={parentCls}
                 >
-                    {item.label}
+                    {navLabel(item, locale)}
                 </Link>
             )}
             {item.children && (
@@ -92,7 +98,7 @@ function DropdownItem({
                                 onClick={onClose}
                                 className={cn(childCls, "flex items-center gap-1")}
                             >
-                                {c.label}
+                                {navLabel(c, locale)}
                                 <ArrowUpRight className="h-3 w-3 text-[var(--color-ink-subtle)]" />
                             </a>
                         ) : (
@@ -102,7 +108,7 @@ function DropdownItem({
                                 onClick={onClose}
                                 className={childCls}
                             >
-                                {c.label}
+                                {navLabel(c, locale)}
                             </Link>
                         ),
                     )}
@@ -417,7 +423,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                             onClick={close}
                                                             className="flex items-center gap-1 py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
                                                         >
-                                                            {it.label}
+                                                            {navLabel(it, locale)}
                                                             <ArrowUpRight className="h-4 w-4 text-[var(--color-ink-subtle)]" />
                                                         </a>
                                                     ) : (
@@ -432,7 +438,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                             onClick={close}
                                                             className="block py-2.5 text-[17px] font-medium text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
                                                         >
-                                                            {it.label}
+                                                            {navLabel(it, locale)}
                                                         </Link>
                                                     )}
                                                     {it.children && (
@@ -448,7 +454,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                                             onClick={close}
                                                                             className="flex items-center gap-1 py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
                                                                         >
-                                                                            {c.label}
+                                                                            {navLabel(c, locale)}
                                                                             <ArrowUpRight className="h-3.5 w-3.5" />
                                                                         </a>
                                                                     ) : (
@@ -466,7 +472,7 @@ export function SiteNav({ overlay = false }: { overlay?: boolean }) {
                                                                             }
                                                                             className="block py-1.5 text-[15px] text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
                                                                         >
-                                                                            {c.label}
+                                                                            {navLabel(c, locale)}
                                                                         </Link>
                                                                     ),
                                                             )}

@@ -14,6 +14,8 @@ import type { ConceptId } from "@/lib/backgrounds";
 export interface NavLeaf {
     /** display label */
     label: string;
+    /** Korean label override — used when the site locale is `ko`. */
+    labelKo?: string;
     /** anchor id within the group page (becomes /{group}#{id}) */
     id: string;
     /** nested children (one level), e.g. XGEN → PathFinder/FloUI/... */
@@ -209,9 +211,14 @@ export const NAV_GROUPS: NavGroup[] = [
                 colBreak: true,
                 external: "https://www.xgen.im/",
                 children: [
-                    { label: "Certifications & Quality", id: "certification" },
+                    {
+                        label: "Certifications & Quality",
+                        labelKo: "인증·품질",
+                        id: "certification",
+                    },
                     {
                         label: "Security & Governance",
+                        labelKo: "보안·거버넌스",
                         id: "security",
                         route: "/security-and-governance",
                     },
