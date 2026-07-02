@@ -1,21 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 
-const TABS = ["전체", "Case Study", "Labs Tech", "제품 소식"] as const;
+const ALL = "전체 아티클";
+const TABS = [ALL, "제품 소식", "Labs Tech", "Case Study"] as const;
+type Tab = (typeof TABS)[number];
+
+/** GNB 서브메뉴 딥링크용: /blog?cat=<key> → 카테고리 라벨. */
+const CATEGORY_BY_KEY: Record<string, Tab> = {
+    product: "제품 소식",
+    labs: "Labs Tech",
+    case: "Case Study",
+};
 
 function fmtDate(d: string) {
     return d.replaceAll("-", ".");
 }
 
 export function BlogList({ posts }: { posts: PostMeta[] }) {
-    const [active, setActive] = useState<(typeof TABS)[number]>("전체");
+    const [active, setActive] = useState<Tab>(ALL);
+
+    // /blog?cat=product 등으로 진입하면 해당 카테고리로 초기 필터. URL 없이 상태만
+    // 쓰던 구조라, useSearchParams의 Suspense 요건을 피해 마운트 시 1회만 읽는다.
+    useEffect(() => {
+        const key = new URLSearchParams(window.location.search).get("cat");
+        const cat = key ? CATEGORY_BY_KEY[key] : undefined;
+        if (cat) setActive(cat);
+    }, []);
+
     const filtered =
-        active === "전체" ? posts : posts.filter((p) => p.category === active);
+        active === ALL ? posts : posts.filter((p) => p.category === active);
 
     return (
         <div>
@@ -23,7 +41,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
             <div className="flex flex-wrap gap-2 border-b border-[var(--color-line)] pb-4">
                 {TABS.map((t) => {
                     const count =
-                        t === "전체"
+                        t === ALL
                             ? posts.length
                             : posts.filter((p) => p.category === t).length;
                     return (

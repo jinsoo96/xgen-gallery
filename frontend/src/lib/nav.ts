@@ -244,15 +244,21 @@ export const NAV_GROUPS: NavGroup[] = [
         ],
     },
     {
-        // 블로그(/blog) 최상위 — 라벨 클릭 시 블로그, 드롭다운에 Lab Members.
+        // 블로그(/blog) 최상위 — 드롭다운: 카테고리(전체 아티클 / 제품 소식 /
+        // Labs Tech / Case Study) → Contributor Members 순. 카테고리는 /blog?cat=…
+        // 로 딥링크되어 BlogList가 초기 필터를 적용한다(blog-list.tsx의 CATEGORY_BY_KEY).
         // GNB 순서: 홈페이지 서사(Insights → Resources)와 맞춰 Open Source 앞에 배치.
         key: "blog",
         label: "Insight Blog",
         concept: "insights",
         blurb: "Enterprise AI · Agentic AI · GEO·SEO 인사이트",
         items: [
+            { label: "전체 아티클", id: "all-articles", route: "/blog" },
+            { label: "제품 소식", id: "cat-product", route: "/blog?cat=product" },
+            { label: "Labs Tech", id: "cat-labs", route: "/blog?cat=labs" },
+            { label: "Case Study", id: "cat-case", route: "/blog?cat=case" },
             {
-                label: "Lab Members",
+                label: "Contributor Members",
                 id: "lab-members",
                 route: "/members",
                 blurb: "Plateer Labs를 만드는 멤버들을 소개합니다.",
@@ -262,12 +268,11 @@ export const NAV_GROUPS: NavGroup[] = [
     {
         // Open Source 최상위 메뉴 — key를 library-gallery로 두어 상단/푸터 링크가
         // 기존 /library-gallery 페이지를 그대로 가리킨다(별도 페이지·route 불필요).
+        // 항목이 3개(+Runtime 하위)라 wide 다열 대신 단일 열 드롭다운으로 왼쪽에 모은다.
         key: "library-gallery",
         label: "Open Source",
         concept: "tools",
         blurb: "XGEN을 떠받치는 오픈소스 라이브러리와 실전 레시피.",
-        wide: true,
-        cols: 2,
         items: [
             {
                 label: "Library Gallery",
@@ -280,14 +285,13 @@ export const NAV_GROUPS: NavGroup[] = [
                 route: "/library-gallery#recipes",
             },
             {
-                // Runtime — 독립 MCP 런타임. colBreak로 오른쪽 열을 시작 →
-                // 왼쪽 열은 Library Gallery / Library Recipes, 오른쪽 열은
-                // Runtime(+하위 앵커). 콘텐츠는 /library-gallery 페이지의 runtime
-                // 섹션에 렌더되며, 하위 앵커는 RuntimeContent 내부 id로 연결.
+                // Runtime — 독립 MCP 런타임. 단일 열이라 Library 항목들과 함께
+                // 왼쪽에 세로로 쌓인다(+하위 앵커). 콘텐츠는 /library-gallery
+                // 페이지의 runtime 섹션에 렌더되며, 하위 앵커는 RuntimeContent
+                // 내부 id로 연결.
                 label: "Runtime",
                 id: "runtime",
                 route: "/library-gallery#runtime",
-                colBreak: true,
                 children: [
                     { label: "MCP Apps", id: "mcp-apps", route: "/library-gallery#mcp-apps" },
                     { label: "Runtime SDK", id: "runtime-sdk", route: "/library-gallery#runtime-sdk" },
