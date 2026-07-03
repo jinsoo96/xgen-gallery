@@ -41,8 +41,8 @@ const PRODUCTS: Product[] = [
         name: "PathFinder",
         tagline: "Build",
         desc: "복잡한 목표를 실행 가능한 에이전트 워크플로우로 설계·구성하는 단계입니다",
-        video: null,
-        poster: null,
+        video: "https://www.youtube-nocookie.com/embed/4T7tT2nTXfw",
+        poster: "https://img.youtube.com/vi/4T7tT2nTXfw/maxresdefault.jpg",
     },
     {
         key: "floui",
