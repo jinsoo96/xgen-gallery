@@ -119,7 +119,7 @@ export function HomeResources() {
                         </div>
                         <div className="flex flex-1 flex-col p-6">
                             <h3 className="text-[18px] font-bold tracking-tight text-[var(--color-ink)]">
-                                Research Team
+                                Lab Members
                             </h3>
                             <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
                                 Plateer Labs를 만드는 멤버들을 소개합니다
