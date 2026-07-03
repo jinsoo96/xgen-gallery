@@ -16,6 +16,13 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { JsonLd } from "@/components/json-ld";
+import {
+    LayeredControlArt,
+    GuardModelArt,
+    DataProtectionArt,
+    AuditLogArt,
+    RiskGaugeArt,
+} from "@/components/security-illustrations";
 import { breadcrumbLd } from "@/lib/structured-data";
 import { SITE, absoluteUrl } from "@/lib/site";
 
@@ -197,16 +204,21 @@ export default function SecurityPage() {
                 {/* 다층 통제 체계 */}
                 <section className="border-t border-[var(--color-line)] bg-[var(--color-surface)]">
                     <div className="mx-auto max-w-6xl px-6 py-24">
-                        <Eyebrow>Layered Control</Eyebrow>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            3가지 축으로 통제하는 다층 가드레일
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                            XGEN의 통제 기능은 외부 가드 모델 기반 유해성 검토, 개인정보
-                            탐지·마스킹, 금칙어 탐지·마스킹의 3가지 축으로 구성됩니다. 각
-                            축은 독립적으로 켜고 끌 수 있으며, 탐지 이벤트는 항상 로그로
-                            남습니다.
-                        </p>
+                        <div className="grid items-center gap-8 lg:grid-cols-[1.55fr_1fr]">
+                            <div>
+                                <Eyebrow>Layered Control</Eyebrow>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
+                                    3가지 축으로 통제하는 다층 가드레일
+                                </h2>
+                                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    XGEN의 통제 기능은 외부 가드 모델 기반 유해성 검토,
+                                    개인정보 탐지·마스킹, 금칙어 탐지·마스킹의 3가지 축으로
+                                    구성됩니다. 각 축은 독립적으로 켜고 끌 수 있으며, 탐지
+                                    이벤트는 항상 로그로 남습니다.
+                                </p>
+                            </div>
+                            <LayeredControlArt className="hidden lg:block" />
+                        </div>
                         <div className="mt-10 grid gap-4 md:grid-cols-3">
                             {CONTROLS.map((c) => (
                                 <div
@@ -238,15 +250,21 @@ export default function SecurityPage() {
                 {/* 가드레일 모델 */}
                 <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
                     <div className="mx-auto max-w-6xl px-6 py-24">
-                        <Eyebrow>Guard Model</Eyebrow>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            유해한 요청은 LLM에 닿기 전에 차단
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                            가드 모델은 워크플로우 Agent 노드에서 활성화되며, 사용자
-                            입력을 LLM에 전달하기 전에 검사합니다. 안전하지 않은 요청으로
-                            판단되면 LLM을 호출하지 않고 차단 메시지를 반환합니다.
-                        </p>
+                        <div className="grid items-center gap-8 lg:grid-cols-[1.55fr_1fr]">
+                            <div>
+                                <Eyebrow>Guard Model</Eyebrow>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
+                                    유해한 요청은 LLM에 닿기 전에 차단
+                                </h2>
+                                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    가드 모델은 워크플로우 Agent 노드에서 활성화되며, 사용자
+                                    입력을 LLM에 전달하기 전에 검사합니다. 안전하지 않은
+                                    요청으로 판단되면 LLM을 호출하지 않고 차단 메시지를
+                                    반환합니다.
+                                </p>
+                            </div>
+                            <GuardModelArt className="hidden lg:block" />
+                        </div>
 
                         <div className="mt-8 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
                             <div className="rounded-2xl border border-[var(--color-line)] bg-white p-6">
@@ -293,16 +311,21 @@ export default function SecurityPage() {
                 {/* PII + 금칙어 */}
                 <section className="border-t border-[var(--color-line)] bg-[var(--color-surface)]">
                     <div className="mx-auto max-w-6xl px-6 py-24">
-                        <Eyebrow>Data Protection</Eyebrow>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            개인정보와 금칙어를 원문에서 지운다
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                            PII·금칙어 정책은 정규식 기반으로 동작하며, 정책명·정규식
-                            패턴·활성 여부·마스킹 문자열·정책 버전으로 관리됩니다.
-                            워크플로우 실행 시에는 개인정보 마스킹 후 금칙어 마스킹을
-                            적용해, 먼저 가려진 영역이 다시 처리되지 않도록 합니다.
-                        </p>
+                        <div className="grid items-center gap-8 lg:grid-cols-[1.55fr_1fr]">
+                            <div>
+                                <Eyebrow>Data Protection</Eyebrow>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
+                                    개인정보와 금칙어를 원문에서 지운다
+                                </h2>
+                                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    PII·금칙어 정책은 정규식 기반으로 동작하며, 정책명·정규식
+                                    패턴·활성 여부·마스킹 문자열·정책 버전으로 관리됩니다.
+                                    워크플로우 실행 시에는 개인정보 마스킹 후 금칙어 마스킹을
+                                    적용해, 먼저 가려진 영역이 다시 처리되지 않도록 합니다.
+                                </p>
+                            </div>
+                            <DataProtectionArt className="hidden lg:block" />
+                        </div>
 
                         <div className="mt-8 grid gap-4 md:grid-cols-3">
                             {PII_POINTS.map((p) => (
@@ -345,16 +368,21 @@ export default function SecurityPage() {
                 {/* 감사 로그 */}
                 <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
                     <div className="mx-auto max-w-6xl px-6 py-24">
-                        <Eyebrow>Audit &amp; Compliance</Eyebrow>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            모든 통제 이벤트를 감사 가능하게
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                            PII·금칙어·가드 모델에 의해 탐지·차단된 이벤트는 통합 정책
-                            이벤트 로그에 기록됩니다. 출처·정책 유형·사용자·워크플로우·
-                            컬렉션·기간으로 필터링해 조회할 수 있고, 정책의 생성·수정·삭제도
-                            변경 이력과 버전으로 남습니다.
-                        </p>
+                        <div className="grid items-center gap-8 lg:grid-cols-[1.55fr_1fr]">
+                            <div>
+                                <Eyebrow>Audit &amp; Compliance</Eyebrow>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
+                                    모든 통제 이벤트를 감사 가능하게
+                                </h2>
+                                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    PII·금칙어·가드 모델에 의해 탐지·차단된 이벤트는 통합
+                                    정책 이벤트 로그에 기록됩니다. 출처·정책 유형·사용자·
+                                    워크플로우·컬렉션·기간으로 필터링해 조회할 수 있고, 정책의
+                                    생성·수정·삭제도 변경 이력과 버전으로 남습니다.
+                                </p>
+                            </div>
+                            <AuditLogArt className="hidden lg:block" />
+                        </div>
                         <div className="mt-8 divide-y divide-[var(--color-line)] overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white">
                             {LOG_FIELDS.map(([k, v]) => (
                                 <div
@@ -379,15 +407,20 @@ export default function SecurityPage() {
                 {/* AI 위험도 등급 */}
                 <section className="border-t border-[var(--color-line)] bg-[var(--color-surface)]">
                     <div className="mx-auto max-w-6xl px-6 py-24">
-                        <Eyebrow>AI Risk Governance</Eyebrow>
-                        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
-                            워크플로우의 위험을 등급으로 관리
-                        </h2>
-                        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                            AI 위험도 등급 정책은 실시간 마스킹이 아니라, 워크플로우와 AI
-                            서비스의 위험을 평가하기 위한 기준 정책입니다. 네 가지 원칙을
-                            토대로 위험을 4단계로 구분해 통제 수준을 정합니다.
-                        </p>
+                        <div className="grid items-center gap-8 lg:grid-cols-[1.55fr_1fr]">
+                            <div>
+                                <Eyebrow>AI Risk Governance</Eyebrow>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
+                                    워크플로우의 위험을 등급으로 관리
+                                </h2>
+                                <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    AI 위험도 등급 정책은 실시간 마스킹이 아니라, 워크플로우와
+                                    AI 서비스의 위험을 평가하기 위한 기준 정책입니다. 네 가지
+                                    원칙을 토대로 위험을 4단계로 구분해 통제 수준을 정합니다.
+                                </p>
+                            </div>
+                            <RiskGaugeArt className="hidden lg:block" />
+                        </div>
                         <div className="mt-8 grid gap-4 lg:grid-cols-2">
                             <div className="rounded-2xl border border-[var(--color-line)] bg-white p-6">
                                 <div className="flex items-center gap-2">
