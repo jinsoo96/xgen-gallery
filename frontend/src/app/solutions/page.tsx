@@ -1,6 +1,9 @@
 import {
     ShieldCheck,
     Brain,
+    ScrollText,
+    Activity,
+    Scale,
     Users,
     Cable,
     Database,
@@ -228,14 +231,201 @@ function AgenticAI() {
     );
 }
 
+/**
+ * 인증 씰(메달) 장식 그래픽 — 품질/인증 이미지를 외부 에셋 없이 인라인 SVG로.
+ * currentColor를 쓰므로 부모의 text 색으로 틴트한다(카드별 teal/blue).
+ */
+function CertSeal({ className }: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 100 100"
+            fill="none"
+            aria-hidden="true"
+            className={className}
+        >
+            {/* 리본 꼬리 */}
+            <path
+                d="M37 64 L28 95 L43 86 L50 99 L57 86 L72 95 L63 64 Z"
+                fill="currentColor"
+            />
+            {/* 톱니형 외곽 링 */}
+            <circle
+                cx="50"
+                cy="44"
+                r="34"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="1.5 4.5"
+            />
+            <circle cx="50" cy="44" r="27" stroke="currentColor" strokeWidth="2" />
+            <circle cx="50" cy="44" r="20" stroke="currentColor" strokeWidth="1.5" />
+            {/* 체크 마크 */}
+            <path
+                d="M41 44 L48 51 L60 37"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
 /** 연구소 솔루션 제품의 인증·품질 — 현재 GS인증 심사 종료, 최종 인증 대기 중. */
 function CertificationQuality() {
-    // GS인증 태그가 붙은 인사이트 블로그 글(여정 시리즈 + 관련 글)을 최신순으로 노출.
-    const gsPosts = getAllPosts().filter((p) => p.tags.includes("GS인증"));
+    // GS인증 태그가 붙은 인사이트 블로그 글(여정 시리즈 + 관련 글)을 최신순으로
+    // 최대 3개만 노출 — 나머지는 하단 "전체 보기"로 연결.
+    const gsPosts = getAllPosts()
+        .filter((p) => p.tags.includes("GS인증"))
+        .slice(0, 3);
+    // AI-MASTER 인증 — 고객 눈높이 요약. 시험 계정·내부 파일·계약 로지스틱스 등
+    // 사내 정보는 제외하고, 대외 공개 가능한 인증 성격·심사 방식·진행 상태만 담는다.
+    const AI_MASTER_INFO: {
+        icon: typeof ShieldCheck;
+        title: string;
+        body: string;
+    }[] = [
+        {
+            icon: Scale,
+            title: "국제표준 기반 AI 신뢰성 인증",
+            body: "AI-MASTER는 한국인공지능산업협회(AIIA)가 주관하는 민간 AI 신뢰성 인증으로, EU Trustworthy AI 원칙과 ISO/IEC 국제표준을 기준으로 AI의 신뢰성·윤리성·강건성을 평가합니다",
+        },
+        {
+            icon: ScrollText,
+            title: "문서 심사 · 기능 시험 병행",
+            body: "AI 거버넌스 체계를 담은 관리·개발 문서를 심사하고, 실제 동작을 확인하는 기능 시험을 함께 진행합니다. 63개 정량 항목으로 신뢰성 전반을 점검합니다",
+        },
+        {
+            icon: Activity,
+            title: "현재 진행 상황",
+            body: "2026년 6월 인증 시험에 착수해 문서 심사와 기능 시험을 진행하고 있습니다. 정상 수행 시 약 13주에 걸친 평가를 거칩니다",
+        },
+    ];
     return (
-        <div className="space-y-6">
-            <div className="grid gap-5 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[auto_1fr] sm:items-center">
+        <div className="space-y-14">
+            {/* 인덱스 (목차) — 두 인증 섹션으로 바로 이동 */}
+            <nav
+                aria-label="인증·품질 목차"
+                className="rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-5"
+            >
+                <p className="font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                    Index
+                </p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <a
+                        href="#cert-ai-master"
+                        className="group relative overflow-hidden rounded-lg border border-[#bfe9e0] bg-gradient-to-br from-white via-[#f2fbf9] to-[#dcf3ed] px-4 py-3 transition hover:border-[#0f9d8f] hover:shadow-sm"
+                    >
+                        <CertSeal className="pointer-events-none absolute -right-4 top-1/2 h-28 w-28 -translate-y-1/2 text-[#0f9d8f]/15 transition group-hover:text-[#0f9d8f]/25" />
+                        <div className="relative z-10 flex items-center gap-3">
+                            <span className="font-mono text-[14px] font-bold text-[#0f9d8f]">
+                                01
+                            </span>
+                            <span className="min-w-0 flex-1">
+                                <span className="block text-[15px] font-bold text-[var(--color-ink)]">
+                                    AI-MASTER · AI 신뢰성 인증
+                                </span>
+                                <span className="mt-0.5 block text-[13px] text-[var(--color-ink-subtle)]">
+                                    인증 시험 진행 중
+                                </span>
+                            </span>
+                            <ArrowRight className="h-4 w-4 flex-none text-[var(--color-ink-subtle)] transition group-hover:translate-x-0.5 group-hover:text-[var(--color-ink)]" />
+                        </div>
+                    </a>
+                    <a
+                        href="#cert-gs"
+                        className="group relative overflow-hidden rounded-lg border border-[#cfe0ff] bg-gradient-to-br from-white via-[#f1f6ff] to-[#e3edff] px-4 py-3 transition hover:border-[#2f7bff] hover:shadow-sm"
+                    >
+                        <CertSeal className="pointer-events-none absolute -right-4 top-1/2 h-28 w-28 -translate-y-1/2 text-[#2f7bff]/15 transition group-hover:text-[#2f7bff]/25" />
+                        <div className="relative z-10 flex items-center gap-3">
+                            <span className="font-mono text-[14px] font-bold text-[#2f7bff]">
+                                02
+                            </span>
+                            <span className="min-w-0 flex-1">
+                                <span className="block text-[15px] font-bold text-[var(--color-ink)]">
+                                    GS인증 · Good Software
+                                </span>
+                                <span className="mt-0.5 block text-[13px] text-[var(--color-ink-subtle)]">
+                                    심사 종료 · 최종 인증 대기 중
+                                </span>
+                            </span>
+                            <ArrowRight className="h-4 w-4 flex-none text-[var(--color-ink-subtle)] transition group-hover:translate-x-0.5 group-hover:text-[var(--color-ink)]" />
+                        </div>
+                    </a>
+                </div>
+            </nav>
+
+            {/* 01 — AI-MASTER (AI 신뢰성 인증) */}
+            <section id="cert-ai-master" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-3 border-b border-[var(--color-line)] pb-3">
+                    <span className="font-mono text-[13px] font-bold text-[#0f9d8f]">
+                        01
+                    </span>
+                    <p className="font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        AI 신뢰성 인증
+                    </p>
+                </div>
+
+                {/* AI-MASTER 인증 배지 */}
+                <div className="grid gap-5 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[auto_1fr] sm:items-center">
+                <div className="flex h-20 w-20 flex-col items-center justify-center rounded-xl border border-[#bfe9e0] bg-[#effbf8] text-center">
+                    <Brain className="h-6 w-6 text-[#0f9d8f]" />
+                    <span className="mt-1 text-[13px] font-bold text-[var(--color-ink)]">
+                        AI-MASTER
+                    </span>
+                </div>
+                <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-lg font-bold text-[var(--color-ink)]">
+                            XGEN Agentic AI Platform — AI-MASTER (AI 신뢰성 인증)
+                        </h3>
+                        <span className="rounded-full border border-[#bcdcff] bg-[#eef5ff] px-2.5 py-0.5 text-[14px] font-semibold text-[#2461d8]">
+                            인증 시험 진행 중
+                        </span>
+                    </div>
+                    <p className="mt-2 max-w-xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
+                        XGEN은 국제표준 기반 AI 신뢰성 인증인 AI-MASTER 시험을 받고
+                        있습니다. 문서 심사와 기능 시험을 병행해 AI의 신뢰성·투명성·강건성을
+                        제3자 시험기관이 검증합니다
+                    </p>
+                </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3 md:items-stretch">
+                {AI_MASTER_INFO.map((c) => (
+                    <div
+                        key={c.title}
+                        className="rounded-xl border border-[var(--color-line)] bg-white p-6"
+                    >
+                        <div className="flex items-center gap-3">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0f9d8f]/10 text-[#0f9d8f]">
+                                <c.icon className="h-5 w-5" />
+                            </span>
+                            <h4 className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
+                                {c.title}
+                            </h4>
+                        </div>
+                        <p className="mt-3 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                            {c.body}
+                        </p>
+                    </div>
+                ))}
+                </div>
+            </section>
+
+            {/* 02 — GS인증 (Good Software) */}
+            <section id="cert-gs" className="scroll-mt-24 space-y-6">
+                <div className="flex items-center gap-3 border-b border-[var(--color-line)] pb-3">
+                    <span className="font-mono text-[13px] font-bold text-[#2f7bff]">
+                        02
+                    </span>
+                    <p className="font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                        SW 품질인증
+                    </p>
+                </div>
+
                 {/* GS인증 배지 (로고 입수 전 텍스트 배지) */}
+                <div className="grid gap-5 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[auto_1fr] sm:items-center">
                 <div className="flex h-20 w-20 flex-col items-center justify-center rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] text-center">
                     <ShieldCheck className="h-6 w-6 text-[#2f7bff]" />
                     <span className="mt-1 text-[14px] font-bold text-[var(--color-ink)]">
@@ -300,6 +490,7 @@ function CertificationQuality() {
                     </Link>
                 </div>
             )}
+            </section>
         </div>
     );
 }
