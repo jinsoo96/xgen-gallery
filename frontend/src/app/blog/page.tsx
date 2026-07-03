@@ -11,12 +11,12 @@ import { absoluteUrl } from "@/lib/site";
 export const metadata = {
     title: "Insight",
     description:
-        "Plateer Labs Insight — Case Study, Tech News, 제품 소식 등 Enterprise AI 연구·실무 인사이트를 공유합니다.",
+        "Plateer Labs Insight — Case Study, Tech Note, 제품 소식 등 Enterprise AI 연구·실무 인사이트를 공유합니다.",
     alternates: { canonical: "/blog" },
     openGraph: {
         title: "Insight · Plateer Labs",
         description:
-            "Case Study · Tech News · 제품 소식 — Enterprise AI 인사이트.",
+            "Case Study · Tech Note · 제품 소식 — Enterprise AI 인사이트.",
         type: "website",
         url: absoluteUrl("/blog"),
     },
@@ -65,7 +65,7 @@ export default function BlogPage() {
                         delivered as value in the field
                     </h1>
                     <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/70">
-                        Case Study, Tech News, 제품 소식 —
+                        Case Study, Tech Note, 제품 소식 —
                         <br className="hidden sm:block" />
                         연구와 현장에서 얻은 인사이트를 공유합니다
                     </p>

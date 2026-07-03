@@ -3,7 +3,7 @@ title: "GS 인증 준비기 — 우리가 '판단 불가'를 자랑한 이유"
 description: "문서만 정리하면 될 줄 알았던 GS 인증 준비. 시험 과정에서 마주한 AI 소프트웨어만의 무거운 질문들과, 연구소가 '주장'이 아니라 '검증'으로 품질을 만든 원칙을 준비기 형식으로 담았습니다."
 date: "2026-07-01"
 author: "Plateer Labs"
-category: "Tech News"
+category: "Tech Note"
 tags: ["GS인증", "소프트웨어 품질", "Enterprise AI", "검증 가능한 AI"]
 ---
 
