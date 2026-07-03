@@ -70,7 +70,8 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                         alt={`${member.login} avatar`}
                         width={64}
                         height={64}
-                        loading="lazy"
+                        loading={isTop ? "eager" : "lazy"}
+                        fetchPriority={isTop ? "high" : "auto"}
                         className={cn(
                             "h-16 w-16 rounded-2xl border-[3px] border-white bg-[var(--color-surface-alt)] object-cover shadow-sm",
                             isTop && "ring-2 ring-amber-300",

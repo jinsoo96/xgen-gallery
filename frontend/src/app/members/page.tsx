@@ -1,8 +1,13 @@
+import { Suspense } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { MembersHeader } from "@/components/members-header";
 import { SceneBackground } from "@/components/scene-background";
-import { MembersLazy } from "@/components/members-lazy";
+import { MembersSection } from "@/components/members-section";
+import {
+    SkeletonGrid,
+    StatsBarSkeleton,
+} from "@/components/members-skeleton";
 
 export const metadata = {
     title: "Lab Members",
@@ -11,11 +16,11 @@ export const metadata = {
     alternates: { canonical: "/members" },
 };
 
-/**
- * The page shell (nav + hero key-visual) is static so it renders instantly on
- * navigation. Member data is fetched client-side by <MembersLazy /> as the grid
- * scrolls into view, so a slow GitHub round-trip never blocks the first paint.
- */
+// Render per request and stream: the nav + hero key-visual flush immediately,
+// while <MembersSection> resolves inside its Suspense boundary. A slow GitHub
+// round-trip only delays the streamed grid chunk, never the first paint.
+export const dynamic = "force-dynamic";
+
 export default function MembersPage() {
     return (
         <>
@@ -28,7 +33,16 @@ export default function MembersPage() {
             </section>
 
             <main className="mx-auto max-w-6xl px-6 pb-24 pt-12">
-                <MembersLazy />
+                <Suspense
+                    fallback={
+                        <>
+                            <StatsBarSkeleton />
+                            <SkeletonGrid />
+                        </>
+                    }
+                >
+                    <MembersSection />
+                </Suspense>
             </main>
             <SiteFooter />
         </>
