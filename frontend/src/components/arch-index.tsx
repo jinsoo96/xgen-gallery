@@ -38,7 +38,7 @@ export function ArchIndex({
 
     return (
         <nav className="sticky top-[84px] z-30 border-b border-[var(--color-line)] bg-white/90 backdrop-blur-md">
-            <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-6 py-3">
+            <div className="flex max-w-[1600px] gap-1 overflow-x-auto px-6 py-3">
                 {sections.map((s) => (
                     <a
                         key={s.id}
