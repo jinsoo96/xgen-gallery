@@ -103,7 +103,7 @@ export default function ArchitecturePage() {
             <SiteNav overlay />
             <section className="relative flex min-h-[560px] items-center overflow-hidden border-b border-white/10 py-28 text-white">
                 <SceneBackground concept="architecture" />
-                <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
+                <div className="relative mx-auto w-full max-w-7xl px-6 pt-16">
                     <ArchitectureHero />
                 </div>
             </section>
@@ -116,7 +116,7 @@ export default function ArchitecturePage() {
                     id="foundation"
                     className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface)]"
                 >
-                    <div className="mx-auto max-w-6xl px-6 py-24">
+                    <div className="mx-auto max-w-7xl px-6 py-24">
                         <h2 className="max-w-3xl text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-[32px]">
                             데이터 주권과 AI Runtime을 위한 핵심 기반 아키텍처
                         </h2>
@@ -147,7 +147,7 @@ export default function ArchitecturePage() {
                     id="principles"
                     className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface-alt)]"
                 >
-                    <div className="mx-auto max-w-6xl px-6 py-24">
+                    <div className="mx-auto max-w-7xl px-6 py-24">
                         <Eyebrow>/ Design Principles</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             아키텍처 설계 원칙
