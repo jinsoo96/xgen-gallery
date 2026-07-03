@@ -123,15 +123,15 @@ function Cell({
     return (
         <div
             className={cn(
-                "rounded-md border border-[#dbe2f4] bg-white px-2.5 py-2 text-center",
+                "rounded-md border border-[#dbe2f4] bg-white px-2 py-2 text-center",
                 className,
             )}
         >
-            <div className="break-keep text-[13.5px] font-semibold leading-tight text-[var(--color-ink)]">
+            <div className="hyphens-none break-keep text-[12px] font-semibold leading-tight text-[var(--color-ink)]">
                 {title}
             </div>
             {sub && (
-                <div className="mt-0.5 text-[12px] leading-tight text-[var(--color-ink-subtle)]">
+                <div className="mt-0.5 text-[11px] leading-tight text-[var(--color-ink-subtle)]">
                     {sub}
                 </div>
             )}
