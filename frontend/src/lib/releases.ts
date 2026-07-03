@@ -21,6 +21,124 @@ export interface Release {
 
 export const RELEASES: Release[] = [
     {
+        version: "v2.3.0",
+        date: "2026-06-18",
+        product: "xgen",
+        tagline: "Canvas Chat, Model Serving & Team Collaboration",
+        summary:
+            "채팅 대화만으로 워크플로우를 만드는 Canvas Chat, 모델 서빙·MLOps 관리 UI, Teams 협업, 하네스 모듈화까지 — 대화형 빌드 경험과 운영 관리 역량을 대폭 확장했습니다.",
+        highlights: [
+            "Canvas Chat 대화형 빌더",
+            "모델 서빙 · MLOps 관리",
+            "Harness 모듈화 + Policy Gate",
+            "Teams 협업 · 피드백",
+        ],
+        items: [
+            {
+                category: "new",
+                title: "Canvas Chat — 대화로 만드는 워크플로우",
+                detail: "채팅 대화만으로 워크플로우를 설계·빌드하는 Canvas Chat 모드를 도입했습니다. 빌더 LLM이 컬렉션을 사전에 생성·연결하고, 문서 인덱싱을 빌드와 분리·병렬화하며, 응답을 토큰 단위로 스트리밍합니다.",
+                modules: ["xgen-frontend", "xgen-workflow"],
+            },
+            {
+                category: "new",
+                title: "모델 서빙 · MLOps 관리 UI",
+                detail: "모델 서빙 카탈로그, 모델 카드 상세(아키텍처·파라미터·파일·라이선스), GPU 지정·멀티노드 vLLM selector, 로컬 HF 캐시 모델 표시까지 모델 운영 화면을 신설했습니다.",
+                modules: ["xgen-frontend", "xgen-model"],
+            },
+            {
+                category: "new",
+                title: "Teams 협업",
+                detail: "채팅방 응답 에이전트 표시, 별점·이슈 유형·코멘트 피드백, 파일 첨부 업로드·텍스트 추출, 회의 설정을 추가해 사람과 에이전트의 협업을 강화했습니다.",
+                modules: ["xgen-frontend", "xgen-workflow", "xgen-core"],
+            },
+            {
+                category: "new",
+                title: "조건 분기 라우터 노드",
+                detail: "Gate Classifier와 Distributed Router 기반의 조건 분기 노드를 추가했습니다. 포트 이름을 한글로 현지화하고 정책 게이트(Guard)와 연동됩니다.",
+                modules: ["xgen-workflow", "xgen-frontend"],
+            },
+            {
+                category: "new",
+                title: "Agent 개발 기획서 · 배포 게이트",
+                detail: "사용자 기획서 작성 화면과 관리자 토글, 배포 모달 연동을 추가했습니다. 하네스 publish 이력을 추적하는 테이블(HarnessPublishedWheel)도 함께 도입했습니다.",
+                modules: ["xgen-frontend", "xgen-core"],
+            },
+            {
+                category: "new",
+                title: "문서 PII 사전 스캔",
+                detail: "문서 단위 PII 사전 스캔(pre-scan)과 직접 마스킹, 컬렉션 TTL 관리, 마스킹 미적용 시 확인 절차를 추가했습니다.",
+                modules: ["xgen-documents", "xgen-core"],
+            },
+            {
+                category: "improved",
+                title: "Harness 모듈화 + Policy Gate",
+                detail: "10K LOC 모놀리식 하네스를 4개 서브기능과 harness-store 패키지로 분할하고, 인라인 MCP 마켓·Publish 타깃, Policy Gate(Guard) 연동, HITL 승인, published-wheel 자동 복구를 더했습니다.",
+                modules: ["xgen-frontend", "xgen-workflow"],
+            },
+            {
+                category: "improved",
+                title: "Ontology 빌드 · 사전 관리",
+                detail: "증분 빌드와 빌드 중단(cancel), property domain/range, 다중 트리플 일괄 매핑, 컬렉션 사전(dictionary) 관리·질의 정규화·대량 임포트를 추가했습니다.",
+                modules: ["xgen-frontend", "xgen-documents"],
+            },
+            {
+                category: "improved",
+                title: "RAG 심층검색 · 정보검색 노드 v2",
+                detail: "agentic ReAct 엔진 기반 심층검색 LLM 선택, 정보검색 노드 v2, 기본 검색 모드 always-search, 등록 API와 컬렉션을 함께 묶는 통합 도구 바인딩으로 검색 품질을 높였습니다.",
+                modules: ["xgen-workflow", "xgen-documents"],
+            },
+            {
+                category: "improved",
+                title: "Admin 권한 · 화면 표준화",
+                detail: "ABAC 권한 키 정비(모델 관리 admin.ml 등), 공통 DataTable와 검색 페이지네이션, 모달 버튼·토글 글로벌 표준 정합, DB 연결 관리 + 다단계 파이프라인 에디터를 적용했습니다.",
+                modules: ["xgen-frontend", "xgen-core"],
+            },
+            {
+                category: "improved",
+                title: "설정 비밀값 마스킹",
+                detail: "설정 API·UI 응답에서 API 키 등 비밀값을 재귀적으로 마스킹하고 재저장 가드를 추가해 노출을 차단했습니다.",
+                modules: ["xgen-core"],
+            },
+            {
+                category: "improved",
+                title: "노드 · 파라미터 한글 레이블",
+                detail: "노드명과 파라미터에 한글 의역 레이블(nodeNameKo·name_ko·label_ko)과 기본 로케일 한국어를 적용해 가독성을 높였습니다.",
+                modules: ["xgen-frontend", "xgen-workflow"],
+            },
+            {
+                category: "improved",
+                title: "게이트웨이 라우팅 정비",
+                detail: "`/api/cluster` 요청을 xgen-model로 라우팅하고 Teams 모듈을 워크플로우 서비스로 통합했습니다.",
+                modules: ["xgen-backend-gateway", "xgen-model"],
+            },
+            {
+                category: "fixed",
+                title: "비보안 컨텍스트 로그인",
+                detail: "HTTP(비보안) 환경에서도 로그인되도록 순수 JS SHA-256 폴백을 추가하고 인증 쿠키 이름 불일치를 수정했습니다.",
+                modules: ["xgen-frontend"],
+            },
+            {
+                category: "fixed",
+                title: "채팅 마크다운 표 렌더링",
+                detail: "Qwen·GPT 응답에서 마크다운 표 정렬 구분선(`:---:`, `---:`)이 깨지던 문제와 가독성 이슈를 통합 수정했습니다.",
+                modules: ["xgen-frontend"],
+            },
+            {
+                category: "fixed",
+                title: "모델 서빙 안정화",
+                detail: "vLLM 메트릭 instrumentator 충돌로 발생하던 `/v1/chat/completions` 500 오류, 로컬 경로 모델 메타데이터 조회 오류, 모델 로드 타임아웃을 수정·상향했습니다.",
+                modules: ["xgen-model"],
+            },
+            {
+                category: "fixed",
+                title: "Ontology 그래프 회귀",
+                detail: "관계 추가 후 노드가 사라지는 silent 누락, 그래프 로딩 회귀, 시각화 LIMIT 컷으로 인한 신규 트리플 누락을 바로잡았습니다.",
+                modules: ["xgen-frontend", "xgen-documents"],
+            },
+        ],
+    },
+    {
         version: "v2.2.0",
         date: "2026-04-21",
         product: "xgen",
