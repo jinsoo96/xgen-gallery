@@ -17,8 +17,8 @@ export const SITE = {
     github: "https://github.com/PlateerLab",
     githubOrg: "PlateerLab",
     locale: "ko_KR",
-    /** OG/Twitter share image (served from /public via app/icon.svg fallback). */
-    ogImage: "/icon.svg",
+    /** OG/Twitter share image (served from app/icon.png). */
+    ogImage: "/icon.png",
 } as const;
 
 /** Absolute URL helper — always returns a canonical, origin-prefixed URL. */

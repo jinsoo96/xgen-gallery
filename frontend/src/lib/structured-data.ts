@@ -18,7 +18,7 @@ export function organizationLd() {
         "@id": ORG_ID,
         name: SITE.name,
         url: SITE.url,
-        logo: absoluteUrl("/icon.svg"),
+        logo: absoluteUrl("/icon.png"),
         description: SITE.description,
         sameAs: [SITE.github],
     };
