@@ -26,36 +26,37 @@ type Product = {
     previewEndSeconds?: number;
 };
 
+// XGEN 우산 아래 Overview → Build(PathFinder) → Experience(FloUI) → Deploy(MCP Apps).
 const PRODUCTS: Product[] = [
     {
-        key: "xgen",
-        name: "XGEN",
-        tagline: "Agentic AI Platform",
-        desc: "노드 캔버스와 헤드리스 엔진 기반의 엔터프라이즈 AI 에이전트 런타임 — 플랫폼 전반을 영상으로 소개합니다",
-        video: null,
-        poster: null,
-    },
-    {
-        key: "mcp",
-        name: "MCP Apps",
-        tagline: "MCP App Runtime",
-        desc: "MCP(Model Context Protocol)로 외부 도구·시스템을 안전하게 연결하는 앱 런타임을 소개합니다",
+        key: "overview",
+        name: "Overview",
+        tagline: "XGEN",
+        desc: "노드 캔버스와 헤드리스 엔진 기반의 엔터프라이즈 AI 에이전트 런타임 — XGEN 플랫폼 전반을 한눈에 소개합니다",
         video: null,
         poster: null,
     },
     {
         key: "pathfinder",
         name: "PathFinder",
-        tagline: "XGEN",
-        desc: "XGEN의 PathFinder 기능을 영상으로 소개합니다",
+        tagline: "Build",
+        desc: "복잡한 목표를 실행 가능한 에이전트 워크플로우로 설계·구성하는 단계입니다",
         video: null,
         poster: null,
     },
     {
         key: "floui",
         name: "FloUI",
-        tagline: "XGEN",
-        desc: "XGEN의 FloUI 기능을 영상으로 소개합니다",
+        tagline: "Experience",
+        desc: "설계한 에이전트를 현업 사용자가 직관적으로 사용하는 경험을 제공합니다",
+        video: null,
+        poster: null,
+    },
+    {
+        key: "mcp",
+        name: "MCP Apps",
+        tagline: "Deploy",
+        desc: "MCP로 도구·시스템을 연결해 에이전트를 실제 환경에 배포하는 앱 런타임입니다",
         video: null,
         poster: null,
     },
