@@ -33,8 +33,8 @@ const PRODUCTS: Product[] = [
         name: "Overview",
         tagline: "XGEN",
         desc: "노드 캔버스와 헤드리스 엔진 기반의 엔터프라이즈 AI 에이전트 런타임 — XGEN 플랫폼 전반을 한눈에 소개합니다",
-        video: null,
-        poster: null,
+        video: "https://www.youtube-nocookie.com/embed/x0Uch1b0kNk",
+        poster: "https://img.youtube.com/vi/x0Uch1b0kNk/maxresdefault.jpg",
     },
     {
         key: "pathfinder",
@@ -49,8 +49,8 @@ const PRODUCTS: Product[] = [
         name: "FloUI",
         tagline: "Experience",
         desc: "설계한 에이전트를 현업 사용자가 직관적으로 사용하는 경험을 제공합니다",
-        video: null,
-        poster: null,
+        video: "https://www.youtube-nocookie.com/embed/StxOW5PbC8w",
+        poster: "https://img.youtube.com/vi/StxOW5PbC8w/maxresdefault.jpg",
     },
     {
         key: "mcp",
