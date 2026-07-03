@@ -103,7 +103,7 @@ export default function ArchitecturePage() {
             <SiteNav overlay />
             <section className="relative flex min-h-[560px] items-center overflow-hidden border-b border-white/10 py-28 text-white">
                 <SceneBackground concept="architecture" />
-                <div className="relative w-full max-w-[1600px] px-6 pt-16">
+                <div className="relative mx-auto w-full max-w-6xl px-6 pt-16">
                     <ArchitectureHero />
                 </div>
             </section>
@@ -116,7 +116,7 @@ export default function ArchitecturePage() {
                     id="foundation"
                     className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface)]"
                 >
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <h2 className="max-w-3xl text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-[32px]">
                             데이터 주권과 AI Runtime을 위한 핵심 기반 아키텍처
                         </h2>
@@ -147,7 +147,7 @@ export default function ArchitecturePage() {
                     id="principles"
                     className="scroll-mt-[140px] border-b border-[var(--color-line)] bg-[var(--color-surface-alt)]"
                 >
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ Design Principles</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             아키텍처 설계 원칙
@@ -179,7 +179,7 @@ export default function ArchitecturePage() {
 
                 {/* 참조 아키텍처 다이어그램 */}
                 <section id="reference" className="scroll-mt-[140px] bg-[var(--color-surface)]">
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ Reference Architecture</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             Enterprise AI 아키텍처
@@ -199,7 +199,7 @@ export default function ArchitecturePage() {
                     id="platform"
                     className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]"
                 >
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ XGEN Platform</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             XGEN 2.0 플랫폼 아키텍처
@@ -226,7 +226,7 @@ export default function ArchitecturePage() {
                     id="code-assistant"
                     className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface)]"
                 >
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ Code Assistant</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             코드 어시스턴트 아키텍처
@@ -246,7 +246,7 @@ export default function ArchitecturePage() {
                     id="cicd"
                     className="scroll-mt-[140px] border-t border-[var(--color-line)] bg-[var(--color-surface)]"
                 >
-                    <div className="max-w-[1600px] px-6 py-24">
+                    <div className="mx-auto max-w-6xl px-6 py-24">
                         <Eyebrow>/ CI/CD</Eyebrow>
                         <h2 className="mt-3 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-3xl">
                             GitOps 배포 파이프라인
