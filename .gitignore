@@ -22,3 +22,11 @@ __pycache__/
 /NSR-*
 *.pptx
 ~$*
+
+# Local backups of unused/replaced homepage assets — keep out of git
+/_backup-unused-*/
+/.hero_orig_backup/
+
+# dev/build logs
+frontend/.devserver.log
+frontend/.npminstall.log
