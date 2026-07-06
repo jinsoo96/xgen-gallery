@@ -4,7 +4,7 @@ import { Award, ShieldCheck, BadgeCheck, Check, ArrowRight } from "lucide-react"
 /**
  * 메인 — 품질·보안(GS 인증) 섹션. 경쟁사 장표를 그대로 옮기지 않고 연구소 톤으로 재구성하고
  * 좌(헤딩·상태) / 우(카드 스택) 2단 레이아웃으로 새로 잡았다.
- * ※ 우리 상태는 '획득'이 아니라 '심사 종료 · 최종 인증 대기 중' — 과장 없이 표기.
+ * ※ GS인증 1등급 획득(2026-07-06 인증심사위원회 확정).
  */
 const INFO: { icon: typeof Award; title: string; body: string }[] = [
     {
@@ -43,8 +43,8 @@ export function QualitySecurity() {
                     </h2>
                     <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
                         연구소는 성능을 주장하는 대신, 국가 공인 제3자 시험으로
-                        품질을 증명합니다. XGEN은 GS 인증 시험·평가를 완료하고 최종
-                        인증 결과를 기다리고 있습니다
+                        품질을 증명합니다. XGEN은 GS(Good Software) 인증 1등급(최고
+                        등급)을 획득했습니다
                     </p>
 
                     <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -56,7 +56,7 @@ export function QualitySecurity() {
                                     GS 인증 (Good Software)
                                 </p>
                                 <p className="text-[13px] font-semibold text-[#1f9d57]">
-                                    심사 종료 · 최종 인증 대기 중
+                                    GS 1등급 획득
                                 </p>
                             </div>
                         </div>

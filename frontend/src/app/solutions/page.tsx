@@ -271,7 +271,7 @@ function CertSeal({ className }: { className?: string }) {
     );
 }
 
-/** 연구소 솔루션 제품의 인증·품질 — 현재 GS인증 심사 종료, 최종 인증 대기 중. */
+/** 연구소 솔루션 제품의 인증·품질 — GS인증 1등급 획득(2026-07-06 확정). */
 function CertificationQuality() {
     // GS인증 태그가 붙은 인사이트 블로그 글(여정 시리즈 + 관련 글)을 최신순으로
     // 최대 3개만 노출 — 나머지는 하단 "전체 보기"로 연결.
@@ -346,7 +346,7 @@ function CertificationQuality() {
                                     GS인증 · Good Software
                                 </span>
                                 <span className="mt-0.5 block text-[13px] text-[var(--color-ink-subtle)]">
-                                    심사 종료 · 최종 인증 대기 중
+                                    GS 1등급 획득
                                 </span>
                             </span>
                             <ArrowRight className="h-4 w-4 flex-none text-[var(--color-ink-subtle)] transition group-hover:translate-x-0.5 group-hover:text-[var(--color-ink)]" />
@@ -437,13 +437,13 @@ function CertificationQuality() {
                         <h3 className="text-lg font-bold text-[var(--color-ink)]">
                             XGEN Agentic AI Platform — GS인증 (Good Software)
                         </h3>
-                        <span className="rounded-full border border-[#f3dca0] bg-[#fff7e6] px-2.5 py-0.5 text-[14px] font-semibold text-[#b9810f]">
-                            심사 종료 · 최종 인증 대기 중
+                        <span className="rounded-full border border-[#cce6d7] bg-[#ecf8f1] px-2.5 py-0.5 text-[14px] font-semibold text-[#1f9d57]">
+                            GS 1등급 획득
                         </span>
                     </div>
                     <p className="mt-2 max-w-xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                        연구소 솔루션 제품의 GS인증 심사가 종료되었으며, 최종 인증
-                        결과를 기다리고 있습니다
+                        연구소 솔루션 제품이 GS(Good Software) 인증 1등급(최고 등급)을
+                        획득했습니다 — 국가 공인 제3자 시험으로 품질을 입증했습니다
                     </p>
                 </div>
             </div>
