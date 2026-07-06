@@ -144,6 +144,11 @@ const FAQ_KO: FaqEntry[] = [
             "Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.",
     },
     {
+        question: "XGEN이 받은 GS 인증 1등급은 무엇을 의미하나요?",
+        answer:
+            "GS(Good Software) 인증은 「소프트웨어 진흥법」에 근거해 과학기술정보통신부가 운영하는 국가 공인 소프트웨어 품질인증으로, 공인 시험기관이 ISO/IEC 25000 계열 국제표준을 기준으로 기능 적합성·성능 효율성·신뢰성·보안성 등을 시험·평가합니다. 1등급은 그중 최고 등급으로, XGEN Agentic AI Platform의 품질을 벤더의 주장이 아니라 제3자 공인시험으로 검증했다는 뜻입니다. 도입 관점에서는 조달청 우수조달물품 지정 신청 자격, 공공 소프트웨어 사업 분리발주 의무 대상, 중소벤처기업부 우선구매 대상이 되며, 다수 공공 입찰 평가표에서 최근 3년 내 유효한 소프트웨어 인증으로 인정되어 기술 가점을 받을 수 있습니다.",
+    },
+    {
         question: "RAG 파이프라인을 만들려면 어떤 도구를 사용해야 하나요?",
         answer:
             "기본적인 RAG는 Contextifier → Doc2Chunk → 임베딩 → 검색 순으로 구성합니다. 먼저 Contextifier가 문서를 AI 친화적인 텍스트로 변환하고, Doc2Chunk가 문맥을 고려해 청킹합니다. 이후 임베딩 모델과 검색 엔진을 연결하면 RAG 파이프라인이 완성됩니다. 장기 기억이나 관계 기반 추론이 필요한 에이전트는 Synaptic Memory를 추가하여 지식그래프 기반 메모리를 함께 사용할 수 있습니다.",
@@ -170,6 +175,11 @@ const FAQ_EN: FaqEntry[] = [
         question: "What does Plateer Labs do?",
         answer:
             "Plateer Labs is the open-source AI research lab behind the XGEN platform. It ships document-ingestion tools (Contextifier, Doc2Chunk, f2a), a knowledge graph (Synaptic Memory), and agent tooling (Googer) — all MIT-licensed Python packages you can install with pip or try directly in the browser.",
+    },
+    {
+        question: "What does XGEN's GS certification Grade 1 mean?",
+        answer:
+            "GS (Good Software) certification is Korea's national software quality certification, operated by the Ministry of Science and ICT under the Software Promotion Act. Accredited labs test functional suitability, performance efficiency, reliability, and security against the ISO/IEC 25000 series of international standards. Grade 1 is the highest level — meaning XGEN Agentic AI Platform's quality is verified by independent, accredited testing rather than vendor claims. For buyers, it qualifies XGEN for public-procurement programs (Excellent Procurement Product designation, split-order eligibility, priority purchase) and counts as a scored technical credential in many public RFP evaluations.",
     },
     {
         question: "Which tools do I use to build a RAG pipeline?",
