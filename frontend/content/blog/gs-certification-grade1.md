@@ -2,7 +2,7 @@
 title: "XGEN, GS 인증 1등급을 획득했습니다"
 description: "XGEN Agentic AI Platform이 국가 공인 소프트웨어 품질인증 GS 1등급(최고 등급)을 획득했습니다. 인증의 의미와 공공 조달·입찰에서의 효과를 정리합니다."
 date: "2026-07-06"
-author: "SUAN CHOI"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "1등급", "XGEN", "Enterprise AI"]
 draft: false
