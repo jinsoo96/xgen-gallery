@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -34,15 +35,40 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
     // 카테고리 서브메뉴를 눌러 URL만 바뀌어도(리마운트 없이) 필터가 갱신된다.
     const key = searchParams.get("cat");
     const active: Tab = (key && CATEGORY_BY_KEY[key]) || ALL;
+    // 주제(태그) 필터 — 카테고리와 AND로 조합. URL ?tag= 에서 읽는다.
+    const activeTag = searchParams.get("tag");
 
-    // 탭 클릭도 URL을 갱신해 단일 소스로 통일(공유 가능한 링크 + 서브메뉴와 일치).
-    const selectTab = (t: Tab) => {
-        const k = KEY_BY_CATEGORY[t];
-        router.replace(k ? `/blog?cat=${k}` : "/blog", { scroll: false });
+    // cat/tag 두 파라미터를 함께 관리하는 단일 URL 빌더.
+    const pushParams = (catKey: string | undefined, tag: string | null) => {
+        const sp = new URLSearchParams();
+        if (catKey) sp.set("cat", catKey);
+        if (tag) sp.set("tag", tag);
+        const qs = sp.toString();
+        router.replace(qs ? `/blog?${qs}` : "/blog", { scroll: false });
     };
 
-    const filtered =
-        active === ALL ? posts : posts.filter((p) => p.category === active);
+    // 탭 클릭 → 카테고리 변경 시 주제 필터는 초기화(다른 카테고리엔 없을 수 있음).
+    const selectTab = (t: Tab) => pushParams(KEY_BY_CATEGORY[t], null);
+    // 주제 칩 클릭 → 현재 카테고리는 유지, 같은 칩 재클릭 시 해제(토글).
+    const selectTag = (tag: string) =>
+        pushParams(KEY_BY_CATEGORY[active], tag === activeTag ? null : tag);
+
+    // 현재 카테고리에 속한 글에서 주제(태그)를 빈도순으로 뽑아 칩으로 노출.
+    const catPosts = useMemo(
+        () => (active === ALL ? posts : posts.filter((p) => p.category === active)),
+        [posts, active],
+    );
+    const topicTags = useMemo(() => {
+        const count = new Map<string, number>();
+        catPosts.forEach((p) => p.tags.forEach((t) => count.set(t, (count.get(t) ?? 0) + 1)));
+        return [...count.entries()]
+            .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+            .map(([t]) => t);
+    }, [catPosts]);
+
+    const filtered = activeTag
+        ? catPosts.filter((p) => p.tags.includes(activeTag))
+        : catPosts;
 
     return (
         <div>
@@ -79,6 +105,39 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                 })}
             </div>
 
+            {/* 주제(태그) 필터 — 현재 카테고리의 주제만 노출 */}
+            {topicTags.length > 0 && (
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <span className="mr-1 text-[13px] font-semibold text-[var(--color-ink-subtle)]">
+                        주제
+                    </span>
+                    {activeTag && (
+                        <button
+                            type="button"
+                            onClick={() => selectTag(activeTag)}
+                            className="rounded-full border border-[var(--color-line)] px-3 py-1 text-[14px] font-medium text-[var(--color-ink-muted)] transition hover:border-[var(--color-line-strong)] hover:text-[var(--color-ink)]"
+                        >
+                            전체 주제
+                        </button>
+                    )}
+                    {topicTags.map((t) => (
+                        <button
+                            key={t}
+                            type="button"
+                            onClick={() => selectTag(t)}
+                            className={cn(
+                                "rounded-full px-3 py-1 text-[14px] font-medium transition",
+                                activeTag === t
+                                    ? "bg-[#2f7bff] text-white"
+                                    : "border border-[var(--color-line)] text-[var(--color-ink-muted)] hover:border-[#bcd0f5] hover:text-[#2461d8]",
+                            )}
+                        >
+                            {t}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             {filtered.length === 0 ? (
                 <div className="mt-8 rounded-xl border border-dashed border-[var(--color-line-strong)] bg-[var(--color-surface-alt)] p-10 text-center">
                     <p className="text-[16px] text-[var(--color-ink-muted)]">
@@ -105,6 +164,23 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                             <p className="mt-2.5 line-clamp-3 text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
                                 {p.description}
                             </p>
+                            {p.tags.length > 0 && (
+                                <div className="mt-3 flex flex-wrap gap-1.5">
+                                    {p.tags.slice(0, 3).map((t) => (
+                                        <span
+                                            key={t}
+                                            className={cn(
+                                                "rounded-full px-2 py-0.5 text-[12.5px] font-medium",
+                                                activeTag === t
+                                                    ? "bg-[#2f7bff]/10 text-[#2461d8]"
+                                                    : "bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)]",
+                                            )}
+                                        >
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
                             <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[15px] font-semibold text-[#2461d8]">
                                 읽어보기
                                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />

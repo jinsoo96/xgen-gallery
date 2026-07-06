@@ -4,7 +4,7 @@ description: "AI를 움직이는 것은 모델이 아니라 환경입니다. 지
 date: "2026-06-12"
 author: "Plateer Labs"
 category: "Tech Note"
-tags: ["Harness", "LLMOps", "신뢰성"]
+tags: ["하네스", "LLMOps", "신뢰성"]
 draft: false
 ---
 
