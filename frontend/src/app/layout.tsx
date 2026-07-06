@@ -9,6 +9,7 @@ import { organizationLd, websiteLd } from "@/lib/structured-data";
 import { I18nProvider } from "@/components/i18n-provider";
 import { StickyCta } from "@/components/sticky-cta";
 import { ContentGuard } from "@/components/content-guard";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -72,6 +73,8 @@ export default async function RootLayout({
             className={`${GeistSans.variable} ${GeistMono.variable}`}
         >
             <head>
+                {/* Google Analytics — 모든 페이지 공통(한 곳에서 관리) */}
+                <GoogleAnalytics />
                 {/* Pretendard (same font as konantech) — self-hosted variable
                     woff2, preloaded so it renders as early as possible. */}
                 <link
