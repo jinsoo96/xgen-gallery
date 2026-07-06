@@ -2,7 +2,7 @@
 title: "GS 인증, 문서만 잘 내면 될 줄 알았습니다"
 description: "XGEN Agentic AI Platform GS 인증 도전기 1편 — 인증을 서류 작업 정도로 예상했던 저희가, 2026년 4월 시험 협약을 시작으로 두 달간 마주한 질문들을 정리했습니다."
 date: "2026-04-28"
-author: "SUAN CHOI"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "Enterprise AI", "XGEN", "Agentic AI"]
 draft: false

@@ -2,7 +2,7 @@
 title: "GS 인증, '획득'보다 중요한 것이 있습니다"
 description: "XGEN Agentic AI Platform GS 인증 도전기 마지막 편 — 6월 29일 최종 시험품 제출, 인증위원회 심사는 7월 6일 예정. 결과를 앞당겨 말하지 않고 두 달의 여정을 정리했습니다."
 date: "2026-06-29"
-author: "SUAN CHOI"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "Enterprise AI", "XGEN", "Agentic AI"]
 draft: false

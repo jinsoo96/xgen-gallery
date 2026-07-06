@@ -2,7 +2,7 @@
 title: "GS 인증 시험 첫날, 문서와 제품이 다른 말을 하고 있었습니다"
 description: "XGEN Agentic AI Platform GS 인증 도전기 2편 — 2026년 5월 14일 시험 착수. 제품설명서·사용자설명서·실행 소프트웨어를 같은 말로 맞추는 일이 착수의 핵심이었습니다."
 date: "2026-05-14"
-author: "SUAN CHOI"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "Enterprise AI", "XGEN", "Agentic AI"]
 draft: false

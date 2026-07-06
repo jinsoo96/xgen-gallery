@@ -2,7 +2,7 @@
 title: "고치고 나서가 진짜 시작이었습니다 — GS 인증 회귀시험 일주일"
 description: "XGEN Agentic AI Platform GS 인증 도전기 4편 — 6월 15일 제품 패치 이후 일주일간의 회귀시험. 수정이 새 문제를 만들지 않았음을, 보안성과 성능까지 다시 증명한 과정입니다."
 date: "2026-06-22"
-author: "SUAN CHOI"
+author: "Plateer Labs"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "신뢰성", "보안성", "XGEN"]
 draft: false
