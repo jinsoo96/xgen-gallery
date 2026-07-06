@@ -28,17 +28,27 @@ draft: false            # true면 운영 빌드에서 숨김
 `frontend/content/blog/`에 `.md` 파일을 추가하고 커밋 → 재배포(`docker compose up -d --build frontend`).
 
 ### B. Decap CMS 어드민
-- **로컬 편집(즉시 사용, OAuth 불필요)**:
-  1. 리포 루트에서 `npx decap-server`
-  2. 브라우저에서 `http://localhost:3100/admin` 접속 → 글 작성/저장(로컬 파일에 기록)
-- **GitHub에 직접 커밋(권장)**: 별도 서비스 없이 **Next 앱이 OAuth 제공자** 역할을 합니다
-  (`/api/auth`, `/api/callback` 라우트 구현됨). 다음 3가지만 하면 됩니다.
 
-  1. **GitHub OAuth App 생성** — GitHub → Settings → Developer settings →
-     **OAuth Apps** → New OAuth App
-       - Homepage URL: `https://labs.plateer.com`
-       - Authorization callback URL: `https://labs.plateer.com/api/callback`
-       - 생성 후 **Client ID** 와 **Client secret** 발급
+> **환경별 로그인 방식 (중요)**
+> GitHub OAuth App은 콜백 URL을 **하나만**(`https://labs.plateer.com/api/callback`) 가질 수 있어,
+> **OAuth 로그인은 운영 도메인(labs.plateer.com)에서만** 동작합니다. 로컬(localhost)은 콜백이
+> 맞지 않으므로 OAuth 대신 **local_backend**로 편집합니다.
+>
+> | 환경 | 로그인 방식 | 필요한 것 |
+> |---|---|---|
+> | **localhost:3000 / :3100 (개발)** | `local_backend`(decap-server) — GitHub 로그인 불필요 | 리포 루트에서 `npx decap-server` 실행 후 `/admin` 접속 → "Login" |
+> | **labs.plateer.com (운영)** | GitHub OAuth — 멤버 각자 자기 계정으로 로그인 | 운영 서버 `.env`에 OAuth 자격증명 + 멤버 write 권한 |
+
+- **로컬 편집(개발, OAuth 불필요)**:
+  1. 리포 루트에서 `npx decap-server`
+  2. `http://localhost:3000/admin`(또는 :3100) 접속 → "Login" → 글 작성/저장(로컬 파일에 기록)
+  - ⚠️ localhost에서 "Login with GitHub"가 뜨면 decap-server가 안 떠 있는 것 — 먼저 실행할 것.
+
+- **GitHub에 직접 커밋(운영)**: Next 앱이 OAuth 제공자 역할(`/api/auth`, `/api/callback`).
+
+  1. **GitHub OAuth App** — ✅ 이미 생성됨: `PlateerLab` 조직 소유 "Plateer Labs Blog CMS"
+       - **Client ID: `Ov23liv3gveHfTPsLH2Z`** · Callback: `https://labs.plateer.com/api/callback`
+       - (재발급이 필요하면: GitHub → PlateerLab → Settings → Developer settings → OAuth Apps)
   2. **운영 서버 환경변수에 입력** 후 재배포:
        ```
        GITHUB_OAUTH_CLIENT_ID=<Client ID>
