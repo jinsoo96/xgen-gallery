@@ -36,22 +36,23 @@ draft: false            # true면 운영 빌드에서 숨김
 
   1. **GitHub OAuth App 생성** — GitHub → Settings → Developer settings →
      **OAuth Apps** → New OAuth App
-       - Homepage URL: `http://localhost:3100` (운영은 운영 도메인)
-       - Authorization callback URL: `http://localhost:3100/api/callback`
-         (운영은 `https://<운영도메인>/api/callback`)
+       - Homepage URL: `https://labs.plateer.com`
+       - Authorization callback URL: `https://labs.plateer.com/api/callback`
        - 생성 후 **Client ID** 와 **Client secret** 발급
-  2. **`.env` 에 입력** 후 재빌드:
+  2. **운영 서버 환경변수에 입력** 후 재배포:
        ```
        GITHUB_OAUTH_CLIENT_ID=<Client ID>
        GITHUB_OAUTH_CLIENT_SECRET=<Client secret>
        ```
-       `docker compose up -d --build frontend`
+       `docker compose up -d --build frontend` (운영 박스에서)
   3. **레포 쓰기 권한** — 로그인하는 GitHub 계정이 `PlateerLab/xgen-gallery` 의
      **콜라보레이터 또는 조직 멤버(write 이상)** 여야 합니다.
      (권한이 없으면 "Your GitHub user account does not have access to this repo" 에러)
 
-  > `public/admin/config.yml` 의 `backend.base_url` 은 `/api/auth` 가 있는 origin입니다.
-  > 로컬은 `http://localhost:3100`, 운영 배포 시 운영 도메인으로 바꿔주세요.
+  > `public/admin/config.yml` 의 `backend.base_url` 은 `/api/auth`·`/api/callback` 이
+  > 있는 origin = **운영 도메인 `https://labs.plateer.com`** 으로 고정돼 있습니다.
+  > 어드민을 어느 URL에서 열든 OAuth 팝업은 이 도메인으로 향합니다.
+  > (로컬 편집은 `local_backend`가 처리하므로 base_url을 바꿀 필요 없음)
 
 > repo는 `PlateerLab/xgen-gallery`, branch `main`으로 설정돼 있습니다.
 > `/admin`은 robots에서 noindex 처리됩니다.

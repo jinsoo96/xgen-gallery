@@ -15,8 +15,9 @@ backend:
     repo: PlateerLab/xgen-gallery
     branch: main
     # 우리 Next 앱이 OAuth 제공자 역할(/api/auth, /api/callback).
-    # base_url 은 /api/auth 가 있는 origin. 로컬은 아래값, 운영 배포 시 운영 도메인으로 변경.
-    base_url: http://localhost:3100
+    # base_url 은 /api/auth 가 있는 origin = 운영 도메인. 어드민을 어느 URL에서 열든
+    # OAuth 팝업은 이 origin으로 향한다(로컬 편집은 아래 local_backend가 처리).
+    base_url: https://labs.plateer.com
     auth_endpoint: /api/auth
 
 # 로컬 편집 모드 — localhost에서 /admin 접속 시 `npx decap-server`(:8081)로 로컬
