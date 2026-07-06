@@ -4,7 +4,7 @@
 
 ## 구조
 - 콘텐츠: `frontend/content/blog/<slug>.md` (YAML 프론트매터 + 마크다운 본문)
-- 목록: `/blog` (카테고리 탭: 전체 / Case Study / Plex Tech / 제품 소식)
+- 목록: `/blog` (카테고리 탭: 전체 / 제품 소식 / Tech Note / Case Study, + 주제(태그) 필터)
 - 상세: `/blog/<slug>` (BlogPosting JSON-LD, OG/Twitter 메타, 자동 사이트맵·RSS)
 - RSS: `/feed.xml` · 사이트맵: `/sitemap.xml`
 - 구 경로 `/insights` → `/blog` 301(308) 리다이렉트
@@ -15,9 +15,9 @@ title: "제목"
 description: "검색·AI 답변용 한 줄 요약(≤155자)"
 date: "2026-06-24"
 updated: "2026-06-25"   # 선택
-author: "Plateer AI Labs"
-category: "Plex Tech"   # Case Study | Plex Tech | 제품 소식
-tags: ["GEO", "SEO"]
+author: "Plateer Labs"
+category: "Tech Note"   # Case Study | Tech Note | 제품 소식
+tags: ["온톨로지", "GEO", "SEO"]   # 주제 엔티티 — 목록 주제 필터·SEO 키워드
 cover: "/blog/xxx.png"  # 선택
 draft: false            # true면 운영 빌드에서 숨김
 ```

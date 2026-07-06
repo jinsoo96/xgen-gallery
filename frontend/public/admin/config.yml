@@ -38,19 +38,20 @@ collections:
       format: "frontmatter"
       preview_path: "blog/{{slug}}"
       fields:
-          - { name: title, label: "제목", widget: string }
-          - { name: description, label: "설명(요약)", widget: text, hint: "검색·AI 답변에 노출되는 한 줄 요약(≤155자)" }
+          - { name: title, label: "제목", widget: string, hint: "핵심 키워드를 앞에. 마침표 없이(≤60자 권장) — SEO 제목·OG 제목으로 쓰임" }
+          - { name: description, label: "설명(요약)", widget: text, pattern: ['^.{1,160}$', '160자 이내로 작성하세요'], hint: "검색 결과·AI 답변에 그대로 노출되는 한 줄 요약. 질문에 대한 자족적 답변처럼 40~155자(GEO)" }
           - { name: date, label: "발행일", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-          - { name: updated, label: "수정일", widget: datetime, required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-          - { name: author, label: "작성자", widget: string, default: "Plateer AI Labs" }
+          - { name: updated, label: "수정일", widget: datetime, required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", hint: "내용을 고쳤을 때만. 검색엔진 신선도(freshness) 신호" }
+          - { name: author, label: "작성자", widget: string, default: "Plateer Labs" }
           - {
                 name: category,
                 label: "카테고리",
                 widget: select,
-                options: ["Case Study", "Plex Tech", "제품 소식"],
-                default: "Plex Tech",
+                options: ["Case Study", "Tech Note", "제품 소식"],
+                default: "Tech Note",
+                hint: "글의 유형. 목록 상단 탭으로 필터됨",
             }
-          - { name: tags, label: "태그", widget: list, required: false }
-          - { name: cover, label: "커버 이미지", widget: image, required: false, choose_url: false }
+          - { name: tags, label: "태그(주제)", widget: list, required: false, hint: "주제 엔티티를 태그로. 예: 온톨로지, 하네스, 인프라, RAG, 보안 — 목록 주제 필터·SEO 키워드·GEO 엔티티 커버리지로 쓰임" }
+          - { name: cover, label: "커버 이미지", widget: image, required: false, choose_url: false, hint: "SNS 공유·검색 썸네일(OG image). 1200×630 권장" }
           - { name: draft, label: "초안(체크 시 비공개)", widget: boolean, default: false }
-          - { name: body, label: "본문", widget: markdown }
+          - { name: body, label: "본문", widget: markdown, hint: "H2/H3 소제목으로 구조화하고, 첫 문단에 결론을 먼저. 표·목록은 AI 인용에 유리(GEO)" }
