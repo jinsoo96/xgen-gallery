@@ -2,7 +2,7 @@
 title: "'이 답변, 근거가 뭐죠?' GS 인증 시험이 AI에게 던진 질문"
 description: "XGEN Agentic AI Platform GS 인증 도전기 3편 — 5·6월 세 차례 결함리포트. 기능 적합성과 사용성에서 AI 제품만이 받는 질문에 '판단 불가' 설계로 답한 과정입니다."
 date: "2026-06-10"
-author: "Plateer Labs"
+author: "SUAN CHOI"
 category: "제품 소식"
 tags: ["GS인증", "소프트웨어 품질", "검증 가능한 AI", "XGEN", "Agentic AI"]
 draft: false
@@ -56,3 +56,7 @@ XGEN의 사용자는 개발자가 아니라 현업 담당자입니다. 그래서
 
 > **이전 편** → [시험 첫날, 문서와 제품이 다른 말을 하고 있었습니다](/blog/gs-cert-journey-2-testing-begins)
 > **다음 편** → [고치고 나서가 진짜 시작이었습니다](/blog/gs-cert-journey-4-regression-security)
+
+---
+
+*본 글은 플래티어랩 자료를 바탕으로 XGEN의 GS 인증 심사 여정을 이해하기 쉽도록 재구성한 콘텐츠입니다.*
