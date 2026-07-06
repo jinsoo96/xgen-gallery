@@ -1,6 +1,20 @@
 import { MemberGrid } from "@/components/member-grid";
 import { getMembersPayload } from "@/lib/members/cache";
 import { formatRelative, formatStars } from "@/lib/members/format";
+import { getAllPosts } from "@/lib/blog";
+import type { RecentPost } from "@/components/member-card";
+
+/** 작성자명 → 최근 글 1건 + 글 수. 블로그 author가 멤버 name과 일치하는 글만 매칭. */
+function buildPostsByAuthor(): Record<string, RecentPost> {
+    const map: Record<string, RecentPost> = {};
+    // getAllPosts()는 최신순 → 작성자별 첫 항목이 최근 글.
+    for (const p of getAllPosts()) {
+        const a = p.author;
+        if (!map[a]) map[a] = { slug: p.slug, title: p.title, date: p.date, count: 0 };
+        map[a].count += 1;
+    }
+    return map;
+}
 
 /**
  * Server-rendered member roster. Awaited inside a <Suspense> boundary on the
@@ -25,6 +39,7 @@ export async function MembersSection() {
     }
 
     const members = payload.members;
+    const postsByAuthor = buildPostsByAuthor();
     const totalStars = members.reduce((s, m) => s + m.totalStars, 0);
     const totalActivity = members.reduce(
         (s, m) => s + (m.recentActivityCount ?? 0),
@@ -56,7 +71,7 @@ export async function MembersSection() {
             </div>
 
             {members.length > 0 ? (
-                <MemberGrid members={members} />
+                <MemberGrid members={members} postsByAuthor={postsByAuthor} />
             ) : (
                 <div className="rounded-xl border border-[var(--color-line)] bg-white p-10 text-center text-[16px] text-[var(--color-ink-muted)]">
                     표시할 멤버가 없습니다

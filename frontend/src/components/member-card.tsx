@@ -1,9 +1,17 @@
 import Link from "next/link";
-import { Activity, ArrowUpRight, MapPin, Star, GitBranch, type LucideIcon } from "lucide-react";
+import { Activity, ArrowUpRight, MapPin, Star, GitBranch, PenLine, type LucideIcon } from "lucide-react";
 import { formatStars, languageColor } from "@/lib/members/format";
 import type { MemberSummary } from "@/lib/members/types";
 import { contributedReposFor } from "@/lib/members/contributions";
 import { cn } from "@/lib/cn";
+
+/** 멤버가 작성한 블로그 글 요약 — 최근 1건 + 총 글 수(멤버 카드에 노출). */
+export interface RecentPost {
+    slug: string;
+    title: string;
+    date: string;
+    count: number;
+}
 
 /** One metric in the 3-column stat strip. */
 function Stat({
@@ -30,50 +38,51 @@ function Stat({
     );
 }
 
-export function MemberCard({ member, isTop = false }: { member: MemberSummary; isTop?: boolean }) {
+export function MemberCard({
+    member,
+    isTop = false,
+    recent,
+}: {
+    member: MemberSummary;
+    isTop?: boolean;
+    recent?: RecentPost;
+}) {
     const displayName = member.name ?? member.login;
     // 카드 repos = 공개 소유 레포 + 큐레이션된 조직 기여(예: PlateerLab/xgen-gallery).
     const contribCount = contributedReposFor(member.login).length;
     const repoCount = member.publicRepos + contribCount;
     return (
-        <Link
-            href={`/members/${member.login}`}
-            className="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white transition duration-200 hover:-translate-y-1 hover:border-[#bcd0f5] hover:shadow-[0_20px_44px_-22px_rgba(20,40,80,0.28)]"
-        >
-            {/* 상단 그라데이션 배너 — 상위 기여자는 골드 톤 */}
+        <div className="group relative isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white transition duration-200 hover:-translate-y-1 hover:border-[#bcd0f5] hover:shadow-[0_20px_44px_-22px_rgba(20,40,80,0.28)]">
+            {/* 카드 전체를 덮는 프로필 링크(오버레이). 내부 링크는 z-10로 위에 둔다 */}
+            <Link
+                href={`/members/${member.login}`}
+                aria-label={`${displayName} 프로필 보기`}
+                className="absolute inset-0 z-0"
+            >
+                <span className="sr-only">프로필 보기</span>
+            </Link>
+
+            {/* 상단 헤더 — 그라데이션 배너 위에 아바타 + 이름/계정을 1행으로 */}
             <div
                 className={cn(
-                    "relative h-14 bg-gradient-to-br",
+                    "relative flex items-center gap-3 bg-gradient-to-br px-5 py-4",
                     isTop
                         ? "from-[#fff4d6] via-[#fdecc2] to-[#fbe3b0]"
                         : "from-[#eaf1ff] via-[#eef0ff] to-[#f2ecff]",
                 )}
             >
-                <a
-                    href={member.htmlUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    aria-label={`Open ${member.login} on GitHub`}
-                    className="absolute right-3 top-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/70 text-[var(--color-ink-muted)] backdrop-blur transition hover:bg-white hover:text-[var(--color-ink)]"
-                >
-                    <ArrowUpRight className="h-4 w-4" />
-                </a>
-            </div>
-
-            <div className="flex flex-1 flex-col px-5 pb-5">
-                {/* 배너에 걸친 아바타 */}
-                <div className="relative -mt-9 w-fit">
+                {/* 아바타 */}
+                <div className="relative shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={member.avatarUrl}
                         alt={`${member.login} avatar`}
-                        width={64}
-                        height={64}
+                        width={56}
+                        height={56}
                         loading={isTop ? "eager" : "lazy"}
                         fetchPriority={isTop ? "high" : "auto"}
                         className={cn(
-                            "h-16 w-16 rounded-2xl border-[3px] border-white bg-[var(--color-surface-alt)] object-cover shadow-sm",
+                            "h-14 w-14 rounded-2xl border-[3px] border-white bg-[var(--color-surface-alt)] object-cover shadow-sm",
                             isTop && "ring-2 ring-amber-300",
                         )}
                     />
@@ -84,15 +93,15 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                                 src="/vecteezy_gradient-gold-royal-crown_20774605.svg"
                                 alt=""
                                 aria-hidden="true"
-                                className="pointer-events-none absolute -top-[20px] -left-[12px] h-[34px] w-[68px] -rotate-[14deg] select-none drop-shadow-[0_2px_3px_rgba(180,120,0,0.45)]"
+                                className="pointer-events-none absolute -top-[18px] -left-[10px] h-[30px] w-[60px] -rotate-[14deg] select-none drop-shadow-[0_2px_3px_rgba(180,120,0,0.45)]"
                             />
                             <span className="sr-only">Top contributor</span>
                         </>
                     )}
                 </div>
 
-                {/* 이름 + 핸들 */}
-                <div className="mt-3 min-w-0">
+                {/* 이름 + 계정 */}
+                <div className="min-w-0 flex-1">
                     <h3 className="truncate text-[18px] font-bold tracking-tight text-[var(--color-ink)]">
                         {displayName}
                     </h3>
@@ -101,6 +110,27 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                     </p>
                 </div>
 
+                {/* 우측: GitHub 화살표 + 그 아래 View Profile */}
+                <div className="flex shrink-0 flex-col items-end gap-1.5">
+                    <a
+                        href={member.htmlUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open ${member.login} on GitHub`}
+                        className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/70 text-[var(--color-ink-muted)] backdrop-blur transition hover:bg-white hover:text-[var(--color-ink)]"
+                    >
+                        <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                    <Link
+                        href={`/members/${member.login}`}
+                        className="relative z-10 whitespace-nowrap text-[12.5px] font-semibold text-[#2461d8] transition hover:text-[#1b4fb0]"
+                    >
+                        View Profile
+                    </Link>
+                </div>
+            </div>
+
+            <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
                 {/* 소개 */}
                 <p className="mt-3 line-clamp-2 h-[2.6em] text-[15px] leading-relaxed text-[var(--color-ink-muted)]">
                     {member.bio || "—"}
@@ -153,14 +183,36 @@ export function MemberCard({ member, isTop = false }: { member: MemberSummary; i
                     ))}
                 </div>
 
-                {/* 하단 CTA — 가벼운 텍스트 링크 */}
-                <div className="mt-auto flex items-center justify-end pt-4">
-                    <span className="inline-flex items-center gap-1 text-[14px] font-semibold text-[#2461d8] transition group-hover:gap-1.5">
-                        View profile
-                        <ArrowUpRight className="h-3.5 w-3.5" />
-                    </span>
-                </div>
+                {/* 이 멤버가 작성한 최근 블로그 글 (있을 때만) */}
+                {recent && (
+                    <div className="relative z-10 mt-4 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] px-3 py-2.5">
+                        <div className="flex items-center justify-between gap-2">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[var(--color-ink-subtle)]">
+                                <PenLine className="h-3 w-3" /> 최근 글
+                            </span>
+                            <Link
+                                href={`/blog?author=${encodeURIComponent(displayName)}`}
+                                className="text-[12.5px] font-semibold text-[#2461d8] transition hover:text-[#1b4fb0]"
+                            >
+                                더보기{recent.count > 1 ? ` (${recent.count})` : ""}
+                            </Link>
+                        </div>
+                        <Link
+                            href={`/blog/${recent.slug}`}
+                            title={recent.title}
+                            className="mt-1 block truncate text-[13.5px] font-semibold text-[var(--color-ink)] transition hover:text-[#2461d8]"
+                        >
+                            {recent.title}
+                        </Link>
+                        <time
+                            dateTime={recent.date}
+                            className="text-[12px] text-[var(--color-ink-subtle)]"
+                        >
+                            {recent.date.replaceAll("-", ".")}
+                        </time>
+                    </div>
+                )}
             </div>
-        </Link>
+        </div>
     );
 }

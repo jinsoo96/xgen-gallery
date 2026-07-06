@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
-import { MemberCard } from "./member-card";
+import { MemberCard, type RecentPost } from "./member-card";
 import type { MemberSummary } from "@/lib/members/types";
 
 type SortKey = "stars" | "repos" | "followers" | "activity" | "joined";
@@ -15,7 +15,13 @@ const SORTS: { id: SortKey; label: string }[] = [
     { id: "joined", label: "Recently joined" },
 ];
 
-export function MemberGrid({ members }: { members: MemberSummary[] }) {
+export function MemberGrid({
+    members,
+    postsByAuthor = {},
+}: {
+    members: MemberSummary[];
+    postsByAuthor?: Record<string, RecentPost>;
+}) {
     const [sort, setSort] = useState<SortKey>("stars");
     const [query, setQuery] = useState("");
 
@@ -92,7 +98,12 @@ export function MemberGrid({ members }: { members: MemberSummary[] }) {
             ) : (
                 <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {filtered.map((m, i) => (
-                        <MemberCard key={m.login} member={m} isTop={i === 0} />
+                        <MemberCard
+                            key={m.login}
+                            member={m}
+                            isTop={i === 0}
+                            recent={m.name ? postsByAuthor[m.name] : undefined}
+                        />
                     ))}
                 </div>
             )}

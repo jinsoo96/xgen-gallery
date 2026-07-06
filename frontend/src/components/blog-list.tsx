@@ -37,12 +37,25 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
     const active: Tab = (key && CATEGORY_BY_KEY[key]) || ALL;
     // 주제(태그) 필터 — 카테고리와 AND로 조합. URL ?tag= 에서 읽는다.
     const activeTag = searchParams.get("tag");
+    // 작성자 필터 — 멤버 카드의 "더보기"에서 진입. URL ?author= 에서 읽는다.
+    const activeAuthor = searchParams.get("author");
 
-    // cat/tag 두 파라미터를 함께 관리하는 단일 URL 빌더.
-    const pushParams = (catKey: string | undefined, tag: string | null) => {
+    // author 필터는 최상위 스코프 — 카테고리/태그/카운트 모두 이 집합에서 파생된다.
+    const scoped = useMemo(
+        () => (activeAuthor ? posts.filter((p) => p.author === activeAuthor) : posts),
+        [posts, activeAuthor],
+    );
+
+    // cat/tag/author 세 파라미터를 함께 관리하는 단일 URL 빌더(author는 기본 유지).
+    const pushParams = (
+        catKey: string | undefined,
+        tag: string | null,
+        author: string | null = activeAuthor,
+    ) => {
         const sp = new URLSearchParams();
         if (catKey) sp.set("cat", catKey);
         if (tag) sp.set("tag", tag);
+        if (author) sp.set("author", author);
         const qs = sp.toString();
         router.replace(qs ? `/blog?${qs}` : "/blog", { scroll: false });
     };
@@ -55,8 +68,8 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
 
     // 현재 카테고리에 속한 글에서 주제(태그)를 빈도순으로 뽑아 칩으로 노출.
     const catPosts = useMemo(
-        () => (active === ALL ? posts : posts.filter((p) => p.category === active)),
-        [posts, active],
+        () => (active === ALL ? scoped : scoped.filter((p) => p.category === active)),
+        [scoped, active],
     );
     const topicTags = useMemo(() => {
         const count = new Map<string, number>();
@@ -72,13 +85,32 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
 
     return (
         <div>
+            {/* 작성자 필터 배너 — 멤버 글 모아보기 진입 시 */}
+            {activeAuthor && (
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#cfe0ff] bg-[#f1f6ff] px-4 py-3">
+                    <p className="text-[15px] text-[var(--color-ink-muted)]">
+                        <span className="font-bold text-[var(--color-ink)]">
+                            {activeAuthor}
+                        </span>{" "}
+                        님의 글 {scoped.length}건
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => pushParams(KEY_BY_CATEGORY[active], activeTag, null)}
+                        className="text-[14px] font-semibold text-[#2461d8] transition hover:text-[#1b4fb0]"
+                    >
+                        전체 글 보기
+                    </button>
+                </div>
+            )}
+
             {/* 카테고리 탭 */}
             <div className="flex flex-wrap gap-2 border-b border-[var(--color-line)] pb-4">
                 {TABS.map((t) => {
                     const count =
                         t === ALL
-                            ? posts.length
-                            : posts.filter((p) => p.category === t).length;
+                            ? scoped.length
+                            : scoped.filter((p) => p.category === t).length;
                     return (
                         <button
                             key={t}
