@@ -16,7 +16,7 @@ draft: false
 > 2. **시험 첫날, 문서와 제품이 다른 말을 하고 있었습니다** *(지금 읽는 글)*
 > 3. ["이 답변, 근거가 뭐죠?" — AI라서 받은 질문들](/blog/gs-cert-journey-3-defect-reports)
 > 4. [고치고 나서가 진짜 시작이었습니다](/blog/gs-cert-journey-4-regression-security)
-> 5. [아직 "획득했다"고 말하지 않는 이유](/blog/gs-cert-journey-5-submission)
+> 5. ['획득'보다 중요한 것이 있습니다](/blog/gs-cert-journey-5-submission)
 
 ## 착수는 세 종류의 서류에서 시작됐습니다
 

@@ -16,7 +16,7 @@ draft: false
 > 2. [시험 첫날, 문서와 제품이 다른 말을 하고 있었습니다](/blog/gs-cert-journey-2-testing-begins)
 > 3. ["이 답변, 근거가 뭐죠?" — AI라서 받은 질문들](/blog/gs-cert-journey-3-defect-reports)
 > 4. **고치고 나서가 진짜 시작이었습니다** *(지금 읽는 글)*
-> 5. [아직 "획득했다"고 말하지 않는 이유](/blog/gs-cert-journey-5-submission)
+> 5. ['획득'보다 중요한 것이 있습니다](/blog/gs-cert-journey-5-submission)
 
 ## 패치, 그리고 일주일의 회귀시험
 
@@ -55,7 +55,7 @@ GS 인증은 결함을 수정한 뒤 회귀시험을 요구합니다. 같은 기
 ---
 
 > **이전 편** → ["이 답변, 근거가 뭐죠?" — AI라서 받은 질문들](/blog/gs-cert-journey-3-defect-reports)
-> **다음 편** → [아직 "획득했다"고 말하지 않는 이유](/blog/gs-cert-journey-5-submission)
+> **다음 편** → ['획득'보다 중요한 것이 있습니다](/blog/gs-cert-journey-5-submission)
 
 ---
 

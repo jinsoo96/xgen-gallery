@@ -1,5 +1,5 @@
 ---
-title: "GS 인증, 아직 '획득했다'고 말하지 않는 이유"
+title: "GS 인증, '획득'보다 중요한 것이 있습니다"
 description: "XGEN Agentic AI Platform GS 인증 도전기 마지막 편 — 6월 29일 최종 시험품 제출, 인증위원회 심사는 7월 6일 예정. 결과를 앞당겨 말하지 않고 두 달의 여정을 정리했습니다."
 date: "2026-06-29"
 author: "SUAN CHOI"
@@ -16,7 +16,7 @@ draft: false
 > 2. [시험 첫날, 문서와 제품이 다른 말을 하고 있었습니다](/blog/gs-cert-journey-2-testing-begins)
 > 3. ["이 답변, 근거가 뭐죠?" — AI라서 받은 질문들](/blog/gs-cert-journey-3-defect-reports)
 > 4. [고치고 나서가 진짜 시작이었습니다](/blog/gs-cert-journey-4-regression-security)
-> 5. **아직 "획득했다"고 말하지 않는 이유** *(지금 읽는 글)*
+> 5. **'획득'보다 중요한 것이 있습니다** *(지금 읽는 글)*
 
 ## 최종 시험품 제출
 
