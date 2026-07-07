@@ -47,6 +47,13 @@ export default function ContactPage() {
                                 과제와 문의 내용을 남겨주시면 담당자가 영업일 기준
                                 1–2일 내에 연락드립니다.
                             </p>
+                            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
+                                현장에 배치되는{" "}
+                                <span className="font-semibold text-white">
+                                    FDE(Forward Deployed Engineer)
+                                </span>
+                                가 요구사항 발굴부터 설계·구현·내재화까지 함께합니다
+                            </p>
 
                             <ul className="mt-8 space-y-3">
                                 {BENEFITS.map((b) => (

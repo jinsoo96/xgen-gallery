@@ -106,6 +106,11 @@ export function StickyCta() {
                         ? "Validate your Enterprise AI with a PoC before adoption"
                         : "도입 전, Enterprise AI를 PoC로 먼저 검증하세요"}
                 </p>
+                <p className="mt-1.5 text-[13px] font-semibold leading-relaxed text-[#2461d8]">
+                    {en
+                        ? "A Forward Deployed Engineer (FDE) stays on-site through delivery"
+                        : "현장 FDE가 발굴·구현·내재화까지 함께합니다"}
+                </p>
 
                 {/* 중앙 일러스트 */}
                 <div className="mt-3.5">

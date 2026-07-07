@@ -12,6 +12,7 @@ import {
     Check,
     ChevronRight,
     ArrowRight,
+    UsersRound,
     type LucideIcon,
 } from "lucide-react";
 import { SiteNav } from "@/components/site-nav";
@@ -158,7 +159,30 @@ export default function TechnicalConsultingPage() {
                         <h2 className="mt-3 text-3xl font-bold tracking-tight text-[var(--color-ink)] md:text-4xl">
                             핵심 서비스
                         </h2>
-                        <div className="mt-10 grid gap-4 md:grid-cols-2">
+
+                        {/* FDE — 현장 밀착형 전달 모델 */}
+                        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-[#bcd0f5] bg-[#f1f6ff] p-6 sm:flex-row sm:items-start sm:gap-5 md:p-7">
+                            <span className="inline-flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-[#2f7bff] text-white">
+                                <UsersRound className="h-6 w-6" />
+                            </span>
+                            <div>
+                                <h3 className="text-[18px] font-bold tracking-tight text-[var(--color-ink)]">
+                                    현장 FDE가 함께합니다
+                                </h3>
+                                <p className="mt-2 max-w-3xl text-[15.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                                    사업 수행 과정에 현장 밀착형 AI 전문 기술
+                                    인력인{" "}
+                                    <span className="font-semibold text-[var(--color-ink)]">
+                                        FDE(Forward Deployed Engineer)
+                                    </span>
+                                    를 배치합니다. FDE는 현업 요구사항 발굴, AI 에이전트
+                                    설계와 구현, 고객사 내재화 과정을 지원해 아래 핵심
+                                    서비스가 현장에서 실제로 작동하도록 만듭니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-6 grid gap-4 md:grid-cols-2">
                             {SERVICES.map((s) => (
                                 <div
                                     key={s.en}
