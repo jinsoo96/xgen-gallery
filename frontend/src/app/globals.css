@@ -315,14 +315,22 @@ img {
 .blog-prose li::marker { color: #9bb1d6; }
 .blog-prose blockquote {
     margin: 1.6em 0;
-    border-left: 3px solid #2f7bff;
+    border: 1px solid var(--color-line);
     background: var(--color-surface-alt);
     padding: 0.9em 1.2em;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0.6rem;
     font-style: italic;
     color: var(--color-ink);
 }
 .blog-prose blockquote p { color: var(--color-ink); }
+/* 시리즈 목차(순서 목록을 담은 blockquote)는 기존 디자인(왼쪽 블루바) 유지 */
+.blog-prose blockquote:has(ol),
+.blog-prose blockquote:has(ul) {
+    border: none;
+    border-left: 3px solid #2f7bff;
+    border-radius: 0 0.5rem 0.5rem 0;
+    background: var(--color-surface-alt);
+}
 .blog-prose code {
     font-family: var(--font-geist-mono, ui-monospace, monospace);
     font-size: 0.88em;
@@ -340,7 +348,16 @@ img {
     padding: 1em 1.2em;
 }
 .blog-prose pre code { background: none; border: none; padding: 0; color: #e6ecf7; }
-.blog-prose img { margin: 1.6em 0; border-radius: 0.6rem; border: 1px solid var(--color-line); }
+.blog-prose img { margin: 1.6em 0; border-radius: 0.6rem; border: 1px solid var(--color-line); max-width: 100%; height: auto; }
+/* 인라인 SVG 일러스트(본문 내) — 페이지 폰트(Pretendard) 상속 */
+.blog-prose .blog-illust { margin: 1.6em 0; }
+.blog-prose .blog-illust svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--color-line);
+    border-radius: 0.6rem;
+}
 .blog-prose table {
     width: 100%;
     margin: 1.6em 0;
