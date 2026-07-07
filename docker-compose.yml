@@ -25,6 +25,9 @@ services:
       # /demo 폼 수신 웹훅 — Google Apps Script 웹앱 URL (시트 저장 + 이메일 발송).
       # 설정 방법: docs/demo-webhook.gs 참고. 비어 있으면 서버 로그로만 기록.
       DEMO_WEBHOOK_URL: "${DEMO_WEBHOOK_URL:-}"
+      # /newsletter 구독 수신 웹훅 — Google Apps Script 웹앱 URL (시트 upsert + 확인 메일).
+      # 설정 방법: docs/newsletter-webhook.gs 참고. 비어 있으면 서버 로그로만 기록.
+      NEWSLETTER_WEBHOOK_URL: "${NEWSLETTER_WEBHOOK_URL:-}"
       # 블로그 어드민(Decap CMS) GitHub OAuth — docs/blog-cms.md 참고.
       GITHUB_OAUTH_CLIENT_ID: "${GITHUB_OAUTH_CLIENT_ID:-}"
       GITHUB_OAUTH_CLIENT_SECRET: "${GITHUB_OAUTH_CLIENT_SECRET:-}"

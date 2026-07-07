@@ -78,7 +78,11 @@ export function SiteFooter() {
                             </span>
                         </div>
                         <p className="max-w-xs text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">
-                            {SITE.description.slice(0, 80)}…
+                            {"Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.".slice(
+                                0,
+                                80,
+                            )}
+                            …
                         </p>
                     </div>
 
@@ -162,6 +166,12 @@ export function SiteFooter() {
                                 className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
                             >
                                 PoC · 기술 상담
+                            </Link>
+                            <Link
+                                href="/newsletter"
+                                className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                            >
+                                뉴스레터 구독
                             </Link>
                         </div>
                     </nav>
