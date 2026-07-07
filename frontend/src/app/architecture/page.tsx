@@ -205,18 +205,20 @@ export default function ArchitecturePage() {
                             XGEN 2.0 플랫폼 아키텍처
                         </h2>
                         <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)]">
-                            웹 · 확장 · SDK 클라이언트부터 API Gateway, 마이크로서비스,
-                            데이터 계층까지 — GitOps로 운영되는 컨테이너 기반 Enterprise
-                            AI 플랫폼
+                            접근·콘솔부터 도메인·채널, 에이전트·응용, AI Platform 코어,
+                            RAG·지식, 파운데이션 모델, 인프라까지 — 전 계층을 관통하는
+                            거버넌스·보안 위에서 동작하는 Enterprise AI 플랫폼
                         </p>
                         <div className="mt-8">
                             <XgenPlatformArchitecture />
                         </div>
                         <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">
-                            모든 요청은 API Gateway에서 인증 · 라우팅되어 각
-                            마이크로서비스로 전달되며, 워크플로우 · 지식검색 · 도구실행 ·
-                            모델추론이 하나의 클러스터에서 협력합니다. 온프레미스 ·
-                            폐쇄망 배포를 기본 지원합니다.
+                            사용자·관리자·API 접근을 단일 콘솔로 통합하고, 워크플로우
+                            캔버스·유닛 에이전트·MCP 도구·멀티에이전트 오케스트레이션이 AI
+                            코어(LLMOps·MLOps·Model Router)와 하이브리드 RAG, 파운데이션
+                            모델 위에서 협력합니다. Guardrail·RBAC/ABAC·감사로그·PII
+                            비식별화 등 거버넌스가 전 계층을 크로스커팅하며, k3s·ArgoCD
+                            기반으로 온프레미스·Air-gap 배포를 지원합니다.
                         </p>
                     </div>
                 </section>
