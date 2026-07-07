@@ -182,8 +182,20 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                         <Link
                             key={p.slug}
                             href={`/blog/${p.slug}`}
-                            className="group flex flex-col rounded-2xl border border-[var(--color-line)] bg-white p-6 transition hover:border-[#bcd0f5] hover:shadow-[0_14px_36px_-18px_rgba(20,40,80,0.22)]"
+                            className="group flex flex-col overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white transition hover:border-[#bcd0f5] hover:shadow-[0_14px_36px_-18px_rgba(20,40,80,0.22)]"
                         >
+                            {p.cover && (
+                                <div className="aspect-[16/9] w-full overflow-hidden bg-[var(--color-surface-alt)]">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={p.cover}
+                                        alt=""
+                                        loading="lazy"
+                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex flex-1 flex-col p-6">
                             <div className="flex items-center gap-2 text-[13.5px] text-[var(--color-ink-subtle)]">
                                 <span className="rounded-full bg-[#2f7bff]/10 px-2.5 py-0.5 font-semibold text-[#2461d8]">
                                     {p.category}
@@ -217,6 +229,7 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                                 읽어보기
                                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                             </span>
+                            </div>
                         </Link>
                     ))}
                 </div>

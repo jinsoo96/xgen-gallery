@@ -94,6 +94,14 @@ export default async function BlogPostPage({
             </section>
 
             <main className="mx-auto max-w-3xl px-6 py-20">
+                {post.cover && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={post.cover}
+                        alt=""
+                        className="mb-12 aspect-[16/9] w-full rounded-2xl border border-[var(--color-line)] object-cover"
+                    />
+                )}
                 <article
                     className="blog-prose"
                     dangerouslySetInnerHTML={{ __html: post.html }}
