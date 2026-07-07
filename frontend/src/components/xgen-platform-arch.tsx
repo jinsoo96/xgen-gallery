@@ -32,7 +32,6 @@ import {
     EyeOff,
     Power,
     BadgeCheck,
-    ChevronDown,
     type LucideIcon,
 } from "lucide-react";
 
@@ -170,14 +169,6 @@ function LayerRow({
     );
 }
 
-function Flow() {
-    return (
-        <div className="flex justify-center py-0.5">
-            <ChevronDown className="h-4 w-4 text-[#2563EB]/50" />
-        </div>
-    );
-}
-
 export function XgenPlatformArchitecture() {
     return (
         <div className="overflow-x-auto">
@@ -202,7 +193,7 @@ export function XgenPlatformArchitecture() {
 
                 {/* 본체: 좌측 계층 스택 + 우측 거버넌스 */}
                 <div className="flex gap-3">
-                    <div className="min-w-0 flex-1 space-y-2">
+                    <div className="min-w-0 flex-1 space-y-2.5">
                         <LayerRow {...LAYERS[0]}>
                             <div className="grid grid-cols-5 gap-2">
                                 {DOMAIN.map((d) => (
@@ -210,7 +201,6 @@ export function XgenPlatformArchitecture() {
                                 ))}
                             </div>
                         </LayerRow>
-                        <Flow />
 
                         <LayerRow {...LAYERS[1]}>
                             <div className="grid grid-cols-4 gap-2">
@@ -219,7 +209,6 @@ export function XgenPlatformArchitecture() {
                                 ))}
                             </div>
                         </LayerRow>
-                        <Flow />
 
                         <LayerRow {...LAYERS[2]}>
                             <div className="grid grid-cols-5 gap-2">
@@ -228,7 +217,6 @@ export function XgenPlatformArchitecture() {
                                 ))}
                             </div>
                         </LayerRow>
-                        <Flow />
 
                         <LayerRow {...LAYERS[3]}>
                             <div className="flex flex-wrap gap-1.5">
@@ -250,7 +238,6 @@ export function XgenPlatformArchitecture() {
                                 ))}
                             </div>
                         </LayerRow>
-                        <Flow />
 
                         <LayerRow {...LAYERS[4]}>
                             <div className="grid grid-cols-3 gap-2">
@@ -259,7 +246,6 @@ export function XgenPlatformArchitecture() {
                                 ))}
                             </div>
                         </LayerRow>
-                        <Flow />
 
                         <LayerRow {...LAYERS[5]}>
                             <div className="grid grid-cols-6 gap-2">
