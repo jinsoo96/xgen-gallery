@@ -30,7 +30,8 @@ export function QualitySecurity() {
     return (
         <section className="border-t border-[var(--color-line)] bg-[var(--color-surface-alt)]">
             <div className="mx-auto max-w-6xl px-6 py-28">
-                {/* 헤딩 + 상태 — 상단 한 줄 */}
+                {/* 헤딩 + 상태 (좌) · 제품 이미지 (우) */}
+                <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_360px]">
                 <div className="max-w-3xl">
                     <span className="inline-flex rounded-full border border-[var(--color-line)] bg-white px-3 py-1 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
                         Quality &amp; Security
@@ -42,7 +43,7 @@ export function QualitySecurity() {
                         </span>
                     </h2>
                     <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                        연구소는 성능을 주장하는 대신, 국가 공인 제3자 시험으로
+                        성능을 주장하는 대신, 국가 공인 제3자 시험으로
                         품질을 증명합니다. XGEN은 GS(Good Software) 인증 1등급(최고
                         등급)을 획득했습니다
                     </p>
@@ -69,6 +70,13 @@ export function QualitySecurity() {
                             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                         </Link>
                     </div>
+                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src="/xgen-gs-box.png"
+                    alt="XGEN Platform — GS 인증 1등급 획득"
+                    className="mx-auto w-full max-w-sm lg:max-w-none"
+                />
                 </div>
 
                 {/* 카드 — 3개 한 줄 */}

@@ -424,14 +424,8 @@ function CertificationQuality() {
                     </p>
                 </div>
 
-                {/* GS인증 배지 (로고 입수 전 텍스트 배지) */}
-                <div className="grid gap-5 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[auto_1fr] sm:items-center">
-                <div className="flex h-20 w-20 flex-col items-center justify-center rounded-xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] text-center">
-                    <ShieldCheck className="h-6 w-6 text-[#2f7bff]" />
-                    <span className="mt-1 text-[14px] font-bold text-[var(--color-ink)]">
-                        GS인증
-                    </span>
-                </div>
+                {/* GS인증 배지 카드 — GS 인증 씰 포함 */}
+                <div className="grid gap-6 rounded-xl border border-[var(--color-line)] bg-white p-6 sm:grid-cols-[1fr_auto] sm:items-center">
                 <div>
                     <div className="flex flex-wrap items-center gap-2">
                         <h3 className="text-lg font-bold text-[var(--color-ink)]">
@@ -442,11 +436,17 @@ function CertificationQuality() {
                         </span>
                     </div>
                     <p className="mt-2 max-w-xl text-[16px] leading-relaxed text-[var(--color-ink-muted)]">
-                        연구소 솔루션 제품이 GS(Good Software) 인증 1등급(최고 등급)을
+                        XGEN이 GS(Good Software) 인증 1등급(최고 등급)을
                         획득했습니다 — 국가 공인 제3자 시험으로 품질을 입증했습니다
                     </p>
                 </div>
-            </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src="/gs-seal.png"
+                    alt="GS 인증 1등급 씰"
+                    className="mx-auto h-32 w-auto sm:mx-0"
+                />
+                </div>
 
             {gsPosts.length > 0 && (
                 <div className="rounded-xl border border-[var(--color-line)] bg-white p-6">
