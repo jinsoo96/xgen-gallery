@@ -12,7 +12,7 @@ tags:
   - 아키텍처
 series: 하네스 개발기
 part: 1/9
-draft: false
+draft: true
 ---
 
 **한 줄 요약** — 에이전트 실행기의 병목은 CPU가 아니라 변경 속도입니다. 상태 머신과 체크리스트 스테이지, 그리고 Rust 대신 Python을 택한 이유를 정리합니다.
