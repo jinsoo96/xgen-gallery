@@ -6,7 +6,7 @@ import { PocDemos } from "@/components/poc-demos";
 export const metadata = {
     title: "실증 데모 — Proof in Action",
     description:
-        "말보다 동작으로 — XGEN Agentic AI 플랫폼의 핵심 기능이 실제로 실행되는 모습을 영상으로 확인하는 실증 데모.",
+        "백마디 말보다 실행으로 — XGEN Agentic AI 플랫폼의 핵심 기능이 실제로 실행되는 모습을 영상으로 확인하는 실증 데모.",
     alternates: { canonical: "/proof-in-action" },
 };
 
@@ -24,11 +24,11 @@ export default function ProofInActionPage() {
                         실증 데모
                     </h1>
                     <p className="mt-5 max-w-2xl text-lg font-medium leading-relaxed text-white/85">
-                        말보다 동작으로 — XGEN의 핵심 기능이 실제로 실행되는 모습을
-                        영상으로 확인하세요
+                        백마디 말보다 실행으로 — XGEN의 핵심 기능이 실제로 실행되는
+                        모습을 영상으로 확인하세요
                     </p>
                     <p className="mt-3 text-[17px] leading-relaxed text-white/60">
-                        성능을 주장하는 대신, 동작하는 결과로 증명합니다
+                        성능을 주장하는 대신, 실행하는 결과로 증명합니다
                     </p>
                 </div>
             </section>
