@@ -46,7 +46,7 @@ function DefaultGroupHero({ group }: { group: NavGroup }) {
             {/* quick jump to sections */}
             <nav className="mt-8 flex flex-wrap gap-2">
                     {group.items
-                        .filter((it) => !it.hidden)
+                        .filter((it) => !it.hidden && !it.menuOnly)
                         .map((it) =>
                             it.external ? (
                                 <a
@@ -189,7 +189,7 @@ export function GroupPage({
             <GroupHero group={group} content={hero} />
             <main>
                 {group.items
-                    .filter((it) => !it.external)
+                    .filter((it) => !it.external && !it.menuOnly)
                     .map((it, i) => (
                         <Section
                             key={it.id}

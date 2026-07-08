@@ -41,6 +41,13 @@ export interface NavLeaf {
      */
     hidden?: boolean;
     /**
+     * Keep this item in the navigation menus (GNB dropdown, mobile drawer, footer)
+     * but do NOT render it as a section (or hero quick-jump chip) on the group
+     * one-page. Use for a menu entry whose content lives only on its own route
+     * page — the opposite of `hidden`.
+     */
+    menuOnly?: boolean;
+    /**
      * In a `wide` dropdown, force this item to start a new column (line break).
      * Use to control column grouping instead of even auto-distribution.
      */
@@ -186,15 +193,9 @@ export const NAV_GROUPS: NavGroup[] = [
             {
                 label: "Agentic AI",
                 id: "ai-agents",
-                children: [{ label: "Industries", id: "industries" }],
-            },
-            {
-                label: "PoC Projects",
-                id: "poc-projects",
-                route: "/poc-projects",
-                blurb: "산업별 PoC 실증 프로젝트를 한 페이지에서 모아 확인하세요.",
                 children: [
-                    { label: "Industry PoC", labelKo: "산업별 PoC", id: "poc-industry", route: "/poc-projects" },
+                    { label: "Industries", id: "industries" },
+                    { label: "Use Cases", labelKo: "적용 사례", id: "poc-projects", route: "/poc-projects" },
                     { label: "Proof in Action", labelKo: "실증 데모", id: "proof-in-action", route: "/proof-in-action" },
                 ],
             },
@@ -203,6 +204,8 @@ export const NAV_GROUPS: NavGroup[] = [
                 id: "technical-consulting",
                 route: "/technical-consulting",
                 blurb: "AI 도입 전략부터 PoC, 아키텍처 설계, 운영 체계까지 — 연구 기반 기술 컨설팅을 별도 페이지에서 확인하세요.",
+                // GNB 메뉴엔 유지하되 /solutions 원페이지 섹션에서는 제외.
+                menuOnly: true,
             },
             {
                 // Product — 라벨은 xgen.im 으로 나가고, 하위에 인증·보안·문서·
