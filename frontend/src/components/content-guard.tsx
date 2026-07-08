@@ -8,9 +8,13 @@ import { useEffect } from "react";
  *
  * ⚠️ 클라이언트 측 보호는 완전한 방어가 아니라 억제 수단이다. 개발자도구·소스보기·
  *    자바스크립트 비활성화·화면 캡처로 우회 가능하다.
+ *
+ * 운영(리모트)에서만 동작한다 — 개발 서버(next dev, NODE_ENV=development)에서는
+ * 마우스 드래그 선택·복사·우클릭이 정상적으로 가능하도록 리스너를 붙이지 않는다.
  */
 export function ContentGuard() {
     useEffect(() => {
+        if (process.env.NODE_ENV !== "production") return;
         const isField = (el: EventTarget | null) => {
             const n = el as HTMLElement | null;
             return (

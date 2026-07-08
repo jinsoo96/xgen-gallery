@@ -50,15 +50,17 @@ body {
 }
 
 /* 콘텐츠 보호(디터런트) — 텍스트 드래그 선택·이미지 드래그 저장 방지.
+   운영(리모트)에서만 적용한다 — layout이 body[data-guard="on"]을 붙이는 것은
+   NODE_ENV=production일 때뿐이라, 개발 서버(next dev)에서는 텍스트 선택이 가능하다.
    입력 필드(검색·문의 폼)는 예외로 두어 사용성을 유지한다. */
-body {
+body[data-guard="on"] {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
 }
-input,
-textarea,
-[contenteditable="true"] {
+body[data-guard="on"] input,
+body[data-guard="on"] textarea,
+body[data-guard="on"] [contenteditable="true"] {
     -webkit-user-select: text;
     -moz-user-select: text;
     user-select: text;

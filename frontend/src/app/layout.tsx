@@ -85,7 +85,12 @@ export default async function RootLayout({
                     crossOrigin="anonymous"
                 />
             </head>
-            <body className="min-h-dvh bg-[var(--color-surface)] font-sans text-[var(--color-ink)] antialiased">
+            <body
+                data-guard={
+                    process.env.NODE_ENV === "production" ? "on" : undefined
+                }
+                className="min-h-dvh bg-[var(--color-surface)] font-sans text-[var(--color-ink)] antialiased"
+            >
                 <JsonLd data={[organizationLd(), websiteLd()]} />
                 <I18nProvider initialLocale={locale}>
                     {children}
