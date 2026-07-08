@@ -193,6 +193,10 @@ export const NAV_GROUPS: NavGroup[] = [
                 id: "poc-projects",
                 route: "/poc-projects",
                 blurb: "산업별 PoC 실증 프로젝트를 한 페이지에서 모아 확인하세요.",
+                children: [
+                    { label: "Industry PoC", labelKo: "산업별 PoC", id: "poc-industry", route: "/poc-projects" },
+                    { label: "Proof in Action", labelKo: "실증 데모", id: "proof-in-action", route: "/proof-in-action" },
+                ],
             },
             {
                 label: "Technical Consulting",
