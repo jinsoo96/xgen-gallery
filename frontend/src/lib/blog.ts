@@ -19,6 +19,8 @@ export interface PostMeta {
     date: string; // ISO (YYYY-MM-DD)
     updated?: string;
     author: string;
+    editor?: string;
+    kicker?: string;
     category: string;
     tags: string[];
     cover?: string;
@@ -59,6 +61,8 @@ function parse(slug: string): Post | null {
         date: String(data.date ?? "").slice(0, 10),
         updated: data.updated ? String(data.updated).slice(0, 10) : undefined,
         author: String(data.author ?? "Plateer Labs"),
+        editor: data.editor ? String(data.editor) : undefined,
+        kicker: data.kicker ? String(data.kicker) : undefined,
         category: String(data.category ?? "Tech Note"),
         tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
         cover: data.cover ? String(data.cover) : undefined,

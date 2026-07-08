@@ -80,10 +80,25 @@ export default async function BlogPostPage({
                     <div className="flex flex-wrap items-center gap-2 text-[14px] text-white/60">
                         <time dateTime={post.date}>{fmtDate(post.date)}</time>
                         <span>·</span>
-                        <span>{post.author}</span>
-                        <span>·</span>
                         <span>{post.readingMinutes}분 읽기</span>
                     </div>
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] text-white/60">
+                        <span>
+                            작성 <span className="text-white/40">|</span>{" "}
+                            <span className="text-white/80">{post.author}</span>
+                        </span>
+                        {post.editor && (
+                            <span>
+                                편집 <span className="text-white/40">|</span>{" "}
+                                <span className="text-white/80">{post.editor}</span>
+                            </span>
+                        )}
+                    </div>
+                    {post.kicker && (
+                        <div className="mt-6 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[13px] font-semibold uppercase tracking-wide text-white/85">
+                            {post.kicker}
+                        </div>
+                    )}
                     <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-5xl">
                         {post.title}
                     </h1>
