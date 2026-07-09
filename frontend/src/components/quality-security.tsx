@@ -73,7 +73,7 @@ export function QualitySecurity() {
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="/xgen-gs-box.png"
+                    src="/xgen-gs-box2.png"
                     alt="XGEN Platform — GS 인증 1등급 획득"
                     className="mx-auto w-full max-w-sm lg:max-w-none"
                 />
