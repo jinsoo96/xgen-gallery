@@ -119,7 +119,7 @@ function notifyTeam_(email, status, d) {
       "• 이메일: " + email,
       "• 상태: " + status + (status === "Y" ? " (구독)" : " (해지)"),
       "• 접수 시각: " + (d.receivedAt || ""),
-      "• 소스: " + (d.source || ""),
+      "• 서비스: " + (d.source || ""),
     ].join("\n"),
   });
 }

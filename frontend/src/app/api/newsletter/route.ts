@@ -34,7 +34,7 @@ export async function POST(req: Request) {
         email,
         subscribed: subscribe ? "Y" : "N",
         receivedAt: new Date().toISOString(),
-        source: "gallery-site/newsletter",
+        source: "Plateer Labs/newsletter",
     };
 
     const webhook = process.env.NEWSLETTER_WEBHOOK_URL;
