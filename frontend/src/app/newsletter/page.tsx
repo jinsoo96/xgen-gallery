@@ -30,7 +30,7 @@ const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
     {
         icon: Rocket,
         title: "제품 소식·릴리스",
-        desc: "XGEN을 비롯한 연구소 제품의 새 기능과 릴리스 소식을 가장 먼저 알려드립니다",
+        desc: "XGEN을 비롯한 Plateer Labs 제품의 새 기능과 릴리스 소식을 가장 먼저 알려드립니다",
     },
     {
         icon: FileText,

@@ -28,7 +28,7 @@ export default function PocProjectsPage() {
                         Enterprise AI 실증 프로젝트
                     </p>
                     <p className="mt-3 text-[17px] leading-relaxed text-white/60">
-                        고객이 마주한 문제를 연구소가 함께 파고들어, 검증된 결과로
+                        고객이 마주한 문제를 Plateer Labs가 함께 파고들어, 검증된 결과로
                         만들어갑니다
                     </p>
                 </div>

@@ -298,7 +298,7 @@ export default function TechnicalConsultingPage() {
                             제품을 판매하기 위한 컨설팅이 아니라, 기술을 검증하고 고객에게
                             가장 적합한 Enterprise AI 아키텍처를 설계하는 연구 기반
                             컨설팅입니다. 도입 전략부터 기술 검증, 아키텍처 설계, 운영 체계
-                            수립까지 연구소의 기술 전문성으로 함께합니다.
+                            수립까지 Plateer Labs의 기술 전문성으로 함께합니다.
                         </p>
                         <Link
                             href="/contact"

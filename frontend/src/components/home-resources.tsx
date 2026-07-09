@@ -75,7 +75,7 @@ export function HomeResources() {
                     / Resources
                 </p>
                 <h2 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-5xl">
-                    연구소에서 제공하는{" "}
+                    Plateer Labs가 제공하는{" "}
                     <span className="bg-gradient-to-r from-[#00acee] to-[#185aea] bg-clip-text text-transparent">
                         기술 자산
                     </span>
