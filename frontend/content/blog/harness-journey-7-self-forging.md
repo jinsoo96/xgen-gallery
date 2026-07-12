@@ -1,9 +1,9 @@
 ---
-title: "설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다"
+title: "설정을 진화시키는 루프 — 자가단조 (7부)"
 description: "선언형 설정은 시스템이 고쳐 쓸 수 있습니다. 점수 → 설정 변경 → 검증 문제셋 → 롤백으로 구성한 자가개선 루프와, 그것을 신뢰하게 만드는 검증 구조."
 date: "2026-06-13"
 author: Jinsoo Kim
-editor: Editorial SA
+editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:
@@ -24,7 +24,7 @@ draft: true
 하지만 시간이 지날수록 다른 질문을 하게 됐습니다. 설정을 사람이 계속 찾아야 하는 걸까요? 아니면 시스템이 스스로 더 좋은 설정을 찾게 만들 수는 없을까요? 하네스의 자가개선(Self-Improvement) 루프는 이 질문에서 시작했습니다.
 
 <figure class="blog-illust">
-<svg viewBox="0 0 1000 430" width="1000" height="430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다">
+<svg viewBox="0 0 1000 430" width="1000" height="430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="설정을 진화시키는 루프 — 자가단조">
   <defs>
     <linearGradient id="bg7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient>
     <marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker>
@@ -33,7 +33,7 @@ draft: true
   <rect width="1000" height="430" fill="url(#bg7)"/>
   <circle cx="930" cy="40" r="150" fill="#2563eb" opacity="0.05"/>
   <text x="48" y="60" font-size="24" font-weight="800" fill="#2563eb">하네스 개발기 · 7/9</text>
-  <text x="48" y="112" font-size="42" font-weight="800" fill="#0f172a">설정은 시스템이 찾는다</text>
+  <text x="48" y="112" font-size="42" font-weight="800" fill="#0f172a">설정을 진화시키는 루프</text>
   <!-- top: 실행 / 판정 / 개정 in a triangle-ish loop -->
   <rect x="380" y="160" width="240" height="60" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="500" y="198" text-anchor="middle" font-size="23" font-weight="700" fill="#334155">① 실행</text>
   <rect x="700" y="270" width="250" height="60" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="825" y="308" text-anchor="middle" font-size="23" font-weight="700" fill="#334155">② 판정 점수</text>
@@ -55,11 +55,11 @@ draft: true
 >
 > 1. 설계 원칙 — [실행기의 본질은 속도가 아니라 재조립입니다](/blog/harness-journey-1-rust-to-python)
 > 2. 설계 원칙 — [엔진은 플랫폼을 몰라야 합니다](/blog/harness-journey-2-engine-separation)
-> 3. 설계 원칙 — [프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다](/blog/harness-journey-3-compile-wheel-mcp)
-> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 구조가 지켜야 합니다](/blog/harness-journey-4-canvas-node-judge)
+> 3. 설계 원칙 — [프로세스 경계를 넘는 자기완결성](/blog/harness-journey-3-compile-wheel-mcp)
+> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 격리 judge로 강제합니다](/blog/harness-journey-4-canvas-node-judge)
 > 5. 검증 — [배포의 신뢰성은 검증의 층수에서 나옵니다](/blog/harness-journey-5-release-reliability)
 > 6. 실험 — [설정이 모델 격차를 지웁니다](/blog/harness-journey-6-qwen-vs-sonnet)
-> 7. 설계 원칙 — **설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다** *(지금 읽는 글)*
+> 7. 설계 원칙 — **설정을 진화시키는 루프 — 자가단조** *(지금 읽는 글)*
 > 8. 설계 원칙 — [실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리](/blog/harness-journey-8-memory-loop)
 > 9. 설계 원칙 · 전망 — [에이전트는 자기 출력이 어디로 가는지 알아야 합니다](/blog/harness-journey-9-context-design)
 

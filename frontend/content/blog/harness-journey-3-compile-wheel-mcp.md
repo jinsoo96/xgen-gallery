@@ -1,9 +1,9 @@
 ---
-title: "프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다"
+title: "프로세스 경계를 넘는 자기완결성 (3부)"
 description: "워크플로우를 설치형 패키지(wheel)로 컴파일해 '환경변수만 주입하면 동작하는' 산출물로. 프로세스 안에만 있던 상태를 파일에 담는 것이 컴파일의 본질이었습니다."
 date: "2026-04-26"
 author: Jinsoo Kim
-editor: Editorial SA
+editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:
@@ -33,7 +33,7 @@ draft: true
   <rect width="1000" height="430" fill="url(#bg3)"/>
   <circle cx="930" cy="40" r="150" fill="#2563eb" opacity="0.05"/>
   <text x="48" y="60" font-size="24" font-weight="800" fill="#2563eb">하네스 개발기 · 3/9</text>
-  <text x="48" y="112" font-size="42" font-weight="800" fill="#0f172a">상태도 함께 경계를 넘는다</text>
+  <text x="48" y="112" font-size="42" font-weight="800" fill="#0f172a">경계를 넘는 자기완결성</text>
   <!-- canvas -->
   <rect x="48" y="185" width="200" height="150" rx="16" fill="#ffffff" stroke="#d7e0f0"/>
   <text x="72" y="222" font-size="23" font-weight="800" fill="#0f172a">캔버스</text>
@@ -62,11 +62,11 @@ draft: true
 >
 > 1. 설계 원칙 — [실행기의 본질은 속도가 아니라 재조립입니다](/blog/harness-journey-1-rust-to-python)
 > 2. 설계 원칙 — [엔진은 플랫폼을 몰라야 합니다](/blog/harness-journey-2-engine-separation)
-> 3. 설계 원칙 — **프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다** *(지금 읽는 글)*
-> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 구조가 지켜야 합니다](/blog/harness-journey-4-canvas-node-judge)
+> 3. 설계 원칙 — **프로세스 경계를 넘는 자기완결성** *(지금 읽는 글)*
+> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 격리 judge로 강제합니다](/blog/harness-journey-4-canvas-node-judge)
 > 5. 검증 — [배포의 신뢰성은 검증의 층수에서 나옵니다](/blog/harness-journey-5-release-reliability)
 > 6. 실험 — [설정이 모델 격차를 지웁니다](/blog/harness-journey-6-qwen-vs-sonnet)
-> 7. 설계 원칙 — [설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다](/blog/harness-journey-7-self-forging)
+> 7. 설계 원칙 — [설정을 진화시키는 루프 — 자가단조](/blog/harness-journey-7-self-forging)
 > 8. 설계 원칙 — [실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리](/blog/harness-journey-8-memory-loop)
 > 9. 설계 원칙 · 전망 — [에이전트는 자기 출력이 어디로 가는지 알아야 합니다](/blog/harness-journey-9-context-design)
 
@@ -117,4 +117,4 @@ draft: true
 ---
 
 > **이전 편** → [엔진은 플랫폼을 몰라야 합니다](/blog/harness-journey-2-engine-separation)
-> **다음 편** → [규칙은 프롬프트가 아니라 구조가 지켜야 합니다](/blog/harness-journey-4-canvas-node-judge)
+> **다음 편** → [규칙은 프롬프트가 아니라 격리 judge로 강제합니다](/blog/harness-journey-4-canvas-node-judge)

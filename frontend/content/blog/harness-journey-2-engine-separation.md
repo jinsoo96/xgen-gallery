@@ -1,9 +1,9 @@
 ---
-title: "엔진은 플랫폼을 몰라야 합니다"
+title: "엔진은 플랫폼을 몰라야 합니다 (2부)"
 description: "플랫폼을 오염시키지 말라는 요구에 아키텍처로 답하다 — 엔진 독립, 표준 플러그인 규약(entry_points), 그리고 20일 만에 확정된 10단계 구조."
 date: "2026-04-14"
 author: Jinsoo Kim
-editor: Editorial SA
+editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:
@@ -15,7 +15,7 @@ part: 2/9
 draft: true
 ---
 
-**한 줄 요약** — 본류를 지키는 힘은 브랜치 규칙이 아니라 의존의 방향이었어요. 의존을 이식→엔진 한 방향으로 고정하고 확장을 파이썬 표준 플러그인 규약(entry_points) 계약으로 명시했더니, 엔진이 하루 네 번 릴리즈되는 날에도 플랫폼 본류는 흔들리지 않았어요.
+**한 줄 요약** — 본류를 지키는 힘은 브랜치 규칙이 아니라 의존의 방향이었어요. 의존을 이식 레이어에서 엔진으로만 흐르도록 한 방향으로 고정하고 확장을 파이썬 표준 플러그인 규약(entry_points) 계약으로 명시했더니, 엔진이 하루 네 번 릴리즈되는 날에도 플랫폼 본류는 흔들리지 않았어요.
 
 빠르게 진화하는 코드와 안정적으로 운영되는 플랫폼은 함께 성장할 수 있을까요? 처음에는 가능하다고 생각했습니다. 엔진과 플랫폼을 하나의 저장소에서 함께 개발하면 수정도 쉽고 배포도 단순해 보였습니다.
 
@@ -64,11 +64,11 @@ draft: true
 >
 > 1. 설계 원칙 — [실행기의 본질은 속도가 아니라 재조립입니다](/blog/harness-journey-1-rust-to-python)
 > 2. 설계 원칙 — **엔진은 플랫폼을 몰라야 합니다** *(지금 읽는 글)*
-> 3. 설계 원칙 — [프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다](/blog/harness-journey-3-compile-wheel-mcp)
-> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 구조가 지켜야 합니다](/blog/harness-journey-4-canvas-node-judge)
+> 3. 설계 원칙 — [프로세스 경계를 넘는 자기완결성](/blog/harness-journey-3-compile-wheel-mcp)
+> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 격리 judge로 강제합니다](/blog/harness-journey-4-canvas-node-judge)
 > 5. 검증 — [배포의 신뢰성은 검증의 층수에서 나옵니다](/blog/harness-journey-5-release-reliability)
 > 6. 실험 — [설정이 모델 격차를 지웁니다](/blog/harness-journey-6-qwen-vs-sonnet)
-> 7. 설계 원칙 — [설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다](/blog/harness-journey-7-self-forging)
+> 7. 설계 원칙 — [설정을 진화시키는 루프 — 자가단조](/blog/harness-journey-7-self-forging)
 > 8. 설계 원칙 — [실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리](/blog/harness-journey-8-memory-loop)
 > 9. 설계 원칙 · 전망 — [에이전트는 자기 출력이 어디로 가는지 알아야 합니다](/blog/harness-journey-9-context-design)
 
@@ -130,4 +130,4 @@ draft: true
 ---
 
 > **이전 편** → [실행기의 본질은 속도가 아니라 재조립입니다](/blog/harness-journey-1-rust-to-python)
-> **다음 편** → [프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다](/blog/harness-journey-3-compile-wheel-mcp)
+> **다음 편** → [프로세스 경계를 넘는 자기완결성](/blog/harness-journey-3-compile-wheel-mcp)

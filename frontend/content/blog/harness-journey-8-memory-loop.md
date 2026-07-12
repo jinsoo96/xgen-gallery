@@ -1,9 +1,9 @@
 ---
-title: "실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리"
+title: "실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리 (8부)"
 description: "실행 안의 루프는 있는데 실행 사이의 루프가 끊겨 있었습니다. 네 가지 저장 범위의 메모리와 교훈 전달을 연결해, 에이전트가 지난 실행에서 배우게 만든 기록."
 date: "2026-06-24"
 author: Jinsoo Kim
-editor: Editorial SA
+editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:
@@ -54,11 +54,11 @@ draft: true
 >
 > 1. 설계 원칙 — [실행기의 본질은 속도가 아니라 재조립입니다](/blog/harness-journey-1-rust-to-python)
 > 2. 설계 원칙 — [엔진은 플랫폼을 몰라야 합니다](/blog/harness-journey-2-engine-separation)
-> 3. 설계 원칙 — [프로세스의 경계를 넘으려면, 상태도 함께 넘어가야 합니다](/blog/harness-journey-3-compile-wheel-mcp)
-> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 구조가 지켜야 합니다](/blog/harness-journey-4-canvas-node-judge)
+> 3. 설계 원칙 — [프로세스 경계를 넘는 자기완결성](/blog/harness-journey-3-compile-wheel-mcp)
+> 4. 설계 원칙 — [규칙은 프롬프트가 아니라 격리 judge로 강제합니다](/blog/harness-journey-4-canvas-node-judge)
 > 5. 검증 — [배포의 신뢰성은 검증의 층수에서 나옵니다](/blog/harness-journey-5-release-reliability)
 > 6. 실험 — [설정이 모델 격차를 지웁니다](/blog/harness-journey-6-qwen-vs-sonnet)
-> 7. 설계 원칙 — [설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다](/blog/harness-journey-7-self-forging)
+> 7. 설계 원칙 — [설정을 진화시키는 루프 — 자가단조](/blog/harness-journey-7-self-forging)
 > 8. 설계 원칙 — **실행이 끝나도 배운 것은 남아야 합니다 — 에이전트 메모리** *(지금 읽는 글)*
 > 9. 설계 원칙 · 전망 — [에이전트는 자기 출력이 어디로 가는지 알아야 합니다](/blog/harness-journey-9-context-design)
 
@@ -116,5 +116,5 @@ draft: true
 
 ---
 
-> **이전 편** → [설정은 사람이 찾는 것이 아니라 시스템이 찾아야 합니다](/blog/harness-journey-7-self-forging)
+> **이전 편** → [설정을 진화시키는 루프 — 자가단조](/blog/harness-journey-7-self-forging)
 > **다음 편** → [에이전트는 자기 출력이 어디로 가는지 알아야 합니다](/blog/harness-journey-9-context-design)
