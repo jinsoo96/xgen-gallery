@@ -65,6 +65,25 @@ draft: false
 
 ## 경로 1: 저장소가 소스의 전부가 아니었어요
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 340" width="1000" height="340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="로컬 빌드는 성공해도 새로 내려받은 저장소에서는 핵심 파일이 누락돼 패키지가 깨진 사례">
+  <defs><linearGradient id="bg5b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="340" fill="url(#bg5b)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">로컬 빌드 성공은 저장소를 증명하지 않아요</text>
+  <rect x="44" y="82" width="430" height="176" rx="16" fill="#ffffff" stroke="#d7e0f0"/>
+  <text x="68" y="118" font-size="17" font-weight="800" fill="#334155">로컬 디스크</text>
+  <rect x="68" y="132" width="382" height="40" rx="10" fill="#f1f5f9" stroke="#e2e8f0"/><text x="84" y="157" font-size="14" fill="#334155">__init__.py 가 미추적으로 남아 있음</text>
+  <text x="68" y="214" font-size="15" font-weight="700" fill="#64748b">빌드 성공 — 하지만 '내 컴퓨터'만 증명</text>
+  <text x="500" y="176" text-anchor="middle" font-size="30" font-weight="800" fill="#2563eb">&#8594;</text>
+  <rect x="526" y="82" width="430" height="176" rx="16" fill="#ffffff" stroke="#f2c9d3"/>
+  <text x="550" y="118" font-size="17" font-weight="800" fill="#b4315a">Fresh Clone (저장소)</text>
+  <rect x="550" y="132" width="382" height="40" rx="10" fill="#fdf1f4" stroke="#f6c6d0"/><text x="566" y="157" font-size="14" fill="#b4315a">.gitignore 규칙이 __init__.py까지 제외</text>
+  <text x="550" y="214" font-size="15" font-weight="700" fill="#b4315a">핵심 파일 누락 → 패키지 깨짐 (4버전 연속)</text>
+  <rect x="44" y="278" width="912" height="44" rx="12" fill="#eef4ff" stroke="#cddaf5"/><text x="500" y="306" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">검증은 저장소를 새로 내려받은(fresh clone) 환경 기준으로</text>
+</svg>
+</figure>
+
 가장 값비싼 사례부터요. 임시 파일을 거르려고 제외 목록에 넣은 규칙(`_*.py`)이, 파이썬 패키지의 필수 초기화 파일(`__init__.py`)까지 걸러 버렸어요. 새로 만든 패키지의 핵심 파일이 저장소에 한 번도 커밋되지 못하고 있었던 거예요.
 
 그런데 왜 아무도 몰랐을까요? 로컬 빌드는 디스크에 남아 있던 미추적 파일 덕에 멀쩡했거든요. 저장소를 새로 내려받아(fresh-clone) 빌드하는 경로에서만 패키지 구조가 깨졌고, 그렇게 깨진 설치 파일(wheel)이 v1.18.1부터 v1.18.4까지 **네 개 버전 연속으로 배포**됐어요. 앞에서 말씀드린 전면 다운의 정체가 바로 이거예요.
@@ -82,6 +101,23 @@ draft: false
 그래서 결론이 이래요. 검증의 마지막 층은 항상 **저장소에서 내려받은 실물**이어야 해요. 발행 전에는 원격 상태를 확인하고, 발행 후에는 실제로 내려받아 내용을 검사하는 것까지가 배포예요.
 
 ## 경로 3: 목록에는 뜨는데 호출만 실패했어요
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 328" width="1000" height="328" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="동일 식별자로 두 행이 공존해 목록 조회와 호출 조회가 다른 데이터를 참조한 문제">
+  <defs><linearGradient id="bg5c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient><marker id="m5c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="328" fill="url(#bg5c)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">같은 ID가 둘이면, 목록과 호출이 어긋난다</text>
+  <rect x="410" y="80" width="180" height="44" rx="12" fill="#ffffff" stroke="#d7e0f0"/><text x="500" y="108" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">ID  wf-abc</text>
+  <line x1="470" y1="124" x2="372" y2="162" stroke="#94a3b8" stroke-width="3" marker-end="url(#m5c)"/>
+  <line x1="530" y1="124" x2="628" y2="162" stroke="#94a3b8" stroke-width="3" marker-end="url(#m5c)"/>
+  <rect x="252" y="166" width="196" height="44" rx="10" fill="#eef4ff" stroke="#cddaf5"/><text x="350" y="194" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">발행본</text>
+  <rect x="552" y="166" width="196" height="44" rx="10" fill="#fdf1f4" stroke="#f6c6d0"/><text x="650" y="194" text-anchor="middle" font-size="15" font-weight="700" fill="#b4315a">오래된 초안</text>
+  <text x="350" y="240" text-anchor="middle" font-size="14" fill="#2563eb">목록 조회 → 발행본 ✓</text>
+  <text x="650" y="240" text-anchor="middle" font-size="14" fill="#b4315a">호출 조회 → 초안 → 404 ✗</text>
+  <rect x="44" y="266" width="912" height="44" rx="12" fill="#ecf8f1" stroke="#bfe6cf"/><text x="500" y="294" text-anchor="middle" font-size="15" font-weight="700" fill="#1f9d57">해법 — 식별자에 UNIQUE 제약 · 조회/등록 지점 단일화</text>
+</svg>
+</figure>
 
 산출물 쪽만의 문제도 아니었어요. 도구 목록에는 멀쩡히 뜨는데 호출만 간헐적으로 "찾을 수 없음(404)"이 나는 결함이 있었어요. 서버 안에서 데이터베이스를 직접 조회해 보고서야 원인이 확정됐는데, 워크플로우 ID 컬럼에 중복을 금지하는 제약(UNIQUE)이 없어서 같은 ID로 두 행(발행본과 오래된 초안)이 공존하고 있었어요. 목록 조회는 발행 조건으로 발행본을, 호출 조회는 "첫 행만"이라는 조건으로 오래된 초안을 집었던 거죠.
 
