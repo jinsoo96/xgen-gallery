@@ -84,6 +84,29 @@ draft: false
 
 ## 고치고 나니, 같은 패턴이 계속 나왔어요
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 350" width="1000" height="350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="플랫폼 프로세스 메모리에만 있던 상태가 컴파일 산출물에서 사라지므로 설정 파일로 동결한 이유">
+  <defs><marker id="a3b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker><linearGradient id="bg3b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="350" fill="url(#bg3b)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">메모리에만 있던 상태는 컴파일되지 않는다</text>
+  <rect x="44" y="78" width="400" height="185" rx="16" fill="#ffffff" stroke="#d7e0f0"/>
+  <text x="68" y="112" font-size="16" font-weight="800" fill="#334155">플랫폼 프로세스 (메모리)</text>
+  <rect x="68" y="124" width="352" height="30" rx="7" fill="#eef4ff" stroke="#cddaf5"/><text x="84" y="145" font-size="14" fill="#2563eb">도구 목록</text>
+  <rect x="68" y="160" width="352" height="30" rx="7" fill="#eef4ff" stroke="#cddaf5"/><text x="84" y="181" font-size="14" fill="#2563eb">Judge 평가 기준</text>
+  <rect x="68" y="196" width="352" height="30" rx="7" fill="#eef4ff" stroke="#cddaf5"/><text x="84" y="217" font-size="14" fill="#2563eb">RAG 서비스 연결 · 검색 설정</text>
+  <line x1="452" y1="170" x2="528" y2="170" stroke="#2563eb" stroke-width="4" marker-end="url(#a3b)"/>
+  <text x="490" y="156" text-anchor="middle" font-size="14" font-weight="700" fill="#2563eb">compile</text>
+  <rect x="536" y="78" width="420" height="185" rx="16" fill="#ffffff" stroke="#f2c9d3"/>
+  <text x="560" y="112" font-size="16" font-weight="800" fill="#b4315a">산출물 · 별도 프로세스</text>
+  <rect x="560" y="128" width="372" height="98" rx="10" fill="#fff7f9" stroke="#f6c6d0" stroke-dasharray="7 6"/>
+  <text x="746" y="172" text-anchor="middle" font-size="15" fill="#b4315a">그 메모리가 없음</text>
+  <text x="746" y="198" text-anchor="middle" font-size="14" fill="#94748b">오류 없이 기능이 조용히 누락</text>
+  <rect x="44" y="286" width="912" height="46" rx="12" fill="#eef4ff" stroke="#cddaf5"/>
+  <text x="500" y="315" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">해법 — 실행에 필요한 모든 상태를 설정 파일로 동결(Freeze)</text>
+</svg>
+</figure>
+
 이걸로 끝난 줄 알았어요. 그런데 이후 몇 주간의 결함들이 전부 같은 얼굴을 하고 나타났어요. **클러스터 안에서는 정상인데, 산출물에서는 조용히 기능이 빠지는** 부류요.
 
 대표 사례가 judge(답변을 채점하는 판정기)의 평가 기준이에요. 평가 기준의 정의가 플랫폼 프로세스의 메모리(전역 레지스트리)에만 있었거든요. 별도 프로세스로 뜨는 산출물에는 그 메모리가 없으니, Python 산출물은 범용 기본 기준으로, Node 산출물은 "유효한 기준 없음"으로 평가가 조용히 대체됐어요. 에러 한 줄 없이요. 수정은 평가 기준을 **설정 파일에 직렬화해서** 산출물이 스스로 복원하게 하는 것이었고, v1.17.1(평가 기준의 산출물 직렬화)로 나갔어요.
@@ -95,6 +118,27 @@ draft: false
 > 플랫폼 프로세스 안에서만 성립하는 암묵적 상태(메모리 속 등록 정보, 서비스 연결, 실행 중 기본값)는 컴파일과 양립할 수 없어요. 산출물이 읽을 수 있는 건 파일로 담긴 설정뿐이니까요. "동결 시점에 모든 암묵적 상태를 명시적 설정으로 바꾼다"가 컴파일러의 첫 번째 계약이어야 해요.
 
 ## 검증도 산출물 기준으로 바꿨어요
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 280" width="1000" height="280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="컴파일 산출물을 실제 MCP 서버로 실행해 도구 호출과 데이터 인용까지 종단 검증한 이유">
+  <defs><marker id="a3c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker><linearGradient id="bg3c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="280" fill="url(#bg3c)"/>
+  <text x="44" y="50" font-size="26" font-weight="800" fill="#0f172a">in-process 통과 &#8800; 산출물 동작</text>
+  <text x="44" y="86" font-size="15" fill="#64748b">산출물을 별도 프로세스에서 실제로 완주시켜야 진짜 통과예요</text>
+  <g>
+    <rect x="60" y="120" width="176" height="56" rx="12" fill="#ffffff" stroke="#d7e0f0"/><text x="148" y="154" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">산출물(.whl)</text>
+    <line x1="240" y1="148" x2="286" y2="148" stroke="#2563eb" stroke-width="4" marker-end="url(#a3c)"/>
+    <rect x="290" y="120" width="176" height="56" rx="12" fill="#ffffff" stroke="#d7e0f0"/><text x="378" y="154" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">MCP 서버 등록</text>
+    <line x1="470" y1="148" x2="516" y2="148" stroke="#2563eb" stroke-width="4" marker-end="url(#a3c)"/>
+    <rect x="520" y="120" width="176" height="56" rx="12" fill="#ffffff" stroke="#d7e0f0"/><text x="608" y="154" text-anchor="middle" font-size="16" font-weight="700" fill="#334155">도구 호출</text>
+    <line x1="700" y1="148" x2="746" y2="148" stroke="#2563eb" stroke-width="4" marker-end="url(#a3c)"/>
+    <rect x="750" y="120" width="190" height="56" rx="12" fill="#2563eb"/><text x="845" y="154" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">데이터 인용</text>
+  </g>
+  <rect x="60" y="206" width="880" height="46" rx="12" fill="#ecf8f1" stroke="#bfe6cf"/>
+  <text x="500" y="235" text-anchor="middle" font-size="16" font-weight="700" fill="#1f9d57">✓ 실제 클라이언트에서 전 구간 완주 — OAuth·자동 탐색까지 통과해야 완성</text>
+</svg>
+</figure>
 
 이 부류의 결함이 특히 까다로운 이유는 조용히 실패한다는 점이에요. 그런데 플랫폼 안에서 도는 테스트(in-process 테스트)로는 왜 안 잡혔을까요? 테스트가 도는 프로세스에는 그 암묵적 상태가 전부 살아 있기 때문이에요. 결함이 성립하는 조건 자체가 테스트 환경에는 없는 거죠.
 

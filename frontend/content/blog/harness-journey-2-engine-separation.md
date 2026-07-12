@@ -84,6 +84,31 @@ draft: false
 
 ## 브랜치 규칙으로는 왜 안 될까요
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 360" width="1000" height="360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="브랜치 규칙 대신 아키텍처로 섞일 수 없는 단방향 의존 구조를 만든 이유">
+  <defs><linearGradient id="bg2b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="360" fill="url(#bg2b)"/>
+  <text x="44" y="50" font-size="27" font-weight="800" fill="#0f172a">규칙 대신, 섞일 수 없는 구조</text>
+  <rect x="44" y="78" width="430" height="210" rx="16" fill="#ffffff" stroke="#f2c9d3"/>
+  <text x="68" y="116" font-size="18" font-weight="800" fill="#b4315a">브랜치 규칙</text>
+  <circle cx="440" cy="110" r="14" fill="#fdecef" stroke="#f6c6d0"/>
+  <g stroke="#e11d48" stroke-width="3" stroke-linecap="round"><line x1="433" y1="103" x2="447" y2="117"/><line x1="447" y1="103" x2="433" y2="117"/></g>
+  <text x="68" y="158" font-size="15" fill="#475569">머지마다 사람이 하네스 코드를 가려내야 함</text>
+  <text x="68" y="186" font-size="15" fill="#475569">실수 한 번이면 같은 마찰이 반복</text>
+  <text x="68" y="248" font-size="15" font-weight="700" fill="#b4315a">주의력에 의존해요</text>
+  <text x="500" y="200" text-anchor="middle" font-size="30" font-weight="800" fill="#2563eb">&#8594;</text>
+  <rect x="526" y="78" width="430" height="210" rx="16" fill="#ffffff" stroke="#cddaf5"/>
+  <text x="550" y="116" font-size="18" font-weight="800" fill="#2563eb">아키텍처 · 단방향 의존</text>
+  <circle cx="922" cy="110" r="14" fill="#ecf8f1" stroke="#bfe6cf"/>
+  <path d="M915 110 l5 6 9 -12" fill="none" stroke="#1f9d57" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="550" y="158" font-size="15" fill="#475569">엔진은 플랫폼을 모른다 · pip 버전 핀</text>
+  <text x="550" y="186" font-size="15" fill="#475569">애초에 섞일 수 없어 마찰이 사라짐</text>
+  <text x="550" y="248" font-size="15" font-weight="700" fill="#2563eb">구조가 강제해요</text>
+  <text x="500" y="326" text-anchor="middle" font-size="15" fill="#64748b">세 가지 결정 — ① 엔진 독립   ② 플랫폼 코드 이관   ③ entry_points 계약</text>
+</svg>
+</figure>
+
 가장 쉬운 답은 "하네스는 격리 브랜치에서만 작업한다"는 규칙이었을 거예요. 그런데 규칙은 사람의 주의력에 의존해요. 머지할 때마다 어디까지가 하네스 코드인지 사람이 가려내야 하고, 실수가 한 번만 나도 같은 마찰이 반복되죠. 그래서 우리는 규칙 대신 **아예 섞일 수 없는 구조**를 만들기로 했어요.
 
 > 잠깐, 이 글의 버전 표기를 풀어 둘게요. **v0.x**는 구조가 계속 바뀌는 실험 단계, **v1.0.0**은 구조를 확정한 첫 정식판이에요. 소수점 뒤 숫자가 올라가는 건 기능 추가나 작은 수정의 릴리즈 횟수고요.
@@ -109,6 +134,26 @@ draft: false
 이 시기의 밀도가 어느 정도였냐면, 첫 공개 버전 v0.1.0부터 정식판 v1.0.0까지 14일 동안 약 60개 버전이 릴리즈됐어요. 이 속도를 본류가 감당할 수 있었던 이유가 바로 위의 분리 구조예요. 엔진이 하루 네 번 릴리즈돼도, 플랫폼 본류는 버전 지정을 올리기 전까지 아무 영향을 받지 않으니까요.
 
 ## 버전 번호도 배신할 수 있더라고요
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 340" width="1000" height="340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="버전을 코드와 패키지 두 곳에 두면 어긋나므로 패키지 메타데이터 한 곳에서 읽도록 바꾼 이유">
+  <defs><linearGradient id="bg2c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="340" fill="url(#bg2c)"/>
+  <text x="44" y="50" font-size="26" font-weight="800" fill="#0f172a">버전이 두 곳에 있으면 어긋난다</text>
+  <rect x="44" y="78" width="430" height="190" rx="16" fill="#ffffff" stroke="#f2c9d3"/>
+  <text x="68" y="114" font-size="17" font-weight="800" fill="#b4315a">이전 — 두 곳에 버전</text>
+  <rect x="68" y="128" width="382" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0"/><text x="84" y="152" font-size="15" fill="#334155">코드에 적힌 버전   v1.2.0</text>
+  <rect x="68" y="172" width="382" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0"/><text x="84" y="196" font-size="15" fill="#334155">패키지 실제 버전   v1.1.0</text>
+  <text x="68" y="244" font-size="15" font-weight="700" fill="#b4315a">✗ 의존성 해석이 옛 코드를 설치</text>
+  <text x="500" y="176" text-anchor="middle" font-size="30" font-weight="800" fill="#2563eb">&#8594;</text>
+  <rect x="526" y="78" width="430" height="190" rx="16" fill="#ffffff" stroke="#cddaf5"/>
+  <text x="550" y="114" font-size="17" font-weight="800" fill="#2563eb">이후 — 단일 출처</text>
+  <rect x="550" y="150" width="382" height="46" rx="10" fill="#eef4ff" stroke="#cddaf5"/><text x="741" y="179" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">패키지 메타데이터에서 읽기</text>
+  <text x="550" y="244" font-size="15" font-weight="700" fill="#1f9d57">✓ 코드와 패키지가 항상 일치</text>
+  <text x="500" y="316" text-anchor="middle" font-size="15" fill="#64748b">버전조차 두 곳에 존재하면 어긋나요 — 출처를 하나로</text>
+</svg>
+</figure>
 
 운영에서 얻은 교정도 하나 있어요. 어느 날 PyPI의 버전 번호 하나를 구버전 코드가 점유하고 있다는 걸 알게 됐어요. "이 버전 이상"이라는 의존성 선언이 새 모듈이 없는 옛 코드를 설치해 버리는 상황이었죠. 코드에 적힌 버전 문자열이 실제 패키지 버전과 어긋나는 사고도 세 번 반복됐고요. 결국 버전 문자열을 코드에 두지 않고 패키지 정보(메타데이터)에서 읽도록 바꾸는 것으로 근본 해결했어요. 버전조차 "두 곳에 존재하면 어긋난다"는, 이 편 전체를 관통하는 것과 같은 교훈이었어요.
 
