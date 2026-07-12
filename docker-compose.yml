@@ -46,6 +46,8 @@ services:
     environment:
       # Synaptic Memory graph persistence (per-container unless volume mounted)
       SYNAPTIC_DB: /tmp/synaptic.db
+      # 블로그 조회수 DB — 볼륨(views_data)에 두어 재빌드에도 값 유지
+      VIEWS_DB: /data/views.db
       # Embeddings (Qwen vLLM by default, no auth).
       SYNAPTIC_EMBED_URL: "${SYNAPTIC_EMBED_URL:-}"
       SYNAPTIC_EMBED_MODEL: "${SYNAPTIC_EMBED_MODEL:-default}"
@@ -63,3 +65,8 @@ services:
       timeout: 5s
       retries: 3
     restart: unless-stopped
+    volumes:
+      - views_data:/data
+
+volumes:
+  views_data:

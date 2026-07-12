@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { JsonLd } from "@/components/json-ld";
+import { ViewCount } from "@/components/view-count";
 import { getAllSlugs, getPost } from "@/lib/blog";
 import { blogPostingLd, breadcrumbLd } from "@/lib/structured-data";
 import { absoluteUrl } from "@/lib/site";
@@ -80,7 +81,8 @@ export default async function BlogPostPage({
                     <div className="flex flex-wrap items-center gap-2 text-[14px] text-white/60">
                         <time dateTime={post.date}>{fmtDate(post.date)}</time>
                         <span>·</span>
-                        <span>{post.readingMinutes}분 읽기</span>
+                        <span>Reading Time | {post.readingMinutes} min</span>
+                        <ViewCount slug={post.slug} />
                     </div>
                     <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] text-white/60">
                         <span>
