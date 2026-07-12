@@ -75,6 +75,25 @@ draft: false
 
 ## 점수만 오르면 좋아진 걸까요
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 316" width="1000" height="316" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="설정 자가개선에서 개발셋으로 탐색하되 검증셋으로만 채택하고 나빠지면 롤백하는 과적합 방지 구조">
+  <defs><linearGradient id="bg7b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient><marker id="m7a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563eb"/></marker></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="316" fill="url(#bg7b)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">점수만 좇으면 오히려 나빠져요</text>
+  <rect x="44" y="82" width="430" height="150" rx="16" fill="#ffffff" stroke="#d7e0f0"/>
+  <text x="68" y="118" font-size="16" font-weight="800" fill="#334155">개선 — 개발셋에서 탐색</text>
+  <text x="68" y="150" font-size="14" fill="#475569">여기서 점수를 올려요</text>
+  <text x="68" y="200" font-size="15" font-weight="700" fill="#b4315a">개발셋만 보면 과적합에 속아요</text>
+  <line x1="478" y1="157" x2="522" y2="157" stroke="#2563eb" stroke-width="4" marker-end="url(#m7a)"/>
+  <rect x="526" y="82" width="430" height="150" rx="16" fill="#ffffff" stroke="#bfe6cf"/>
+  <text x="550" y="118" font-size="16" font-weight="800" fill="#1f9d57">채택 — 검증셋(held-out)에서만 판단</text>
+  <text x="550" y="150" font-size="14" fill="#475569">새 문제에서도 좋아졌을 때만 채택</text>
+  <text x="550" y="200" font-size="15" font-weight="700" fill="#1f9d57">나빠지면 자동 롤백</text>
+  <rect x="44" y="252" width="912" height="46" rx="12" fill="#eef4ff" stroke="#cddaf5"/><text x="500" y="281" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">자가개선에서 가장 중요한 기능은 개선이 아니라 롤백이에요</text>
+</svg>
+</figure>
+
 여기서 꼭 짚어야 할 함정이 있어요. 지표만 쫓다 보면 지표는 오르는데 본질이 망가지는 일이 생겨요. 굿하트의 법칙이라 불리는 현상이죠. 그래서 이 방어를 나중에 덧대지 않고 처음부터 루프의 핵심 구성 요소로 넣었어요.
 
 > 개선은 연습 문제(개발셋)에서 하되, 채택은 따로 떼어 둔 검증 문제(held-out)를 통과해야 해요. 과최적화가 감지되면 자동으로 롤백해요. 검증 문제 기준 실측은 0.5 → 0.96이었어요.
@@ -92,6 +111,25 @@ draft: false
 일반화하면 이래요. 모킹(가짜 응답) 기반 테스트는 "오류가 조용히 폴백으로 대체되는" 부류의 결함을 구조적으로 못 잡아요. 모킹은 미리 정해 둔 정상 응답을 돌려주기 때문에, 실제 값이 일으키는 오류 경로가 테스트에서는 아예 실행되지 않거든요. 그래서 실제 모델을 연결한 전체 파이프라인 실행이 검증의 최상층에 반드시 있어야 하고, 자가단조 루프는 그 실행을 상시화한다는 부수 효과까지 있어요.
 
 ## 릴리즈 사이에서, 실행 중으로
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 290" width="1000" height="290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="실행 중 실패 신호를 검색 폭·temperature·판정 점수 같은 설정 조정 신호로 재해석하는 self-govern">
+  <defs><linearGradient id="bg7c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="290" fill="url(#bg7c)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">실패 신호를 설정 조정 신호로</text>
+  <text x="44" y="86" font-size="15" fill="#64748b">한 번의 실행 안에서, 재시도마다 설정을 스스로 조정해요</text>
+  <rect x="60" y="116" width="270" height="150" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="195" y="146" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">검색 폭</text>
+  <text x="195" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#334155">4 &#8594; 8 &#8594; 12</text>
+  <text x="195" y="222" text-anchor="middle" font-size="13" fill="#64748b">결과가 부족하면 넓힘</text>
+  <rect x="365" y="116" width="270" height="150" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="500" y="146" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">temperature</text>
+  <text x="500" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#334155">0.7 &#8594; 0.5 &#8594; 0.3</text>
+  <text x="500" y="222" text-anchor="middle" font-size="13" fill="#64748b">반복 실패가 이어지면 낮춤</text>
+  <rect x="670" y="116" width="270" height="150" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="805" y="146" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">판정 점수</text>
+  <text x="805" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#334155">0/1 &#8594; 0.70~0.98</text>
+  <text x="805" y="222" text-anchor="middle" font-size="13" fill="#64748b">연속값으로 조정 정밀도↑</text>
+</svg>
+</figure>
 
 자가단조가 릴리즈 사이의 진화라면, 같은 발상을 실행 중으로 가져온 것이 self-govern이에요. 라이브 기록은 이래요. 재시도 1회차에 검색 폭이 4에서 8로, 2회차에 8에서 12로 넓어지고, 답변의 무작위성(temperature)은 0.7→0.5→0.3으로 조여졌어요. 이 기능을 끈 대조군은 검색 폭 4에 고정돼 있었으니 비교 실험도 성립하죠. 실패 신호를 "그냥 다시 해"가 아니라 **설정 조정 신호**로 재해석하는 배선인 거예요.
 

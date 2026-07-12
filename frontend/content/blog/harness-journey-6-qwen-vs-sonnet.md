@@ -72,6 +72,25 @@ draft: false
 
 ## 41분은 정말 모델 탓이었을까요
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 300" width="1000" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="느린 실행의 범인은 모델 추론이 아니라 판정 실패 재생성이었고 설정 두 개로 25배 빨라진 사례">
+  <defs><linearGradient id="bg6b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="300" fill="url(#bg6b)"/>
+  <text x="44" y="50" font-size="25" font-weight="800" fill="#0f172a">2,488초의 범인은 모델이 아니라 재시도였어요</text>
+  <text x="44" y="90" font-size="15" font-weight="600" fill="#64748b">실행 시간 구성</text>
+  <rect x="44" y="102" width="912" height="50" rx="12" fill="#e2e8f0"/>
+  <clipPath id="c6a"><rect x="44" y="102" width="912" height="50" rx="12"/></clipPath>
+  <g clip-path="url(#c6a)"><rect x="44" y="102" width="812" height="50" fill="#e11d48" opacity="0.85"/><rect x="856" y="102" width="100" height="50" fill="#2563eb"/></g>
+  <text x="450" y="133" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">판정 실패 → 답변 전체 재생성 (반복)</text>
+  <text x="906" y="132" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">추론</text>
+  <text x="44" y="188" font-size="15" fill="#475569">모델은 오래 고민하지 않았어요 — 실행기가 같은 답을 계속 다시 시켰죠</text>
+  <rect x="44" y="212" width="430" height="70" rx="14" fill="#f1f5f9" stroke="#e2e8f0"/><text x="68" y="242" font-size="15" font-weight="700" fill="#64748b">설정 2개만 조정</text><text x="68" y="266" font-size="14" fill="#64748b">재시도 상한 · 생성 토큰 상한</text>
+  <text x="500" y="252" text-anchor="middle" font-size="26" font-weight="800" fill="#2563eb">&#8594;</text>
+  <rect x="526" y="212" width="430" height="70" rx="14" fill="#eef4ff" stroke="#cddaf5"/><text x="741" y="242" text-anchor="middle" font-size="17" font-weight="800" fill="#2563eb">2,488초 → 약 100초</text><text x="741" y="266" text-anchor="middle" font-size="14" fill="#2563eb">약 25배 · 모델은 그대로</text>
+</svg>
+</figure>
+
 첫 코드 과제에서 충격적인 숫자가 나왔어요. Qwen이 2,488초, 41분이 넘게 걸린 거예요. 같은 과제를 Sonnet은 84초에 끝냈고요. 30배 격차죠. 여기서 "역시 오픈소스는 안 되는구나"라고 결론 내렸다면 실험은 거기서 끝났을 거예요.
 
 그런데 시간이 어디에 쓰이는지 프로파일링해 보니 다른 그림이 보였어요. 시간을 지배한 건 모델의 추론 속도가 아니라 **재시도 정책**이었어요. 판정에 실패할 때마다 8,192토큰짜리 답변 전체를 처음부터 다시 생성하기를 반복하는 구조가 41분의 정체였던 거예요. 그래서 딱 두 항목만 조정했어요. 재시도 반복 상한을 1회로, 답변 토큰 상한을 4,096으로요. 시간을 만들던 두 축, 그러니까 다시 생성하는 횟수와 한 번에 다시 생성하는 분량을 직접 겨눈 거예요. 그러자 실행 시간이 약 100초, 1/25로 줄었어요. Qwen의 능력 문제가 아니라 설정 문제였던 거죠.
@@ -87,6 +106,25 @@ draft: false
 그런데 이 '동률'이야말로 실험의 성과예요. **하네스 위에서는 무료 오픈소스 모델과 프론티어 모델의 품질 격차가 오차 범위로 수렴한다**는, 비용 구조를 바꿀 수 있는 실측이니까요.
 
 ## 라우터는 왜 사라져도 됐을까요
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 320" width="1000" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="라우터와 플래너로 구성한 21노드 대신 도구 탐색을 흡수한 단일 에이전트가 폴백 없이 전 과제를 완주한 비교">
+  <defs><linearGradient id="bg6c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="320" fill="url(#bg6c)"/>
+  <text x="44" y="50" font-size="26" font-weight="800" fill="#0f172a">라우터는 실패 지점만 늘리고 있었어요</text>
+  <rect x="44" y="80" width="430" height="212" rx="16" fill="#ffffff" stroke="#f2c9d3"/>
+  <text x="68" y="116" font-size="17" font-weight="800" fill="#b4315a">라우터 + 플래너 · 21노드</text>
+  <circle cx="120" cy="176" r="16" fill="#eef4ff" stroke="#94a3b8"/><circle cx="200" cy="150" r="16" fill="#eef4ff" stroke="#94a3b8"/><circle cx="200" cy="202" r="16" fill="#eef4ff" stroke="#94a3b8"/><circle cx="290" cy="150" r="16" fill="#eef4ff" stroke="#94a3b8"/><circle cx="290" cy="202" r="16" fill="#eef4ff" stroke="#94a3b8"/><circle cx="370" cy="176" r="16" fill="#eef4ff" stroke="#94a3b8"/>
+  <g stroke="#cbd5e1" stroke-width="2"><line x1="136" y1="170" x2="184" y2="154"/><line x1="136" y1="182" x2="184" y2="198"/><line x1="216" y1="150" x2="274" y2="150"/><line x1="216" y1="202" x2="274" y2="202"/><line x1="306" y1="150" x2="354" y2="170"/><line x1="306" y1="202" x2="354" y2="182"/></g>
+  <text x="255" y="248" text-anchor="middle" font-size="14" fill="#b4315a">중간 라우팅에서 실패 (21개 중 15개 완주)</text>
+  <text x="500" y="188" text-anchor="middle" font-size="26" font-weight="800" fill="#2563eb">&#8594;</text>
+  <rect x="526" y="80" width="430" height="212" rx="16" fill="#ffffff" stroke="#cddaf5"/>
+  <text x="550" y="116" font-size="17" font-weight="800" fill="#2563eb">단일 에이전트</text>
+  <rect x="620" y="150" width="240" height="52" rx="14" fill="#2563eb"/><text x="740" y="182" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">하네스 (도구 탐색 흡수)</text>
+  <text x="740" y="240" text-anchor="middle" font-size="14" fill="#1f9d57">11개 과제 전부 완주 · 폴백 0회</text>
+</svg>
+</figure>
 
 같은 방법론으로 아키텍처도 비교해 봤어요. 질문을 분기하는 라우터와 계획 수립기(플래너)로 구성한 기존 21노드 구조가 21개 과제 중 15개를 완주하는 동안, 도구 8개를 하네스 하나에 얹은 단일 에이전트는 11개 과제를 전부 완주했어요. 폴백(대체 경로로의 후퇴)은 0회, 과제당 비용은 약 $0.005에 45초였고요.
 
