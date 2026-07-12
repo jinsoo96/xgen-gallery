@@ -3,7 +3,6 @@ title: "엔진은 플랫폼을 몰라야 합니다 (2부)"
 description: "플랫폼을 오염시키지 말라는 요구에 아키텍처로 답하다 — 엔진 독립, 표준 플러그인 규약(entry_points), 그리고 20일 만에 확정된 10단계 구조."
 date: "2026-04-14"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:

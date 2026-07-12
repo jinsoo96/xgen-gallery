@@ -3,7 +3,6 @@ title: "설정이 모델 격차를 지웁니다 (6부)"
 description: "동일 하네스, 모델만 교체, 고정 심판. 오픈소스 모델의 실행 시간을 설정 두 항목으로 1/25로 줄이고, 프론티어 모델과의 격차가 오차 범위까지 좁혀지는 것을 확인한 통제 실험."
 date: "2026-06-01"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "실험"
 category: Tech Note
 tags:

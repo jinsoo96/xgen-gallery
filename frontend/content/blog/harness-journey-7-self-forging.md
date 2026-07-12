@@ -3,7 +3,6 @@ title: "설정을 진화시키는 루프 — 자가단조 (7부)"
 description: "선언형 설정은 시스템이 고쳐 쓸 수 있습니다. 점수 → 설정 변경 → 검증 문제셋 → 롤백으로 구성한 자가개선 루프와, 그것을 신뢰하게 만드는 검증 구조."
 date: "2026-06-13"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:

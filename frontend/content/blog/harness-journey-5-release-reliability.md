@@ -3,7 +3,6 @@ title: "배포의 신뢰성은 검증의 층수에서 나옵니다 (5부)"
 description: "소스와 산출물이 달라지는 원인은 생각보다 많습니다 — 추적 누락, 캐시 재사용, 동시 발행, 데이터 계약 부재. 각각을 구조적으로 막은 방법."
 date: "2026-05-20"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "검증"
 category: Tech Note
 tags:

@@ -3,7 +3,6 @@ title: "실행기의 본질은 속도가 아니라 재조립입니다 (1부)"
 description: "LLM 에이전트 실행기 '하네스'의 설계 배경. 왜 상태 머신인가, 왜 스테이지를 체크리스트로 만들었나, 그리고 왜 Rust가 아니라 Python이었나."
 date: "2026-04-02"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:

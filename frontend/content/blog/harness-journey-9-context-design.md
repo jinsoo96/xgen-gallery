@@ -3,7 +3,6 @@ title: "에이전트는 자기 출력이 어디로 가는지 알아야 합니다
 description: "출력 채널을 컨텍스트의 1급 자원으로, 도구 노출은 '지도의 복원'으로. 컨텍스트 설계의 두 원칙과, 하네스가 운영 플랫폼으로 발전하는 다음 단계."
 date: "2026-07-05"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "설계 원칙 · 전망"
 category: Tech Note
 tags:
@@ -69,6 +68,22 @@ draft: false
 
 ## 사과문이 이메일로 발송된 날
 
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 308" width="1000" height="308" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="에이전트가 자기 답변이 이메일로 전달되는지 몰라 없다고 답한 내용이 그대로 발송된 사건">
+  <defs><linearGradient id="bg9b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient><marker id="m9a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="308" fill="url(#bg9b)"/>
+  <text x="44" y="48" font-size="25" font-weight="800" fill="#0f172a">에이전트는 자기 출력이 어디로 가는지 몰랐어요</text>
+  <rect x="60" y="102" width="320" height="66" rx="14" fill="#ffffff" stroke="#d7e0f0"/><text x="220" y="130" text-anchor="middle" font-size="14" fill="#334155">에이전트</text><text x="220" y="152" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">"이메일 기능은 제게 없어요"</text>
+  <line x1="384" y1="135" x2="420" y2="135" stroke="#94a3b8" stroke-width="3" marker-end="url(#m9a)"/><text x="402" y="122" text-anchor="middle" font-size="12" fill="#94a3b8">출력</text>
+  <rect x="424" y="102" width="220" height="66" rx="14" fill="#eef4ff" stroke="#cddaf5"/><text x="534" y="141" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">이메일 발송 노드</text>
+  <line x1="648" y1="135" x2="684" y2="135" stroke="#94a3b8" stroke-width="3" marker-end="url(#m9a)"/>
+  <rect x="688" y="102" width="252" height="66" rx="14" fill="#fdecef" stroke="#f6c6d0"/><text x="814" y="141" text-anchor="middle" font-size="15" font-weight="700" fill="#b4315a">실제 이메일 발송됨</text>
+  <text x="60" y="212" font-size="15" fill="#475569">본인은 보냈다는 사실조차 몰랐어요 — 출력의 목적지를 모르니까요</text>
+  <rect x="60" y="238" width="880" height="46" rx="12" fill="#ecf8f1" stroke="#bfe6cf"/><text x="500" y="267" text-anchor="middle" font-size="16" font-weight="700" fill="#1f9d57">해법 — 출력 채널을 문서·도구처럼 컨텍스트로 제공</text>
+</svg>
+</figure>
+
 첫 번째 사건은 이래요. 하류에 이메일 발송 종단이 연결된 워크플로우에서, 에이전트가 이렇게 답했어요. "이메일 전송 기능은 제 도구에 없습니다." 그리고 그 사과문이, 자동 실행되는 종단을 타고 **그대로 이메일로 발송됐어요.**
 
 웃지 못할 장면이지만 원인은 아주 선명해요. 에이전트는 자기 출력이 어디로 가는지 몰랐던 거예요. 자기 답변이 화면에 뜨는 줄 알았는데, 실제로는 메일함으로 날아가고 있었죠.
@@ -82,6 +97,20 @@ draft: false
 두 번째 사건은 도구 쪽이에요. 도구가 수십 개일 때 전부를 컨텍스트에 싣는 건 낭비라서, 하네스는 도구를 단계적으로만 공개(Progressive Disclosure)하고, 검색엔진에서 널리 쓰이는 표준 순위 계산 방식(BM25)의 도구 검색으로 찾게 해요. Progressive Disclosure라는 이름은 UX에서 정보를 한꺼번에 다 보여주지 않고 필요한 만큼씩 여는 '단계적 공개' 원칙에서 온 거예요. 이 구조는 실측으로 증명돼 있었어요. 도구 66개를 숨긴 상태에서 약한 모델도 검색으로 필요한 도구를 정확히 찾아내(이때 검색이 그 도구에 매긴 일치 점수가 6.73이었어요), 검색→발견→호출 흐름을 완주했거든요.
 
 ## 그런데 그 개선이 회귀를 낳았어요
+
+<figure class="blog-illust">
+<svg viewBox="0 0 1000 300" width="1000" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="점진 공개가 과해 사용자가 명시적으로 연결한 도구까지 숨겨져 에이전트가 존재를 못 본 회귀">
+  <defs><linearGradient id="bg9c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9ff"/><stop offset="1" stop-color="#e9f1ff"/></linearGradient><marker id="m9b" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/></marker></defs>
+  <style>text{font-family:'Pretendard Variable',Pretendard,'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif}</style>
+  <rect width="1000" height="300" fill="url(#bg9c)"/>
+  <text x="44" y="48" font-size="25" font-weight="800" fill="#0f172a">점진 공개가 과해서, 명시 연결까지 숨겼어요</text>
+  <rect x="60" y="102" width="380" height="64" rx="14" fill="#eef4ff" stroke="#cddaf5"/><text x="250" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#2563eb">사용자가 캔버스에서 명시 연결한 도구</text>
+  <line x1="444" y1="134" x2="490" y2="134" stroke="#94a3b8" stroke-width="3" marker-end="url(#m9b)"/><text x="467" y="120" text-anchor="middle" font-size="12" fill="#94a3b8">일괄 분류</text>
+  <rect x="494" y="102" width="380" height="64" rx="14" fill="#fdecef" stroke="#f6c6d0"/><text x="684" y="140" text-anchor="middle" font-size="15" font-weight="700" fill="#b4315a">리팩터링이 검색 뒤로 숨김</text>
+  <text x="60" y="208" font-size="15" fill="#475569">존재를 모르면 프롬프트로도 부를 수 없어요 (아무리 지시해도 못 씀)</text>
+  <rect x="60" y="234" width="880" height="46" rx="12" fill="#eef4ff" stroke="#cddaf5"/><text x="500" y="263" text-anchor="middle" font-size="16" font-weight="700" fill="#2563eb">해법 — 명시 연결 자원은 이름이 '항상' 지도에 보이게 (사용 강제 아님, 지도 복원)</text>
+</svg>
+</figure>
 
 며칠 뒤, 사용자가 캔버스에서 명시적으로 연결한 도구를 에이전트가 한 번도 호출하지 않는 문제가 보고됐어요. 조사해 보니 원인은 우리 자신이었어요. 나중에 불러올 항목의 분류를 일괄 처리한 리팩터링이 **명시 연결된 도구까지 숨김 분류로 눌러 버려서**, 이름을 노출하는 분기를 영영 타지 못하게 된 거예요. 모델은 그 도구의 존재 자체를 볼 수 없었어요.
 

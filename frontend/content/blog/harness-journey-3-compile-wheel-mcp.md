@@ -3,7 +3,6 @@ title: "프로세스 경계를 넘는 자기완결성 (3부)"
 description: "워크플로우를 설치형 패키지(wheel)로 컴파일해 '환경변수만 주입하면 동작하는' 산출물로. 프로세스 안에만 있던 상태를 파일에 담는 것이 컴파일의 본질이었습니다."
 date: "2026-04-26"
 author: Jinsoo Kim
-editor: Editorial Plateer Lab
 kicker: "설계 원칙"
 category: Tech Note
 tags:
