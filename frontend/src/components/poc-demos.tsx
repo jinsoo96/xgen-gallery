@@ -13,18 +13,54 @@ import { PlayCircle, Clapperboard } from "lucide-react";
  * ▶ 임베드는 youtube-nocookie + 썸네일 파사드(클릭 시 로드)로, 페이지 진입만으로
  *   유튜브 스크립트가 로드되지 않게 한다.
  */
+type Chapter = {
+    time: string; // 표시용 타임스탬프 "MM:SS"
+    sec: number; // 시작 초 — 클릭 시 해당 지점부터 재생
+    label: string; // "주제 – 부제" 형식(부제는 " – "로 구분)
+};
+
 type Demo = {
     id: string; // 유튜브 videoId
     title: string;
     desc: string;
     uploadDate?: string; // YYYY-MM-DD
+    featured?: boolean; // 대표 영상 — 그리드에서 더 크게(2열 span) 노출
+    chapters?: Chapter[]; // 챕터(타임스탬프) — 클릭하면 해당 지점부터 재생
 };
 
 const DEMOS: Demo[] = [
     {
-        id: "x0Uch1b0kNk",
-        title: "XGEN 소개영상",
-        desc: "XGEN Agentic AI 플랫폼의 전체 그림을 짧게 살펴봅니다",
+        id: "3vkbqk7b5WY",
+        title: "XGEN 실증 데모",
+        desc: "XGEN이 실제 업무에서 동작하는 모습을 대표 영상으로 확인합니다",
+        featured: true,
+        chapters: [
+            {
+                time: "00:00",
+                sec: 0,
+                label: "인트로 · AI 지식 저장소 – 문서 업로드부터 지식그래프까지",
+            },
+            {
+                time: "01:01",
+                sec: 61,
+                label: "시맨틱 검색 – 의미 기반 지식 탐색",
+            },
+            {
+                time: "01:17",
+                sec: 77,
+                label: "전표 심사 AI Agent – 증빙 등록부터 자동 검증까지",
+            },
+            {
+                time: "02:46",
+                sec: 166,
+                label: "대화형 AI 챗봇 – 노코드 조립부터 응답까지",
+            },
+            {
+                time: "03:34",
+                sec: 214,
+                label: "AI 품질 평가 – 배치 테스트와 LLM Judge 자동 채점",
+            },
+        ],
     },
     {
         id: "4T7tT2nTXfw",
@@ -38,12 +74,29 @@ const DEMOS: Demo[] = [
     },
 ];
 
-function YouTubeFacade({ demo }: { demo: Demo }) {
-    const [loaded, setLoaded] = useState(false);
+function YouTubeFacade({
+    demo,
+    loaded,
+    start,
+    onPlay,
+    fill,
+}: {
+    demo: Demo;
+    loaded: boolean;
+    start: number;
+    onPlay: (sec: number) => void;
+    fill?: boolean; // true면 카드 높이를 채우도록 썸네일을 늘린다(우측 스택 정렬용)
+}) {
+    // fill 모드: aspect-video 대신 부모 높이를 채워 캡션 아래 여백을 없앤다.
+    const mediaClass = fill
+        ? "h-full min-h-[240px] w-full flex-1"
+        : "aspect-video w-full";
 
     if (!demo.id) {
         return (
-            <div className="flex aspect-video w-full flex-col items-center justify-center gap-2 bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)]">
+            <div
+                className={`flex ${mediaClass} flex-col items-center justify-center gap-2 bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)]`}
+            >
                 <Clapperboard className="h-7 w-7" />
                 <span className="text-[13px] font-semibold">영상 준비중</span>
             </div>
@@ -53,8 +106,10 @@ function YouTubeFacade({ demo }: { demo: Demo }) {
     if (loaded) {
         return (
             <iframe
-                className="aspect-video w-full"
-                src={`https://www.youtube-nocookie.com/embed/${demo.id}?autoplay=1&rel=0`}
+                className={mediaClass}
+                src={`https://www.youtube-nocookie.com/embed/${demo.id}?autoplay=1&rel=0${
+                    start ? `&start=${start}` : ""
+                }`}
                 title={demo.title}
                 loading="lazy"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -66,13 +121,15 @@ function YouTubeFacade({ demo }: { demo: Demo }) {
     return (
         <button
             type="button"
-            onClick={() => setLoaded(true)}
+            onClick={() => onPlay(0)}
             aria-label={`${demo.title} 영상 재생`}
-            className="group relative flex aspect-video w-full items-center justify-center overflow-hidden bg-black"
+            className={`group relative flex ${mediaClass} items-center justify-center overflow-hidden bg-black`}
         >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-                src={`https://i.ytimg.com/vi/${demo.id}/hqdefault.jpg`}
+                src={`https://i.ytimg.com/vi/${demo.id}/${
+                    demo.featured ? "maxresdefault" : "hqdefault"
+                }.jpg`}
                 alt={`${demo.title} 썸네일`}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover opacity-85 transition group-hover:opacity-100"
@@ -81,6 +138,70 @@ function YouTubeFacade({ demo }: { demo: Demo }) {
                 <PlayCircle className="h-9 w-9" />
             </span>
         </button>
+    );
+}
+
+function DemoCard({ demo }: { demo: Demo }) {
+    // 재생 상태를 카드 단위로 올려, 챕터 클릭 시 해당 지점부터 재생되게 한다.
+    const [player, setPlayer] = useState({ loaded: false, start: 0 });
+    const play = (sec: number) => setPlayer({ loaded: true, start: sec });
+
+    return (
+        <figure
+            className={`overflow-hidden rounded-2xl bg-white${
+                demo.featured
+                    ? " border-2 border-[var(--color-line-strong)] shadow-sm md:col-span-2 lg:col-span-2 lg:row-span-2"
+                    : " flex h-full flex-col border border-[var(--color-line)]"
+            }`}
+        >
+            <YouTubeFacade
+                demo={demo}
+                loaded={player.loaded}
+                start={player.start}
+                onPlay={play}
+                fill={!demo.featured}
+            />
+            <figcaption className="p-5">
+                <h2 className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
+                    {demo.title}
+                </h2>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
+                    {demo.desc}
+                </p>
+                {demo.chapters && demo.chapters.length > 0 && (
+                    <ul className="mt-4 border-t border-[var(--color-line)] pt-3">
+                        {demo.chapters.map((c) => {
+                            const [head, ...rest] = c.label.split(" – ");
+                            const sub = rest.join(" – ");
+                            return (
+                                <li key={c.time}>
+                                    <button
+                                        type="button"
+                                        onClick={() => play(c.sec)}
+                                        className="group flex w-full items-baseline gap-3 rounded-lg px-2 py-2 text-left transition hover:bg-[var(--color-surface-alt)]"
+                                    >
+                                        <span className="shrink-0 font-mono text-[13px] font-semibold tabular-nums text-[var(--color-accent)] group-hover:underline">
+                                            {c.time}
+                                        </span>
+                                        <span className="text-[14px] leading-snug">
+                                            <span className="font-semibold text-[var(--color-ink)]">
+                                                {head}
+                                            </span>
+                                            {sub && (
+                                                <span className="text-[var(--color-ink-subtle)]">
+                                                    {" "}
+                                                    – {sub}
+                                                </span>
+                                            )}
+                                        </span>
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
+            </figcaption>
+        </figure>
     );
 }
 
@@ -102,20 +223,7 @@ export function PocDemos() {
         <div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {DEMOS.map((d) => (
-                    <figure
-                        key={d.title}
-                        className="overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white"
-                    >
-                        <YouTubeFacade demo={d} />
-                        <figcaption className="p-5">
-                            <h2 className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
-                                {d.title}
-                            </h2>
-                            <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
-                                {d.desc}
-                            </p>
-                        </figcaption>
-                    </figure>
+                    <DemoCard key={d.title} demo={d} />
                 ))}
             </div>
 
