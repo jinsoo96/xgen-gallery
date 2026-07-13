@@ -166,12 +166,8 @@ export function SiteFooter() {
                                 <span className="text-[#00adee]">Labs</span>
                             </span>
                         </div>
-                        <p className="max-w-xs text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">
-                            {"Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다.".slice(
-                                0,
-                                80,
-                            )}
-                            …
+                        <p className="line-clamp-4 max-w-xs text-[14px] leading-relaxed text-[var(--color-ink-subtle)]">
+                            {"Plateer Labs는 기업이 신뢰할 수 있는 AI 플랫폼을 만들기 위한 핵심 기술을 연구하고 공유합니다. XGEN을 구성하는 문서 인제스션, 지식그래프, 에이전트 프레임워크 등 검증된 AI 기술을 오픈소스로 공개하여 누구나 쉽게 설치하고, 실험하고, 서비스에 적용할 수 있도록 지원합니다."}
                         </p>
                     </div>
 
@@ -207,6 +203,18 @@ export function SiteFooter() {
                                                 {g.label}
                                             </Link>
                                         ),
+                                    )}
+                                    {/* 우측 컬럼(Insight) 옆에 외부 Product 링크 — xgen.im 아웃링크 */}
+                                    {ci === 1 && (
+                                        <a
+                                            href="https://xgen.im"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                                        >
+                                            Product
+                                            <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
+                                        </a>
                                     )}
                                 </div>
                             ))}
