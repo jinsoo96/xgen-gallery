@@ -141,8 +141,10 @@ function YouTubeFacade({
                 }.jpg`}
                 alt={`${demo.title} 썸네일`}
                 loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover opacity-85 transition group-hover:opacity-100"
+                className="absolute inset-0 h-full w-full object-cover brightness-[1.22] saturate-[1.05] transition group-hover:scale-[1.02]"
             />
+            {/* 어두운 썸네일을 밝게 — CTA 배너 데모 카드와 동일한 보정 */}
+            <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/20 via-white/5 to-white/15" />
             <span className="relative z-10 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-[#070b1c] shadow-lg transition group-hover:scale-105">
                 <PlayCircle className="h-9 w-9" />
             </span>
