@@ -4,6 +4,7 @@ import { TOOLS } from "@/lib/tools";
 import { NAV_GROUPS } from "@/lib/nav";
 import { getMembersPayload } from "@/lib/members/cache";
 import { getAllPosts } from "@/lib/blog";
+import { getIssues } from "@/lib/newsletter";
 
 /**
  * Dynamic sitemap covering every public URL (home, tools, members, releases).
@@ -51,6 +52,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }));
 
+    const newsletterRoutes: MetadataRoute.Sitemap = getIssues().map((it) => ({
+        url: `${SITE.url}/newsletter/${it.slug}`,
+        lastModified: new Date(it.date),
+        changeFrequency: "monthly",
+        priority: 0.6,
+    }));
+
     let memberRoutes: MetadataRoute.Sitemap = [];
     try {
         const { members } = await getMembersPayload();
@@ -69,6 +77,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...groupRoutes,
         ...toolRoutes,
         ...blogRoutes,
+        ...newsletterRoutes,
         ...memberRoutes,
     ];
 }
