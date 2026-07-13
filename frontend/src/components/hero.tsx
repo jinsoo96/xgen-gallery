@@ -161,7 +161,16 @@ function SecuritySlide() {
     );
 }
 
-export function Hero() {
+type HeroPost = { slug: string; title: string; category: string; date: string };
+type HeroIssue = { slug: string; title: string; vol: number; date: string };
+
+export function Hero({
+    latestPost,
+    latestIssue,
+}: {
+    latestPost?: HeroPost | null;
+    latestIssue?: HeroIssue | null;
+}) {
     const [active, setActive] = useState(0);
 
     useEffect(() => {
@@ -253,8 +262,55 @@ export function Hero() {
                 </div>
             </div>
 
-            {/* 고객사 로고 — 동영상 위 하단 오버레이 (임시 주석 처리) */}
-            {/* <CustomerMarquee /> */}
+            {/* 최근 소식 — 동영상 위 하단 오버레이 (최근 블로그 1 · 뉴스레터 1) */}
+            {(latestPost || latestIssue) && (
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20">
+                    <div className="mx-auto w-full max-w-6xl px-6 pb-16 md:pb-24">
+                        <div className="pointer-events-auto grid gap-3 sm:grid-cols-2">
+                            {latestPost && (
+                                <Link
+                                    href={`/blog/${latestPost.slug}`}
+                                    className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                                >
+                                    <span className="flex-none rounded-full border border-white/20 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white/75">
+                                        {latestPost.category}
+                                    </span>
+                                    <div className="min-w-0">
+                                        <p className="text-[11px] text-white/50">
+                                            최근 블로그 ·{" "}
+                                            {latestPost.date.replaceAll("-", ".")}
+                                        </p>
+                                        <p className="truncate text-[14px] font-semibold text-white group-hover:underline">
+                                            {latestPost.title}
+                                        </p>
+                                    </div>
+                                    <ArrowRight className="ml-auto h-4 w-4 flex-none text-white/55 transition group-hover:translate-x-0.5 group-hover:text-white" />
+                                </Link>
+                            )}
+                            {latestIssue && (
+                                <Link
+                                    href={`/newsletter/${latestIssue.slug}`}
+                                    className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                                >
+                                    <span className="flex-none rounded-full border border-white/20 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white/75">
+                                        vol.{latestIssue.vol}
+                                    </span>
+                                    <div className="min-w-0">
+                                        <p className="text-[11px] text-white/50">
+                                            최근 뉴스레터 ·{" "}
+                                            {latestIssue.date.replaceAll("-", ".")}
+                                        </p>
+                                        <p className="truncate text-[14px] font-semibold text-white group-hover:underline">
+                                            {latestIssue.title}
+                                        </p>
+                                    </div>
+                                    <ArrowRight className="ml-auto h-4 w-4 flex-none text-white/55 transition group-hover:translate-x-0.5 group-hover:text-white" />
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
