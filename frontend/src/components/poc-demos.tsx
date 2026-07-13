@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PlayCircle, Clapperboard } from "lucide-react";
+import { PlayCircle, Clapperboard, CalendarDays } from "lucide-react";
 
 /**
  * 실증 데모(Proof in Action) — XGEN 기능이 실제로 동작하는 모습을 영상으로 보여준다.
@@ -31,8 +31,10 @@ type Demo = {
 const DEMOS: Demo[] = [
     {
         id: "3vkbqk7b5WY",
-        title: "XGEN 실증 데모",
-        desc: "XGEN이 실제 업무에서 동작하는 모습을 대표 영상으로 확인합니다",
+        // 제목·설명은 유튜브 원본과 동일하게 유지한다.
+        title: "XGEN 플랫폼 실증 데모 — 문서 업로드부터 AI 에이전트·품질검증까지 (4분)",
+        desc: "XGEN 온톨로지 엔진으로 정책문서 11종을 지식그래프로 만들고, 시맨틱 검색·전표 심사 에이전트·노코드 챗봇·LLM Judge 품질평가까지 한 번에 시연합니다. 코딩 없이 90초 만에 에이전트를 생성하고 조립합니다",
+        uploadDate: "2026-07-13",
         featured: true,
         chapters: [
             {
@@ -65,12 +67,14 @@ const DEMOS: Demo[] = [
     {
         id: "4T7tT2nTXfw",
         title: "XGEN PathFinder BUILD",
-        desc: "자연어 요구사항에서 실행 가능한 워크플로우를 만들어내는 과정",
+        desc: "PathFinder는 기존 웹 시스템을 AI가 이해하고 사용할 수 있는 Agent Tool로 연결하는 브라우저 자동화 기술입니다.",
+        uploadDate: "2026-07-03",
     },
     {
         id: "StxOW5PbC8w",
         title: "XGEN FloUI experience",
-        desc: "에이전트 실행 흐름을 시각적으로 조립하고 검증하는 경험",
+        desc: "FLOUI(Flow UI)는 사용자의 질문과 업무 흐름에 따라 화면이 스스로 구성되는 AI 기반 Adaptive UI 기술입니다.",
+        uploadDate: "2026-07-02",
     },
 ];
 
@@ -165,6 +169,14 @@ function DemoCard({ demo }: { demo: Demo }) {
                 <h2 className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
                     {demo.title}
                 </h2>
+                {demo.uploadDate && (
+                    <p className="mt-2 flex items-center gap-1.5 text-[12px] text-[var(--color-ink-subtle)]">
+                        <CalendarDays className="h-3.5 w-3.5" />
+                        <time dateTime={demo.uploadDate}>
+                            {demo.uploadDate.replaceAll("-", ".")} 업로드
+                        </time>
+                    </p>
+                )}
                 <p className="mt-1.5 text-[14px] leading-relaxed text-[var(--color-ink-muted)]">
                     {demo.desc}
                 </p>
