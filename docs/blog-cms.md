@@ -2,6 +2,10 @@
 
 연구소 블로그는 **DB 없이** 마크다운 파일로 운영합니다. 글 1개 = `frontend/content/blog/*.md` 파일 1개이며, 빌드 시점에 정적 페이지(SSG)로 구워져 SEO·GEO에 최적화됩니다.
 
+> **개발자에게 글을 받는 법(기여자용)**: [BLOG-CONTRIBUTING.md](./BLOG-CONTRIBUTING.md) 참고.
+> Decap 백엔드는 **Open Authoring**(`open_authoring: true`)이라, 기여자는 메인 리포 write 권한 없이
+> 자기 GitHub 계정으로 로그인 → fork에서 PR을 열고, 편집자가 리뷰·머지하면 발행됩니다.
+
 ## 구조
 - 콘텐츠: `frontend/content/blog/<slug>.md` (YAML 프론트매터 + 마크다운 본문)
 - 목록: `/blog` (카테고리 탭: 전체 / 제품 소식 / Tech Note / Case Study, + 주제(태그) 필터)

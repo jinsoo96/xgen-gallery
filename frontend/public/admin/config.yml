@@ -14,6 +14,10 @@ backend:
     name: github
     repo: PlateerLab/xgen-gallery
     branch: main
+    # Open Authoring — 로그인한 개발자에게 메인 리포 write 권한을 주지 않아도 된다.
+    # Decap이 각자 GitHub 계정으로 리포를 fork하고, 그 fork에서 upstream(main)으로 PR을
+    # 열어준다. 편집자는 PR만 리뷰·머지하면 발행된다. (repo가 public이어야 함 — 현재 public)
+    open_authoring: true
     # 우리 Next 앱이 OAuth 제공자 역할(/api/auth, /api/callback).
     # base_url 은 /api/auth 가 있는 origin = 운영 도메인. 어드민을 어느 URL에서 열든
     # OAuth 팝업은 이 origin으로 향한다(로컬 편집은 아래 local_backend가 처리).

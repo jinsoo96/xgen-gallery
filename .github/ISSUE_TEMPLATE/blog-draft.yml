@@ -1,0 +1,63 @@
+name: "✍️ 블로그 글감·초안 제안"
+description: "Insight 블로그에 실을 글감이나 초안을 제안합니다. 글감만 던져도 좋고, 초안 링크를 붙여도 좋습니다."
+title: "[블로그] "
+labels: ["blog", "draft"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        고맙습니다 🙌 글을 바로 쓰실 분은 이슈 대신 **`/admin`(GitHub 로그인) 또는 리포에 `.md` + PR**로 진행하셔도 됩니다.
+        먼저 톤·형식은 [블로그 글쓰기 가이드](../blob/main/docs/BLOG-WRITING-GUIDE.md)와 [기여 가이드](../blob/main/docs/BLOG-CONTRIBUTING.md)를 참고해 주세요.
+  - type: input
+    id: title
+    attributes:
+      label: 제목(가안)
+      description: 핵심 키워드를 앞에, 마침표 없이. 나중에 다듬어도 됩니다.
+      placeholder: "예) GS 인증을 준비하며 배운 것 — 소프트웨어 건강검진 6주 기록"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 카테고리
+      options:
+        - Tech Note
+        - Case Study
+        - 제품 소식
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: 한 줄 요약(결론 먼저)
+      description: 이 글이 독자에게 주는 결론/이득을 40~155자로. 검색·AI 답변에 그대로 노출됩니다(GEO).
+      placeholder: "무엇을, 왜, 그래서 독자에게 어떤 이득인지 한 문장으로"
+    validations:
+      required: true
+  - type: textarea
+    id: outline
+    attributes:
+      label: 개요(H2 소제목 흐름)
+      description: "계기 → 과정(시행착오) → 배운 점 순의 3~6개 소제목이면 충분합니다."
+      placeholder: |
+        - 왜 이걸 하게 됐나
+        - 이렇게 접근했다 (구체적 장면·숫자)
+        - 넘어진 자리와 배운 점
+    validations:
+      required: false
+  - type: input
+    id: author
+    attributes:
+      label: 작성자(GitHub 아이디)
+      description: 바이라인·작성자 프로필 연결에 씁니다.
+      placeholder: "@your-github-id"
+    validations:
+      required: false
+  - type: input
+    id: draft_link
+    attributes:
+      label: 초안 링크(선택)
+      description: 이미 초안이 있으면 PR·문서 링크를 붙여주세요.
+      placeholder: "PR 또는 문서 URL"
+    validations:
+      required: false
