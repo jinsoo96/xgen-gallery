@@ -16,7 +16,7 @@ export function SiteFooter() {
     // CTA 배너에 '실증 데모' 영상 카드를 함께 노출. CTA가 뜨는 모든 페이지에 적용하되,
     // 데모 페이지 자신(/proof-in-action)에서는 중복이므로 제외한다.
     const showDemo = showCta && pathname !== "/proof-in-action";
-    const DEMO_ID = "MJ8tWfGJcyA";
+    const DEMO_ID = "LuRzekBXa98";
     const DEMO_THUMB = `https://i.ytimg.com/vi/${DEMO_ID}/maxresdefault.jpg`;
     // 배너 내 인라인 재생 상태(클릭 전엔 썸네일 파사드, 클릭 시 임베드 로드).
     const [demoPlaying, setDemoPlaying] = useState(false);
