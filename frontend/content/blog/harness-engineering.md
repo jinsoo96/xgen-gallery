@@ -5,7 +5,7 @@ date: "2026-06-12"
 author: "Plateer Labs"
 category: "Tech Note"
 tags: ["하네스", "LLMOps", "신뢰성"]
-draft: false
+draft: true
 ---
 
 **한 줄 요약 —** Prompt(지시)와 Context(맥락)를 넘어, LLM이 실제로 일하는 환경 전체를 통제하는 기술이 Harness Engineering입니다.
