@@ -62,6 +62,11 @@ const DEMOS: Demo[] = [
                 sec: 214,
                 label: "AI 품질 평가 – 배치 테스트와 LLM Judge 자동 채점",
             },
+            {
+                time: "04:07",
+                sec: 247,
+                label: "XGEN Pathfinder – 레거시 시스템에 AI 연결 (API 자동 수집·호출)",
+            },
         ],
     },
     {
