@@ -50,6 +50,7 @@ collections:
           - { name: date, label: "발행일", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
           - { name: updated, label: "수정일", widget: datetime, required: false, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", hint: "내용을 고쳤을 때만. 검색엔진 신선도(freshness) 신호" }
           - { name: author, label: "작성자", widget: string, default: "Plateer Labs" }
+          - { name: authorGithub, label: "작성자 GitHub 아이디(선택)", widget: string, required: false, hint: "예: octocat — 입력하면 바이라인이 /members/<아이디> 프로필로 연결되고 Person 저작 정보(GEO)가 붙습니다" }
           - {
                 name: category,
                 label: "카테고리",

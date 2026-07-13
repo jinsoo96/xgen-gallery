@@ -19,6 +19,7 @@ export interface PostMeta {
     date: string; // ISO (YYYY-MM-DD)
     updated?: string;
     author: string;
+    authorGithub?: string; // GitHub 로그인 — 있으면 바이라인을 /members/<login>으로 연결(Person JSON-LD)
     editor?: string;
     kicker?: string;
     category: string;
@@ -61,6 +62,9 @@ function parse(slug: string): Post | null {
         date: String(data.date ?? "").slice(0, 10),
         updated: data.updated ? String(data.updated).slice(0, 10) : undefined,
         author: String(data.author ?? "Plateer Labs"),
+        authorGithub: data.authorGithub
+            ? String(data.authorGithub).replace(/^@/, "")
+            : undefined,
         editor: data.editor ? String(data.editor) : undefined,
         kicker: data.kicker ? String(data.kicker) : undefined,
         category: String(data.category ?? "Tech Note"),

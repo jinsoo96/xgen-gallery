@@ -125,8 +125,21 @@ export function blogPostingLd(post: {
     date: string;
     updated?: string;
     author: string;
+    authorGithub?: string;
     cover?: string;
 }) {
+    // 작성자가 멤버(GitHub 계정 명시)면 Person으로, 아니면 조직 저작으로 표기.
+    // Person @id는 /members/<login>#person(personLd)과 동일해 엔티티가 그래프로 연결된다.
+    const author = post.authorGithub
+        ? {
+              "@type": "Person",
+              "@id": absoluteUrl(`/members/${post.authorGithub}#person`),
+              name: post.author,
+              url: absoluteUrl(`/members/${post.authorGithub}`),
+              sameAs: [`https://github.com/${post.authorGithub}`],
+          }
+        : { "@type": "Organization", name: post.author, "@id": ORG_ID };
+
     return {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -137,7 +150,7 @@ export function blogPostingLd(post: {
         datePublished: post.date,
         dateModified: post.updated || post.date,
         ...(post.cover ? { image: absoluteUrl(post.cover) } : {}),
-        author: { "@type": "Organization", name: post.author, "@id": ORG_ID },
+        author,
         publisher: { "@id": ORG_ID },
         mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
         inLanguage: "ko",

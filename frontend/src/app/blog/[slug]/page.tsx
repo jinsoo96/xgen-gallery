@@ -85,9 +85,27 @@ export default async function BlogPostPage({
                         <ViewCount slug={post.slug} />
                     </div>
                     <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px] text-white/60">
-                        <span>
+                        <span className="inline-flex items-center gap-1.5">
                             작성 <span className="text-white/40">|</span>{" "}
-                            <span className="text-white/80">{post.author}</span>
+                            {post.authorGithub ? (
+                                <Link
+                                    href={`/members/${post.authorGithub}`}
+                                    className="inline-flex items-center gap-1.5 text-white/80 transition hover:text-white"
+                                >
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src={`https://github.com/${post.authorGithub}.png`}
+                                        alt=""
+                                        loading="lazy"
+                                        className="h-5 w-5 rounded-full ring-1 ring-white/20"
+                                    />
+                                    <span className="underline-offset-2 hover:underline">
+                                        {post.author}
+                                    </span>
+                                </Link>
+                            ) : (
+                                <span className="text-white/80">{post.author}</span>
+                            )}
                         </span>
                         {post.editor && (
                             <span>

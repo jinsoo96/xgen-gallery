@@ -45,7 +45,8 @@ title: "핵심 키워드를 앞에 — 마침표 없이(≤60자 권장)"
 description: "검색·AI 답변에 그대로 노출되는 한 줄 요약. 결론 먼저, 40~155자(GEO)"
 date: "2026-07-13"
 # updated: "2026-07-20"   # 내용을 고쳤을 때만
-author: "홍길동"           # 바이라인. GitHub 아이디를 함께 남기면 프로필 연결에 좋습니다
+author: "홍길동"           # 화면에 보일 작성자 이름(바이라인)
+# authorGithub: "your-github-id"  # 입력하면 바이라인이 /members/<아이디> 프로필로 연결 + Person 저작(GEO)
 category: "Tech Note"       # Case Study | Tech Note | 제품 소식
 tags: ["온톨로지", "하네스", "GEO"]   # 주제 엔티티 — 목록 필터·SEO 키워드
 # cover: "/blog/<slug>.png"  # 선택 — SNS/검색 썸네일(1200×630 권장)
