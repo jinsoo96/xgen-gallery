@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { Suspense } from "react";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
@@ -9,12 +10,12 @@ import {
     StatsBarSkeleton,
 } from "@/components/members-skeleton";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Lab Members",
     description:
         "Meet the people behind Plateer Labs — the open-source contributors building XGEN.",
-    alternates: { canonical: "/members" },
-};
+    path: "/members",
+});
 
 // Render per request and stream: the nav + hero key-visual flush immediately,
 // while <MembersSection> resolves inside its Suspense boundary. A slow GitHub

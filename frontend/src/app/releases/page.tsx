@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { ReleasesView } from "@/components/releases-view";
@@ -7,12 +8,12 @@ import { JsonLd } from "@/components/json-ld";
 import { RELEASES } from "@/lib/releases";
 import { itemListLd } from "@/lib/structured-data";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Release notes",
     description:
         "XGEN 플랫폼의 주요 업데이트 및 릴리스 이력. 신규 기능, 개선사항, 버그 수정을 한 곳에서 확인하세요.",
-    alternates: { canonical: "/releases" },
-};
+    path: "/releases",
+});
 
 export default function ReleasesPage() {
     return (

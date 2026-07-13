@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/metadata";
 import { GroupPage } from "@/components/onepage";
 import { ResearchContent, PapersContent } from "@/components/research-content";
 import { getGroup } from "@/lib/nav";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Research",
     description:
         "Plateer Labs의 연구 — Enterprise AI를 현실로 만드는 연구 영역과 아키텍처.",
-    alternates: { canonical: "/research" },
-};
+    path: "/research",
+});
 
 function ResearchHero() {
     return (

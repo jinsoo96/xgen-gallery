@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { DemoForm } from "@/components/demo-form";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "PoC · 기술 상담",
     description:
         "Plateer Labs에 PoC와 Enterprise AI 기술 상담을 요청하세요. 과제를 남겨주시면 담당자가 영업일 기준 1–2일 내에 연락드립니다.",
-    alternates: { canonical: "/contact" },
-};
+    path: "/contact",
+});
 
 const BENEFITS = [
     "과제 정의부터 PoC 설계·실행까지 전문가 1:1 상담",

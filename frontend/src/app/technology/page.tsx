@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { GroupPage } from "@/components/onepage";
 import {
     EnginesContent,
@@ -5,12 +6,12 @@ import {
 } from "@/components/technology-sections";
 import { getGroup } from "@/lib/nav";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Technology",
     description:
         "Ontology · Harness 엔진부터 AgenticOps · GraphRAG 프레임워크, 독립 MCP 런타임까지 — 운영·독립·연결·확장을 떠받치는 XGEN 기술.",
-    alternates: { canonical: "/technology" },
-};
+    path: "/technology",
+});
 
 function TechnologyHero() {
     return (

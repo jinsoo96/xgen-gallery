@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
@@ -6,12 +7,12 @@ import { ToolGrid } from "@/components/tool-grid";
 import { UseCases } from "@/components/usecases";
 import { RuntimeContent } from "@/components/technology-sections";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Library Gallery",
     description:
         "XGEN 플랫폼을 떠받치는 오픈소스 AI 라이브러리 모음 — 문서 인제스션, 지식 그래프, 에이전트 도구. pip로 설치하거나 브라우저에서 바로 체험하세요.",
-    alternates: { canonical: "/library-gallery" },
-};
+    path: "/library-gallery",
+});
 
 export default function LibraryGalleryPage() {
     return (

@@ -1,14 +1,15 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { PocContent } from "@/components/poc-content";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "PoC Projects",
     description:
         "Plateer Labs의 PoC 실증 프로젝트 — 고객 현장의 페인포인트에서 출발해 XGEN 기술로 검증한 Enterprise AI 사례.",
-    alternates: { canonical: "/poc-projects" },
-};
+    path: "/poc-projects",
+});
 
 export default function PocProjectsPage() {
     return (

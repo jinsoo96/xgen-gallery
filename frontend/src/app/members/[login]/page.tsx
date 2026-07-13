@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { MemberDetailView } from "@/components/member-detail";
@@ -20,11 +21,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { login } = await params;
     if (!LOGIN_RE.test(login)) return { title: "Member" };
-    return {
+    return pageMetadata({
         title: `@${login} — Member`,
         description: `GitHub profile, repositories, and stats for @${login} at Plateer Labs.`,
-        alternates: { canonical: `/members/${login}` },
-    };
+        path: `/members/${login}`,
+        image: `https://github.com/${login}.png`,
+        imageDims: { width: 460, height: 460 },
+    });
 }
 
 export default async function MemberPage({

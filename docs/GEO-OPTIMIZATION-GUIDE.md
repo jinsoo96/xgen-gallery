@@ -86,14 +86,35 @@ JSON 객체를 렌더하면 된다.
 > 권장: `src/lib/structured-data.ts`에 타입별 JSON-LD 빌더 함수를 모으고,
 > 각 페이지 서버 컴포넌트에서 `<JsonLd data={...} />` 형태로 주입.
 
-### 2.2 메타데이터 (Next.js `metadata` API)
-모든 라우트의 `export const metadata`(또는 `generateMetadata`)에 반드시:
-- `title` (≤60자, 브랜드명 일관 표기) · `description` (≤155자, 결론 우선·구체적)
-- `openGraph` (title, description, type, url, images, siteName=`Plateer AIX Labs`)
-- `twitter` (`summary_large_image`)
-- `alternates.canonical` (정규 URL)
-- `keywords` (보조용)
-- 동적 페이지는 `generateMetadata`로 항목별 고유 메타 생성
+### 2.2 메타데이터 (Next.js `metadata` API) — **`pageMetadata()` 헬퍼 필수**
+
+> **강제 규칙:** 새 페이지의 메타데이터는 **반드시 `src/lib/metadata.ts`의 `pageMetadata()` 헬퍼로 생성**한다.
+> 손으로 `export const metadata = { ... }`를 쓰면서 `openGraph`/`twitter`를 빠뜨리면, 링크 미리보기
+> (Teams·Slack·카카오·iMessage 등)가 **페이지 내용이 아니라 루트 레이아웃의 사이트 공통 기본값**으로
+> 떠버린다(모든 페이지가 홈과 똑같은 미리보기). 헬퍼는 canonical·OpenGraph·Twitter 카드를 페이지
+> 제목/설명으로 한 번에 채워 이 누락을 구조적으로 방지한다.
+
+정적 페이지:
+
+```tsx
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+    title: "Technology",              // ≤60자, 브랜드명 일관 표기(접미사는 template이 자동)
+    description: "…결론 우선·구체적…",  // ≤155자
+    path: "/technology",              // canonical + og:url
+    // image / imageDims — 생략 시 사이트 공통 OG 이미지. 페이지 고유 이미지가 있으면 지정
+    //   (예: 영상 썸네일 https://i.ytimg.com/vi/<id>/maxresdefault.jpg, 1280×720)
+    // robots — noindex 등 필요 시
+});
+```
+
+동적 페이지는 `generateMetadata`에서 동일하게 `pageMetadata({...})`를 **반환**한다
+(예: `/members/[login]`은 로그인별 제목·설명 + 아바타 이미지 `https://github.com/<login>.png`).
+
+- 헬퍼가 자동 처리: `title`·`description`·`alternates.canonical`·`openGraph`(type·siteName·title·description·url·locale·images)·`twitter`(`summary_large_image`).
+- `keywords`(보조용) 등 추가 필드가 필요하면 반환 객체에 스프레드로 병합.
+- **직접 `openGraph`를 손으로 쓰지 말 것** — 페이지 고유 이미지는 `image`/`imageDims` 인자로 넘긴다.
 
 ### 2.3 AI 크롤러 접근 (`public/` 또는 라우트 핸들러)
 - **`robots.txt`** — 주요 AI 크롤러를 **명시적으로 허용**:
@@ -178,7 +199,8 @@ JSON 객체를 렌더하면 된다.
 | JSON-LD 빌더(신규 권장) | `frontend/src/lib/structured-data.ts` |
 | robots / sitemap / llms.txt | `frontend/src/app/robots.ts`, `frontend/src/app/sitemap.ts`, `frontend/public/llms.txt` |
 | 툴 카탈로그(엔티티 데이터) | `frontend/src/lib/tools.ts` |
-| 페이지별 메타 | 각 `app/**/page.tsx`의 `metadata`/`generateMetadata` |
+| 페이지 메타 헬퍼(**필수**) | `frontend/src/lib/metadata.ts`의 `pageMetadata()` |
+| 페이지별 메타 | 각 `app/**/page.tsx`의 `metadata`/`generateMetadata` → **`pageMetadata()`로 생성** |
 | 시맨틱 마크업 | `frontend/src/components/*` |
 
 ---
@@ -190,7 +212,7 @@ JSON 객체를 렌더하면 된다.
 - [ ] `<h1>` 1개 + 논리적 heading 계층, 시맨틱 태그 사용
 - [ ] answer-first 도입부(자족적 첫 문장)
 - [ ] 적합한 schema.org **JSON-LD 주입** (페이지 유형에 맞게)
-- [ ] `metadata`: title/description/openGraph/twitter/canonical 완비, 브랜드명 일관 표기
+- [ ] `metadata`를 **`pageMetadata()` 헬퍼로 생성**(openGraph/twitter/canonical 자동 완비) — 손으로 쓴 bare metadata 객체 금지. 페이지 고유 이미지는 `image`/`imageDims` 인자로 전달
 - [ ] FAQ/Q&A 또는 구조화된 비교·목록 1개 이상 (해당 시 `FAQPage` JSON-LD)
 - [ ] 구체적 숫자·날짜·근거 포함, 과장 수식어 제거
 - [ ] 표시용 카피/헤드라인/태그라인에 **마침표(.) 없음** (설명형 본문 단락 제외)

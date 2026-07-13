@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
@@ -7,12 +8,12 @@ import { ArrowUpRight } from "lucide-react";
 const MANUAL_URL =
     "https://sooanc.github.io/xgen-manual/docs/xgen-standard/index.html";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Documentation",
     description:
         "XGEN 플랫폼 사용자 매뉴얼 — 플랫폼과 라이브러리 사용을 위한 가이드와 레퍼런스.",
-    alternates: { canonical: "/documentation" },
-};
+    path: "/documentation",
+});
 
 export default function DocumentationPage() {
     return (

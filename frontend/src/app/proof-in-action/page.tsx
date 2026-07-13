@@ -2,33 +2,17 @@ import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { PocDemos } from "@/components/poc-demos";
+import { pageMetadata } from "@/lib/metadata";
 
-const OG_TITLE = "실증 데모 — Proof in Action · Plateer Labs";
-const OG_DESC =
-    "백마디 말보다 실행으로 — XGEN Agentic AI 플랫폼의 핵심 기능이 실제로 실행되는 모습을 영상으로 확인하는 실증 데모.";
-// 대표 영상(XGEN 실증 데모) 썸네일 — 링크 미리보기 이미지로 사용(1280×720).
-const OG_IMAGE = "https://i.ytimg.com/vi/3vkbqk7b5WY/maxresdefault.jpg";
-
-export const metadata = {
+export const metadata = pageMetadata({
     title: "실증 데모 — Proof in Action",
     description:
         "백마디 말보다 실행으로 — XGEN Agentic AI 플랫폼의 핵심 기능이 실제로 실행되는 모습을 영상으로 확인하는 실증 데모.",
-    alternates: { canonical: "/proof-in-action" },
-    // 페이지 전용 OG — 없으면 링크 미리보기가 사이트 공통 기본값으로 뜬다.
-    openGraph: {
-        type: "website",
-        title: OG_TITLE,
-        description: OG_DESC,
-        url: "/proof-in-action",
-        images: [{ url: OG_IMAGE, width: 1280, height: 720 }],
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: OG_TITLE,
-        description: OG_DESC,
-        images: [OG_IMAGE],
-    },
-};
+    path: "/proof-in-action",
+    // 대표 영상(XGEN 실증 데모) 썸네일을 링크 미리보기 이미지로 사용.
+    image: "https://i.ytimg.com/vi/3vkbqk7b5WY/maxresdefault.jpg",
+    imageDims: { width: 1280, height: 720 },
+});
 
 export default function ProofInActionPage() {
     return (

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
@@ -16,12 +17,12 @@ import {
     type LucideIcon,
 } from "lucide-react";
 
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Architecture",
     description:
         "Plateer Labs의 Enterprise AI 참조 아키텍처 — 데이터 주권·보안·거버넌스를 보장하는 계층형 설계.",
-    alternates: { canonical: "/architecture" },
-};
+    path: "/architecture",
+});
 
 /** 아키텍처 페이지 섹션 목차 — 온페이지 인덱스와 GNB 서브메뉴가 공유. */
 export const ARCH_SECTIONS = [

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/metadata";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
@@ -8,13 +9,13 @@ import { ResearchContent2 } from "@/components/research-content2";
  * 연구 분야 콘텐츠의 새 버전(미리보기). 기존 /research#research-areas 는 백업으로
  * 보존한다. 정식 전환 전까지는 중복 색인 방지를 위해 noindex.
  */
-export const metadata = {
+export const metadata = pageMetadata({
     title: "Research Areas · R&D",
     description:
         "Plateer Labs R&D — 온톨로지 기반 지식(OGRAG), 에이전트 하네스 실행 제어, AI 개발 생산성, 인프라·모델 최적화 연구.",
-    alternates: { canonical: "/research-areas2" },
+    path: "/research-areas2",
     robots: { index: false, follow: true },
-};
+});
 
 export default function ResearchAreas2Page() {
     return (
