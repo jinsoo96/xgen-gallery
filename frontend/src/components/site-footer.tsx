@@ -48,7 +48,7 @@ export function SiteFooter() {
                             <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.2em] text-[var(--color-ink-subtle)]">
                                 Research. Technology. Impact.
                             </p>
-                            <h2 className="mt-4 text-2xl font-bold tracking-tight text-[var(--color-ink)] md:text-[34px] md:leading-[1.2]">
+                            <h2 className="mt-4 text-2xl font-bold tracking-tight text-balance break-keep text-[var(--color-ink)] md:text-[34px] md:leading-[1.2]">
                                 기업용{" "}
                                 <span className="bg-gradient-to-r from-[#2f7bff] to-[#7c5cff] bg-clip-text text-transparent">
                                     AI 솔루션
@@ -56,12 +56,12 @@ export function SiteFooter() {
                                 도입, 연구에서 실증까지 함께 설계합니다
                             </h2>
                             <p
-                                className={`mt-4 flex items-center justify-center gap-2 text-[14.5px] leading-snug text-[var(--color-ink-muted)] ${
+                                className={`mt-4 flex items-baseline justify-center gap-2 text-[14.5px] leading-snug text-[var(--color-ink-muted)] ${
                                     showDemo ? "md:justify-start" : "mx-auto"
                                 }`}
                             >
-                                <UsersRound className="h-4 w-4 flex-none text-[#2461d8]" />
-                                <span>
+                                <UsersRound className="h-4 w-4 flex-none translate-y-0.5 text-[#2461d8]" />
+                                <span className="break-keep">
                                     현장에 배치되는{" "}
                                     <span className="font-bold text-[#2461d8]">
                                         FDE(Forward Deployed Engineer)
@@ -70,13 +70,12 @@ export function SiteFooter() {
                                 </span>
                             </p>
                             <p
-                                className={`mt-4 max-w-2xl text-[17px] leading-relaxed text-[var(--color-ink-muted)] ${
+                                className={`mt-4 max-w-2xl text-pretty break-keep text-[17px] leading-relaxed text-[var(--color-ink-muted)] ${
                                     showDemo ? "md:mx-0" : "mx-auto"
                                 }`}
                             >
-                                Plateer Labs는 풍부한 연구 경험과 검증된 기술력으로
-                                <br className="hidden sm:block" />
-                                귀사의 AI 전환 여정을 성공적으로 지원합니다
+                                Plateer Labs는 풍부한 연구 경험과 검증된 기술력으로 귀사의
+                                AI 전환 여정을 성공적으로 지원합니다
                             </p>
                             <div
                                 className={`mt-8 flex flex-wrap items-center gap-3 ${
