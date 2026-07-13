@@ -67,6 +67,16 @@ export default function ContactPage() {
                                     </li>
                                 ))}
                             </ul>
+
+                            <p className="mt-8 text-[15px] leading-relaxed text-white/70">
+                                양식 대신 바로 메일로도 문의하실 수 있습니다{" "}
+                                <a
+                                    href="mailto:xgen@plateer.com?subject=PoC%C2%B7%EA%B8%B0%EC%88%A0%20%EC%83%81%EB%8B%B4%20%EB%AC%B8%EC%9D%98"
+                                    className="font-semibold text-[#7dd3fc] underline-offset-2 hover:underline"
+                                >
+                                    xgen@plateer.com
+                                </a>
+                            </p>
                         </div>
 
                         {/* form */}
