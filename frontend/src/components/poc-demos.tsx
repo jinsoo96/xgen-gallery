@@ -30,9 +30,9 @@ type Demo = {
 
 const DEMOS: Demo[] = [
     {
-        id: "3vkbqk7b5WY",
+        id: "MJ8tWfGJcyA",
         // 제목·설명은 유튜브 원본과 동일하게 유지한다.
-        title: "XGEN 플랫폼 실증 데모 — 문서 업로드부터 AI 에이전트·품질검증까지 (4분)",
+        title: "XGEN 플랫폼 실증 데모 — 문서 업로드부터 AI 에이전트·품질검증까지 (5분)",
         desc: "XGEN 온톨로지 엔진으로 정책문서 11종을 지식그래프로 만들고, 시맨틱 검색·전표 심사 에이전트·노코드 챗봇·LLM Judge 품질평가까지 한 번에 시연합니다. 코딩 없이 90초 만에 에이전트를 생성하고 조립합니다",
         uploadDate: "2026-07-13",
         featured: true,
