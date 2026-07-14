@@ -269,6 +269,13 @@ export function SiteFooter() {
                             >
                                 뉴스레터 구독
                             </Link>
+                            {/* Decap CMS 진입점 — GitHub 로그인 후 글 기고(Open Authoring) */}
+                            <a
+                                href="/admin"
+                                className="text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
+                            >
+                                블로그 기고
+                            </a>
                         </div>
                     </nav>
                 </div>

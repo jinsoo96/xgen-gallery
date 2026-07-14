@@ -225,10 +225,30 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                                     ))}
                                 </div>
                             )}
-                            <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[15px] font-semibold text-[#2461d8]">
-                                읽어보기
-                                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-                            </span>
+                            <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+                                <span className="flex min-w-0 items-center gap-2">
+                                    {p.authorGithub ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img
+                                            src={`https://github.com/${p.authorGithub}.png`}
+                                            alt=""
+                                            loading="lazy"
+                                            className="h-6 w-6 flex-none rounded-full ring-1 ring-[var(--color-line)]"
+                                        />
+                                    ) : (
+                                        <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-[var(--color-surface-alt)] text-[11px] font-bold text-[var(--color-ink-subtle)]">
+                                            {p.author.slice(0, 1)}
+                                        </span>
+                                    )}
+                                    <span className="truncate text-[13.5px] font-medium text-[var(--color-ink-muted)]">
+                                        {p.author}
+                                    </span>
+                                </span>
+                                <span className="inline-flex flex-none items-center gap-1.5 text-[15px] font-semibold text-[#2461d8]">
+                                    읽어보기
+                                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                                </span>
+                            </div>
                             </div>
                         </Link>
                     ))}
