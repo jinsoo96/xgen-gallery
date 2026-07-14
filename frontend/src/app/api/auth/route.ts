@@ -12,13 +12,23 @@ export const dynamic = "force-dynamic";
 // (비밀인 CLIENT_SECRET만 서버 .env에 필요 — 토큰 교환은 /api/callback에서 수행)
 const PUBLIC_OAUTH_CLIENT_ID = "Ov23liv3gveHfTPsLH2Z";
 
+// GitHub OAuth App에 등록된 콜백 도메인(불변) — GitHub은 이 redirect_uri만 허용한다.
+// nginx 프록시 뒤에서는 req.url의 host가 내부 컨테이너 ID로 잡혀 redirect_uri가
+// 틀어지므로(→ Invalid Redirect URI), 로컬 개발이 아니면 이 도메인으로 고정한다.
+// (다른 도메인으로 바뀌면 OAUTH_REDIRECT_ORIGIN 환경변수로 덮어쓸 수 있음)
+const OAUTH_REDIRECT_ORIGIN =
+    process.env.OAUTH_REDIRECT_ORIGIN || "https://labs.plateer.com";
+
 export function GET(req: NextRequest) {
     const clientId =
         process.env.GITHUB_OAUTH_CLIENT_ID || PUBLIC_OAUTH_CLIENT_ID;
-    const origin = new URL(req.url).origin;
+    const reqOrigin = new URL(req.url).origin;
+    const isLocal =
+        reqOrigin.includes("localhost") || reqOrigin.includes("127.0.0.1");
+    const base = isLocal ? reqOrigin : OAUTH_REDIRECT_ORIGIN;
     const authorize = new URL("https://github.com/login/oauth/authorize");
     authorize.searchParams.set("client_id", clientId);
-    authorize.searchParams.set("redirect_uri", `${origin}/api/callback`);
+    authorize.searchParams.set("redirect_uri", `${base}/api/callback`);
     // private repo 커밋까지 허용하려면 'repo' 스코프가 필요하다.
     authorize.searchParams.set("scope", "repo,user");
     authorize.searchParams.set("state", crypto.randomUUID());
