@@ -6,14 +6,15 @@ import { SiteFooter } from "@/components/site-footer";
 import { SceneBackground } from "@/components/scene-background";
 import { JsonLd } from "@/components/json-ld";
 import { ViewCount } from "@/components/view-count";
-import { getAllSlugs, getPost } from "@/lib/blog";
+import { getBuildSlugs, getPost } from "@/lib/blog";
 import { blogPostingLd, breadcrumbLd } from "@/lib/structured-data";
 import { absoluteUrl } from "@/lib/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-    return getAllSlugs().map((slug) => ({ slug }));
+    // 초안 포함 전체를 빌드 — 초안은 목록·검색엔 안 뜨지만 URL 직접 접근 프리뷰용.
+    return getBuildSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -26,10 +27,14 @@ export async function generateMetadata({
     if (!post) return {};
     const url = absoluteUrl(`/blog/${post.slug}`);
     return {
-        title: post.title,
+        title: post.draft ? `[초안] ${post.title}` : post.title,
         description: post.description,
         alternates: { canonical: `/blog/${post.slug}` },
         keywords: post.tags,
+        // 초안 프리뷰는 검색엔진 색인 금지(목록·사이트맵에서도 이미 제외).
+        ...(post.draft
+            ? { robots: { index: false, follow: false } }
+            : {}),
         openGraph: {
             title: post.title,
             description: post.description,
@@ -78,6 +83,13 @@ export default async function BlogPostPage({
             <section className="relative flex min-h-[380px] items-center overflow-hidden border-b border-white/10 py-28 text-white">
                 <SceneBackground concept="insights" />
                 <div className="relative mx-auto w-full max-w-3xl px-6 pt-16">
+                    {post.draft && (
+                        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-400/15 px-3.5 py-1.5 text-[13px] font-semibold text-amber-100 backdrop-blur">
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+                            초안 미리보기 · 아직 발행 전 (목록·검색에는 노출되지
+                            않습니다)
+                        </div>
+                    )}
                     <div className="flex flex-wrap items-center gap-2 text-[14px] text-white/60">
                         <time dateTime={post.date}>{fmtDate(post.date)}</time>
                         <span>·</span>
