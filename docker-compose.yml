@@ -28,9 +28,12 @@ services:
       # /newsletter 구독 수신 웹훅 — Google Apps Script 웹앱 URL (시트 upsert + 확인 메일).
       # 설정 방법: docs/newsletter-webhook.gs 참고. 비어 있으면 서버 로그로만 기록.
       NEWSLETTER_WEBHOOK_URL: "${NEWSLETTER_WEBHOOK_URL:-}"
-      # 블로그 어드민(Decap CMS) GitHub OAuth — docs/blog-cms.md 참고.
-      GITHUB_OAUTH_CLIENT_ID: "${GITHUB_OAUTH_CLIENT_ID:-}"
-      GITHUB_OAUTH_CLIENT_SECRET: "${GITHUB_OAUTH_CLIENT_SECRET:-}"
+      # 블로그 어드민(Decap CMS) GitHub OAuth 자격증명(GITHUB_OAUTH_CLIENT_ID/SECRET)은
+      # 위 env_file(.env)로만 주입한다. docs/blog-cms.md 참고.
+      # ⚠️ 여기 environment 블록에 "${VAR:-}" 형태로 다시 선언하지 말 것 —
+      #    environment는 env_file보다 우선순위가 높다. 다른 디렉터리에서 compose를
+      #    실행해 ${...} 인터폴레이션이 비면 그 빈 값이 .env 값을 덮어써(clobber)
+      #    런타임에 "CLIENT_ID 미설정" 에러가 난다. (실제로 이 함정을 밟았음)
     depends_on:
       backend:
         condition: service_healthy

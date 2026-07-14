@@ -11,8 +11,22 @@ export function GET(req: NextRequest) {
     const clientId = process.env.GITHUB_OAUTH_CLIENT_ID;
     if (!clientId) {
         return new Response(
-            "GITHUB_OAUTH_CLIENT_ID 가 설정되지 않았습니다. .env 를 확인하세요.",
-            { status: 500 },
+            [
+                "GITHUB_OAUTH_CLIENT_ID가 실행 중인 서버에 없습니다.",
+                "",
+                "이 값은 docker-compose의 env_file(.env)로 주입됩니다. 다음을 확인하세요:",
+                "  1) 이 박스의 .env에 GITHUB_OAUTH_CLIENT_ID / _SECRET 값이 있는가",
+                '  2) docker-compose.yml의 environment 블록이 이 변수를 "${VAR:-}"로',
+                "     덮어써 빈 값으로 만들고 있지 않은가 (env_file보다 우선함 — clobber)",
+                "",
+                "수정 후 재배포:  docker compose up -d --build frontend",
+                "실행 확인:      docker compose exec frontend printenv GITHUB_OAUTH_CLIENT_ID",
+                "(docs/blog-cms.md — OAuth 환경변수 함정)",
+            ].join("\n"),
+            {
+                status: 500,
+                headers: { "content-type": "text/plain; charset=utf-8" },
+            },
         );
     }
     const origin = new URL(req.url).origin;
