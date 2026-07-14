@@ -278,13 +278,15 @@ export function Hero({
                                     <span className="flex-none rounded-full bg-[#2f7bff] px-2.5 py-1 text-[11px] font-bold text-white">
                                         {productNews.category}
                                     </span>
-                                    <span className="hidden flex-none text-[11px] text-white/50 sm:inline">
-                                        최신 소식 ·{" "}
-                                        {productNews.date.replaceAll("-", ".")}
-                                    </span>
-                                    <span className="truncate text-[14px] font-semibold text-white group-hover:underline">
-                                        {productNews.title}
-                                    </span>
+                                    <div className="min-w-0">
+                                        <p className="text-[11px] text-white/50">
+                                            최신 소식 ·{" "}
+                                            {productNews.date.replaceAll("-", ".")}
+                                        </p>
+                                        <p className="truncate text-[14px] font-semibold text-white group-hover:underline">
+                                            {productNews.title}
+                                        </p>
+                                    </div>
                                     <ArrowRight className="ml-auto h-4 w-4 flex-none text-white/60 transition group-hover:translate-x-0.5 group-hover:text-white" />
                                 </Link>
                             )}
