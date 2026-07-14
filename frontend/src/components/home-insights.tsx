@@ -15,12 +15,11 @@ function fmt(date: string) {
 export function HomeInsights() {
     const all = getAllPosts();
     const pinned = all.find((p) => p.slug === PINNED_SLUG);
-    const techNotes = all.filter(
-        (p) => p.category === "Tech Note" && p.slug !== PINNED_SLUG,
-    );
-    // 고정 글 + 최근 Tech Note로 3장 구성(고정 글이 없으면 Tech Note만).
-    const posts = (pinned ? [pinned, ...techNotes] : techNotes).slice(0, 3);
-    if (posts.length === 0) return null;
+    // 고정 글 아래에 노출할 최신 Tech Note.
+    const techNotes = all
+        .filter((p) => p.category === "Tech Note" && p.slug !== PINNED_SLUG)
+        .slice(0, 3);
+    if (!pinned && techNotes.length === 0) return null;
 
     return (
         <section className="border-t border-[var(--color-line)] bg-white">
@@ -46,34 +45,69 @@ export function HomeInsights() {
                     </Link>
                 </div>
 
-                <div className="mt-12 grid gap-4 md:grid-cols-3">
-                    {posts.map((p) => (
-                        <Link
-                            key={p.slug}
-                            href={`/blog/${p.slug}`}
-                            className="group flex flex-col rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-6 transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]"
-                        >
-                            <div className="flex items-center gap-2">
-                                <span className="rounded-full border border-[var(--color-line)] bg-white px-2.5 py-1 font-mono text-[11.5px] text-[#2461d8]">
-                                    {p.category}
-                                </span>
-                                <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
-                                    {fmt(p.date)}
-                                </span>
-                            </div>
-                            <h3 className="mt-4 text-[18px] font-bold leading-snug tracking-tight text-[var(--color-ink)]">
-                                {p.title}
-                            </h3>
-                            <p className="mt-2 line-clamp-3 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
-                                {p.description}
-                            </p>
-                            <span className="mt-5 inline-flex items-center gap-1 text-[14px] font-medium text-[var(--color-ink)] transition group-hover:gap-2">
-                                읽어보기
-                                <ArrowRight className="h-3 w-3" />
+                {/* 고정: 제품 소식 — GS 인증 (상단 대표 카드) */}
+                {pinned && (
+                    <Link
+                        href={`/blog/${pinned.slug}`}
+                        className="group mt-12 block overflow-hidden rounded-2xl border border-[#bcd0f5] bg-gradient-to-br from-[#eef4ff] to-white p-7 transition hover:border-[#2f7bff] hover:shadow-[0_18px_44px_-20px_rgba(40,80,180,0.3)] md:p-9"
+                    >
+                        <div className="flex items-center gap-2">
+                            <span className="rounded-full bg-[#2f7bff] px-2.5 py-1 text-[12px] font-bold text-white">
+                                {pinned.category}
                             </span>
-                        </Link>
-                    ))}
-                </div>
+                            <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
+                                {fmt(pinned.date)}
+                            </span>
+                        </div>
+                        <h3 className="mt-3.5 max-w-3xl text-2xl font-bold leading-tight tracking-tight text-[var(--color-ink)] md:text-[28px]">
+                            {pinned.title}
+                        </h3>
+                        <p className="mt-2.5 max-w-3xl text-[15.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                            {pinned.description}
+                        </p>
+                        <span className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2461d8] transition group-hover:gap-2.5">
+                            읽어보기
+                            <ArrowRight className="h-4 w-4" />
+                        </span>
+                    </Link>
+                )}
+
+                {/* 그 아래: 최신 Tech Note */}
+                {techNotes.length > 0 && (
+                    <>
+                        <p className="mt-10 font-mono text-[12px] uppercase tracking-widest text-[var(--color-ink-subtle)]">
+                            / 최신 Tech Note
+                        </p>
+                        <div className="mt-4 grid gap-4 md:grid-cols-3">
+                            {techNotes.map((p) => (
+                                <Link
+                                    key={p.slug}
+                                    href={`/blog/${p.slug}`}
+                                    className="group flex flex-col rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface-alt)] p-6 transition hover:-translate-y-0.5 hover:border-[var(--color-ink)]"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <span className="rounded-full border border-[var(--color-line)] bg-white px-2.5 py-1 font-mono text-[11.5px] text-[#2461d8]">
+                                            {p.category}
+                                        </span>
+                                        <span className="font-mono text-[12px] text-[var(--color-ink-subtle)]">
+                                            {fmt(p.date)}
+                                        </span>
+                                    </div>
+                                    <h3 className="mt-4 text-[18px] font-bold leading-snug tracking-tight text-[var(--color-ink)]">
+                                        {p.title}
+                                    </h3>
+                                    <p className="mt-2 line-clamp-3 text-[14.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                                        {p.description}
+                                    </p>
+                                    <span className="mt-5 inline-flex items-center gap-1 text-[14px] font-medium text-[var(--color-ink)] transition group-hover:gap-2">
+                                        읽어보기
+                                        <ArrowRight className="h-3 w-3" />
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </>
+                )}
             </div>
         </section>
     );
