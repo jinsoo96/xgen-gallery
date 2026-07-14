@@ -196,7 +196,7 @@ export const NAV_GROUPS: NavGroup[] = [
                 children: [
                     { label: "Industries", id: "industries" },
                     { label: "Use Cases", labelKo: "적용 사례", id: "poc-projects", route: "/poc-projects" },
-                    { label: "Proof in Action", labelKo: "실증 데모", id: "proof-in-action", route: "/proof-in-action" },
+                    { label: "Proof in Action", labelKo: "실증 데모 영상", id: "proof-in-action", route: "/proof-in-action" },
                 ],
             },
             {
@@ -208,42 +208,41 @@ export const NAV_GROUPS: NavGroup[] = [
                 menuOnly: true,
             },
             {
-                // Product — 라벨은 xgen.im 으로 나가고, 하위에 인증·보안·문서·
-                // 릴리즈를 한 그룹으로 노출한다. Release Notes는 연구소 전 제품 통합
-                // 릴리즈(/releases), Documentation은 /documentation, Security &
-                // Governance는 /security-and-governance 로 연결. colBreak로 오른쪽 컬럼 시작 →
-                // 왼쪽 컬럼(Agentic AI / PoC Projects / Technical Consulting)과 분리.
-                label: "Product",
-                id: "xgen-site",
-                colBreak: true,
-                external: "https://www.xgen.im/",
-                children: [
-                    {
-                        label: "Certifications & Quality",
-                        labelKo: "인증·품질",
-                        id: "certification",
-                    },
-                    {
-                        label: "Security & Governance",
-                        labelKo: "보안·거버넌스",
-                        id: "security",
-                        route: "/security-and-governance",
-                    },
-                    {
-                        label: "Documentation",
-                        id: "documentation",
-                        route: "/documentation",
-                    },
-                    { label: "Release Notes", id: "releases", route: "/releases" },
-                ],
-            },
-            {
                 // 섹션은 /solutions#certification 으로 렌더하되, GNB 드롭다운에는
                 // 노출하지 않는다(최상위 Product 메뉴의 "Certifications & Quality"에서만 진입).
                 label: "Certifications & Quality",
                 id: "certification",
                 hidden: true,
             },
+        ],
+    },
+    {
+        // Product — 최상위 GNB(1-depth). 라벨 클릭 시 제품 사이트(xgen.im)로 나가고,
+        // 드롭다운에 인증·보안·문서·릴리즈를 노출한다. (기존 Applied AI 하위에서 승격)
+        key: "product",
+        label: "Product",
+        concept: "solutions",
+        blurb: "XGEN 제품 — 인증·품질, 보안·거버넌스, 문서, 릴리즈.",
+        external: "https://www.xgen.im/",
+        items: [
+            {
+                label: "Certifications & Quality",
+                labelKo: "인증·품질",
+                id: "certification",
+                route: "/solutions#certification",
+            },
+            {
+                label: "Security & Governance",
+                labelKo: "보안·거버넌스",
+                id: "security",
+                route: "/security-and-governance",
+            },
+            {
+                label: "Documentation",
+                id: "documentation",
+                route: "/documentation",
+            },
+            { label: "Release Notes", id: "releases", route: "/releases" },
         ],
     },
     {

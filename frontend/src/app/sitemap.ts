@@ -30,8 +30,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${SITE.url}/releases`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     ];
 
-    // Top-level GNB one-pages (Research, Technology, Products, …).
-    const groupRoutes: MetadataRoute.Sitemap = NAV_GROUPS.map((g) => ({
+    // Top-level GNB one-pages (Research, Technology, …). 외부 링크 그룹(예: Product →
+    // xgen.im)은 /{key} 페이지가 없으므로 사이트맵에서 제외한다.
+    const groupRoutes: MetadataRoute.Sitemap = NAV_GROUPS.filter(
+        (g) => !g.external,
+    ).map((g) => ({
         url: `${SITE.url}/${g.key}`,
         lastModified: now,
         changeFrequency: "weekly",

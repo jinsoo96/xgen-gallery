@@ -200,18 +200,6 @@ export function SiteFooter() {
                                             </Link>
                                         ),
                                     )}
-                                    {/* 우측 컬럼(Insight) 옆에 외부 Product 링크 — xgen.im 아웃링크 */}
-                                    {ci === 1 && (
-                                        <a
-                                            href="https://xgen.im"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-1 text-[var(--color-ink-muted)] transition hover:text-[var(--color-ink)]"
-                                        >
-                                            Product
-                                            <ArrowUpRight className="h-3.5 w-3.5 text-[var(--color-ink-subtle)]" />
-                                        </a>
-                                    )}
                                 </div>
                             ))}
                         </div>
