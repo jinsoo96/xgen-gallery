@@ -3,15 +3,23 @@ import { ArrowRight } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 
 /**
- * 메인 — Insight 미리보기. 파일베이스 블로그의 최신 3개 글을 홈에 노출한다.
- * (server component — 빌드 시 content/blog 프론트매터를 읽어 정적 렌더)
+ * 메인 — Insight 미리보기. GS 인증 글을 맨 앞에 고정 노출하고, 그 뒤로 최근
+ * Tech Note 글을 채운다. (server component — 빌드 시 content/blog 프론트매터를 읽어 렌더)
  */
+const PINNED_SLUG = "gs-certification-grade1";
+
 function fmt(date: string) {
     return date.replaceAll("-", ".");
 }
 
 export function HomeInsights() {
-    const posts = getAllPosts().slice(0, 3);
+    const all = getAllPosts();
+    const pinned = all.find((p) => p.slug === PINNED_SLUG);
+    const techNotes = all.filter(
+        (p) => p.category === "Tech Note" && p.slug !== PINNED_SLUG,
+    );
+    // 고정 글 + 최근 Tech Note로 3장 구성(고정 글이 없으면 Tech Note만).
+    const posts = (pinned ? [pinned, ...techNotes] : techNotes).slice(0, 3);
     if (posts.length === 0) return null;
 
     return (
