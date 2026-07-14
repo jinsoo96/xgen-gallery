@@ -71,28 +71,27 @@ draft: false            # true면 운영 빌드에서 숨김
 > repo는 `PlateerLab/xgen-gallery`, branch `main`으로 설정돼 있습니다.
 > `/admin`은 robots에서 noindex 처리됩니다.
 
-### ⚠️ OAuth 환경변수 함정 (반드시 읽기)
+### OAuth 설정 — 필요한 것은 "시크릿 하나"뿐
 
-**증상**: `/admin` → "Login with GitHub" 클릭 시 팝업에 `GITHUB_OAUTH_CLIENT_ID 가 설정되지 않았습니다`.
+GitHub OAuth **Client ID는 비밀이 아니다**(리다이렉트 URL·이 문서에 이미 공개: `Ov23liv3gveHfTPsLH2Z`).
+그래서 코드에 **공개 기본값**을 박아 두었다(`/api/auth`, `/api/callback`). 서버 env가 비어 있어도
+로그인 리다이렉트는 항상 동작한다. 실제로 서버에 필요한 값은 **`GITHUB_OAUTH_CLIENT_SECRET` 하나**뿐이다.
 
-**근본 원인**: `.env`에 값이 있어도, `docker-compose.yml`의 `environment:` 블록에
-`GITHUB_OAUTH_CLIENT_ID: "${GITHUB_OAUTH_CLIENT_ID:-}"` 같은 줄이 있으면 위험하다.
-Compose에서 `environment`는 `env_file`보다 **우선순위가 높다**. 다른 디렉터리에서
-`docker compose`를 실행해 `${...}` 인터폴레이션이 비면, 그 **빈 값이 `env_file(.env)`의
-실제 값을 덮어써(clobber)** 컨테이너 런타임엔 미설정이 된다. → 로그인 실패.
+**시크릿을 넣는 방법(둘 중 하나, 1회):**
+1. **(권장) GitHub Actions 시크릿** — Repo → Settings → Secrets and variables → Actions →
+   `GH_OAUTH_CLIENT_SECRET` 등록. 이후 매 배포마다 워크플로우가 go244의 `.env`에 자동 주입한다
+   (`.github/workflows/deploy.yml`의 시드 단계). 서버 재접속·재설치와 무관하게 영구 유지.
+2. **직접 .env** — go244 `~/workspace/xgen-gallery/.env`에
+   `GITHUB_OAUTH_CLIENT_SECRET=<시크릿>` 추가 후 `docker compose up -d --build frontend`.
 
-**처방(적용 완료)**:
-- OAuth 자격증명은 **`env_file: .env`로만** 주입한다. `environment:`에 다시 선언하지 않는다.
-- 컨테이너 부팅 시 `frontend/src/instrumentation.ts`가 누락을 **로그로 경고**한다(배포 시점에 발견).
-- `/api/auth`는 미설정 시 원인·복구법을 담은 진단 메시지를 반환한다.
-
-**확인·복구**:
+**검증**: 배포 로그의 `OAUTH_SECRET=present ✓` 확인, 또는
 ```bash
-# 실행 중인 컨테이너에 값이 실제로 있는지(핵심 확인)
-docker compose exec frontend printenv GITHUB_OAUTH_CLIENT_ID GITHUB_OAUTH_CLIENT_SECRET
-# .env에 값을 넣고(또는 확인) 재배포
-docker compose up -d --build frontend
+docker compose exec frontend printenv GITHUB_OAUTH_CLIENT_SECRET
 ```
+
+> 과거 함정(기록): `docker-compose.yml`의 `environment:`에 `GITHUB_OAUTH_CLIENT_ID: "${VAR:-}"`처럼
+> 선언하면 `environment`가 `env_file`보다 우선해, 인터폴레이션이 빈 값일 때 `.env` 값을 덮어썼다(clobber).
+> 현재는 `environment`에서 OAuth 변수를 제거해 이 문제를 원천 차단했다.
 
 ## 왜 이 방식인가 (SEO·GEO)
 - 정적 HTML이라 AI 크롤러가 JS 실행 없이 본문을 그대로 읽고 인용 → GEO 유리

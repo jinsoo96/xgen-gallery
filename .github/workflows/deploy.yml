@@ -17,6 +17,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Deploy (local on go244)
+        env:
+          # Repo → Settings → Secrets and variables → Actions 에 GH_OAUTH_CLIENT_SECRET
+          # 를 1회 등록하면, 매 배포마다 아래 시드 단계가 .env에 자동 주입한다.
+          GH_OAUTH_CLIENT_SECRET: ${{ secrets.GH_OAUTH_CLIENT_SECRET }}
         run: |
           set -euo pipefail
           cd ~/workspace/xgen-gallery
@@ -24,9 +28,31 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
           git log -1 --oneline
+          echo "=== seeding OAuth creds into .env (idempotent) ==="
+          touch .env
+          # Client ID는 공개값이라 코드 기본값이 있지만, .env에도 기록해 일관성 유지.
+          grep -q '^GITHUB_OAUTH_CLIENT_ID=' .env \
+            || echo 'GITHUB_OAUTH_CLIENT_ID=Ov23liv3gveHfTPsLH2Z' >> .env
+          # Secret은 CI 시크릿이 주어졌을 때만 upsert(없으면 기존 .env 값 유지).
+          if [ -n "${GH_OAUTH_CLIENT_SECRET:-}" ]; then
+            if grep -q '^GITHUB_OAUTH_CLIENT_SECRET=' .env; then
+              sed -i "s#^GITHUB_OAUTH_CLIENT_SECRET=.*#GITHUB_OAUTH_CLIENT_SECRET=${GH_OAUTH_CLIENT_SECRET}#" .env
+            else
+              echo "GITHUB_OAUTH_CLIENT_SECRET=${GH_OAUTH_CLIENT_SECRET}" >> .env
+            fi
+            echo "  → CI 시크릿으로 GITHUB_OAUTH_CLIENT_SECRET 주입함"
+          else
+            echo "  → CI 시크릿(GH_OAUTH_CLIENT_SECRET) 미설정 — .env의 기존 값 사용"
+          fi
           echo "=== rebuilding ==="
           docker compose up -d --build
           docker image prune -f
+          echo "=== verify OAuth env in running container ==="
+          if docker compose exec -T frontend printenv GITHUB_OAUTH_CLIENT_SECRET >/dev/null 2>&1; then
+            echo "  OAUTH_SECRET=present ✓ (로그인 정상 동작)"
+          else
+            echo "  OAUTH_SECRET=MISSING ✗ — GH_OAUTH_CLIENT_SECRET 시크릿을 등록하거나 .env에 넣으세요"
+          fi
           echo "=== health ==="
           sleep 10
           curl -sSf -o /dev/null -w "backend=%{http_code} " --max-time 10 http://localhost:8800/health

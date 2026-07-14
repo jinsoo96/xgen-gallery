@@ -6,16 +6,24 @@ import type { NextRequest } from "next/server";
  */
 export const dynamic = "force-dynamic";
 
+// Client ID는 공개값(참고: /api/auth). Secret만 서버 env에서 온다.
+const PUBLIC_OAUTH_CLIENT_ID = "Ov23liv3gveHfTPsLH2Z";
+
 export async function GET(req: NextRequest) {
     const code = new URL(req.url).searchParams.get("code");
-    const clientId = process.env.GITHUB_OAUTH_CLIENT_ID;
+    const clientId =
+        process.env.GITHUB_OAUTH_CLIENT_ID || PUBLIC_OAUTH_CLIENT_ID;
     const clientSecret = process.env.GITHUB_OAUTH_CLIENT_SECRET;
 
     let status = "error";
     let payload: string;
     try {
-        if (!code || !clientId || !clientSecret) {
-            throw new Error("missing code or OAuth credentials");
+        if (!code) throw new Error("missing authorization code");
+        if (!clientSecret) {
+            // 유일하게 남는 필수 서버 설정 — 명확히 안내.
+            throw new Error(
+                "GITHUB_OAUTH_CLIENT_SECRET 미설정: 서버(.env 또는 CI 시크릿)에 시크릿을 넣고 재배포하세요",
+            );
         }
         const res = await fetch("https://github.com/login/oauth/access_token", {
             method: "POST",
