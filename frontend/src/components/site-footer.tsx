@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, ArrowRight, UsersRound, PlayCircle } from "lucide-react";
+import { ArrowUpRight, ArrowRight, PlayCircle } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
 import { GeoPattern, variantForPath } from "@/components/geo-pattern";
 import { NAV_GROUPS, ABOUT_GROUP, sectionHref } from "@/lib/nav";
@@ -56,18 +56,15 @@ export function SiteFooter() {
                                 도입, 연구에서 실증까지 함께 설계합니다
                             </h2>
                             <p
-                                className={`mt-4 flex items-baseline justify-center gap-2 text-[14.5px] leading-snug text-[var(--color-ink-muted)] ${
-                                    showDemo ? "md:justify-start" : "mx-auto"
+                                className={`mt-4 max-w-2xl break-keep text-[14.5px] leading-snug text-[var(--color-ink-muted)] ${
+                                    showDemo ? "md:mx-0" : "mx-auto"
                                 }`}
                             >
-                                <UsersRound className="h-4 w-4 flex-none translate-y-0.5 text-[#2461d8]" />
-                                <span className="break-keep">
-                                    현장에 배치되는{" "}
-                                    <span className="font-bold text-[#2461d8]">
-                                        FDE(Forward Deployed Engineer)
-                                    </span>
-                                    가 요구사항 발굴부터 설계·구현·내재화까지 함께합니다
+                                현장에 배치되는{" "}
+                                <span className="font-bold text-[#2461d8]">
+                                    FDE(Forward Deployed Engineer)
                                 </span>
+                                가 요구사항 발굴부터 설계·구현·내재화까지 함께합니다
                             </p>
                             <p
                                 className={`mt-4 max-w-2xl text-pretty break-keep text-[17px] leading-relaxed text-[var(--color-ink-muted)] ${
