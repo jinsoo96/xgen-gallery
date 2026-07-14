@@ -6,7 +6,7 @@ author: "sooanc"
 authorGithub: "sooanc"
 category: "Tech Note"
 tags: ["블로그", "기고", "Open Authoring"]
-draft: true
+draft: false
 ---
 
 ## 블로그를 운영하는 일과 블로그가 운영되는 구조를 만드는 일은 다릅니다
