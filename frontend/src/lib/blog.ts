@@ -90,23 +90,15 @@ export function getAllPosts(): PostMeta[] {
         .map(({ html: _html, readingMinutes: _r, ...meta }) => meta);
 }
 
-/**
- * 상세 페이지는 초안(draft)도 반환한다 — 목록·검색·사이트맵에는 안 뜨지만(getAllPosts에서
- * 제외), URL을 직접 아는 사람만 볼 수 있는 "미공개 프리뷰"로 쓰기 위함. 초안 상세는
- * noindex 처리 + 프리뷰 배너를 붙인다(page.tsx). draft 여부는 반환된 post.draft로 판별.
- */
 export function getPost(slug: string): Post | null {
-    return parse(slug);
+    const post = parse(slug);
+    if (!post) return null;
+    if (isProd() && post.draft) return null;
+    return post;
 }
 
-/** 발행된 슬러그(초안 제외) — 필요 시 공개 목록용. */
 export function getAllSlugs(): string[] {
     return getAllPosts().map((p) => p.slug);
-}
-
-/** 정적 빌드용 — 초안 포함 모든 슬러그. 초안 프리뷰 페이지도 함께 빌드한다. */
-export function getBuildSlugs(): string[] {
-    return readSlugs();
 }
 
 /** 모든 태그(중복 제거). */
