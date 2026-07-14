@@ -26,12 +26,21 @@ Plateer Labs Insight 블로그는 **DB 없이 git 리포의 마크다운 파일*
 
 1. 리포를 **fork**하고 브랜치 생성
 2. `frontend/content/blog/<slug>.md` 추가 (아래 스캐폴드)
-3. (선택) 로컬 미리보기: `frontend/`에서 `npm run dev` → `http://localhost:3000/blog/<slug>`
-4. **PR 생성** — 블로그 PR 템플릿을 붙이려면:
+3. **PR 생성** — 블로그 PR 템플릿을 붙이려면:
    `.../compare/main...<브랜치>?template=blog-post.md`
 
-> 로컬에서 `/admin`을 GitHub 없이 쓰고 싶으면: 리포 루트에서 `npx decap-server` 실행 후
-> `http://localhost:3000/admin`. (자세한 운영·환경 설정은 [blog-cms.md](./blog-cms.md))
+> **사이트 개발환경(`npm run dev`)은 필요 없습니다.** 미리보기는 아래를 참고하세요.
+
+---
+
+## 미리보기 (사이트 개발환경 없이)
+
+- **작성 중 실시간 미리보기** → 경로 A의 `/admin` 편집기 **오른쪽 미리보기 패널**. 로컬 세팅 0.
+- **실제 사이트에서 확인** → 글이 **머지·배포되면** `https://labs.plateer.com/blog/<slug>` 에 나옵니다.
+  운영은 `main`에 머지된 것만 빌드하므로, 아직 PR/초안 상태는 운영 URL로 보이지 않습니다.
+  - **정식 오픈 전**이라면 가장 간단한 길: `draft: false`로 발행해 머지 → 운영 URL에서 확인 → 필요 시 수정. (아직 외부에 공개된 사이트가 아니라 부담이 적습니다)
+
+> 로컬 CMS(`npx decap-server`) 등 운영/개발 환경 설정은 유지보수자용 문서 [blog-cms.md](./blog-cms.md) 참고.
 
 ---
 
