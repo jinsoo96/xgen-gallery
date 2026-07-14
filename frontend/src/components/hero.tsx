@@ -275,7 +275,7 @@ export function Hero({
                                     href={`/blog/${productNews.slug}`}
                                     className="group flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-2.5 backdrop-blur-md transition hover:bg-white/15"
                                 >
-                                    <span className="flex-none rounded-full border border-white/20 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white/75">
+                                    <span className="flex-none rounded-full bg-[#2f7bff] px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white">
                                         {productNews.category}
                                     </span>
                                     <div className="min-w-0">
@@ -294,7 +294,7 @@ export function Hero({
                             {latestPost && (
                                 <Link
                                     href={`/blog/${latestPost.slug}`}
-                                    className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                                    className="group flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md transition hover:bg-white/15"
                                 >
                                     <span className="flex-none rounded-full border border-white/20 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white/75">
                                         {latestPost.category}
@@ -314,7 +314,7 @@ export function Hero({
                             {latestIssue && (
                                 <Link
                                     href={`/newsletter/${latestIssue.slug}`}
-                                    className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                                    className="group flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 backdrop-blur-md transition hover:bg-white/15"
                                 >
                                     <span className="flex-none rounded-full border border-white/20 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white/75">
                                         vol.{latestIssue.vol}
