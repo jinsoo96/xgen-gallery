@@ -17,8 +17,14 @@ import { getAllPosts } from "@/lib/blog";
 import { getIssues } from "@/lib/newsletter";
 
 export default function Home() {
-    // 히어로 하단 오버레이용 최신 1건씩(서버에서 읽어 클라이언트 Hero로 전달).
-    const p = getAllPosts()[0];
+    // 히어로 하단 오버레이용 데이터(서버에서 읽어 클라이언트 Hero로 전달).
+    const posts = getAllPosts();
+    const news = posts.find((p) => p.category === "제품 소식");
+    const productNews = news
+        ? { slug: news.slug, title: news.title, category: news.category, date: news.date }
+        : null;
+    // 최근 블로그는 제품소식 라인과 중복되지 않게 제외.
+    const p = posts.find((x) => x.slug !== news?.slug) ?? posts[0];
     const latestPost = p
         ? { slug: p.slug, title: p.title, category: p.category, date: p.date }
         : null;
@@ -32,7 +38,11 @@ export default function Home() {
             <JsonLd data={faqPageLd(dict.ko.faq.entries)} />
             <SiteNav overlay />
             <main>
-                <Hero latestPost={latestPost} latestIssue={latestIssue} />
+                <Hero
+                    productNews={productNews}
+                    latestPost={latestPost}
+                    latestIssue={latestIssue}
+                />
                 <HomeResearch />
                 <HomeTechnology />
                 <UseCases />
