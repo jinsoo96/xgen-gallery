@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: Deploy (local on go244)
         env:
-          # Repo → Settings → Secrets and variables → Actions 에 GH_OAUTH_CLIENT_SECRET
-          # 를 1회 등록하면, 매 배포마다 아래 시드 단계가 .env에 자동 주입한다.
-          GH_OAUTH_CLIENT_SECRET: ${{ secrets.GH_OAUTH_CLIENT_SECRET }}
+          # Repo → Settings → Secrets and variables → Actions 의 OAUTH_CLIENT_SECRET(등록됨)을
+          # 주입한다. 매 배포마다 아래 시드 단계가 go244의 .env에 자동으로 써 넣는다.
+          GH_OAUTH_CLIENT_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
         run: |
           set -euo pipefail
           cd ~/workspace/xgen-gallery
@@ -40,9 +40,9 @@ jobs:
             else
               echo "GITHUB_OAUTH_CLIENT_SECRET=${GH_OAUTH_CLIENT_SECRET}" >> .env
             fi
-            echo "  → CI 시크릿으로 GITHUB_OAUTH_CLIENT_SECRET 주입함"
+            echo "  → CI 시크릿(OAUTH_CLIENT_SECRET)으로 GITHUB_OAUTH_CLIENT_SECRET 주입함"
           else
-            echo "  → CI 시크릿(GH_OAUTH_CLIENT_SECRET) 미설정 — .env의 기존 값 사용"
+            echo "  → CI 시크릿(OAUTH_CLIENT_SECRET) 미설정 — .env의 기존 값 사용"
           fi
           echo "=== rebuilding ==="
           docker compose up -d --build
@@ -51,7 +51,7 @@ jobs:
           if docker compose exec -T frontend printenv GITHUB_OAUTH_CLIENT_SECRET >/dev/null 2>&1; then
             echo "  OAUTH_SECRET=present ✓ (로그인 정상 동작)"
           else
-            echo "  OAUTH_SECRET=MISSING ✗ — GH_OAUTH_CLIENT_SECRET 시크릿을 등록하거나 .env에 넣으세요"
+            echo "  OAUTH_SECRET=MISSING ✗ — OAUTH_CLIENT_SECRET 시크릿을 등록하거나 .env에 넣으세요"
           fi
           echo "=== health ==="
           sleep 10
