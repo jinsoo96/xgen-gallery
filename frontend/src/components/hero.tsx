@@ -273,7 +273,7 @@ export function Hero({
                             {productNews && (
                                 <Link
                                     href={`/blog/${productNews.slug}`}
-                                    className="group flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur-md transition hover:border-white/30 hover:bg-white/15"
+                                    className="group flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-2.5 backdrop-blur-md transition hover:bg-white/15"
                                 >
                                     <span className="flex-none rounded-full bg-[#2f7bff] px-2.5 py-1 text-[11px] font-bold text-white">
                                         {productNews.category}
