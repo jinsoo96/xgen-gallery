@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["온톨로지", "빌드 파이프라인", "비동기 처리"]
-draft: true
+draft: false
 ---
 > **지식그래프 설계 · 3/10**
 
