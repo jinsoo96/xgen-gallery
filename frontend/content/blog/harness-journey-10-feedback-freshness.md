@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["하네스", "상태 최신성", "피드백 루프"]
-draft: true
+draft: false
 ---
 > **에이전트 하네스 설계 · 10/10**
 
