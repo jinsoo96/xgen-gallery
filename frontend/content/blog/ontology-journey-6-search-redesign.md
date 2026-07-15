@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["온톨로지", "GraphRAG", "검색 평가"]
-draft: true
+draft: false
 ---
 > **지식그래프 설계 · 6/10**
 
