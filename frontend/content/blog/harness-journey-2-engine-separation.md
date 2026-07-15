@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["하네스", "아키텍처", "의존성 설계"]
-draft: true
+draft: false
 ---
 > **에이전트 하네스 설계 · 2/10**
 
