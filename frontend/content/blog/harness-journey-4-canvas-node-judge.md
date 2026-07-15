@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["하네스", "품질 판정", "Reflexion"]
-draft: true
+draft: false
 ---
 > **에이전트 하네스 설계 · 4/10**
 
