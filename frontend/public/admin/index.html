@@ -166,6 +166,50 @@
                     });
                 });
             })();
+
+            // 로그인 후 상단 헤더(Contents/Workflow/Media)에 가이드 메뉴를 주입한다.
+            // Decap이 라우팅 시 헤더를 다시 그릴 수 있어 주기적으로 재확인/재삽입한다.
+            (function () {
+                var items = [
+                    { id: "hdr-guide", t: "📄 작성 가이드", u: "/guides/blog-writing.html" },
+                    { id: "hdr-ops", t: "🛠️ 운영 방식", u: "/guides/operations.html" },
+                ];
+                function findHeaderNav() {
+                    var els = document.querySelectorAll("a, button");
+                    for (var i = 0; i < els.length; i++) {
+                        var txt = (els[i].textContent || "").trim();
+                        if (txt === "Workflow" || txt === "Contents") {
+                            return els[i].parentElement;
+                        }
+                    }
+                    return null;
+                }
+                function inject() {
+                    var nav = findHeaderNav();
+                    if (!nav) return;
+                    items.forEach(function (it) {
+                        if (document.getElementById(it.id)) return;
+                        var a = document.createElement("a");
+                        a.id = it.id;
+                        a.href = it.u;
+                        a.target = "_blank";
+                        a.rel = "noopener noreferrer";
+                        a.textContent = it.t;
+                        a.style.cssText =
+                            "display:inline-flex;align-items:center;padding:0 14px;" +
+                            "color:#7b8290;font-size:14px;font-weight:600;" +
+                            "text-decoration:none;white-space:nowrap;";
+                        a.addEventListener("mouseenter", function () {
+                            a.style.color = "#16224a";
+                        });
+                        a.addEventListener("mouseleave", function () {
+                            a.style.color = "#7b8290";
+                        });
+                        nav.appendChild(a);
+                    });
+                }
+                setInterval(inject, 600);
+            })();
         </script>
     </body>
 </html>

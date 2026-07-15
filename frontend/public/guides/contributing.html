@@ -11,7 +11,7 @@
   *{box-sizing:border-box;}
   body{margin:0;background:var(--surface);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
   .top{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-  .top .inner{max-width:820px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .top .inner{max-width:900px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
   .top .brand{font-weight:800;color:var(--ink);margin-right:8px;font-size:14px;}
   .top a{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:9999px;background:#fff;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;}
   .top a.on{background:var(--accent-bg);border-color:#c7d9ff;color:var(--accent);}
@@ -40,7 +40,7 @@
 </style>
 </head>
 <body>
-<div class="top"><div class="inner"><span class="brand">🤝 작성 가이드</span><a href="blog-writing.html">📝 블로그 글쓰기 가이드</a><a href="geo-seo.html">🔍 GEO·SEO 최적화 가이드</a><a href="contributing.html" class="on">🤝 블로그 기여 가이드</a><a href="/admin" class="admin">⚙️ 어드민</a></div></div>
+<div class="top"><div class="inner"><span class="brand">🤝 작성 가이드</span><a href="blog-writing.html">📝 블로그 글쓰기 가이드</a><a href="geo-seo.html">🔍 GEO·SEO 최적화 가이드</a><a href="contributing.html" class="on">🤝 블로그 기여 가이드</a><a href="operations.html">🛠️ 블로그 운영 방식</a><a href="/admin" class="admin">⚙️ 어드민</a></div></div>
 <main><article class="doc"><h1>블로그 기여 가이드 — 개발자가 글을 올리는 법</h1>
 <p>Plateer Labs Insight 블로그는 <strong>DB 없이 git 리포의 마크다운 파일</strong>로 운영됩니다.
 글 1개 = <code>frontend/content/blog/&lt;slug&gt;.md</code> 파일 1개이고, 머지되면 자동 배포됩니다.</p>
