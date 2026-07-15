@@ -13,7 +13,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * submissions are logged server-side so they're not lost.
  */
 export async function POST(req: Request) {
-    let body: { email?: string; subscribe?: boolean };
+    let body: { email?: string; subscribe?: boolean; kind?: string };
     try {
         body = await req.json();
     } catch {
@@ -28,13 +28,16 @@ export async function POST(req: Request) {
         );
     }
 
+    // 구독 종류 — 뉴스레터 구독(newsletter) vs 블로그 새 글 구독(blog)을 시트에서 구분.
+    const kind = body.kind === "blog" ? "blog" : "newsletter";
     // 구독=Y / 해지=N. 시트에서 이메일 행을 찾아 이 값으로 갱신하도록 웹훅에 전달.
     const subscribe = body.subscribe !== false; // default: subscribe
     const record = {
         email,
         subscribed: subscribe ? "Y" : "N",
+        kind,
         receivedAt: new Date().toISOString(),
-        source: "Plateer Labs/newsletter",
+        source: `Plateer Labs/${kind}`,
     };
 
     const webhook = process.env.NEWSLETTER_WEBHOOK_URL;

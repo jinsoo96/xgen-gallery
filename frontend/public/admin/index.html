@@ -11,10 +11,163 @@
             type="text/yaml"
             rel="cms-config-url"
         />
+        <style>
+            /* 로그인 화면에서 'Login with GitHub' 버튼 바로 아래에 붙는 작성 가이드 바.
+               위치(top/left/transform)는 JS가 버튼 좌표를 찾아 지정한다. */
+            #guide-bar {
+                position: fixed;
+                z-index: 99999;
+                display: none;
+                align-items: center;
+                gap: 6px;
+                max-width: calc(100vw - 24px);
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 8px 14px;
+                border: 1px solid #e3e8f0;
+                border-radius: 9999px;
+                background: #ffffff;
+                box-shadow: 0 10px 30px -12px rgba(20, 40, 80, 0.35);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                font-size: 13px;
+            }
+            #guide-bar .gb-label {
+                font-weight: 700;
+                color: #16224a;
+                margin-right: 2px;
+            }
+            #guide-bar a {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 5px 11px;
+                border-radius: 9999px;
+                background: #eef3ff;
+                color: #2461d8;
+                font-weight: 600;
+                text-decoration: none;
+                white-space: nowrap;
+                transition: background 0.15s;
+            }
+            #guide-bar a:hover {
+                background: #dde8ff;
+            }
+        </style>
     </head>
     <body>
         <!-- Decap CMS — DB 없이 git(content/blog/*.md)에 글을 커밋하는 어드민.
              설정은 ./config.yml 참고. 로컬 편집: `npx decap-server` 실행 후 /admin 접속. -->
         <script src="https://unpkg.com/decap-cms@^3.6.0/dist/decap-cms.js"></script>
+        <script>
+            // 로그인 화면의 'Login with GitHub' 버튼 바로 아래에 작성 가이드 바를 붙인다.
+            // (Decap React와 무관하게 직접 DOM으로 렌더 → 로그인 전에도 보인다)
+            (function () {
+                var base =
+                    "https://github.com/PlateerLab/xgen-gallery/blob/main/docs/";
+                var links = [
+                    { t: "📝 블로그 글쓰기", u: base + "BLOG-WRITING-GUIDE.md" },
+                    { t: "🔍 GEO·SEO 최적화", u: base + "GEO-OPTIMIZATION-GUIDE.md" },
+                    { t: "🤝 기여 방법", u: base + "BLOG-CONTRIBUTING.md" },
+                ];
+
+                function ensureBar() {
+                    var bar = document.getElementById("guide-bar");
+                    if (bar) return bar;
+                    bar = document.createElement("div");
+                    bar.id = "guide-bar";
+                    var label = document.createElement("span");
+                    label.className = "gb-label";
+                    label.textContent = "작성 가이드";
+                    bar.appendChild(label);
+                    links.forEach(function (l) {
+                        var a = document.createElement("a");
+                        a.href = l.u;
+                        a.target = "_blank";
+                        a.rel = "noopener noreferrer";
+                        a.textContent = l.t;
+                        bar.appendChild(a);
+                    });
+                    document.body.appendChild(bar);
+                    return bar;
+                }
+
+                // 로그인 버튼(텍스트에 'Login'/'GitHub' 포함) 탐색.
+                function findLoginButton() {
+                    var els = document.querySelectorAll("button, a");
+                    for (var i = 0; i < els.length; i++) {
+                        var txt = (els[i].textContent || "").trim();
+                        if (/login with github|github.*login|로그인/i.test(txt)) {
+                            return els[i];
+                        }
+                    }
+                    return null;
+                }
+
+                function reposition() {
+                    var btn = findLoginButton();
+                    var bar = ensureBar();
+                    if (!btn) {
+                        // 로그인 후(에디터 화면)엔 숨김 — 사이드바 링크로 대체.
+                        bar.style.display = "none";
+                        return;
+                    }
+                    var r = btn.getBoundingClientRect();
+                    bar.style.display = "flex";
+                    bar.style.top = r.bottom + 16 + "px";
+                    bar.style.left = r.left + r.width / 2 + "px";
+                    bar.style.transform = "translateX(-50%)";
+                }
+
+                function start() {
+                    reposition();
+                    window.addEventListener("resize", reposition);
+                    // Decap이 로그인 버튼을 늦게 그리거나 화면이 바뀔 수 있어 주기적으로 재배치.
+                    setInterval(reposition, 600);
+                }
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", start);
+                } else {
+                    start();
+                }
+            })();
+
+            // /admin 좌측 사이드바에 '블로그 작성 가이드' 바로가기 추가.
+            // data가 문자열(URL)이면 Decap이 외부 링크(새 탭)로 렌더한다.
+            (function () {
+                if (!window.CMS || !CMS.registerAdditionalLink) return;
+                var base =
+                    "https://github.com/PlateerLab/xgen-gallery/blob/main/docs/";
+                [
+                    {
+                        id: "guide-writing",
+                        title: "가이드 · 블로그 글쓰기",
+                        url: base + "BLOG-WRITING-GUIDE.md",
+                        icon: "page",
+                    },
+                    {
+                        id: "guide-geo",
+                        title: "가이드 · GEO·SEO 최적화",
+                        url: base + "GEO-OPTIMIZATION-GUIDE.md",
+                        icon: "search",
+                    },
+                    {
+                        id: "guide-contributing",
+                        title: "가이드 · 기여 방법",
+                        url: base + "BLOG-CONTRIBUTING.md",
+                        icon: "page",
+                    },
+                ].forEach(function (l) {
+                    CMS.registerAdditionalLink({
+                        id: l.id,
+                        title: l.title,
+                        data: l.url,
+                        options: { iconName: l.icon },
+                    });
+                });
+            })();
+        </script>
     </body>
 </html>

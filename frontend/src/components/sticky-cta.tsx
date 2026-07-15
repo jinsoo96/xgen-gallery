@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUp, ChevronDown, Sparkles } from "lucide-react";
 import { useI18n } from "@/components/i18n-provider";
 import { DEMO_CTA } from "@/lib/nav";
+import { cn } from "@/lib/cn";
 
 /**
  * 전 페이지 우측 하단에 떠 있는 PoC·기술 상담 배너 (흰 배경 카드 + 일러스트).
- * (목적지 /demo 와 CMS /admin 에서는 숨김) 닫으면 localStorage에 기록해 다시 띄우지 않는다.
+ * 알약 버튼으로 접었다 펼 수 있고, 접힌 상태는 localStorage에 기록해 유지한다.
+ * (/contact·/admin, 그리고 구독 위젯을 쓰는 /blog·/newsletter 에서는 숨김)
  */
-const DISMISS_KEY = "ailabs-poc-cta-dismissed";
+const COLLAPSE_KEY = "ailabs-poc-cta-collapsed";
 
 /** PoC 검증을 상징하는 인라인 일러스트. */
 function CtaArt() {
@@ -59,71 +61,114 @@ function CtaArt() {
 export function StickyCta() {
     const pathname = usePathname();
     const { locale } = useI18n();
-    const [visible, setVisible] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        if (localStorage.getItem(DISMISS_KEY)) return;
-        const t = setTimeout(() => setVisible(true), 700);
+        setMounted(true);
+        // 사용자가 한 번 접었으면 접힌 채 시작, 아니면 잠시 뒤 자동으로 펼쳐 안내한다.
+        if (localStorage.getItem(COLLAPSE_KEY) === "1") return;
+        const t = setTimeout(() => setOpen(true), 700);
         return () => clearTimeout(t);
     }, []);
 
-    const hidden = pathname === "/contact" || pathname.startsWith("/admin");
-    if (hidden || !visible) return null;
+    // /blog·/newsletter 영역에서는 기술상담 대신 구독 위젯(SubscribeCta)을 띄운다.
+    const hidden =
+        pathname === "/contact" ||
+        pathname.startsWith("/admin") ||
+        pathname === "/blog" ||
+        pathname.startsWith("/blog/") ||
+        pathname.startsWith("/newsletter");
+    if (!mounted || hidden) return null;
 
     const en = locale === "en";
     const title = en ? DEMO_CTA.en : DEMO_CTA.ko;
+    const pillLabel = en ? "Request a consultation" : "상담 신청하기";
+
+    function collapse() {
+        setOpen(false);
+        localStorage.setItem(COLLAPSE_KEY, "1");
+    }
 
     return (
-        <div className="cta-enter fixed bottom-5 right-5 z-50 w-[min(330px,calc(100vw-2rem))]">
-            <div className="relative overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white p-5 shadow-[0_20px_50px_-12px_rgba(20,40,80,0.28)]">
+        <div className="fixed bottom-5 right-5 z-50 flex w-[min(330px,calc(100vw-2rem))] flex-col items-end gap-3">
+            {open && (
+                <div className="cta-enter w-full overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white p-5 shadow-[0_20px_50px_-12px_rgba(20,40,80,0.28)]">
+                    {/* 아이콘 + 타이틀 + 접기 */}
+                    <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                            <span
+                                aria-hidden
+                                className="inline-flex h-7 w-7 flex-none items-center justify-center rounded-lg bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] text-white"
+                            >
+                                <Sparkles className="h-4 w-4" />
+                            </span>
+                            <p className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
+                                {title}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            aria-label={en ? "Collapse" : "접기"}
+                            onClick={collapse}
+                            className="-mr-1.5 -mt-0.5 rounded-full p-1.5 text-[var(--color-ink-subtle)] transition hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-ink)]"
+                        >
+                            <ChevronDown className="h-5 w-5" />
+                        </button>
+                    </div>
+
+                    <p className="mt-2 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
+                        {en
+                            ? "Validate your Enterprise AI with a PoC before adoption"
+                            : "도입 전, Enterprise AI를 PoC로 먼저 검증하세요"}
+                    </p>
+                    <p className="mt-1.5 text-[13px] font-semibold leading-relaxed text-[#2461d8]">
+                        {en
+                            ? "A Forward Deployed Engineer (FDE) stays on-site through delivery"
+                            : "현장 FDE가 발굴·구현·내재화까지 함께합니다"}
+                    </p>
+
+                    {/* 중앙 일러스트 */}
+                    <div className="mt-3.5">
+                        <CtaArt />
+                    </div>
+
+                    <Link
+                        href={DEMO_CTA.href}
+                        className="group mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-4 py-2.5 text-[15px] font-semibold text-white transition hover:brightness-125"
+                    >
+                        {pillLabel}
+                        <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </Link>
+                </div>
+            )}
+
+            {/* 하단 컨트롤: 맨 위로 + 상담 신청 토글 알약 */}
+            <div className="flex items-center gap-2">
                 <button
                     type="button"
-                    aria-label={en ? "Dismiss" : "닫기"}
-                    onClick={() => {
-                        localStorage.setItem(DISMISS_KEY, "1");
-                        setVisible(false);
-                    }}
-                    className="absolute right-2.5 top-2.5 rounded-full p-1 text-[var(--color-ink-subtle)] transition hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-ink)]"
+                    aria-label={en ? "Back to top" : "맨 위로"}
+                    onClick={() =>
+                        window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-line)] bg-white text-[var(--color-ink-muted)] shadow-[0_8px_24px_-10px_rgba(20,40,80,0.4)] transition hover:text-[var(--color-ink)]"
                 >
-                    <X className="h-4 w-4" />
+                    <ArrowUp className="h-5 w-5" />
                 </button>
-
-                {/* 아이콘 + 타이틀 — 한 라인 */}
-                <div className="flex items-center gap-2 pr-6">
-                    <span
-                        aria-hidden
-                        className="inline-flex h-7 w-7 flex-none items-center justify-center rounded-lg bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] text-white"
-                    >
-                        <Sparkles className="h-4 w-4" />
-                    </span>
-                    <p className="text-[16px] font-bold tracking-tight text-[var(--color-ink)]">
-                        {title}
-                    </p>
-                </div>
-
-                <p className="mt-2 text-[13.5px] leading-relaxed text-[var(--color-ink-muted)]">
-                    {en
-                        ? "Validate your Enterprise AI with a PoC before adoption"
-                        : "도입 전, Enterprise AI를 PoC로 먼저 검증하세요"}
-                </p>
-                <p className="mt-1.5 text-[13px] font-semibold leading-relaxed text-[#2461d8]">
-                    {en
-                        ? "A Forward Deployed Engineer (FDE) stays on-site through delivery"
-                        : "현장 FDE가 발굴·구현·내재화까지 함께합니다"}
-                </p>
-
-                {/* 중앙 일러스트 */}
-                <div className="mt-3.5">
-                    <CtaArt />
-                </div>
-
-                <Link
-                    href={DEMO_CTA.href}
-                    className="group mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[linear-gradient(45deg,#00acee_20%,#185aea_80%)] px-4 py-2.5 text-[15px] font-semibold text-white transition hover:brightness-125"
+                <button
+                    type="button"
+                    onClick={() => setOpen((o) => !o)}
+                    aria-expanded={open}
+                    className={cn(
+                        "inline-flex items-center gap-2 rounded-full border bg-white px-5 py-3 text-[15px] font-bold shadow-[0_8px_24px_-8px_rgba(20,40,80,0.4)] transition",
+                        open
+                            ? "border-[var(--color-line)] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
+                            : "border-[#c7d9ff] text-[#2461d8] hover:border-[#2f7bff]",
+                    )}
                 >
-                    {en ? "Request a consultation" : "상담 신청하기"}
-                    <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-                </Link>
+                    <Sparkles className="h-4 w-4 text-[#2f7bff]" />
+                    {pillLabel}
+                </button>
             </div>
         </div>
     );

@@ -3,9 +3,10 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, PenLine, X } from "lucide-react";
 import type { PostMeta } from "@/lib/blog";
 import { cn } from "@/lib/cn";
+import { ViewCount } from "@/components/view-count";
 
 const ALL = "전체";
 const TABS = [ALL, "제품 소식", "Tech Note", "Case Study"] as const;
@@ -83,6 +84,40 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
         ? catPosts.filter((p) => p.tags.includes(activeTag))
         : catPosts;
 
+    // Tech Note 탭 전용 — 기고자(작성자) 인덱스. 작성자 필터와 무관하게 전체 Tech Note에서 뽑는다.
+    const techNoteAuthors = useMemo<
+        { name: string; count: number; github?: string }[]
+    >(() => {
+        if (active !== "Tech Note") return [];
+        const map = new Map<
+            string,
+            { name: string; count: number; github?: string }
+        >();
+        posts
+            .filter((p) => p.category === "Tech Note")
+            .forEach((p) => {
+                const cur = map.get(p.author);
+                if (cur) cur.count += 1;
+                else
+                    map.set(p.author, {
+                        name: p.author,
+                        count: 1,
+                        github: p.authorGithub,
+                    });
+            });
+        return [...map.values()].sort(
+            (a, b) => b.count - a.count || a.name.localeCompare(b.name),
+        );
+    }, [posts, active]);
+
+    // 기고자 칩 클릭 → 카테고리(Tech Note)·주제 유지, 같은 칩 재클릭 시 해제(토글).
+    const selectAuthor = (name: string) =>
+        pushParams(
+            KEY_BY_CATEGORY[active],
+            activeTag,
+            name === activeAuthor ? null : name,
+        );
+
     return (
         <div>
             {/* 작성자 필터 배너 — 멤버 글 모아보기 진입 시 */}
@@ -137,19 +172,90 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                 })}
             </div>
 
-            {/* 주제(태그) 필터 — 현재 카테고리의 주제만 노출 */}
+            {/* 기고자 인덱스 — Tech Note 카테고리에서만 노출. 아바타 + 이름 + 글 수. */}
+            {active === "Tech Note" && techNoteAuthors.length > 0 && (
+                <div className="mt-5 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface-alt)]/60 p-4">
+                    <div className="mb-3 flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-wider text-[var(--color-ink-subtle)]">
+                        <PenLine className="h-3.5 w-3.5" />
+                        기고자
+                        {activeAuthor && (
+                            <button
+                                type="button"
+                                onClick={() => selectAuthor(activeAuthor)}
+                                className="ml-1 inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[11.5px] font-semibold normal-case tracking-normal text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
+                            >
+                                <X className="h-3 w-3" />
+                                전체
+                            </button>
+                        )}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {techNoteAuthors.map((a) => {
+                            const on = activeAuthor === a.name;
+                            return (
+                                <button
+                                    key={a.name}
+                                    type="button"
+                                    onClick={() => selectAuthor(a.name)}
+                                    className={cn(
+                                        "group inline-flex items-center gap-2 rounded-full py-1 pl-1 pr-3 text-[14px] font-semibold transition",
+                                        on
+                                            ? "bg-[var(--color-ink)] text-white shadow-sm"
+                                            : "bg-white text-[var(--color-ink-muted)] ring-1 ring-[var(--color-line)] hover:text-[#2461d8] hover:ring-[#bcd0f5]",
+                                    )}
+                                >
+                                    {a.github ? (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img
+                                            src={`https://github.com/${a.github}.png`}
+                                            alt=""
+                                            loading="lazy"
+                                            className="h-6 w-6 rounded-full ring-1 ring-black/5"
+                                        />
+                                    ) : (
+                                        <span
+                                            className={cn(
+                                                "flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold",
+                                                on
+                                                    ? "bg-white/20 text-white"
+                                                    : "bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)]",
+                                            )}
+                                        >
+                                            {a.name.slice(0, 1)}
+                                        </span>
+                                    )}
+                                    {a.name}
+                                    <span
+                                        className={cn(
+                                            "rounded-full px-1.5 text-[11.5px] font-bold tabular-nums",
+                                            on
+                                                ? "bg-white/20 text-white"
+                                                : "bg-[var(--color-surface-alt)] text-[var(--color-ink-subtle)] group-hover:bg-[#eaf1ff] group-hover:text-[#2461d8]",
+                                        )}
+                                    >
+                                        {a.count}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
+            {/* 주제(태그) 필터 — 탭(알약)과 구분되는 해시태그 키워드 칩 스타일 */}
             {topicTags.length > 0 && (
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                    <span className="mr-1 text-[13px] font-semibold text-[var(--color-ink-subtle)]">
+                <div className="mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-2">
+                    <span className="mr-1 text-[12.5px] font-semibold uppercase tracking-wider text-[var(--color-ink-subtle)]">
                         주제
                     </span>
                     {activeTag && (
                         <button
                             type="button"
                             onClick={() => selectTag(activeTag)}
-                            className="rounded-full border border-[var(--color-line)] px-3 py-1 text-[14px] font-medium text-[var(--color-ink-muted)] transition hover:border-[var(--color-line-strong)] hover:text-[var(--color-ink)]"
+                            className="inline-flex items-center gap-0.5 rounded-md px-2 py-1 text-[13px] font-medium text-[var(--color-ink-subtle)] transition hover:text-[var(--color-ink)]"
                         >
-                            전체 주제
+                            <X className="h-3.5 w-3.5" />
+                            전체
                         </button>
                     )}
                     {topicTags.map((t) => (
@@ -158,12 +264,22 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                             type="button"
                             onClick={() => selectTag(t)}
                             className={cn(
-                                "rounded-full px-3 py-1 text-[14px] font-medium transition",
+                                "inline-flex items-center gap-0.5 rounded-md px-2.5 py-1 text-[13.5px] font-medium transition",
                                 activeTag === t
-                                    ? "bg-[#2f7bff] text-white"
-                                    : "border border-[var(--color-line)] text-[var(--color-ink-muted)] hover:border-[#bcd0f5] hover:text-[#2461d8]",
+                                    ? "bg-[#2f7bff] text-white shadow-[0_2px_8px_-2px_rgba(47,123,255,0.5)]"
+                                    : "bg-[var(--color-surface-alt)] text-[var(--color-ink-muted)] hover:bg-[#eaf1ff] hover:text-[#2461d8]",
                             )}
                         >
+                            <span
+                                className={cn(
+                                    "font-semibold",
+                                    activeTag === t
+                                        ? "text-white/60"
+                                        : "text-[var(--color-ink-subtle)]",
+                                )}
+                            >
+                                #
+                            </span>
                             {t}
                         </button>
                     ))}
@@ -201,6 +317,8 @@ export function BlogList({ posts }: { posts: PostMeta[] }) {
                                     {p.category}
                                 </span>
                                 <time dateTime={p.date}>{fmtDate(p.date)}</time>
+                                <span aria-hidden>·</span>
+                                <ViewCount slug={p.slug} readOnly compact />
                             </div>
                             <h2 className="mt-3 text-xl font-bold leading-snug tracking-tight text-[var(--color-ink)]">
                                 {p.title}
