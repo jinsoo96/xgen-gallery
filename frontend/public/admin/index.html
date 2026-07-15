@@ -64,12 +64,11 @@
             // 로그인 화면의 'Login with GitHub' 버튼 바로 아래에 작성 가이드 바를 붙인다.
             // (Decap React와 무관하게 직접 DOM으로 렌더 → 로그인 전에도 보인다)
             (function () {
-                var base =
-                    "https://github.com/PlateerLab/xgen-gallery/blob/main/docs/";
+                var base = "/guides/";
                 var links = [
-                    { t: "📝 블로그 글쓰기", u: base + "BLOG-WRITING-GUIDE.md" },
-                    { t: "🔍 GEO·SEO 최적화", u: base + "GEO-OPTIMIZATION-GUIDE.md" },
-                    { t: "🤝 기여 방법", u: base + "BLOG-CONTRIBUTING.md" },
+                    { t: "📝 블로그 글쓰기", u: base + "blog-writing.html" },
+                    { t: "🔍 GEO·SEO 최적화", u: base + "geo-seo.html" },
+                    { t: "🤝 기여 방법", u: base + "contributing.html" },
                 ];
 
                 function ensureBar() {
@@ -138,25 +137,24 @@
             // data가 문자열(URL)이면 Decap이 외부 링크(새 탭)로 렌더한다.
             (function () {
                 if (!window.CMS || !CMS.registerAdditionalLink) return;
-                var base =
-                    "https://github.com/PlateerLab/xgen-gallery/blob/main/docs/";
+                var base = "/guides/";
                 [
                     {
                         id: "guide-writing",
                         title: "가이드 · 블로그 글쓰기",
-                        url: base + "BLOG-WRITING-GUIDE.md",
+                        url: base + "blog-writing.html",
                         icon: "page",
                     },
                     {
                         id: "guide-geo",
                         title: "가이드 · GEO·SEO 최적화",
-                        url: base + "GEO-OPTIMIZATION-GUIDE.md",
+                        url: base + "geo-seo.html",
                         icon: "search",
                     },
                     {
                         id: "guide-contributing",
                         title: "가이드 · 기여 방법",
-                        url: base + "BLOG-CONTRIBUTING.md",
+                        url: base + "contributing.html",
                         icon: "page",
                     },
                 ].forEach(function (l) {
