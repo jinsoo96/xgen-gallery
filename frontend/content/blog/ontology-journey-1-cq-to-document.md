@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["온톨로지", "지식 그래프", "데이터 모델링"]
-draft: true
+draft: false
 ---
 > **지식그래프 설계 · 1/10**
 
