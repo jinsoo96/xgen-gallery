@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["온톨로지", "데이터 무결성", "증분 빌드"]
-draft: true
+draft: false
 ---
 > **지식그래프 설계 · 8/10**
 
