@@ -6,7 +6,7 @@ author: "김진수"
 authorGithub: "jinsoo96"
 category: "Tech Note"
 tags: ["하네스", "컨텍스트 설계", "도구 검색"]
-draft: true
+draft: false
 ---
 > **에이전트 하네스 설계 · 9/10**
 
