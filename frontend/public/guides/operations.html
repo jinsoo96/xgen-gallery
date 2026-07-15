@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>블로그 운영 방식 · Plateer Labs</title>
+<style>
+  @font-face{font-family:Pretendard;src:url(/fonts/PretendardVariable.woff2) format("woff2-variations");font-weight:45 920;font-display:swap;}
+  :root{--ink:#16224a;--muted:#4a5878;--subtle:#7a89a8;--line:#e3e8f0;--surface:#f4f6fb;--accent:#2461d8;--accent-bg:#eef3ff;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--surface);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .top{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top .inner{max-width:900px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .top .brand{font-weight:800;color:var(--ink);margin-right:8px;font-size:14px;}
+  .top a{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:9999px;background:#fff;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;}
+  .top a.on{background:var(--accent-bg);border-color:#c7d9ff;color:var(--accent);}
+  .top a.admin{margin-left:auto;background:var(--ink);border-color:var(--ink);color:#fff;}
+  .top a.admin:hover{background:#0e1836;}
+  main{max-width:820px;margin:0 auto;padding:40px 24px 96px;}
+  .doc{background:#fff;border:1px solid var(--line);border-radius:20px;padding:44px 48px;box-shadow:0 20px 50px -30px rgba(20,40,80,.25);}
+  h1{font-size:30px;line-height:1.25;margin:.2em 0 .6em;letter-spacing:-.01em;}
+  h2{font-size:22px;margin:1.7em 0 .5em;padding-top:.4em;border-top:1px solid var(--line);letter-spacing:-.01em;}
+  h2:first-of-type{border-top:0;}
+  h3{font-size:17px;margin:1.3em 0 .4em;}
+  p,li{color:var(--muted);font-size:15.5px;}
+  a{color:var(--accent);text-decoration:none;}a:hover{text-decoration:underline;}
+  code{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.12em .4em;font-size:.9em;font-family:"SFMono-Regular",Consolas,monospace;color:#0b1b3a;}
+  pre{background:#0f1730;color:#e6ecff;border-radius:12px;padding:16px 18px;overflow:auto;font-size:13px;line-height:1.6;}
+  pre code{background:none;border:0;color:inherit;padding:0;}
+  blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:var(--accent-bg);border-radius:0 10px 10px 0;color:var(--ink);}
+  blockquote p{color:var(--ink);margin:.3em 0;}
+  hr{border:0;border-top:1px solid var(--line);margin:2em 0;}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;}
+  th{background:var(--surface);}
+  ul,ol{padding-left:1.3em;}
+  li{margin:.25em 0;}
+  @media(max-width:640px){.doc{padding:28px 22px;}.top a.admin{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="top"><div class="inner"><span class="brand">🛠️ 작성 가이드</span><a href="blog-writing.html">📝 블로그 글쓰기 가이드</a><a href="geo-seo.html">🔍 GEO·SEO 최적화 가이드</a><a href="contributing.html">🤝 블로그 기여 가이드</a><a href="operations.html" class="on">🛠️ 블로그 운영 방식</a><a href="/admin" class="admin">⚙️ 어드민</a></div></div>
+<main><article class="doc"><h1>블로그 운영 방식 — 기고부터 발행까지</h1>
+<p>Plateer Labs Insight 블로그는 <strong>DB 없이 git 저장소의 마크다운 파일</strong>로 운영됩니다.
+글 1개는 <code>frontend/content/blog/&lt;slug&gt;.md</code> 파일 1개이고, <code>main</code>에 머지되면 자동 배포됩니다.
+개발자는 각자 <strong>자기 GitHub 계정</strong>으로 글을 올리고, 편집자가 <strong>리뷰·머지</strong>하면 발행됩니다.</p>
+<h2>한눈에 보는 흐름</h2>
+<pre><code>/admin 로그인(GitHub) → 작성
+  → 저장: 본인 fork 브랜치에 PR(In Review)로 보관 — main 직접 수정 안 함
+  → 편집자(sooanc) 리뷰 → 머지 → 발행
+</code></pre>
+<ul>
+<li><strong>초안(<code>draft: true</code>)은 운영에 노출되지 않습니다</strong> — 검토 중인 글이 사이트에 새지 않도록 숨깁니다.</li>
+<li>발행에는 재빌드가 필요합니다(수십 초~1분).</li>
+</ul>
+<h2>왜 브랜치(PR) 방식인가</h2>
+<p>메인 저장소에 write 권한이 없어도 누구나 안전하게 기고할 수 있도록, <strong>Open Authoring</strong> 방식을 씁니다.
+Decap CMS가 기고자의 계정으로 저장소를 fork하고, 그 fork의 브랜치에서 <strong>Pull Request</strong>를 열어줍니다.
+따라서 기고자는 <code>main</code>을 직접 건드리지 않고, 편집자는 PR 단위로 안전하게 검토·머지합니다.</p>
+<h2>기고자(개발자) 관점</h2>
+<ol>
+<li><strong><a href="https://labs.plateer.com/admin">https://labs.plateer.com/admin</a></strong> 접속 → <strong>Login with GitHub</strong> → 본인 계정으로 로그인</li>
+<li><strong>글쓰기</strong> → 제목·설명·카테고리·태그·본문 작성</li>
+<li><strong>저장</strong> → 본인 fork 브랜치에 <strong>PR(In Review)</strong> 로 보관됩니다(초안은 fork에 안전하게 남습니다)</li>
+<li>편집자 리뷰 후 머지 → 발행</li>
+</ol>
+<blockquote>
+<p>글을 쓰기 전에 <a href="blog-writing.html">블로그 글쓰기 가이드</a>와 <a href="geo-seo.html">GEO·SEO 가이드</a>를 먼저 읽어주세요. 자세한 기고 방법은 <a href="contributing.html">기여 가이드</a>에 있습니다.</p>
+</blockquote>
+<h2>편집자(운영자) 관점</h2>
+<p>기고글은 <strong>GitHub Pull Requests</strong>에 도착합니다 — <strong>Decap의 Workflow 보드에는 뜨지 않습니다</strong>.
+Open Authoring은 기고자의 <strong>fork 브랜치</strong>에서 PR을 열기 때문에, 베이스 저장소의 <code>cms/*</code> 브랜치만 추적하는
+Decap 편집자 보드에는 나타나지 않습니다. 이는 정상 동작이며, 편집자는 GitHub PR로 검토합니다.</p>
+<ol>
+<li><strong>Pull requests</strong> 탭에서 대기 중인 기고글 확인
+→ <a href="https://github.com/PlateerLab/xgen-gallery/pulls">https://github.com/PlateerLab/xgen-gallery/pulls</a></li>
+<li><strong>Files changed</strong>에서 <code>frontend/content/blog/&lt;slug&gt;.md</code> 본문·톤·GEO 체크</li>
+<li><strong>Merge</strong> → <code>main</code> 반영 → CI 재빌드 → 발행</li>
+</ol>
+<blockquote>
+<p><strong>중요</strong>: 기고글은 대개 <code>draft: true</code>(검토 중) 상태로 들어옵니다.
+머지만 해서는 운영에 노출되지 않으므로, 실제로 공개하려면 <strong><code>draft: false</code>로 변경</strong>해야 합니다.</p>
+</blockquote>
+<h2>상태값 요약</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>draft: true</code></td>
+<td>검토 중 — 운영 사이트에서 숨김</td>
+</tr>
+<tr>
+<td><code>draft: false</code></td>
+<td>발행 — 머지 후 운영에 노출</td>
+</tr>
+<tr>
+<td>In Review(PR)</td>
+<td>기고자 fork에서 열린 검토 대기 PR</td>
+</tr>
+<tr>
+<td>Merged</td>
+<td><code>main</code> 반영 완료 — 재빌드 후 배포</td>
+</tr>
+</tbody></table>
+<h2>리뷰 기준</h2>
+<p>리뷰는 게이트가 아니라 품질 보조입니다. 리뷰어는 <a href="blog-writing.html">글쓰기 가이드</a>의 B2B 톤과
+<a href="geo-seo.html">GEO·SEO 가이드</a>의 체크리스트를 기준으로 봅니다.
+멤버 개인 글은 코퍼릿 톤으로 정규화하지 않고 작성자 목소리를 유지합니다.</p>
+</article></main>
+</body>
+</html>

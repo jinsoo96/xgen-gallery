@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>블로그 기여 가이드 · Plateer Labs</title>
+<style>
+  @font-face{font-family:Pretendard;src:url(/fonts/PretendardVariable.woff2) format("woff2-variations");font-weight:45 920;font-display:swap;}
+  :root{--ink:#16224a;--muted:#4a5878;--subtle:#7a89a8;--line:#e3e8f0;--surface:#f4f6fb;--accent:#2461d8;--accent-bg:#eef3ff;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--surface);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .top{position:sticky;top:0;z-index:5;background:rgba(244,246,251,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top .inner{max-width:900px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .top .brand{font-weight:800;color:var(--ink);margin-right:8px;font-size:14px;}
+  .top a{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:9999px;background:#fff;border:1px solid var(--line);color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap;}
+  .top a.on{background:var(--accent-bg);border-color:#c7d9ff;color:var(--accent);}
+  .top a.admin{margin-left:auto;background:var(--ink);border-color:var(--ink);color:#fff;}
+  .top a.admin:hover{background:#0e1836;}
+  main{max-width:820px;margin:0 auto;padding:40px 24px 96px;}
+  .doc{background:#fff;border:1px solid var(--line);border-radius:20px;padding:44px 48px;box-shadow:0 20px 50px -30px rgba(20,40,80,.25);}
+  h1{font-size:30px;line-height:1.25;margin:.2em 0 .6em;letter-spacing:-.01em;}
+  h2{font-size:22px;margin:1.7em 0 .5em;padding-top:.4em;border-top:1px solid var(--line);letter-spacing:-.01em;}
+  h2:first-of-type{border-top:0;}
+  h3{font-size:17px;margin:1.3em 0 .4em;}
+  p,li{color:var(--muted);font-size:15.5px;}
+  a{color:var(--accent);text-decoration:none;}a:hover{text-decoration:underline;}
+  code{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.12em .4em;font-size:.9em;font-family:"SFMono-Regular",Consolas,monospace;color:#0b1b3a;}
+  pre{background:#0f1730;color:#e6ecff;border-radius:12px;padding:16px 18px;overflow:auto;font-size:13px;line-height:1.6;}
+  pre code{background:none;border:0;color:inherit;padding:0;}
+  blockquote{margin:1.2em 0;padding:.6em 1.1em;border-left:3px solid var(--accent);background:var(--accent-bg);border-radius:0 10px 10px 0;color:var(--ink);}
+  blockquote p{color:var(--ink);margin:.3em 0;}
+  hr{border:0;border-top:1px solid var(--line);margin:2em 0;}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;}
+  th{background:var(--surface);}
+  ul,ol{padding-left:1.3em;}
+  li{margin:.25em 0;}
+  @media(max-width:640px){.doc{padding:28px 22px;}.top a.admin{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="top"><div class="inner"><span class="brand">🤝 작성 가이드</span><a href="blog-writing.html">📝 블로그 글쓰기 가이드</a><a href="geo-seo.html">🔍 GEO·SEO 최적화 가이드</a><a href="contributing.html" class="on">🤝 블로그 기여 가이드</a><a href="operations.html">🛠️ 블로그 운영 방식</a><a href="/admin" class="admin">⚙️ 어드민</a></div></div>
+<main><article class="doc"><h1>블로그 기여 가이드 — 개발자가 글을 올리는 법</h1>
+<p>Plateer Labs Insight 블로그는 <strong>DB 없이 git 리포의 마크다운 파일</strong>로 운영됩니다.
+글 1개 = <code>frontend/content/blog/&lt;slug&gt;.md</code> 파일 1개이고, 머지되면 자동 배포됩니다.</p>
+<p>개발자 각자 <strong>자기 GitHub 계정으로 로그인</strong>해 글을 올리고, 편집자가 <strong>PR을 리뷰·머지</strong>하면 발행됩니다.
+메인 리포에 write 권한이 없어도 됩니다 — Decap이 여러분 계정으로 리포를 fork하고 그 fork에서 PR을 열어줍니다(Open Authoring).</p>
+<blockquote>
+<p>글을 쓰기 전에 <a href="blog-writing.html">블로그 글쓰기 가이드</a>와 <a href="geo-seo.html">GEO·SEO 가이드</a>를 먼저 읽어주세요. 둘 다 필수입니다.</p>
+</blockquote>
+<hr>
+<h2>두 가지 경로 (편한 쪽으로)</h2>
+<h3>경로 A — 웹 에디터 <code>/admin</code> (글 위주 · 세팅 불필요, 추천)</h3>
+<ol>
+<li><strong><a href="https://labs.plateer.com/admin">https://labs.plateer.com/admin</a></strong> 접속 → <strong>&quot;Login with GitHub&quot;</strong> → 본인 GitHub 계정으로 로그인</li>
+<li><strong>New Blog</strong> → 제목·설명·카테고리·태그·본문 작성 (위지윅 + 마크다운)</li>
+<li>저장하면 <strong>&quot;검토 대기(In Review)&quot;</strong> 상태로 PR이 자동 생성됩니다(초안은 fork에 안전하게 보관)</li>
+<li>편집자가 리뷰 후 머지 → 발행</li>
+</ol>
+<ul>
+<li>처음 로그인 시 GitHub이 fork 생성·PR 권한을 요청합니다(공개 리포 기준). 승인하면 됩니다.</li>
+<li>이미지: 본문에서 바로 업로드하면 <code>frontend/public/blog/</code>에 함께 커밋됩니다.</li>
+</ul>
+<h3>경로 B — 리포에 <code>.md</code> + PR (에디터에 사는 개발자용)</h3>
+<ol>
+<li>리포를 <strong>fork</strong>하고 브랜치 생성</li>
+<li><code>frontend/content/blog/&lt;slug&gt;.md</code> 추가 (아래 스캐폴드)</li>
+<li><strong>PR 생성</strong> — 블로그 PR 템플릿을 붙이려면:
+<code>.../compare/main...&lt;브랜치&gt;?template=blog-post.md</code></li>
+</ol>
+<blockquote>
+<p><strong>사이트 개발환경(<code>npm run dev</code>)은 필요 없습니다.</strong> 미리보기는 아래를 참고하세요.</p>
+</blockquote>
+<hr>
+<h2>미리보기 (사이트 개발환경 없이)</h2>
+<ul>
+<li><strong>작성 중 실시간 미리보기</strong> → 경로 A의 <code>/admin</code> 편집기 <strong>오른쪽 미리보기 패널</strong>. 로컬 세팅 0.</li>
+<li><strong>실제 사이트에서 확인</strong> → 글이 <strong>머지·배포되면</strong> <code>https://labs.plateer.com/blog/&lt;slug&gt;</code> 에 나옵니다.
+운영은 <code>main</code>에 머지된 것만 빌드하므로, 아직 PR/초안 상태는 운영 URL로 보이지 않습니다.<ul>
+<li><strong>정식 오픈 전</strong>이라면 가장 간단한 길: <code>draft: false</code>로 발행해 머지 → 운영 URL에서 확인 → 필요 시 수정. (아직 외부에 공개된 사이트가 아니라 부담이 적습니다)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>로컬 CMS(<code>npx decap-server</code>) 등 운영/개발 환경 설정은 유지보수자용 문서 <a href="https://github.com/PlateerLab/xgen-gallery/blob/main/docs/blog-cms.md">blog-cms.md</a> 참고.</p>
+</blockquote>
+<hr>
+<h2>프론트매터 스캐폴드</h2>
+<p><code>.md</code> 파일 맨 위에 그대로 복사해 채우세요.</p>
+<pre><code class="language-markdown">---
+title: &quot;핵심 키워드를 앞에 — 마침표 없이(≤60자 권장)&quot;
+description: &quot;검색·AI 답변에 그대로 노출되는 한 줄 요약. 결론 먼저, 40~155자(GEO)&quot;
+date: &quot;2026-07-13&quot;
+# updated: &quot;2026-07-20&quot;   # 내용을 고쳤을 때만
+author: &quot;홍길동&quot;           # 화면에 보일 작성자 이름(바이라인)
+# authorGithub: &quot;your-github-id&quot;  # 입력하면 바이라인이 /members/&lt;아이디&gt; 프로필로 연결 + Person 저작(GEO)
+category: &quot;Tech Note&quot;       # Case Study | Tech Note | 제품 소식
+tags: [&quot;온톨로지&quot;, &quot;하네스&quot;, &quot;GEO&quot;]   # 주제 엔티티 — 목록 필터·SEO 키워드
+# cover: &quot;/blog/&lt;slug&gt;.png&quot;  # 선택 — SNS/검색 썸네일(1200×630 권장)
+draft: false                # true면 운영에서 숨김(검토 중일 때)
+---
+
+첫 문단에 결론부터. &quot;무엇을, 왜, 그래서 독자에게 어떤 이득인지&quot;를 자족적으로.
+
+## 왜 이걸 하게 됐나
+...
+
+## 이렇게 접근했다 (구체적 장면·숫자)
+...
+
+## 넘어진 자리와 배운 점
+...
+</code></pre>
+<p>필드 정의와 목록/상세 동작은 <a href="https://github.com/PlateerLab/xgen-gallery/blob/main/docs/blog-cms.md">blog-cms.md</a> 참고.</p>
+<hr>
+<h2>리뷰 · 발행 흐름</h2>
+<pre><code>글감(이슈) → 초안(PR: In Review) → 리뷰(톤·GEO 체크) → 머지 → 자동 배포
+</code></pre>
+<ul>
+<li><strong>글감만 있는 단계</strong>면 이슈 템플릿 **&quot;✍️ 블로그 글감·초안 제안&quot;**으로 남겨주세요 — 아이디어가 사라지지 않게 보드에서 관리합니다.</li>
+<li>리뷰는 게이트가 아니라 품질 보조입니다. 리뷰어는 <a href="blog-writing.html">BLOG-WRITING-GUIDE</a>의 B2B 톤과 GEO 체크리스트를 기준으로 봅니다.</li>
+<li>발행에는 재빌드가 필요합니다(수십 초~1분).</li>
+</ul>
+<h2>자주 묻는 것</h2>
+<ul>
+<li><strong>write 권한이 없는데요?</strong> 필요 없습니다. Open Authoring이 여러분 fork에서 PR을 엽니다.</li>
+<li><strong>로컬에서 <code>/admin</code>이 &quot;Login with GitHub&quot;만 떠요.</strong> <code>npx decap-server</code>가 안 떠 있는 것입니다. 먼저 실행하세요.</li>
+<li><strong>내 이름/프로필로 표시되나요?</strong> <code>author</code>에 이름을, 가능하면 GitHub 아이디를 함께 남기면 바이라인·작성자 프로필로 연결됩니다. (멤버 개인 글은 코퍼릿 톤으로 정규화하지 않고 작성자 목소리를 유지합니다.)</li>
+</ul>
+</article></main>
+</body>
+</html>

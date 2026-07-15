@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/json-ld";
 import { organizationLd, websiteLd } from "@/lib/structured-data";
 import { I18nProvider } from "@/components/i18n-provider";
 import { StickyCta } from "@/components/sticky-cta";
+import { SubscribeCta } from "@/components/subscribe-cta";
 import { ContentGuard } from "@/components/content-guard";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { LOCALE_COOKIE, DEFAULT_LOCALE, isLocale } from "@/lib/i18n";
@@ -95,6 +96,7 @@ export default async function RootLayout({
                 <I18nProvider initialLocale={locale}>
                     {children}
                     <StickyCta />
+                    <SubscribeCta />
                 </I18nProvider>
                 <ContentGuard />
             </body>
