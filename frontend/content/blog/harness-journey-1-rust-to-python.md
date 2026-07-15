@@ -33,6 +33,28 @@ complete → 완료 또는 중단 사유를 확정하고 결과를 정리한다
 
 이 구분을 두면 각 전이가 무엇을 소비하고 무엇을 남겨야 하는지도 정할 수 있습니다. `continue`에는 도구 호출과 관측 결과가 필요하고, `retry`에는 반려된 후보와 검증 피드백이 필요합니다. `complete`에는 최종 출력뿐 아니라 종료 이유가 함께 있어야 합니다. ‘몇 번 돌았는가’보다 ‘왜 어느 상태로 이동했는가’가 실행 기록의 기준이 됐습니다.
 
+<figure style="margin:2rem 0;">
+<svg viewBox="0 0 640 240" style="width:100%;height:auto;display:block" role="img" aria-label="다음 행동을 continue·retry·complete 세 전이로 나눈 구조">
+<defs><marker id="hj1a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#9fb2d6"/></marker></defs>
+<rect x="26" y="90" width="150" height="60" rx="14" fill="#16224a"/>
+<text x="101" y="116" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="700">다음 행동</text>
+<text x="101" y="134" text-anchor="middle" fill="#c7d3ee" font-family="sans-serif" font-size="12">결정</text>
+<path d="M176 120 C 270 120 270 48 356 48" fill="none" stroke="#9fb2d6" stroke-width="2" marker-end="url(#hj1a)"/>
+<path d="M176 120 L 356 120" fill="none" stroke="#9fb2d6" stroke-width="2" marker-end="url(#hj1a)"/>
+<path d="M176 120 C 270 120 270 192 356 192" fill="none" stroke="#9fb2d6" stroke-width="2" marker-end="url(#hj1a)"/>
+<text x="266" y="64" text-anchor="middle" fill="#2461d8" font-family="monospace" font-size="12" font-weight="700">continue</text>
+<text x="266" y="112" text-anchor="middle" fill="#c2711c" font-family="monospace" font-size="12" font-weight="700">retry</text>
+<text x="266" y="210" text-anchor="middle" fill="#1f8f52" font-family="monospace" font-size="12" font-weight="700">complete</text>
+<rect x="360" y="24" width="256" height="48" rx="10" fill="#eef3ff" stroke="#2f7bff" stroke-width="1.5"/>
+<text x="376" y="53" fill="#16224a" font-family="sans-serif" font-size="13">관측을 더해 현재 작업을 이어 간다</text>
+<rect x="360" y="96" width="256" height="48" rx="10" fill="#fff4ec" stroke="#ff9a52" stroke-width="1.5"/>
+<text x="376" y="125" fill="#16224a" font-family="sans-serif" font-size="13">피드백을 반영해 새 답 후보를 만든다</text>
+<rect x="360" y="168" width="256" height="48" rx="10" fill="#ecf8f1" stroke="#1f9d57" stroke-width="1.5"/>
+<text x="376" y="197" fill="#16224a" font-family="sans-serif" font-size="13">종료 사유를 확정하고 결과를 정리한다</text>
+</svg>
+<figcaption style="margin-top:.6rem;font-size:13px;color:#7a89a8;text-align:center;">하나의 반복을 continue·retry·complete 세 전이로 나눠, 각 경로가 소비·기록하는 값을 분리했다</figcaption>
+</figure>
+
 ## 상태를 한곳에 모으자 단계의 책임이 보였습니다
 
 전이를 나눠도 메시지, 도구 결과, 검증 점수, 비용이 여러 함수의 지역 변수에 흩어져 있으면 실행을 복원하기 어렵습니다. 그래서 실행 중 필요한 값을 `PipelineState`에 모았습니다. 대화 이력, 사용할 수 있는 도구, 대기 중인 호출, 답 후보, 검증 결과, 반복 횟수, 토큰과 비용이 하나의 실행 ID를 따라 움직입니다.
@@ -49,6 +71,43 @@ complete → 완료 또는 중단 사유를 확정하고 결과를 정리한다
 
 사용자 입력을 정규화하고 도구 목록을 준비하는 일은 처음 한 번이면 됩니다. 모델 호출과 정책 검사, 도구 실행, 다음 행동 결정만 필요한 만큼 반복합니다. 실행이 끝나면 출력과 사용량, 종료 이유를 한 번 정리합니다. 루프 안에 모든 일을 넣던 구조보다 반복되는 것과 한 번만 일어나는 것이 분명해졌습니다.
 
+<figure style="margin:2rem 0;">
+<svg viewBox="0 0 680 250" style="width:100%;height:auto;display:block" role="img" aria-label="준비·반복·정리 세 구간과 이를 관통하는 PipelineState">
+<defs><marker id="hj1b" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 Z" fill="#9fb2d6"/></marker></defs>
+<rect x="30" y="26" width="184" height="118" rx="14" fill="#f5f8ff" stroke="#dbe4f5" stroke-width="1.5"/>
+<rect x="248" y="26" width="184" height="118" rx="14" fill="#eef3ff" stroke="#2f7bff" stroke-width="1.5"/>
+<rect x="466" y="26" width="184" height="118" rx="14" fill="#f5f8ff" stroke="#dbe4f5" stroke-width="1.5"/>
+<path d="M214 85 L 248 85" fill="none" stroke="#9fb2d6" stroke-width="2" marker-end="url(#hj1b)"/>
+<path d="M432 85 L 466 85" fill="none" stroke="#9fb2d6" stroke-width="2" marker-end="url(#hj1b)"/>
+<text x="122" y="58" text-anchor="middle" fill="#16224a" font-family="sans-serif" font-size="15" font-weight="700">준비</text>
+<text x="122" y="86" text-anchor="middle" fill="#4a5878" font-family="sans-serif" font-size="12">입력 정규화</text>
+<text x="122" y="106" text-anchor="middle" fill="#4a5878" font-family="sans-serif" font-size="12">도구 목록 구성</text>
+<text x="122" y="127" text-anchor="middle" fill="#7a89a8" font-family="sans-serif" font-size="11">처음 한 번</text>
+<text x="340" y="58" text-anchor="middle" fill="#2461d8" font-family="sans-serif" font-size="15" font-weight="700">반복 ↻</text>
+<text x="340" y="86" text-anchor="middle" fill="#284574" font-family="sans-serif" font-size="12">모델 호출 · 정책 검사</text>
+<text x="340" y="106" text-anchor="middle" fill="#284574" font-family="sans-serif" font-size="12">도구 실행 · 다음 결정</text>
+<text x="340" y="127" text-anchor="middle" fill="#2461d8" font-family="sans-serif" font-size="11">필요한 만큼</text>
+<text x="558" y="58" text-anchor="middle" fill="#16224a" font-family="sans-serif" font-size="15" font-weight="700">정리</text>
+<text x="558" y="86" text-anchor="middle" fill="#4a5878" font-family="sans-serif" font-size="12">출력 · 사용량</text>
+<text x="558" y="106" text-anchor="middle" fill="#4a5878" font-family="sans-serif" font-size="12">종료 이유</text>
+<text x="558" y="127" text-anchor="middle" fill="#7a89a8" font-family="sans-serif" font-size="11">마지막 한 번</text>
+<path d="M122 144 L 122 174" fill="none" stroke="#cdd9ef" stroke-width="1.5" stroke-dasharray="3 3"/>
+<path d="M340 144 L 340 174" fill="none" stroke="#9fb2d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+<path d="M558 144 L 558 174" fill="none" stroke="#cdd9ef" stroke-width="1.5" stroke-dasharray="3 3"/>
+<rect x="30" y="174" width="620" height="52" rx="12" fill="#16224a"/>
+<text x="50" y="199" fill="#ffffff" font-family="monospace" font-size="13" font-weight="700">PipelineState</text>
+<text x="50" y="216" fill="#9fb2d6" font-family="sans-serif" font-size="11">하나의 실행 ID로 공유</text>
+<g font-family="sans-serif" font-size="11">
+<rect x="196" y="188" width="66" height="24" rx="12" fill="#2b3c66"/><text x="229" y="204" text-anchor="middle" fill="#cdd9ef">대화 이력</text>
+<rect x="270" y="188" width="44" height="24" rx="12" fill="#2b3c66"/><text x="292" y="204" text-anchor="middle" fill="#cdd9ef">도구</text>
+<rect x="322" y="188" width="60" height="24" rx="12" fill="#2b3c66"/><text x="352" y="204" text-anchor="middle" fill="#cdd9ef">답 후보</text>
+<rect x="390" y="188" width="66" height="24" rx="12" fill="#2b3c66"/><text x="423" y="204" text-anchor="middle" fill="#cdd9ef">검증 결과</text>
+<rect x="464" y="188" width="74" height="24" rx="12" fill="#2b3c66"/><text x="501" y="204" text-anchor="middle" fill="#cdd9ef">토큰·비용</text>
+</g>
+</svg>
+<figcaption style="margin-top:.6rem;font-size:13px;color:#7a89a8;text-align:center;">준비와 정리는 한 번, 반복 구간만 필요한 만큼 — 실행에 필요한 값은 PipelineState 하나로 공유했다</figcaption>
+</figure>
+
 ## 열 단계는 기능 목록이 아니라 변경 경계였습니다
 
 초기 실행기를 만들 때는 단계 수 자체가 중요하지 않았습니다. 필요한 책임을 나누다 보니 전체 실행 조율, 입력, 이력, 프롬프트, 도구, 정책, 컨텍스트, 실행, 결정, 마무리로 경계가 구체화됐고, 4월 말 열 단계의 파이프라인으로 정리됐습니다.
@@ -56,6 +115,41 @@ complete → 완료 또는 중단 사유를 확정하고 결과를 정리한다
 단계의 순서는 실행 계약으로 두고, 단계 안의 처리 방식은 전략으로 바꿀 수 있게 했습니다. 예를 들어 컨텍스트 단계는 단순 절단이나 요약 전략으로 교체할 수 있지만, 그 구현이 결정 단계의 상태를 직접 바꾸지는 않습니다. 품질 판정 방식이 달라져도 도구 실행 단계의 호출 규격은 유지됩니다.
 
 이 구조는 단계가 많아 보여도 변경 범위를 줄입니다. 새 공급자를 연결할 때 전체 루프를 다시 쓰지 않고 모델 호출 전략만 교체할 수 있습니다. 컨텍스트 예산을 다르게 쓰고 싶다면 상태 전이 자체를 건드리지 않아도 됩니다. 단계 진입과 종료, 도구 호출, 검증, 재시도는 이벤트로 남겨 실행 순서를 다시 그릴 수 있게 했습니다.
+
+<figure style="margin:2rem 0;">
+<svg viewBox="0 0 720 210" style="width:100%;height:auto;display:block" role="img" aria-label="열 단계 파이프라인 — 순서는 고정된 계약, 단계 내부는 교체 가능한 전략">
+<defs><marker id="hj1c" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#c2cfe6"/></marker></defs>
+<text x="40" y="30" fill="#2461d8" font-family="sans-serif" font-size="13" font-weight="700">순서 = 실행 계약 (고정)</text>
+<g font-family="sans-serif" font-size="11">
+<rect x="40" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="66" y="71" text-anchor="middle" fill="#16224a">조율</text>
+<rect x="105" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="131" y="71" text-anchor="middle" fill="#16224a">입력</text>
+<rect x="170" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="196" y="71" text-anchor="middle" fill="#16224a">이력</text>
+<rect x="235" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="261" y="71" text-anchor="middle" fill="#16224a">프롬프트</text>
+<rect x="300" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="326" y="71" text-anchor="middle" fill="#16224a">도구</text>
+<rect x="365" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="391" y="71" text-anchor="middle" fill="#16224a">정책</text>
+<rect x="430" y="44" width="52" height="46" rx="9" fill="#eef3ff" stroke="#2f7bff" stroke-width="1.8"/><text x="456" y="71" text-anchor="middle" fill="#2461d8" font-weight="700">컨텍스트</text>
+<rect x="495" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="521" y="71" text-anchor="middle" fill="#16224a">실행</text>
+<rect x="560" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="586" y="71" text-anchor="middle" fill="#16224a">결정</text>
+<rect x="625" y="44" width="52" height="46" rx="9" fill="#ffffff" stroke="#c7d3ee" stroke-width="1.5"/><text x="651" y="71" text-anchor="middle" fill="#16224a">마무리</text>
+</g>
+<g stroke="#c2cfe6" stroke-width="1.8" fill="none">
+<path d="M92 67 L103 67" marker-end="url(#hj1c)"/>
+<path d="M157 67 L168 67" marker-end="url(#hj1c)"/>
+<path d="M222 67 L233 67" marker-end="url(#hj1c)"/>
+<path d="M287 67 L298 67" marker-end="url(#hj1c)"/>
+<path d="M352 67 L363 67" marker-end="url(#hj1c)"/>
+<path d="M417 67 L428 67" marker-end="url(#hj1c)"/>
+<path d="M482 67 L493 67" marker-end="url(#hj1c)"/>
+<path d="M547 67 L558 67" marker-end="url(#hj1c)"/>
+<path d="M612 67 L623 67" marker-end="url(#hj1c)"/>
+</g>
+<path d="M456 90 L 456 132" fill="none" stroke="#2f7bff" stroke-width="1.5" stroke-dasharray="3 3"/>
+<rect x="352" y="132" width="264" height="56" rx="10" fill="#eef3ff" stroke="#2f7bff" stroke-width="1.5"/>
+<text x="368" y="158" fill="#2461d8" font-family="sans-serif" font-size="13" font-weight="700">단계 내부 = 전략 (교체 가능)</text>
+<text x="368" y="177" fill="#4a5878" font-family="sans-serif" font-size="11.5">예) 컨텍스트 단계: 절단 ↔ 요약 전략 교체</text>
+</svg>
+<figcaption style="margin-top:.6rem;font-size:13px;color:#7a89a8;text-align:center;">순서는 계약으로 고정하고 단계 내부는 전략으로 교체 — 새 공급자·예산도 한 단계 교체로 끝난다</figcaption>
+</figure>
 
 ## Rust에서 Python으로 옮겨도 계약은 남았습니다
 
